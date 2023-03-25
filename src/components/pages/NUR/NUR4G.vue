@@ -9,8 +9,8 @@
         @submit.prevent="submit4GNurSheet"
         enctype="multipart/form-data"
       >
-        <div class="errors "></div>
-        <div class="row ">
+        <div class="errors"></div>
+        <div class="row">
           <div class="col-12" style="color: red; text-align: center">
             <div v-if="serverError">
               {{ serverError }}
@@ -111,8 +111,8 @@
             <spinner-button
               type="submit"
               :show-spinner="showSpinner"
-              class="btn "
-              style="background-color:#79589f; color:white;"
+              class="btn"
+              style="background-color: #79589f; color: white"
             >
               <span> Submit</span>
             </spinner-button>
@@ -143,9 +143,12 @@
             </td>
             <td class="text-left align-middle">
               <ul>
-                <li>Site Code:{{ error.values["Problem source site code"] }}</li>
-                <li>Site Name:{{ error.values["Problem source site name"] }}</li>
-                
+                <li>
+                  Site Code:{{ error.values["Problem source site code"] }}
+                </li>
+                <li>
+                  Site Name:{{ error.values["Problem source site name"] }}
+                </li>
               </ul>
             </td>
           </tr>
@@ -153,11 +156,11 @@
       </helper-table>
     </div>
   </div>
- 
 </template>
 
 <script>
 import NUR from "../../../apis/NUR";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -165,9 +168,9 @@ export default {
       years: [],
       year: "",
       week: "",
-      cells:'',
+      cells: "",
       Nur4GSheet: null,
-      cellsErrors:null,
+      cellsErrors: null,
 
       sheetValidationErrors: null,
 
@@ -185,31 +188,56 @@ export default {
     };
   },
   name: "NUR4G",
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
+  },
   methods: {
     submit4GNurSheet() {
       this.weekErrors = null;
       this.serverError = null;
       this.yearErrors = null;
       this.sheetValidationErrors = null;
-      this.cellsErrors=null;
+      this.cellsErrors = null;
       var data = {
         Nur4G_sheet: this.Nur4GSheet,
         week: this.week,
         year: this.year,
-        cells:this.cells,
+        cells: this.cells,
       };
       this.showSpinner = true;
-      NUR.submit4GNurSheet(data)
+      allInstances.uploadApi.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstances.uploadApi
+        .post("/Nur/4G", data)
+        // NUR.submit4GNurSheet(data)
         .then((response) => {
           console.log(response.data.message);
           this.successMessage = response.data.message;
-           this.$toast.add({severity:'success', summary: 'Success Message', detail:'inserted Successfully', life: 6000});
+          this.$toast.add({
+            severity: "success",
+            summary: "Success Message",
+            detail: "inserted Successfully",
+            life: 6000,
+          });
         })
         .catch((error) => {
           if (error.response) {
             console.log(error.response);
             if (error.response.status == 500) {
-              this.serverError =error.response.data.message;
+              this.serverError = error.response.data.message;
             }
             if (error.response.status == 422) {
               if (error.response.data.errors) {
@@ -223,18 +251,14 @@ export default {
                 if (errors.Nur4G_sheet) {
                   this.Nur4GSheetErrors = errors.Nur4G_sheet;
                 }
-                 if (errors.cells) {
+                if (errors.cells) {
                   this.cellsErrors = errors.cells;
                 }
-               
               } else if (error.response.data.sheet_errors) {
                 this.sheetValidationErrors = error.response.data.sheet_errors;
+              } else if (error.response.data.week_year) {
+                this.serverError = error.response.data.week_year;
               }
-               else if(error.response.data.week_year)
-                {
-                    this.serverError=error.response.data.week_year;
-
-                }
             }
           } else if (error.request) {
             // The request was made but no response was received
@@ -267,7 +291,11 @@ export default {
       this.yearErrors = null;
       this.weekErrors = null;
 
-      NUR.get4GNurIndex()
+      // NUR.get4GNurIndex()
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstances.Api.get("/Nur/index")
         .then((response) => {
           this.weeks = response.data.weeks;
           this.years = response.data.years;
@@ -286,7 +314,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .index,
 .helper-table-container {
   width: 70%;
@@ -296,12 +323,12 @@ export default {
 }
 .index {
   margin-top: 6em;
-  .header{
+  .header {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    p{
+    p {
       font-size: 2rem;
       font-weight: 900;
       color: darkmagenta;

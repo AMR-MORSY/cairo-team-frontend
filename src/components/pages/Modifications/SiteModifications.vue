@@ -56,29 +56,23 @@
   <section v-else>
     <transition name="fade-bounce" appear>
       <div class="container">
-         <div class="errors card">
-        <p >
-          No Modifications
-        </p>
-        <div class="buttons">
+        <div class="errors card">
+          <p>No Modifications</p>
+          <div class="buttons">
             <Button
               label="New Modification"
               @click="insertNewModification"
               class="p-button-raised p-button-secondary"
             />
 
-             <Button
+            <Button
               label="Back"
               @click="goBack"
               class="p-button-raised p-button-danger"
-             
             />
-
+          </div>
         </div>
       </div>
-
-      </div>
-     
     </transition>
   </section>
   <!-- <ConfirmDialog :key="modifications"></ConfirmDialog> -->
@@ -86,13 +80,14 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
       modifications: null,
       selectedModification: null,
       isRowSelected: false,
-      isModificationsFound:false,
+      isModificationsFound: false,
     };
   },
   name: "SiteModifications",
@@ -103,9 +98,23 @@ export default {
       this.getSiteModifications();
     },
   },
-  beforeMount(){
+  beforeMount() {
     this.getSiteModifications();
-   
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
+  },
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
   },
   mounted() {
     this.columns = [
@@ -121,29 +130,28 @@ export default {
     ];
   },
   methods: {
-    goBack()
-    {
+    goBack() {
       this.$router.go(-1);
-
     },
     getSiteModifications() {
-     this.$store.dispatch("displaySpinnerPage", false);
-      Modifications.getSiteModifications(this.site_code)
+      this.$store.dispatch("displaySpinnerPage", false);
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstances.Api.get(`/modifications/siteModifications/${this.site_code}`)
+        // Modifications.getSiteModifications(this.site_code)
         .then((response) => {
           console.log(response);
           this.modifications = response.data.modifications;
-          if(this.modifications.length>0)
-          {
-             this.isModificationsFound=true;
-
+          if (this.modifications.length > 0) {
+            this.isModificationsFound = true;
           }
-         
         })
         .catch((error) => {
           console.log(error);
         })
         .finally(() => {
-           this.$store.dispatch("displaySpinnerPage", true);
+          this.$store.dispatch("displaySpinnerPage", true);
         });
     },
     onRowSelect() {
@@ -165,21 +173,24 @@ export default {
         header: "Confirmation",
         icon: "pi pi-exclamation-triangle",
         accept: () => {
-             this.$confirm.close();
+          this.$confirm.close();
           this.$store.dispatch("displaySpinnerPage", false);
           let data = {
             id: this.selectedModification.id,
           };
+          allInstances.Api.defaults.headers[
+            "Authorization"
+          ] = `Bearer ${this.token}`;
+          allInstances.Api.post("/modifications/delete", data)
 
-          Modifications.deleteModification(data)
+            // Modifications.deleteModification(data)
             .then((response) => {
-             
               this.getSiteModifications();
             })
             .catch((error) => {});
         },
         reject: () => {
-            this.$confirm.close();
+          this.$confirm.close();
           //callback to execute when user rejects the action
         },
       });
@@ -218,7 +229,6 @@ export default {
   }
 }
 
-
 .errors {
   margin-top: 4em;
   padding: 3rem;
@@ -230,7 +240,7 @@ export default {
     color: red;
     text-align: center;
   }
-  .buttons{
+  .buttons {
     width: 100%;
     display: flex;
     align-items: center;

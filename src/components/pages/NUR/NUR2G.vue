@@ -10,8 +10,8 @@
         @submit.prevent="submit2GNurSheet"
         enctype="multipart/form-data"
       >
-        <div class="errors "></div>
-        <div class="row ">
+        <div class="errors"></div>
+        <div class="row">
           <div class="col-12" style="color: red; text-align: center">
             <div v-if="serverError">
               {{ serverError }}
@@ -112,8 +112,8 @@
             <spinner-button
               type="submit"
               :show-spinner="showSpinner"
-              class="btn "
-              style="background-color:#79589f;color:white;"
+              class="btn"
+              style="background-color: #79589f; color: white"
             >
               <span> Submit</span>
             </spinner-button>
@@ -158,11 +158,11 @@
       </helper-table>
     </div>
   </div>
-  
 </template>
 
 <script>
 import NUR from "../../../apis/NUR";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -190,6 +190,21 @@ export default {
     };
   },
   name: "NUR2G",
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
+  },
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
   methods: {
     submit2GNurSheet() {
       this.weekErrors = null;
@@ -204,7 +219,12 @@ export default {
         cells: this.cells,
       };
       this.showSpinner = true;
-      NUR.submit2GNurSheet(data)
+      allInstances.uploadApi.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      // NUR.submit2GNurSheet(data)
+      allInstances.uploadApi
+        .post("/Nur/2G", data)
         .then((response) => {
           console.log(response.data.message);
           this.successMessage = response.data.message;
@@ -273,8 +293,11 @@ export default {
       this.serverError = null;
       this.yearErrors = null;
       this.weekErrors = null;
-
-      NUR.get2GNurIndex()
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstances.Api.get("/Nur/index")
+        // NUR.get2GNurIndex()
         .then((response) => {
           this.weeks = response.data.weeks;
           this.years = response.data.years;
@@ -302,12 +325,12 @@ export default {
 }
 .index {
   margin-top: 6em;
-  .header{
+  .header {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    p{
+    p {
       font-size: 2rem;
       font-weight: 900;
       color: darkmagenta;

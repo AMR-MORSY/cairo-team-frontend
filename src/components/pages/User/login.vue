@@ -1,14 +1,14 @@
 <template>
-  
-
   <div class="container mb-3">
     <div class="row">
       <div class="col-12 col-lg-4"></div>
       <div class="col-12 col-lg-4">
         <div class="form-container">
           <Card style="border: 1px solid #79589f; border-radius: 5px">
-            <template #title >
-              <p  class="p-card-title text-center" style="color: #79589f">Login</p>
+            <template #title>
+              <p class="p-card-title text-center" style="color: #79589f">
+                Login
+              </p>
             </template>
             <template #content>
               <form @submit.prevent="submitLoginForm">
@@ -36,7 +36,7 @@
                           id="password"
                           class="w-100"
                           :feedback="false"
-                          :class="{'p-invalid': passwordError }"
+                          :class="{ 'p-invalid': passwordError }"
                         ></Password>
                         <label for="password">Password</label>
                       </span>
@@ -44,13 +44,7 @@
                   </div>
                   <div class="col-12 mt-2">
                     <div
-                      class="
-                        d-flex
-                        w-100
-                        align-items-center
-                        justify-content-flex-start
-                        mt-3
-                      "
+                      class="d-flex w-100 align-items-center justify-content-flex-start mt-3"
                     >
                       <router-link to="/user/resetPassword"
                         >Forgot Password?</router-link
@@ -59,16 +53,13 @@
                   </div>
 
                   <div class="col-12">
-                      <Button
-                    label="Sign in"
-                    class="w-100 mt-4 "
-                    type="submit"
-                       style="background-color: #79589f"
-                  />
-
+                    <Button
+                      label="Sign in"
+                      class="w-100 mt-4"
+                      type="submit"
+                      style="background-color: #79589f"
+                    />
                   </div>
-
-                
                 </div>
               </form>
             </template>
@@ -81,8 +72,8 @@
   <Toast />
 </template>
 
-<script>
-import axios from 'axios';
+<script >
+import axios from "axios";
 import User from "../../../apis/User";
 
 export default {
@@ -102,7 +93,7 @@ export default {
 
   computed: {
     isLogin() {
-      return this.$store.state.isLogin;
+      return this.$store.getters.isLogin;
     },
   },
 
@@ -125,16 +116,15 @@ export default {
         this.passwordError = "Password is required";
       }
       if (!this.passwordError && !this.emailError) {
-        this.$store.dispatch("displaySpinnerPage",false);
+        this.$store.dispatch("displaySpinnerPage", false);
         User.login(this.form)
           .then((response) => {
-            console.log(response)
-            this.$store.dispatch("changeLoginState", true);
-            this.$store.dispatch("userData", response.data.user);
-            this.$store.dispatch("userPermissions", response.data.permissions);
-            this.$store.dispatch("userRoles", response.data.roles);
-            sessionStorage.setItem("Auth", true);
-            sessionStorage.setItem("userData", JSON.stringify(response.data));
+            sessionStorage.setItem(
+              "User",
+              JSON.stringify(response.data.user_data)
+            );
+            this.$store.dispatch("userData", response.data.user_data);
+
             this.$router.push({
               path: "/home",
             });
@@ -162,8 +152,7 @@ export default {
             }
           })
           .finally(() => {
-         
-              this.$store.dispatch("displaySpinnerPage",true);
+            this.$store.dispatch("displaySpinnerPage", true);
           });
       }
     },
@@ -171,14 +160,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss"  scoped>
 .form-container {
   margin-top: 6em;
 }
 
 ::v-deep(.p-password input) {
   width: 100%;
-  border-color: #79589f ;
+  border-color: #79589f;
 }
 ::v-deep(.p-password input:focus) {
   border-color: #79589f !important;
@@ -198,9 +187,8 @@ export default {
   box-shadow: 0px 0px 3px 2px #79589f !important;
   border-color: #79589f !important ;
 }
-.p-inputtext:hover{
-   border-color: #79589f !important ;
-
+.p-inputtext:hover {
+  border-color: #79589f !important ;
 }
 
 .bd-placeholder-img {
@@ -215,43 +203,5 @@ export default {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
-}
-
-.b-example-divider {
-  height: 3rem;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: solid rgba(0, 0, 0, 0.15);
-  border-width: 1px 0;
-  box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
-    inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
-}
-
-.b-example-vr {
-  flex-shrink: 0;
-  width: 1.5rem;
-  height: 100vh;
-}
-
-.bi {
-  vertical-align: -0.125em;
-  fill: currentColor;
-}
-
-.nav-scroller {
-  position: relative;
-  z-index: 2;
-  height: 2.75rem;
-  overflow-y: hidden;
-}
-
-.nav-scroller .nav {
-  display: flex;
-  flex-wrap: nowrap;
-  padding-bottom: 1rem;
-  margin-top: -1px;
-  overflow-x: auto;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
 }
 </style>

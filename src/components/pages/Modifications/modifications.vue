@@ -1,7 +1,6 @@
 <template>
   <section id="analysis">
     <div class="container">
-      
       <div class="card index">
         <div v-if="serverError">
           <p style="color: red">{{ serverError }}</p>
@@ -10,7 +9,6 @@
           <div class="row">
             <div class="col-12 col-md-6">
               <div class="form-group">
-              
                 <select class="form-select" @change="submitColumn" id="column">
                   <option value="">Filter By:</option>
                   <option v-for="column in columns" :key="column">
@@ -21,7 +19,6 @@
             </div>
             <div class="col-12 col-md-6">
               <div class="form-group">
-               
                 <select
                   class="form-select"
                   @change="submitColumnValue"
@@ -41,7 +38,7 @@
                   class="btn"
                   :disabled="disabled"
                   type="submit"
-                          style="background-color:#79589f;color:white;"
+                  style="background-color: #79589f; color: white"
                 >
                   submit
                 </button>
@@ -57,6 +54,7 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
+import allInstances from "../../../apis/Api";
 
 export default {
   data() {
@@ -77,17 +75,30 @@ export default {
   computed: {
     disabled() {
       if (!this.column || !this.columnValue) {
-
         return true;
       }
       if (this.column && this.columnValue) {
-     
         return false;
       }
     },
+    token()
+    {
+      return this.$store.getters.token;
+    },
+    isLogin()
+    {
+      return this.$store.getters.isLogin;
+    }
   },
   mounted() {
     this.getModificationAnalysis();
+  },
+   beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
   },
   methods: {
     submitColumn(e) {
@@ -107,9 +118,12 @@ export default {
       this.columnValue = e.target.value;
     },
     getModificationAnalysis() {
-      Modifications.getModificationAnalysis()
+      // Modifications.getModificationAnalysis()
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstances.Api.get("/modifications/analysis")
         .then((response) => {
-
           this.status = response.data.index.status;
           this.subcontractor = response.data.index.subcontractor;
           this.project = response.data.index.project;
@@ -117,20 +131,20 @@ export default {
           this.columns = ["status", "subcontractor", "requester", "project"];
         })
         .catch((error) => {
-       
           if (error.response.status == 500) {
             this.serverError = error.response.data.message;
           }
         });
     },
     submitFilterForm() {
-      let data={
-        columnName:this.column,
-        columnValue:this.columnValue
+      let data = {
+        columnName: this.column,
+        columnValue: this.columnValue,
       };
       console.log(data);
-      this.$router.push(`/modifications/index/${this.column}/${this.columnValue}`);
-     
+      this.$router.push(
+        `/modifications/index/${this.column}/${this.columnValue}`
+      );
     },
   },
 };
@@ -146,12 +160,12 @@ export default {
 }
 .index {
   margin-top: 6em;
-  .header{
+  .header {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    p{
+    p {
       font-size: 2rem;
       font-weight: 900;
       color: darkmagenta;

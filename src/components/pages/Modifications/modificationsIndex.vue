@@ -4,7 +4,7 @@
       <!-- <div class="col-12 col-lg-1"></div> -->
       <div class="col-12 col-lg-12">
         <div class="card mt-5">
-          <template v-if="modifications.length>0">
+          <template v-if="modifications.length > 0">
             <DataTable
               :value="modifications"
               :paginator="true"
@@ -76,15 +76,14 @@
                 />
               </div>
             </div>
-              <download-excel
-            class="btn btn-default"
-            :data="downloadModifications"
-            
-            worksheet="My Worksheet"
-            name="Modifications.xls"
-          >
-            Download Excel 
-          </download-excel>
+            <!-- <download-excel
+              class="btn btn-default"
+              :data="downloadModifications"
+              worksheet="My Worksheet"
+              name="Modifications.xls"
+            >
+              Download Excel
+            </download-excel> -->
           </template>
 
           <template v-else>
@@ -92,7 +91,6 @@
               <p>No Modifications Available</p>
             </div>
           </template>
-        
         </div>
       </div>
       <!-- <div class="col-12 col-lg-1"></div> -->
@@ -102,6 +100,7 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -109,6 +108,13 @@ export default {
       isRowSelected: false,
       selectedModification: null,
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
   },
   computed: {
     totalCost() {
@@ -120,17 +126,25 @@ export default {
         }, 0);
       }
     },
-    downloadModifications()
-    {
+    downloadModifications() {
       return this.modifications;
-    
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
+    },
+    token() {
+      return this.$store.getters.token;
+    },
+     isLogin()
+    {
+      return this.$store.getters.isLogin;
     }
   },
   props: ["columnName", "columnValue"],
- created() {
+  created() {
     this.getModificationsIndex();
   },
- 
+
   name: "modificationsIndex",
   methods: {
     getModificationsIndex() {
@@ -140,10 +154,14 @@ export default {
         columnValue: this.columnValue,
       };
 
-      Modifications.getModificationIndex(data)
+      // Modifications.getModificationIndex(data)
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstances.Api.get(
+        `/modifications/index/${data.columnName}/${data.columnValue}`
+      )
         .then((response) => {
-          console.log(response);
-
           this.modifications = response.data.modifications;
         })
         .catch((error) => {
@@ -181,7 +199,14 @@ export default {
         column_value: this.columnValue,
       };
 
-      Modifications.downloadModifications(data)
+      allInstances.downloadApi.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+
+      allInstances.downloadApi
+        .post("/modifications/download", data)
+
+        // Modifications.downloadModifications(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
@@ -197,7 +222,9 @@ export default {
         .catch((error) => {});
     },
     onRowSelect() {
-      this.isRowSelected = true;
+      if (this.isAdmin[0].name == "super-admin") {
+        this.isRowSelected = true;
+      }
     },
     gotToUpdateModification() {
       this.$router.push(
@@ -218,7 +245,12 @@ export default {
             id: this.selectedModification.id,
           };
 
-          Modifications.deleteModification(data)
+          // Modifications.deleteModification(data)
+          allInstances.downloadApi.defaults.headers[
+            "Authorization"
+          ] = `Bearer ${this.token}`;
+
+          allInstances.Api.post("/modifications/delete", data)
             .then((response) => {
               this.getModificationsIndex();
             })

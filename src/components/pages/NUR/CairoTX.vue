@@ -87,6 +87,7 @@ import NUR from "../../../apis/NUR";
 import exportFromJSON from "export-from-json";
 
 import CairoTxYearlyAnalysis from "./CairoTxYearlyAnalysis.vue";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -116,6 +117,21 @@ export default {
   components: {
     NURTickets,
     CairoTxYearlyAnalysis,
+  },
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
+   beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
   },
   inject: ["dialogRef"],
   mounted() {
@@ -264,11 +280,16 @@ export default {
       if (data) exportFromJSON({ data, fileName, exportType });
     },
     getCairoMWYearlyNUR() {
-      NUR.cairoTXYearlyAnalysis(this.tickets[0].year)
+      // NUR.cairoTXYearlyAnalysis(this.tickets[0].year)
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+
+      allInstances.Api.get(`/Nur/cairo/yearly/TXNUR/${this.tickets[0].year}`)
         .then((response) => {
           console.log(response);
           let labels = Object.keys(response.data.NUR_C_yearly.cairo);
-          let cairo=response.data.NUR_C_yearly.cairo;
+          let cairo = response.data.NUR_C_yearly.cairo;
           let zones = response.data.NUR_C_yearly.zones;
           this.$dialog.open(CairoTxYearlyAnalysis, {
             props: {
@@ -284,7 +305,7 @@ export default {
 
             data: {
               labels: labels,
-              cairo:cairo,
+              cairo: cairo,
               zones: zones,
             },
           });

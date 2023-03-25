@@ -38,6 +38,7 @@
 
 <script>
 import NUR from "../../../apis/NUR";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -47,6 +48,16 @@ export default {
   },
   name: "TopSites",
   props: ["zoneNUR"],
+  computed:{
+      token() {
+      return this.$store.getters.token;
+    },
+     isLogin()
+    {
+      return this.$store.getters.isLogin;
+    }
+
+  },
   methods: {
     onRowSelect() {
       this.displayNone = false;
@@ -54,8 +65,11 @@ export default {
       let data = {
         site_code: this.selectedSite.siteCode,
       };
-     
-      NUR.getSiteNUR(data)
+        allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+     allInstances.Api.post("/Nur/siteNUR", data)
+      // NUR.getSiteNUR(data)
         .then((response) => {
           console.log(response);
           this.$emit("siteNUR",response.data)

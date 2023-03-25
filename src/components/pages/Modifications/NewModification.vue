@@ -87,8 +87,7 @@
                     placeholder="Request Date"
                     required
                     id="request"
-                  :autoPosition="false"
-              
+                    :autoPosition="false"
                   />
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
@@ -98,7 +97,7 @@
                     v-model="finish_date"
                     placeholder="Finish Date:"
                     id="finish"
-                       :autoPosition="false"
+                    :autoPosition="false"
                   />
                 </div>
 
@@ -161,6 +160,7 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -181,7 +181,7 @@ export default {
         "SAG",
         "LM",
         "HAS",
-        "Red Tech"
+        "Red Tech",
       ],
       request_date: null,
       request_dateError: false,
@@ -209,7 +209,7 @@ export default {
         "Adding sec",
         "NTRA",
         "Sharing",
-        "L2600"
+        "L2600",
       ],
       status: null,
       statusError: false,
@@ -229,7 +229,23 @@ export default {
       this.getSiteModifications();
     },
   },
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+     isLogin()
+    {
+      return this.$store.getters.isLogin;
+    }
+  },
   mounted() {},
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
+  },
 
   methods: {
     goBack() {
@@ -269,7 +285,7 @@ export default {
         this.project &&
         this.status
       ) {
-    this.$store.dispatch("displaySpinnerPage", false);
+        this.$store.dispatch("displaySpinnerPage", false);
         let data = {
           site_code: this.site_code,
           site_name: this.site_name,
@@ -284,7 +300,11 @@ export default {
           materials: this.materials,
         };
         console.log(data);
-        Modifications.insertNewModification(data)
+        // Modifications.insertNewModification(data)
+        allInstances.Api.defaults.headers[
+          "Authorization"
+        ] = `Bearer ${this.token}`;
+        allInstances.Api.post("/modifications/new", data)
           .then((response) => {
             console.log(response);
             this.subcontractor = null;
@@ -421,7 +441,7 @@ export default {
             }
           })
           .finally(() => {
-             this.$store.dispatch("displaySpinnerPage", true);
+            this.$store.dispatch("displaySpinnerPage", true);
           });
       }
     },

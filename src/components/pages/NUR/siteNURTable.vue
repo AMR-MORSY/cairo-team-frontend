@@ -88,6 +88,7 @@
 <script>
 import SiteAlarmsTable from "./SiteAlarmsTable.vue";
 import NUR from "../../../apis/NUR";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -123,6 +124,24 @@ export default {
   name: "siteNURTable",
   mounted() {
     this.checkNUR();
+  },
+   beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
+  },
+
+  computed:{
+      token() {
+      return this.$store.getters.token;
+    },
+     isLogin()
+    {
+      return this.$store.getters.isLogin;
+    }
+
   },
   methods: {
     getSiteAlarms() {
@@ -167,11 +186,10 @@ export default {
         //     ];
         //   },
         // },
-        data:{
-          site_code:this.dialogRef.data.site_code,
-          site_name:this.dialogRef.data.site_name,
-
-        } 
+        data: {
+          site_code: this.dialogRef.data.site_code,
+          site_name: this.dialogRef.data.site_name,
+        },
       });
     },
     checkNUR() {
@@ -189,73 +207,88 @@ export default {
       }
     },
     download2GNUR() {
-    
       let data = {
         site_code: this.dialogRef.data.NUR2G[0].problem_site_code,
       };
-     
+        allInstances.downloadApi.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
 
-      NUR.download2GNUR(data)
+      allInstances.downloadApi.post("/Nur/downloadNUR2G", data)
+      // NUR.download2GNUR(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
           var fileLink = document.createElement("a");
           fileLink.href = fileUrl;
-          fileLink.setAttribute("download", `${this.dialogRef.data.NUR2G[0].problem_site_name}NUR2G.xlsx`);
+          fileLink.setAttribute(
+            "download",
+            `${this.dialogRef.data.NUR2G[0].problem_site_name}NUR2G.xlsx`
+          );
           document.body.appendChild(fileLink);
           fileLink.click();
         })
-        .catch((error) => {console.log(error)
+        .catch((error) => {
+          console.log(error);
         })
-        .finally(() => {
-        
-        });
+        .finally(() => {});
     },
     download3GNUR() {
-        let data = {
+      let data = {
         site_code: this.dialogRef.data.NUR3G[0].problem_site_code,
-       
       };
-      console.log(data);
      
 
-      NUR.download3GNUR(data)
+           allInstances.downloadApi.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+
+      allInstances.downloadApi.post("/Nur/downloadNUR3G", data)
+
+      // NUR.download3GNUR(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
           var fileLink = document.createElement("a");
           fileLink.href = fileUrl;
-          fileLink.setAttribute("download", `${this.dialogRef.data.NUR3G[0].problem_site_name}NUR3G.xlsx`);
+          fileLink.setAttribute(
+            "download",
+            `${this.dialogRef.data.NUR3G[0].problem_site_name}NUR3G.xlsx`
+          );
           document.body.appendChild(fileLink);
           fileLink.click();
         })
-        .catch((error) => {console.log(error)
+        .catch((error) => {
+          console.log(error);
         })
-        .finally(() => {
-        
-        });
+        .finally(() => {});
     },
     download4GNUR() {
-        let data = {
+      let data = {
         site_code: this.dialogRef.data.NUR4G[0].problem_site_code,
       };
-     
+     allInstances.downloadApi.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
 
-      NUR.download4GNUR(data)
+      allInstances.downloadApi.post("/Nur/downloadNUR4G", data)
+      // NUR.download4GNUR(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
           var fileLink = document.createElement("a");
           fileLink.href = fileUrl;
-          fileLink.setAttribute("download", `${this.dialogRef.data.NUR4G[0].problem_site_name}NUR4G.xlsx`);
+          fileLink.setAttribute(
+            "download",
+            `${this.dialogRef.data.NUR4G[0].problem_site_name}NUR4G.xlsx`
+          );
           document.body.appendChild(fileLink);
           fileLink.click();
         })
-        .catch((error) => {console.log(error)
+        .catch((error) => {
+          console.log(error);
         })
-        .finally(() => {
-        
-        });
+        .finally(() => {});
     },
   },
 };

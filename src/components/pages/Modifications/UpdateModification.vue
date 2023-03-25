@@ -145,7 +145,6 @@
                     type="submit"
                     class="p-button-raised p-button-warning"
                     style="color: white"
-
                   />
                 </div>
               </div>
@@ -155,11 +154,12 @@
       </div>
     </div>
   </div>
-  <Toast  />
+  <Toast />
 </template>
 
 <script>
 import Modifications from "../../../apis/Modifications";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -209,7 +209,7 @@ export default {
         "Adding sec",
         "NTRA",
         "Sharing",
-        "L2600"
+        "L2600",
       ],
       status: null,
       statusError: false,
@@ -229,8 +229,23 @@ export default {
       this.getModificationDetails();
     },
   },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+    token() {
+      return this.$store.getters.token;
+    },
+  },
   mounted() {
     this.getModificationDetails();
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
   },
 
   methods: {
@@ -240,7 +255,11 @@ export default {
 
     getModificationDetails() {
       this.$store.dispatch("displaySpinnerPage", false);
-      Modifications.getModificationDetails(this.id)
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      // Modifications.getModificationDetails(this.id)
+      allInstances.Api.get(`/modifications/details/${this.id}`)
         .then((response) => {
           console.log(response);
           this.site_code = response.data.details.site_code;
@@ -264,7 +283,7 @@ export default {
           console.log(error);
         })
         .finally(() => {
-             this.$store.dispatch("displaySpinnerPage", true);
+          this.$store.dispatch("displaySpinnerPage", true);
         });
     },
     updateModification() {
@@ -303,7 +322,7 @@ export default {
       ) {
         this.$store.dispatch("displaySpinnerPage", false);
         let data = {
-          id:this.id,
+          id: this.id,
           site_code: this.site_code,
           site_name: this.site_name,
           subcontractor: this.subcontractor,
@@ -317,10 +336,14 @@ export default {
           materials: this.materials,
         };
         console.log(data);
-        Modifications.updateModification(data)
+        // Modifications.updateModification(data)
+        allInstances.Api.defaults.headers[
+          "Authorization"
+        ] = `Bearer ${this.token}`;
+        allInstances.Api.post("/modifications/update", data)
           .then((response) => {
             console.log(response);
-           
+
             this.$toast.add({
               severity: "success",
               summary: "Success Message",
@@ -446,7 +469,7 @@ export default {
             }
           })
           .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
+            this.$store.dispatch("displaySpinnerPage", true);
           });
       }
     },

@@ -3,11 +3,10 @@
     <a class="navbar-brand font-weight-bolder">CairoSouth</a>
     <div class="form-group">
       <form class="form-inline ml-5" @submit.prevent="submitSearch">
-       
         <div class="p-inputgroup">
-                    <InputText v-model="search" placeholder="Site Code/Name......."/>
-                    <Button icon="pi pi-search" type="submit" class="p-button-warning"/>
-                </div>
+          <InputText v-model="search" placeholder="Site Code/Name......." />
+          <Button icon="pi pi-search" type="submit" class="p-button-warning" />
+        </div>
       </form>
     </div>
 
@@ -27,28 +26,26 @@
     >
       <ul class="navbar-nav">
         <li class="nav-item active">
-     
           <router-link class="nav-link" to="/home" Active>Home</router-link>
         </li>
-        <li class="nav-link" v-if="userName">
-          {{ userName.name }}
+        <li class="nav-link" v-if="isLogin">
+          {{ userName }}
         </li>
 
-      
         <li class="nav-item">
           <p class="nav-link"></p>
         </li>
         <li class="nav-item">
-         
-          <router-link to="/dashboard"   class="nav-link" v-if="isLogin">Dashboard</router-link>
-        
+          <router-link to="/dashboard" class="nav-link" v-if="isLogin"
+            >Dashboard</router-link
+          >
         </li>
         <li class="nav-item">
           <router-link v-if="!isLogin" class="nav-link" to="/user/login"
             >Login</router-link
           >
-    
         </li>
+
         <li class="nav-item">
           <a class="nav-link" v-if="isLogin" @click="logout">Logout</a>
         </li>
@@ -56,7 +53,6 @@
           <router-link v-if="!isLogin" class="nav-link" to="/user/register"
             >Register</router-link
           >
-       
         </li>
       </ul>
     </div>
@@ -68,34 +64,42 @@
 <script>
 import User from "../apis/User";
 import Sites from "../apis/Sites";
-
+import allInstances from "../apis/Api";
 
 export default {
   data() {
     return {
       search: null,
-    
     };
   },
   emits: ["displaySitesTable"],
   name: "navbar",
-  
+
   computed: {
     isLogin() {
-      return this.$store.state.isLogin;
+     
+      return this.$store.getters.isLogin
+
     },
+    token() {
+      return this.$store.getters.token;
+    },
+
     userName() {
-      return this.$store.state.user;
+      return this.$store.getters.userName;
     },
   },
   mounted() {
-    // this.checkingLogin();
+ 
   },
   methods: {
     submitSearch() {
-     
-          this.$store.dispatch("displaySpinnerPage",false);
-      Sites.searchSites(this.search)
+      this.$store.dispatch("displaySpinnerPage", false);
+      // Sites.searchSites(this.search)
+      allInstance.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstance.Api.get(`/sites/search/${this.search}`)
         .then((response) => {
           console.log(response);
           if (response.data.message == "No data Found") {
@@ -106,9 +110,7 @@ export default {
               life: 3000,
             });
           } else {
-            
-            this.$emit("displaySitesTable",response.data.sites);
-           
+            this.$emit("displaySitesTable", response.data.sites);
           }
         })
         .catch((error) => {
@@ -123,39 +125,42 @@ export default {
           }
         })
         .finally(() => {
-          // this.$emit("displayNoneSpinner", true);
-              this.$store.dispatch("displaySpinnerPage",true);
+         
+          this.$store.dispatch("displaySpinnerPage", true);
         });
     },
 
     logout() {
-          this.$store.dispatch("displaySpinnerPage",false);
-      User.logout()
+      this.$store.dispatch("displaySpinnerPage", false);
+
+   
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstances.Api.post("user/logout")
         .then((data) => {
           console.log(data);
+           this.$store.dispatch("userData", null);
+          sessionStorage.removeItem("User");
+         
 
-          sessionStorage.removeItem("Auth");
-          sessionStorage.removeItem("userData");
-          this.$store.dispatch("changeLoginState", false);
-          this.$store.dispatch("userData", null);
-          this.$store.dispatch("userPermissions", null);
-          this.$store.dispatch("userRoles", null);
+          // sessionStorage.removeItem("Auth");
+          // sessionStorage.removeItem("userData");
+          // this.$store.dispatch("changeLoginState", false);
+          // this.$store.dispatch("userData", null);
+          // this.$store.dispatch("userPermissions", null);
+          // this.$store.dispatch("userRoles", null);
           // this.isLogin=false;
           this.$router.push({ path: "/user/login" });
         })
         .catch((error) => {
-          //   console.log(error);
-          //   if (error.response.status == 401 || error.response.status == 403) {
-          //     this.$router.push({ path: "/user/login" });
-          //   }
-        }).finally(()=>{
-              this.$store.dispatch("displaySpinnerPage",true);
+          // sessionStorage.removeItem("User");
+          // this.$store.dispatch("userData");
+        })
+        .finally(() => {
+          this.$store.dispatch("displaySpinnerPage", true);
         });
     },
-
-    // checkingLogin() {
-    //   this.isLogin = this.$store.getters.checkingLogin;
-    // },
   },
 };
 </script>
@@ -164,7 +169,7 @@ export default {
 .navbar {
   position: fixed;
   display: flex;
-  background-color: var(--purple-500) ;
+  background-color: var(--purple-500);
   justify-content: space-around;
   z-index: 100;
   width: 100%;
@@ -298,16 +303,15 @@ export default {
     }
   }
 }
-.p-button-warning{
+.p-button-warning {
   color: white !important;
 }
-.p-inputtext:focus{
+.p-inputtext:focus {
   box-shadow: none !important;
-  border:none !important;
+  border: none !important;
 }
-.p-inputtext:hover{
-
-  border:none !important;
+.p-inputtext:hover {
+  border: none !important;
 }
 
 .offcanvas {

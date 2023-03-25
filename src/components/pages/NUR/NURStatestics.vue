@@ -330,6 +330,7 @@ import CairoYearlyAnalysis from "./CairoYearlyAnalysis.vue";
 import CairoGen from "../NUR/CairoGen.vue";
 
 import CairoMainPower from './CairoMainPower.vue';
+import allInstances from "../../../apis/Api";
 
 export default {
   data() {
@@ -397,6 +398,16 @@ export default {
       this.getNUR();
     },
   },
+  computed:{
+      token() {
+      return this.$store.getters.token;
+    },
+     isLogin()
+    {
+      return this.$store.getters.isLogin;
+    }
+
+  },
   components: {
     TopSites,
     siteNURTable,
@@ -408,6 +419,13 @@ export default {
     CairoYearlyAnalysis,
     CairoGen,
     CairoMainPower,
+  },
+   beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.isLogin) {
+        return vm.$router.push("/user/login");
+      }
+    });
   },
 
   methods: {
@@ -435,7 +453,13 @@ export default {
         year: this.year,
       };
 
-      NUR.getNur(data)
+
+      // NUR.getNur(data)
+        allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+     
+      allInstances.Api.get(`/Nur/show/${data.week}/${data.year}`)
         .then((response) => {
           console.log(response);
           let NUR = response.data.NUR;
@@ -658,7 +682,11 @@ export default {
     },
     getCairoMWWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-      NUR.getCairoMWWeeklyNUR(this.week, this.year)
+        allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      allInstances.Api.get(`/Nur/cairo/weekly/MWNUR/${this.week}/${this.year}`)
+      // NUR.getCairoMWWeeklyNUR(this.week, this.year)
         .then((response) => {
           console.log(response);
           let siteData = [];
@@ -693,7 +721,11 @@ export default {
 
     getCairoGenWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-      NUR.getCairoGenWeeklyNUR(this.week, this.year)
+        allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      // NUR.getCairoGenWeeklyNUR(this.week, this.year)
+      allInstances.Api.get(`/Nur/cairo/weekly/GenNUR/${this.week}/${this.year}`)
         .then((response) => {
           console.log(response);
           let siteData = [];
@@ -730,7 +762,11 @@ export default {
 
     getCairoNUR_CYearlyAnalysis() {
       this.$store.dispatch("displaySpinnerPage", false);
-      NUR.cairoNUR_CYearlyAnalysis(this.year)
+         allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      // NUR.cairoNUR_CYearlyAnalysis(this.year)
+      allInstances.Api.get(`/Nur/cairo/yearly/NUR_C/${this.year}`)
         .then((response) => {
           let cairo = response.data.NUR_C_yearly.cairo;
           let zones = response.data.NUR_C_yearly.zones;
@@ -762,7 +798,12 @@ export default {
     },
     getCairoPowerWeeklyNUR()
     { this.$store.dispatch("displaySpinnerPage", false);
-    NUR.getCairoPowerWeeklyNUR(this.week,this.year).then((response)=>{
+       allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+    // NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+    allInstances.Api.get(`/Nur/cairo/weekly/PowerNUR/${this.week}/${this.year}`)
+    .then((response)=>{
       console.log(response)
        let siteData = [];
           let sites = response.data.sites;

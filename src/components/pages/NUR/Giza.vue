@@ -23,7 +23,6 @@
                   stripedRows
                   :paginator="true"
                   :rows="5"
-              
                 >
                   <Column selectionMode="single"></Column>
                   <Column field="subsystem" header="Subsystem"></Column>
@@ -96,28 +95,33 @@
             <Card>
               <template #title>
                 <p style="font-size: 16px; pading: 0; text-align: center">
-                 Nodals & VIP 
+                  Nodals & VIP
                 </p>
               </template>
               <template #content>
                 <div class="row">
                   <div class="col-4">
                     <div class="w-100">
-                         <img src="../../logos/kisspng-radio-vip-fm-romania-service-sales-vip-fm-98-spons-超市vip-5af1f24b2cd0c2.8140047415258056431836.png"  @click="getVipSitesNUR" class="w-100" style="cursor:pointer;" alt="">
-
+                      <img
+                        src="../../logos/kisspng-radio-vip-fm-romania-service-sales-vip-fm-98-spons-超市vip-5af1f24b2cd0c2.8140047415258056431836.png"
+                        @click="getVipSitesNUR"
+                        class="w-100"
+                        style="cursor: pointer"
+                        alt=""
+                      />
                     </div>
-
                   </div>
                   <div class="col"></div>
                   <div class="col-4">
-                      <div class="w-100 nodal " @click="getNodalSitesNUR">
-                         <img src="../../logos/c67d66dd354d921a8c6652ebaf82d8bc.svg"  class="w-75"  alt="">
-
+                    <div class="w-100 nodal" @click="getNodalSitesNUR">
+                      <img
+                        src="../../logos/c67d66dd354d921a8c6652ebaf82d8bc.svg"
+                        class="w-75"
+                        alt=""
+                      />
                     </div>
-
                   </div>
                 </div>
-              
               </template>
             </Card>
           </div>
@@ -142,7 +146,6 @@
             </TopSites>
           </div>
         </div>
-      
       </template>
     </Card>
   </div>
@@ -157,7 +160,7 @@ import NURTickets from "./NURTickets.vue";
 
 import NUR from "../../../apis/NUR";
 import VipsOrNodals from "../NUR/VipsOrNodals.vue";
-
+import allInstances from "../../../apis/Api";
 
 export default {
   data() {
@@ -196,6 +199,14 @@ export default {
     "year",
     "week",
   ],
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
   name: "CairoEast",
   mounted() {
     this.mountSubsystemTable();
@@ -322,7 +333,6 @@ export default {
         this.subsystem = tableData;
       }
     },
-   
 
     getSiteNUR(event) {
       console.log(event.NUR3G);
@@ -365,8 +375,12 @@ export default {
     getVipSitesNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
       let sites = [];
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
 
-      NUR.getVipSitesWeeklyNUR("Giza", this.week, this.year)
+      allInstances.Api.get(`/Nur/vip/week/Giza/${this.week}/${this.year}`)
+        // NUR.getVipSitesWeeklyNUR("Giza", this.week, this.year)
         .then((response) => {
           if (response.data.sites.length > 0) {
             sites = response.data.sites;
@@ -404,8 +418,12 @@ export default {
     getNodalSitesNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
       let sites = [];
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
 
-      NUR.getNodalSitesWeeklyNUR("Giza", this.week, this.year)
+      allInstances.Api.get(`/Nur/nodal/week/Giza/${this.week}/${this.year}`)
+        // NUR.getNodalSitesWeeklyNUR("Giza", this.week, this.year)
         .then((response) => {
           if (response.data.sites.length > 0) {
             sites = response.data.sites;
@@ -476,20 +494,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nodal{
+.nodal {
   position: relative;
   margin-top: 10px;
   cursor: pointer;
 }
-.nodal::after{
+.nodal::after {
   content: "Nodals";
   position: absolute;
   right: 0;
   bottom: -5px;
   color: black;
   margin-right: 20px;
- 
-  font-weight: 600;
 
+  font-weight: 600;
 }
 </style>
