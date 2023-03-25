@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Sheet from "../components/pages/energySheet/Sheet.vue";
-import notFount from "../components/notFound.vue";
+
 import newSitesInsert from "../components/pages/sites/newSitesInsert.vue";
 import newSiteInsert from "../components/pages/sites/newSiteInsert.vue";
 import login from "../components/pages/User/login.vue";
@@ -30,6 +30,7 @@ import sites from "../components/pages/sites/sites.vue";
 import users from "../components/pages/User/users.vue";
 import siteUpdate from "../components/pages/sites/siteUpdate.vue";
 import energyStatestics from "../components/pages/energySheet/energyStatestics.vue";
+import notFound from "../components/notFound.vue";
  
 const routes = [
     { path: "/energy/sheet", component: Sheet },
@@ -58,7 +59,7 @@ const routes = [
     { path: "/nur/4G", component: NUR4G },
     { path: "/", redirect: "/home" },
     { path: "/home", component: home },
-    { path: "/:pathMatch(.*)*", component: notFount },
+    { path: "/:pathMatch(.*)*", component: notFound },
     { path: "/users", component: users },
     { path: "/user/login", component: login, name: "login" },
     { path: "/user/register", component: register },
