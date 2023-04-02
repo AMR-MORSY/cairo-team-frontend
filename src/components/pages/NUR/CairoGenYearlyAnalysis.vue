@@ -11,6 +11,7 @@
 
 <script>
 import ChartDataLabels from "chartjs-plugin-datalabels";
+
 export default {
   data() {
     return {

@@ -65,6 +65,7 @@
 import NURTickets from "./NURTickets.vue";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import exportFromJSON from "export-from-json";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
