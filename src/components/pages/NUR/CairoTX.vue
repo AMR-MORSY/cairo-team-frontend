@@ -126,13 +126,7 @@ export default {
       return this.$store.getters.isLogin;
     },
   },
-   beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin) {
-        return vm.$router.push("/user/login");
-      }
-    });
-  },
+  
   inject: ["dialogRef"],
   mounted() {
     this.mountData();
@@ -280,7 +274,7 @@ export default {
       if (data) exportFromJSON({ data, fileName, exportType });
     },
     getCairoMWYearlyNUR() {
-      // NUR.cairoTXYearlyAnalysis(this.tickets[0].year)
+    
       allInstances.Api.defaults.headers[
         "Authorization"
       ] = `Bearer ${this.token}`;

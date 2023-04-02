@@ -8,13 +8,13 @@
   <div class="container">
     <div class="row">
       <div class="col">
-            <div
+         <div
         class="w-25"
         style="display: flex; align-items: center; justify-content: center"
       >
         <img
           src="../../logos/week-icon.svg"
-          @click="getCairoPowerYearlyNUR"
+          @click="getCairoNodeBYearlyNUR"
           style="cursor: pointer"
           alt=""
           class="w-25"
@@ -89,7 +89,7 @@ export default {
       plugins: [ChartDataLabels],
     };
   },
-  name: "CairoMainPower",
+  name: "CairoNodeB",
   inject: ["dialogRef"],
   components: {
     NURTickets,
@@ -175,13 +175,13 @@ export default {
 
       if (data) exportFromJSON({ data, fileName, exportType });
     },
-    getCairoPowerYearlyNUR()
+    getCairoNodeBYearlyNUR()
     {
-         allInstances.Api.defaults.headers[
+          allInstances.Api.defaults.headers[
         "Authorization"
       ] = `Bearer ${this.token}`;
 
-      allInstances.Api.get(`/Nur/cairo/yearly/PowerNUR/${this.tickets[0].year}`)
+      allInstances.Api.get(`/Nur/cairo/yearly/NodeBNUR/${this.tickets[0].year}`)
         .then((response) => {
           console.log(response);
           let labels = Object.keys(response.data.NUR_C_yearly.cairo);
@@ -209,7 +209,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-
 
     }
   },

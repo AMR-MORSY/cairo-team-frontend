@@ -155,76 +155,74 @@
             </Card>
           </div>
           <div class="col-12 mt-5">
-           
-                <div class="row">
-                  <div class="col-6 col-sm-6 col-md-3">
-                    <div
-                      class="transmission w-100"
-                      style="cursor: pointer"
-                      @click="getCairoMWWeeklyNUR"
-                    >
-                      <img
-                        src="../../logos/favpng_falesia-systems-sp-o-o-microwave-transmission-mini-link-rectifier-xpic.png"
-                        alt=""
-                        class="w-50 m-auto d-block"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-6 col-sm-6 col-md-3">
-                    <div
-                      class="gen w-100"
-                      style="cursor: pointer"
-                      @click="getCairoGenWeeklyNUR"
-                    >
-                      <img
-                        src="../../logos/33kva-cat-silent-diesel-generator-cat-de33gc.jpg"
-                        alt=""
-                        class="w-50 m-auto d-block"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-6 col-sm-6 col-md-3">
-                    <div
-                      class="BTS w-100"
-                      style="cursor: pointer"
-                      @click="getCairoMWWeeklyNUR"
-                    >
-                      <img
-                        src="../../logos/Nortel-GSM-800012000.jpg"
-                        alt=""
-                        class="w-50 m-auto d-block"
-                      />
-                    </div>
-                  </div>
-                 
-                  <div class="col-6 col-sm-6 col-md-3">
-                    <div
-                      class="power w-100"
-                      style="cursor: pointer"
-                      @click="getCairoPowerWeeklyNUR"
-                    >
-                      <img
-                        src="../../logos/power-plant-icon.svg"
-                        alt=""
-                        class="w-50 m-auto d-block"
-                      />
-                    </div>
-                  </div>
-                   <div class="col-6 col-sm-6 col-md-3">
-                    <div
-                      class="modifications w-75"
-                      style="cursor: pointer"
-                      @click="getCairoMWWeeklyNUR"
-                    >
-                      <img
-                        src="../../logos/clipart3239793.png"
-                        alt=""
-                        class="w-50 m-auto d-block"
-                      />
-                    </div>
-                  </div>
+            <div class="row">
+              <div class="col-6 col-sm-6 col-md-3">
+                <div
+                  class="transmission w-100"
+                  style="cursor: pointer"
+                  @click="getCairoMWWeeklyNUR"
+                >
+                  <img
+                    src="../../logos/favpng_falesia-systems-sp-o-o-microwave-transmission-mini-link-rectifier-xpic.png"
+                    alt=""
+                    class="w-50 m-auto d-block"
+                  />
                 </div>
-           
+              </div>
+              <div class="col-6 col-sm-6 col-md-3">
+                <div
+                  class="gen w-100"
+                  style="cursor: pointer"
+                  @click="getCairoGenWeeklyNUR"
+                >
+                  <img
+                    src="../../logos/33kva-cat-silent-diesel-generator-cat-de33gc.jpg"
+                    alt=""
+                    class="w-50 m-auto d-block"
+                  />
+                </div>
+              </div>
+              <div class="col-6 col-sm-6 col-md-3">
+                <div
+                  class="BTS w-100"
+                  style="cursor: pointer"
+                  @click="getCairoNodeBWeeklyNUR"
+                >
+                  <img
+                    src="../../logos/Nortel-GSM-800012000.jpg"
+                    alt=""
+                    class="w-50 m-auto d-block"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6 col-sm-6 col-md-3">
+                <div
+                  class="power w-100"
+                  style="cursor: pointer"
+                  @click="getCairoPowerWeeklyNUR"
+                >
+                  <img
+                    src="../../logos/power-plant-icon.svg"
+                    alt=""
+                    class="w-50 m-auto d-block"
+                  />
+                </div>
+              </div>
+              <div class="col-6 col-sm-6 col-md-3">
+                <div
+                  class="modifications w-75"
+                  style="cursor: pointer"
+                  @click="getCairoModificationWeeklyNUR"
+                >
+                  <img
+                    src="../../logos/clipart3239793.png"
+                    alt=""
+                    class="w-50 m-auto d-block"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </template>
@@ -329,8 +327,9 @@ import CairoTX from "./CairoTX.vue";
 import CairoYearlyAnalysis from "./CairoYearlyAnalysis.vue";
 import CairoGen from "../NUR/CairoGen.vue";
 
-import CairoMainPower from './CairoMainPower.vue';
+import CairoMainPower from "./CairoMainPower.vue";
 import allInstances from "../../../apis/Api";
+import CairoNodeB from './CairoNodeB.vue';
 
 export default {
   data() {
@@ -398,15 +397,13 @@ export default {
       this.getNUR();
     },
   },
-  computed:{
-      token() {
+  computed: {
+    token() {
       return this.$store.getters.token;
     },
-     isLogin()
-    {
+    isLogin() {
       return this.$store.getters.isLogin;
-    }
-
+    },
   },
   components: {
     TopSites,
@@ -419,15 +416,9 @@ export default {
     CairoYearlyAnalysis,
     CairoGen,
     CairoMainPower,
+    CairoNodeB,
   },
-   beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin) {
-        return vm.$router.push("/user/login");
-      }
-    });
-  },
-
+ 
   methods: {
     Responses(zoneExceed, zoneWith) {
       let exceed = [];
@@ -453,12 +444,11 @@ export default {
         year: this.year,
       };
 
-
       // NUR.getNur(data)
-        allInstances.Api.defaults.headers[
+      allInstances.Api.defaults.headers[
         "Authorization"
       ] = `Bearer ${this.token}`;
-     
+
       allInstances.Api.get(`/Nur/show/${data.week}/${data.year}`)
         .then((response) => {
           console.log(response);
@@ -682,11 +672,11 @@ export default {
     },
     getCairoMWWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-        allInstances.Api.defaults.headers[
+      allInstances.Api.defaults.headers[
         "Authorization"
       ] = `Bearer ${this.token}`;
       allInstances.Api.get(`/Nur/cairo/weekly/MWNUR/${this.week}/${this.year}`)
-      // NUR.getCairoMWWeeklyNUR(this.week, this.year)
+        // NUR.getCairoMWWeeklyNUR(this.week, this.year)
         .then((response) => {
           console.log(response);
           let siteData = [];
@@ -721,7 +711,7 @@ export default {
 
     getCairoGenWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-        allInstances.Api.defaults.headers[
+      allInstances.Api.defaults.headers[
         "Authorization"
       ] = `Bearer ${this.token}`;
       // NUR.getCairoGenWeeklyNUR(this.week, this.year)
@@ -762,7 +752,7 @@ export default {
 
     getCairoNUR_CYearlyAnalysis() {
       this.$store.dispatch("displaySpinnerPage", false);
-         allInstances.Api.defaults.headers[
+      allInstances.Api.defaults.headers[
         "Authorization"
       ] = `Bearer ${this.token}`;
       // NUR.cairoNUR_CYearlyAnalysis(this.year)
@@ -796,21 +786,23 @@ export default {
           this.$store.dispatch("displaySpinnerPage", true);
         });
     },
-    getCairoPowerWeeklyNUR()
-    { this.$store.dispatch("displaySpinnerPage", false);
-       allInstances.Api.defaults.headers[
+    getCairoPowerWeeklyNUR() {
+      this.$store.dispatch("displaySpinnerPage", false);
+      allInstances.Api.defaults.headers[
         "Authorization"
       ] = `Bearer ${this.token}`;
-    // NUR.getCairoPowerWeeklyNUR(this.week,this.year)
-    allInstances.Api.get(`/Nur/cairo/weekly/PowerNUR/${this.week}/${this.year}`)
-    .then((response)=>{
-      console.log(response)
-       let siteData = [];
+      // NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+      allInstances.Api.get(
+        `/Nur/cairo/weekly/PowerNUR/${this.week}/${this.year}`
+      )
+        .then((response) => {
+          console.log(response);
+          let siteData = [];
           let sites = response.data.sites;
           sites.forEach((site) => {
             siteData.push(site.site_data);
           });
-          this.$dialog.open( CairoMainPower, {
+          this.$dialog.open(CairoMainPower, {
             props: {
               style: {
                 width: "75vw",
@@ -828,14 +820,93 @@ export default {
               statestics: response.data.statestics,
             },
           });
-    }).catch((error)=>{
-
-    }).finally(()=>{
-      this.$store.dispatch("displaySpinnerPage", true);
-
-    })
-
+        })
+        .catch((error) => {})
+        .finally(() => {
+          this.$store.dispatch("displaySpinnerPage", true);
+        });
     },
+    getCairoNodeBWeeklyNUR() {
+      this.$store.dispatch("displaySpinnerPage", false);
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      // NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+      allInstances.Api.get(
+        `/Nur/cairo/weekly/NodeBNUR/${this.week}/${this.year}`
+      )
+        .then((response) => {
+            console.log(response);
+          let siteData = [];
+          let sites = response.data.sites;
+          sites.forEach((site) => {
+            siteData.push(site.site_data);
+          });
+          this.$dialog.open(CairoNodeB, {
+            props: {
+              style: {
+                width: "75vw",
+              },
+              breakpoints: {
+                "960px": "75vw",
+                "640px": "90vw",
+              },
+              modal: true,
+            },
+
+            data: {
+              sites: siteData,
+              tickets: response.data.tickets,
+              statestics: response.data.statestics,
+            },
+          });
+        })
+        .catch((error) => {})
+        .finally(() => {
+          this.$store.dispatch("displaySpinnerPage", true);
+        });
+    },
+     getCairoModificationWeeklyNUR()
+     {
+        this.$store.dispatch("displaySpinnerPage", false);
+      allInstances.Api.defaults.headers[
+        "Authorization"
+      ] = `Bearer ${this.token}`;
+      // NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+      allInstances.Api.get(
+        `/Nur/cairo/weekly/ModificationNUR/${this.week}/${this.year}`
+      )
+        .then((response) => {
+            console.log(response);
+          let siteData = [];
+          let sites = response.data.sites;
+          sites.forEach((site) => {
+            siteData.push(site.site_data);
+          });
+          this.$dialog.open(CairoNodeB, {
+            props: {
+              style: {
+                width: "75vw",
+              },
+              breakpoints: {
+                "960px": "75vw",
+                "640px": "90vw",
+              },
+              modal: true,
+            },
+
+            data: {
+              sites: siteData,
+              tickets: response.data.tickets,
+              statestics: response.data.statestics,
+            },
+          });
+        })
+        .catch((error) => {})
+        .finally(() => {
+          this.$store.dispatch("displaySpinnerPage", true);
+        });
+     }
   },
 };
 </script>
