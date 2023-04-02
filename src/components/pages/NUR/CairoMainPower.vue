@@ -98,6 +98,14 @@ export default {
   mounted() {
     this.mountData();
   },
+    computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
   methods: {
     mountData() {
       this.sites = this.dialogRef.data.sites;

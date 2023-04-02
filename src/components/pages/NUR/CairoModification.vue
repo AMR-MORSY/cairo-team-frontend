@@ -92,6 +92,14 @@ export default {
   },
   name: "CairoModification",
   inject: ["dialogRef"],
+    computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
   components: {
     NURTickets,
   },
