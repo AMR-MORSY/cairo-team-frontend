@@ -162,7 +162,7 @@
 
 <script>
 import NUR from "../../../apis/NUR";
-import allInstances from "../../../apis/Api";
+
 export default {
   data() {
     return {
@@ -219,12 +219,9 @@ export default {
         cells: this.cells,
       };
       this.showSpinner = true;
-      allInstances.uploadApi.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      // NUR.submit2GNurSheet(data)
-      allInstances.uploadApi
-        .post("/Nur/2G", data)
+    
+       NUR.submit2GNurSheet(data)
+   
         .then((response) => {
           console.log(response.data.message);
           this.successMessage = response.data.message;
@@ -293,11 +290,8 @@ export default {
       this.serverError = null;
       this.yearErrors = null;
       this.weekErrors = null;
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get("/Nur/index")
-        // NUR.get2GNurIndex()
+    
+        NUR.get2GNurIndex()
         .then((response) => {
           this.weeks = response.data.weeks;
           this.years = response.data.years;

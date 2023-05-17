@@ -492,6 +492,7 @@ export default {
     },
     getSiteDetails() {
        this.$store.dispatch("displaySpinnerPage",false);
+    
       Sites.getSiteDetails(this.site_code)
         .then((response) => {
           console.log(response);

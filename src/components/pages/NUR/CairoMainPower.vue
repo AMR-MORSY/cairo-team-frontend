@@ -65,7 +65,8 @@
 import NURTickets from "./NURTickets.vue";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import exportFromJSON from "export-from-json";
-import allInstances from "../../../apis/Api";
+import NUR from "../../../apis/NUR"
+import CairoTxYearlyAnalysis from './CairoTxYearlyAnalysis.vue';
 export default {
   data() {
     return {
@@ -94,14 +95,13 @@ export default {
   inject: ["dialogRef"],
   components: {
     NURTickets,
+    CairoTxYearlyAnalysis,
   },
   mounted() {
     this.mountData();
   },
     computed: {
-    token() {
-      return this.$store.getters.token;
-    },
+  
     isLogin() {
       return this.$store.getters.isLogin;
     },
@@ -186,11 +186,13 @@ export default {
     },
     getCairoPowerYearlyNUR()
     {
-         allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
 
-      allInstances.Api.get(`/Nur/cairo/yearly/PowerNUR/${this.tickets[0].year}`)
+
+
+      NUR.cairoPowerYearlyAnalysis(this.tickets[0].year)
+      
+
+      // allInstances.Api.get(`/Nur/cairo/yearly/PowerNUR/${this.tickets[0].year}`)
         .then((response) => {
           console.log(response);
           let labels = Object.keys(response.data.NUR_C_yearly.cairo);

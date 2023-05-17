@@ -54,7 +54,7 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
-import allInstances from "../../../apis/Api";
+
 
 export default {
   data() {
@@ -81,10 +81,7 @@ export default {
         return false;
       }
     },
-    token()
-    {
-      return this.$store.getters.token;
-    },
+  
     isLogin()
     {
       return this.$store.getters.isLogin;
@@ -118,11 +115,8 @@ export default {
       this.columnValue = e.target.value;
     },
     getModificationAnalysis() {
-      // Modifications.getModificationAnalysis()
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get("/modifications/analysis")
+       Modifications.getModificationAnalysis()
+     
         .then((response) => {
           this.status = response.data.index.status;
           this.subcontractor = response.data.index.subcontractor;

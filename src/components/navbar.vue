@@ -95,10 +95,7 @@ export default {
   methods: {
     submitSearch() {
       this.$store.dispatch("displaySpinnerPage", false);
-       allInstance.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get(`/sites/search/${this.search}`)
+    Sites.searchSites(this.search)
         .then((response) => {
           console.log(response);
           if (response.data.message == "No data Found") {

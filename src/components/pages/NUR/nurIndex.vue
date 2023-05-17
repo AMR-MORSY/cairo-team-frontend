@@ -6,7 +6,7 @@
 
 <script>
 import index from "../../helpers/index.vue"
-  export default {
+  export default{
     data(){
       return{
 

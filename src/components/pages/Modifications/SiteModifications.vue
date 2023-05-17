@@ -80,7 +80,7 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
-import allInstances from "../../../apis/Api";
+
 export default {
   data() {
     return {
@@ -109,9 +109,7 @@ export default {
     });
   },
   computed: {
-    token() {
-      return this.$store.getters.token;
-    },
+  
     isLogin() {
       return this.$store.getters.isLogin;
     },
@@ -135,11 +133,8 @@ export default {
     },
     getSiteModifications() {
       this.$store.dispatch("displaySpinnerPage", false);
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get(`/modifications/siteModifications/${this.site_code}`)
-        // Modifications.getSiteModifications(this.site_code)
+    
+        Modifications.getSiteModifications(this.site_code)
         .then((response) => {
           console.log(response);
           this.modifications = response.data.modifications;
@@ -178,12 +173,8 @@ export default {
           let data = {
             id: this.selectedModification.id,
           };
-          allInstances.Api.defaults.headers[
-            "Authorization"
-          ] = `Bearer ${this.token}`;
-          allInstances.Api.post("/modifications/delete", data)
-
-            // Modifications.deleteModification(data)
+        
+             Modifications.deleteModification(data)
             .then((response) => {
               this.getSiteModifications();
             })

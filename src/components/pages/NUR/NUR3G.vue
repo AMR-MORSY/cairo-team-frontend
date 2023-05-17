@@ -160,7 +160,7 @@
 
 <script>
 import NUR from "../../../apis/NUR";
-import allInstances from "../../../apis/Api";
+
 export default {
   data() {
     return {
@@ -196,9 +196,7 @@ export default {
     });
   },
   computed: {
-    token() {
-      return this.$store.getters.token;
-    },
+  
     isLogin() {
       return this.$store.getters.isLogin;
     },
@@ -218,12 +216,8 @@ export default {
       };
       this.showSpinner = true;
       this.showSpinner = true;
-      allInstances.uploadApi.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.uploadApi
-        .post("/Nur/3G", data)
-        // NUR.submit3GNurSheet(data)
+   
+        NUR.submit3GNurSheet(data)
         .then((response) => {
           console.log(response.data.message);
           this.successMessage = response.data.message;
@@ -293,11 +287,8 @@ export default {
       this.yearErrors = null;
       this.weekErrors = null;
 
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get("/Nur/index")
-        // NUR.get3GNurIndex()
+    
+         NUR.get3GNurIndex()
         .then((response) => {
           this.weeks = response.data.weeks;
           this.years = response.data.years;

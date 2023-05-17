@@ -221,6 +221,7 @@
 
 <script>
 import Sites from "../../../apis/Sites";
+
 export default {
   data() {
     return {
@@ -264,6 +265,11 @@ export default {
   emits: ["displayNoneSpinner"],
 
   mounted() {},
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+  },
 
   methods: {
     goBack() {
@@ -324,6 +330,7 @@ export default {
           "4G_cells":this.cells4G,
         };
         console.log(data);
+   
        Sites.createNewSite(data)
           .then((response) => {
             console.log(response);

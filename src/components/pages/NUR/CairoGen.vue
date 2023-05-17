@@ -68,7 +68,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import NUR from "../../../apis/NUR";
 import CairoGenYearlyAnalysis from "./CairoGenYearlyAnalysis.vue";
 import exportFromJSON from "export-from-json";
-import allInstances from "../../../apis/Api";
+
 
 export default {
   data() {
@@ -191,11 +191,8 @@ export default {
     },
     getCairoGenYearlyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-      // NUR.cairoGenYearlyAnalysis(this.tickets[0].year)
-       allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get(`/Nur/cairo/yearly/GenNUR/${this.tickets[0].year}`)
+      NUR.cairoGenYearlyAnalysis(this.tickets[0].year)
+     
         .then((response) => {
      
           let data = Object.values(response.data.NUR_C_yearly);

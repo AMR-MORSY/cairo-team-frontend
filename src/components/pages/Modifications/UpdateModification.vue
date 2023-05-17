@@ -159,7 +159,7 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
-import allInstances from "../../../apis/Api";
+
 export default {
   data() {
     return {
@@ -182,6 +182,7 @@ export default {
         "SAG",
         "LM",
         "MERG",
+        "HAS",
       ],
       request_date: null,
       request_dateError: false,
@@ -233,9 +234,7 @@ export default {
     isLogin() {
       return this.$store.getters.isLogin;
     },
-    token() {
-      return this.$store.getters.token;
-    },
+ 
   },
   mounted() {
     this.getModificationDetails();
@@ -255,11 +254,9 @@ export default {
 
     getModificationDetails() {
       this.$store.dispatch("displaySpinnerPage", false);
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      // Modifications.getModificationDetails(this.id)
-      allInstances.Api.get(`/modifications/details/${this.id}`)
+  
+       Modifications.getModificationDetails(this.id)
+ 
         .then((response) => {
           console.log(response);
           this.site_code = response.data.details.site_code;
@@ -336,11 +333,8 @@ export default {
           materials: this.materials,
         };
         console.log(data);
-        // Modifications.updateModification(data)
-        allInstances.Api.defaults.headers[
-          "Authorization"
-        ] = `Bearer ${this.token}`;
-        allInstances.Api.post("/modifications/update", data)
+    Modifications.updateModification(data)
+       
           .then((response) => {
             console.log(response);
 

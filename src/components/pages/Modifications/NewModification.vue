@@ -160,7 +160,7 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
-import allInstances from "../../../apis/Api";
+
 export default {
   data() {
     return {
@@ -230,9 +230,7 @@ export default {
     },
   },
   computed: {
-    token() {
-      return this.$store.getters.token;
-    },
+  
      isLogin()
     {
       return this.$store.getters.isLogin;
@@ -300,11 +298,8 @@ export default {
           materials: this.materials,
         };
         console.log(data);
-        // Modifications.insertNewModification(data)
-        allInstances.Api.defaults.headers[
-          "Authorization"
-        ] = `Bearer ${this.token}`;
-        allInstances.Api.post("/modifications/new", data)
+         Modifications.insertNewModification(data)
+     
           .then((response) => {
             console.log(response);
             this.subcontractor = null;

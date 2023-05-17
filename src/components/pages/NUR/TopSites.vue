@@ -65,11 +65,8 @@ export default {
       let data = {
         site_code: this.selectedSite.siteCode,
       };
-        allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-     allInstances.Api.post("/Nur/siteNUR", data)
-      // NUR.getSiteNUR(data)
+   
+       NUR.getSiteNUR(data)
         .then((response) => {
           console.log(response);
           this.$emit("siteNUR",response.data)

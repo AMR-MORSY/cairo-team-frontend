@@ -210,12 +210,9 @@ export default {
       let data = {
         site_code: this.dialogRef.data.NUR2G[0].problem_site_code,
       };
-        allInstances.downloadApi.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-
-      allInstances.downloadApi.post("/Nur/downloadNUR2G", data)
-      // NUR.download2GNUR(data)
+      
+  
+      NUR.download2GNUR(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
@@ -239,13 +236,8 @@ export default {
       };
      
 
-           allInstances.downloadApi.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
 
-      allInstances.downloadApi.post("/Nur/downloadNUR3G", data)
-
-      // NUR.download3GNUR(data)
+       NUR.download3GNUR(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
@@ -267,12 +259,8 @@ export default {
       let data = {
         site_code: this.dialogRef.data.NUR4G[0].problem_site_code,
       };
-     allInstances.downloadApi.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-
-      allInstances.downloadApi.post("/Nur/downloadNUR4G", data)
-      // NUR.download4GNUR(data)
+   
+       NUR.download4GNUR(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));

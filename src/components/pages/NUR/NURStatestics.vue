@@ -328,8 +328,10 @@ import CairoYearlyAnalysis from "./CairoYearlyAnalysis.vue";
 import CairoGen from "../NUR/CairoGen.vue";
 
 import CairoMainPower from "./CairoMainPower.vue";
-import allInstances from "../../../apis/Api";
+
 import CairoNodeB from './CairoNodeB.vue';
+
+import CairoModification from './CairoModification.vue';
 
 export default {
   data() {
@@ -398,9 +400,7 @@ export default {
     },
   },
   computed: {
-    token() {
-      return this.$store.getters.token;
-    },
+   
     isLogin() {
       return this.$store.getters.isLogin;
     },
@@ -417,6 +417,7 @@ export default {
     CairoGen,
     CairoMainPower,
     CairoNodeB,
+    CairoModification,
   },
  
   methods: {
@@ -444,12 +445,8 @@ export default {
         year: this.year,
       };
 
-      // NUR.getNur(data)
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-
-      allInstances.Api.get(`/Nur/show/${data.week}/${data.year}`)
+      NUR.getNur(data)
+    
         .then((response) => {
           console.log(response);
           let NUR = response.data.NUR;
@@ -672,11 +669,8 @@ export default {
     },
     getCairoMWWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get(`/Nur/cairo/weekly/MWNUR/${this.week}/${this.year}`)
-        // NUR.getCairoMWWeeklyNUR(this.week, this.year)
+    
+         NUR.getCairoMWWeeklyNUR(this.week, this.year)
         .then((response) => {
           console.log(response);
           let siteData = [];
@@ -711,11 +705,9 @@ export default {
 
     getCairoGenWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      // NUR.getCairoGenWeeklyNUR(this.week, this.year)
-      allInstances.Api.get(`/Nur/cairo/weekly/GenNUR/${this.week}/${this.year}`)
+   
+      NUR.getCairoGenWeeklyNUR(this.week, this.year)
+
         .then((response) => {
           console.log(response);
           let siteData = [];
@@ -752,11 +744,9 @@ export default {
 
     getCairoNUR_CYearlyAnalysis() {
       this.$store.dispatch("displaySpinnerPage", false);
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      // NUR.cairoNUR_CYearlyAnalysis(this.year)
-      allInstances.Api.get(`/Nur/cairo/yearly/NUR_C/${this.year}`)
+     
+       NUR.cairoNUR_CYearlyAnalysis(this.year)
+
         .then((response) => {
           let cairo = response.data.NUR_C_yearly.cairo;
           let zones = response.data.NUR_C_yearly.zones;
@@ -788,13 +778,9 @@ export default {
     },
     getCairoPowerWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      // NUR.getCairoPowerWeeklyNUR(this.week,this.year)
-      allInstances.Api.get(
-        `/Nur/cairo/weekly/PowerNUR/${this.week}/${this.year}`
-      )
+   
+      NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+    
         .then((response) => {
           console.log(response);
           let siteData = [];
@@ -828,13 +814,9 @@ export default {
     },
     getCairoNodeBWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      // NUR.getCairoPowerWeeklyNUR(this.week,this.year)
-      allInstances.Api.get(
-        `/Nur/cairo/weekly/NodeBNUR/${this.week}/${this.year}`
-      )
+    
+       NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+ 
         .then((response) => {
             console.log(response);
           let siteData = [];
@@ -869,13 +851,9 @@ export default {
      getCairoModificationWeeklyNUR()
      {
         this.$store.dispatch("displaySpinnerPage", false);
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      // NUR.getCairoPowerWeeklyNUR(this.week,this.year)
-      allInstances.Api.get(
-        `/Nur/cairo/weekly/ModificationNUR/${this.week}/${this.year}`
-      )
+    
+      NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+     
         .then((response) => {
             console.log(response);
           let siteData = [];
@@ -883,7 +861,7 @@ export default {
           sites.forEach((site) => {
             siteData.push(site.site_data);
           });
-          this.$dialog.open(CairoNodeB, {
+          this.$dialog.open(CairoModification, {
             props: {
               style: {
                 width: "75vw",

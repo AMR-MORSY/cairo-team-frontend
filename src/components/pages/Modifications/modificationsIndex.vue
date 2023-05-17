@@ -132,9 +132,7 @@ export default {
     isAdmin() {
       return this.$store.getters.isAdmin;
     },
-    token() {
-      return this.$store.getters.token;
-    },
+   
      isLogin()
     {
       return this.$store.getters.isLogin;
@@ -154,13 +152,8 @@ export default {
         columnValue: this.columnValue,
       };
 
-      // Modifications.getModificationIndex(data)
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get(
-        `/modifications/index/${data.columnName}/${data.columnValue}`
-      )
+       Modifications.getModificationIndex(data)
+   
         .then((response) => {
           this.modifications = response.data.modifications;
         })
@@ -199,14 +192,9 @@ export default {
         column_value: this.columnValue,
       };
 
-      allInstances.downloadApi.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
+    
 
-      allInstances.downloadApi
-        .post("/modifications/download", data)
-
-        // Modifications.downloadModifications(data)
+         Modifications.downloadModifications(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
@@ -245,12 +233,8 @@ export default {
             id: this.selectedModification.id,
           };
 
-          // Modifications.deleteModification(data)
-          allInstances.downloadApi.defaults.headers[
-            "Authorization"
-          ] = `Bearer ${this.token}`;
-
-          allInstances.Api.post("/modifications/delete", data)
+           Modifications.deleteModification(data)
+       
             .then((response) => {
               this.getModificationsIndex();
             })

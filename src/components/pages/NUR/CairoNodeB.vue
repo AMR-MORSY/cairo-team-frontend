@@ -8,19 +8,19 @@
   <div class="container">
     <div class="row">
       <div class="col">
-         <div
-        class="w-25"
-        style="display: flex; align-items: center; justify-content: center"
-      >
-        <img
-          src="../../logos/week-icon.svg"
-          @click="getCairoNodeBYearlyNUR"
-          style="cursor: pointer"
-          alt=""
+        <div
           class="w-25"
-          v-tooltip.right="'Weekly Analysis'"
-        />
-      </div>
+          style="display: flex; align-items: center; justify-content: center"
+        >
+          <img
+            src="../../logos/week-icon.svg"
+            @click="getCairoNodeBYearlyNUR"
+            style="cursor: pointer"
+            alt=""
+            class="w-25"
+            v-tooltip.right="'Weekly Analysis'"
+          />
+        </div>
       </div>
       <div class="col-4">
         <Chart
@@ -65,7 +65,8 @@
 import NURTickets from "./NURTickets.vue";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import exportFromJSON from "export-from-json";
-import allInstances from "../../../apis/Api";
+import NUR from "../../../apis/NUR";
+import CairoTxYearlyAnalysis from "./CairoTxYearlyAnalysis.vue";
 export default {
   data() {
     return {
@@ -94,14 +95,12 @@ export default {
   inject: ["dialogRef"],
   components: {
     NURTickets,
+    CairoTxYearlyAnalysis,
   },
   mounted() {
     this.mountData();
   },
-    computed: {
-    token() {
-      return this.$store.getters.token;
-    },
+  computed: {
     isLogin() {
       return this.$store.getters.isLogin;
     },
@@ -184,13 +183,9 @@ export default {
 
       if (data) exportFromJSON({ data, fileName, exportType });
     },
-    getCairoNodeBYearlyNUR()
-    {
-          allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-
-      allInstances.Api.get(`/Nur/cairo/yearly/NodeBNUR/${this.tickets[0].year}`)
+    getCairoNodeBYearlyNUR() {
+      NUR.cairoNodeBYearlyAnalysis(this.tickets[0].year)
+        // allInstances.Api.get(`/Nur/cairo/yearly/NodeBNUR/${this.tickets[0].year}`)
         .then((response) => {
           console.log(response);
           let labels = Object.keys(response.data.NUR_C_yearly.cairo);
@@ -218,8 +213,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-
-    }
+    },
   },
 };
 </script>

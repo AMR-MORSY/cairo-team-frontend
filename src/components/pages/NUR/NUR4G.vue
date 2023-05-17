@@ -160,7 +160,7 @@
 
 <script>
 import NUR from "../../../apis/NUR";
-import allInstances from "../../../apis/Api";
+
 export default {
   data() {
     return {
@@ -189,9 +189,7 @@ export default {
   },
   name: "NUR4G",
   computed: {
-    token() {
-      return this.$store.getters.token;
-    },
+  
     isLogin() {
       return this.$store.getters.isLogin;
     },
@@ -217,12 +215,8 @@ export default {
         cells: this.cells,
       };
       this.showSpinner = true;
-      allInstances.uploadApi.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.uploadApi
-        .post("/Nur/4G", data)
-        // NUR.submit4GNurSheet(data)
+    
+        NUR.submit4GNurSheet(data)
         .then((response) => {
           console.log(response.data.message);
           this.successMessage = response.data.message;
@@ -291,11 +285,8 @@ export default {
       this.yearErrors = null;
       this.weekErrors = null;
 
-      // NUR.get4GNurIndex()
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      allInstances.Api.get("/Nur/index")
+       NUR.get4GNurIndex()
+   
         .then((response) => {
           this.weeks = response.data.weeks;
           this.years = response.data.years;

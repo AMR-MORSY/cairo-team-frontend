@@ -7,6 +7,7 @@ let Api = axios.create({
   
     headers: {
         "Content-Type": "application/json",
+     
       
        
         
@@ -14,8 +15,17 @@ let Api = axios.create({
     
 });
 
+
+
 Api.defaults.withCredentials = true;
 Api.defaults.baseURL= import.meta.env.VITE_BASE_URL;
+
+Api.interceptors.request.use(function (config) {
+  
+   config.headers.Authorization=`Bearer ${store.getters.token}`;
+    return config;
+  
+  });
 
 Api.interceptors.response.use(
     function (response) {
@@ -27,12 +37,11 @@ Api.interceptors.response.use(
             error.response.status == 419 ||
             error.response.status == 401
         ) {
-            // sessionStorage.removeItem("Auth");
+           
             sessionStorage.removeItem("User");
-            // store.dispatch("changeLoginState", false);
+           
             store.dispatch("userData", null);
-            // store.dispatch("userPermissions", null);
-            // store.dispatch("userRoles", null);
+    
             router.push({ path: "/user/login" });
         }
 
@@ -45,16 +54,32 @@ let downloadApi = axios.create({
     responseType: "blob",
     headers: {
         "Content-Type": "application/json",
+      
     },
    
 });
+downloadApi.interceptors.request.use(function (config) {
+  
+    config.headers.Authorization=`Bearer ${store.getters.token}`;
+     return config;
+   
+   });
+ 
 let uploadApi=axios.create({
  
     headers: {
         "Content-Type": "multipart/form-data",
+     
     },
 
 });
+uploadApi.interceptors.request.use(function (config) {
+  
+    config.headers.Authorization=`Bearer ${store.getters.token}`;
+     return config;
+   
+   });
+ 
 uploadApi.defaults.withCredentials=true;
 uploadApi.defaults.baseURL= import.meta.env.VITE_BASE_URL;
 uploadApi.interceptors.response.use(
@@ -67,12 +92,10 @@ uploadApi.interceptors.response.use(
             error.response.status == 419 ||
             error.response.status == 401
         ) {
-            sessionStorage.removeItem("Auth");
-            sessionStorage.removeItem("userData");
-            store.dispatch("changeLoginState", false);
+            sessionStorage.removeItem("User");
+           
             store.dispatch("userData", null);
-            store.dispatch("userPermissions", null);
-            store.dispatch("userRoles", null);
+    
             router.push({ path: "/user/login" });
         }
 
@@ -92,12 +115,10 @@ downloadApi.interceptors.response.use(
             error.response.status == 419 ||
             error.response.status == 401
         ) {
-            sessionStorage.removeItem("Auth");
-            sessionStorage.removeItem("userData");
-            store.dispatch("changeLoginState", false);
+            sessionStorage.removeItem("User");
+           
             store.dispatch("userData", null);
-            store.dispatch("userPermissions", null);
-            store.dispatch("userRoles", null);
+    
             router.push({ path: "/user/login" });
         }
 
@@ -105,25 +126,7 @@ downloadApi.interceptors.response.use(
     }
 );
 
-function getUserToken()
-{
-    let user = sessionStorage.getItem("User");
-    console.log(user)
-    if(user)
-    {
-        let userArray = JSON.parse(user);
-        let userToken = userArray.token.plainTextToken;
-        console.log(userToken)
-       
-         return userToken;
 
-    }
-   else
-   {
-    return null;
-   }
-
-}
 function allInstances() {
     return {
         Api: Api,

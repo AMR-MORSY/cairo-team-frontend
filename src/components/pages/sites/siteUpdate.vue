@@ -230,6 +230,7 @@
 
 <script>
 import Sites from "../../../apis/Sites";
+import allInstances from "../../../apis/Api";
 export default {
   data() {
     return {
@@ -282,6 +283,11 @@ export default {
   mounted() {
     this.getSiteDetails();
   },
+   computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+  },
 
   methods: {
     goBack() {
@@ -289,8 +295,8 @@ export default {
     },
     getSiteDetails() {
         this.$store.dispatch("displaySpinnerPage", false);
-
-      Sites.getSiteDetails(this.siteCode)
+    
+       Sites.getSiteDetails(this.siteCode)
         .then((response) => {
           console.log(response);
           this.site_name = response.data.site.site_name;
@@ -363,7 +369,8 @@ export default {
           status:this.status
         };
         console.log(data);
-        Sites.updateSite(data)
+    
+         Sites.updateSite(data)
           .then((response) => {
             console.log(response);
 

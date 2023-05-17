@@ -64,6 +64,7 @@
 <script>
 import Sites from "../../../apis/Sites";
 import UpdateSitesTable from "./UpdateSitesTable.vue";
+import allInstances from "../../../apis/Api";
 
 export default {
   data() {
@@ -87,10 +88,16 @@ export default {
   },
   name: "CascadesUpdate",
   props: ["site_code"],
+  
 
   watch: {
     site_code() {
       this.getSiteDetails();
+    },
+  },
+    computed: {
+    token() {
+      return this.$store.getters.token;
     },
   },
   emits:["displayNoneSpinner"],
@@ -138,7 +145,9 @@ export default {
       }
 
       console.log(data);
-      Sites.updateCascades(data)
+    
+       Sites.updateCascades(data)
+    
         .then((response) => {
           console.log(response);
           if ((response.status = 200)) {
@@ -197,6 +206,8 @@ export default {
     },
     submitSearch() {
       this.$store.dispatch("displaySpinnerPage", false);
+            
+    
       Sites.getSiteDetails(this.search)
         .then((response) => {
           console.log(response);

@@ -159,7 +159,7 @@ import siteNURTable from "./siteNURTable.vue";
 import NURTickets from "./NURTickets.vue";
 import NUR from "../../../apis/NUR";
 import VipsOrNodals from "../NUR/VipsOrNodals.vue";
-import allInstances from "../../../apis/Api";
+
 export default {
   data() {
     return {
@@ -347,24 +347,7 @@ export default {
             "640px": "90vw",
           },
         },
-        // templates: {
-        //   footer: () => {
-        //     return [
-        //       h(Button, {
-        //         label: "No",
-        //         icon: "pi pi-times",
-        //         onClick: () => dialogRef.close({ buttonType: "No" }),
-        //         class: "p-button-text",
-        //       }),
-        //       h(Button, {
-        //         label: "Yes",
-        //         icon: "pi pi-check",
-        //         onClick: () => dialogRef.close({ buttonType: "Yes" }),
-        //         autofocus: true,
-        //       }),
-        //     ];
-        //   },
-        // },
+    
         data: {
           NUR3G: event.NUR3G,
           NUR2G: event.NUR2G,
@@ -375,15 +358,9 @@ export default {
     getVipSitesNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
       let sites = [];
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
+     
 
-      allInstances.Api.get(
-        `/Nur/vip/week/Cairo South/${this.week}/${this.year}`
-      )
-
-        // NUR.getVipSitesWeeklyNUR("Cairo South", this.week, this.year)
+       NUR.getVipSitesWeeklyNUR("Cairo South", this.week, this.year)
         .then((response) => {
           if (response.data.sites.length > 0) {
             sites = response.data.sites;
@@ -420,14 +397,8 @@ export default {
     },
     getNodalSitesNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
-      let sites = [];
-        allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-
-      allInstances.Api.get(`/Nur/nodal/week/Cairo South/${this.week}/${this.year}`)
-
-      // NUR.getNodalSitesWeeklyNUR("Cairo South", this.week, this.year)
+   
+       NUR.getNodalSitesWeeklyNUR("Cairo South", this.week, this.year)
         .then((response) => {
           if (response.data.sites.length > 0) {
             sites = response.data.sites;
