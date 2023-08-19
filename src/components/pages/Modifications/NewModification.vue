@@ -182,6 +182,9 @@ export default {
         "LM",
         "HAS",
         "Red Tech",
+        "H-Plus",
+        "MERG",
+        "STEPS"
       ],
       request_date: null,
       request_dateError: false,
@@ -231,19 +234,9 @@ export default {
   },
   computed: {
   
-     isLogin()
-    {
-      return this.$store.getters.isLogin;
-    }
   },
   mounted() {},
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin) {
-        return vm.$router.push("/user/login");
-      }
-    });
-  },
+
 
   methods: {
     goBack() {

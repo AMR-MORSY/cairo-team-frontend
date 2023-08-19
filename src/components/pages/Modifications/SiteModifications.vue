@@ -75,7 +75,7 @@
       </div>
     </transition>
   </section>
-  <!-- <ConfirmDialog :key="modifications"></ConfirmDialog> -->
+
 </template>
 
 <script>
@@ -101,19 +101,7 @@ export default {
   beforeMount() {
     this.getSiteModifications();
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin) {
-        return vm.$router.push("/user/login");
-      }
-    });
-  },
-  computed: {
-  
-    isLogin() {
-      return this.$store.getters.isLogin;
-    },
-  },
+ 
   mounted() {
     this.columns = [
       { field: "subcontractor", header: "Subcontractor" },

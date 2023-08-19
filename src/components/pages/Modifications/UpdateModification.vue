@@ -183,6 +183,8 @@ export default {
         "LM",
         "MERG",
         "HAS",
+        "H-Plus",
+        "STEPS"
       ],
       request_date: null,
       request_dateError: false,
@@ -239,14 +241,7 @@ export default {
   mounted() {
     this.getModificationDetails();
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin) {
-        return vm.$router.push("/user/login");
-      }
-    });
-  },
-
+ 
   methods: {
     goBack() {
       this.$router.go(-1);

@@ -130,28 +130,16 @@ export default {
       this.$store.dispatch("displaySpinnerPage", false);
 
    
-      allInstances.Api.defaults.headers[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
       allInstances.Api.post("user/logout")
         .then((data) => {
           console.log(data);
            this.$store.dispatch("userData", null);
           sessionStorage.removeItem("User");
          
-
-          // sessionStorage.removeItem("Auth");
-          // sessionStorage.removeItem("userData");
-          // this.$store.dispatch("changeLoginState", false);
-          // this.$store.dispatch("userData", null);
-          // this.$store.dispatch("userPermissions", null);
-          // this.$store.dispatch("userRoles", null);
-          // this.isLogin=false;
           this.$router.push({ path: "/user/login" });
         })
         .catch((error) => {
-          // sessionStorage.removeItem("User");
-          // this.$store.dispatch("userData");
+         
         })
         .finally(() => {
           this.$store.dispatch("displaySpinnerPage", true);

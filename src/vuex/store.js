@@ -1,4 +1,5 @@
 // import Vuex, { mapActions } from "vuex";
+import { toRaw } from "vue";
 import { createStore } from "vuex";
 const store = createStore({
   state: {
@@ -24,21 +25,35 @@ const store = createStore({
         return userToken;
       }
     },
-    isAdmin(state) {
+    isSuperAdmin(state) {
+      let userRoles= state.userData.roles;
+      userRoles=toRaw(userRoles);
+      if (userRoles) {
      
-      if (state.userData) {
-        let roles = state.userData.roles;
-        return roles;
-      } else {
-        let roles = null;
+        let userRole = null;
+        userRole=userRoles.filter((role) => {
+          return role.name == "super-admin";
+        });
+       
+        if (userRole) {
+          return true;
+        } else {
+          return false;
+        }
 
-        return roles;
       }
+      else {
+        return false;
+
+      }
+
+     
     },
-    userName(state) {
-    
+    userName(state) { 
     if (state.userData) {
         let userName = state.userData.user.name;
+    
+    
         return userName;
       } else {
         let userName = null;

@@ -1,88 +1,70 @@
 <template>
   <div class="container mt-5">
     <div class="card index">
-    <form
-      id="energysheet"
-      @submit.prevent="submitEnergySheet"
-      enctype="multipart/form-data"
-    >
-    
-      <div class="row">
-        <div class="col-12">
-          <div v-if="serverError">
-            {{ serverError }}
-          </div>
-        </div>
+      <form id="energysheet" @submit.prevent="submitEnergySheet" enctype="multipart/form-data">
 
-        <div class="col-12 col-md-6">
-          <div class="form-group">
-            <select v-model="week" id="weeks" class="form-select">
-              <option value="">select week</option>
-
-              <option v-for="week in weeks" :key="week">{{ week }}</option>
-            </select>
-            <div v-if="weekErrors">
-              <ul>
-                <li v-for="error in weekErrors" style="color: red" :key="error">
-                  {{ error }}
-                </li>
-              </ul>
+        <div class="row">
+          <div class="col-12">
+            <div v-if="serverError">
+              {{ serverError }}
             </div>
           </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="form-group">
-            <select v-model="year" class="form-select">
-              <option value="">select year</option>
 
-              <option v-for="year in years" :key="year">{{ year }}</option>
-            </select>
-            <div v-if="yearErrors">
-              <ul>
-                <li v-for="error in yearErrors" style="color: red" :key="error">
-                  {{ error }}
-                </li>
-              </ul>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <select v-model="week" id="weeks" class="form-select">
+                <option value="">select week</option>
+
+                <option v-for="week in weeks" :key="week">{{ week }}</option>
+              </select>
+              <div v-if="weekErrors">
+                <ul>
+                  <li v-for="error in weekErrors" style="color: red" :key="error">
+                    {{ error }}
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <select v-model="year" class="form-select">
+                <option value="">select year</option>
 
-        <div class="col-12 col-md-6">
-          <div class="form-group">
-            <label for="power">Energy Sheet:</label>
-            <input
-              type="file"
-              name="energy_sheet"
-              class="form-control"
-              id="energy_sheet"
-              @change="energySheetFile"
-            />
-            <div v-if="energySheetErrors">
-              <ul>
-                <li
-                  v-for="error in energySheetErrors"
-                  style="color: red"
-                  :key="error"
-                >
-                  {{ error }}
-                </li>
-              </ul>
+                <option v-for="year in years" :key="year">{{ year }}</option>
+              </select>
+              <div v-if="yearErrors">
+                <ul>
+                  <li v-for="error in yearErrors" style="color: red" :key="error">
+                    {{ error }}
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="col-12 mt-2">
-          <spinner-button
-            type="submit"
-            :show-spinner="showSpinner"
-            class="btn"
-              style="background-color:#79589f;color:white;"
-          >
-            <span> Submit</span>
-          </spinner-button>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="power">Energy Sheet:</label>
+              <input type="file" name="energy_sheet" class="form-control" id="energy_sheet" @change="energySheetFile" />
+              <div v-if="energySheetErrors">
+                <ul>
+                  <li v-for="error in energySheetErrors" style="color: red" :key="error">
+                    {{ error }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 mt-2">
+            <spinner-button type="submit" :show-spinner="showSpinner" class="btn"
+              style="background-color:#79589f;color:white;">
+              <span> Submit</span>
+            </spinner-button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
     </div>
     <div class="helper-table-container">
       <helper-table v-if="sheetValidationErrors">
@@ -93,11 +75,7 @@
           <th scope="col">Values</th>
         </template>
         <template #body>
-          <tr
-            style="background-color: white; color: red"
-            v-for="error in sheetValidationErrors"
-            :key="error"
-          >
+          <tr style="background-color: white; color: red" v-for="error in sheetValidationErrors" :key="error">
             <td class="text-left align-middle">{{ error.row }}</td>
             <td class="text-left align-middle">{{ error.attribute }}</td>
             <td class="text-left align-middle">
@@ -159,37 +137,6 @@ export default {
   },
   name: "Sheet",
 
-  computed: {
-    isLogin() {
-      return this.$store.state.isLogin;
-    },
-    isSuperAdmin() {
-      let userRoles = this.$store.state.userRoles;
-      let userRole = null;
-      userRoles.forEach((role) => {
-        if (role.name == "super-admin") {
-          userRole = role.name;
-        }
-      });
-      if (userRole) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
-
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin || vm.isSuperAdmin == false) {
-        return vm.$router.push(from.path);
-      } else {
-        vm.getEnergySheetIndex();
-      }
-    });
-  },
-
-  mounted() {},
   methods: {
     getEnergySheetIndex() {
       this.serverError = null;
@@ -287,14 +234,17 @@ export default {
   margin-right: auto;
   padding: 2rem;
 }
+
 .index {
   margin-top: 6em;
-  .header{
+
+  .header {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    p{
+
+    p {
       font-size: 2rem;
       font-weight: 900;
       color: darkmagenta;

@@ -9,6 +9,7 @@
       </div>
     </TransitionGroup>
   </div>
+
 </template>
 
 <script>
@@ -26,6 +27,7 @@ export default {
     ];
   },
   name: "energy",
+ 
   methods: {
     formatElement(id) {
       let card = this.cards.filter((element) => {

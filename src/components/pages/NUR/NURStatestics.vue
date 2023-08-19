@@ -815,7 +815,7 @@ export default {
     getCairoNodeBWeeklyNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
     
-       NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+       NUR.getCairoNodeBWeeklyNUR(this.week,this.year)
  
         .then((response) => {
             console.log(response);
@@ -852,7 +852,7 @@ export default {
      {
         this.$store.dispatch("displaySpinnerPage", false);
     
-      NUR.getCairoPowerWeeklyNUR(this.week,this.year)
+      NUR.getCairoModificationsBWeeklyNUR(this.week,this.year)
      
         .then((response) => {
             console.log(response);

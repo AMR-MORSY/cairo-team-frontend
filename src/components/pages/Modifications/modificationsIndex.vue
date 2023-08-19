@@ -129,14 +129,7 @@ export default {
     downloadModifications() {
       return this.modifications;
     },
-    isAdmin() {
-      return this.$store.getters.isAdmin;
-    },
-   
-     isLogin()
-    {
-      return this.$store.getters.isLogin;
-    }
+  
   },
   props: ["columnName", "columnValue"],
   created() {

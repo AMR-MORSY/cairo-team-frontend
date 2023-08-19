@@ -91,19 +91,6 @@ export default {
   },
   name: "login",
 
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
-    },
-  },
-
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (vm.isLogin) {
-        return vm.$router.push(from.path);
-      }
-    });
-  },
   methods: {
     submitLoginForm() {
       this.passwordError = null;
