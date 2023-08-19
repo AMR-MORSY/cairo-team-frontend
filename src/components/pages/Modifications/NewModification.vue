@@ -182,7 +182,7 @@ export default {
         "LM",
         "HAS",
         "Red Tech",
-        "H-PlUS",
+        "H-PLUS",
         "MERG",
         "STEPS"
       ],

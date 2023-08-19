@@ -183,7 +183,7 @@ export default {
         "LM",
         "MERG",
         "HAS",
-        "H-PlUS",
+        "H-PLUS",
         "STEPS"
       ],
       request_date: null,
