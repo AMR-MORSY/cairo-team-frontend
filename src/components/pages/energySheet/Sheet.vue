@@ -137,6 +137,11 @@ export default {
   },
   name: "Sheet",
 
+  mounted(){
+    this.getEnergySheetIndex();
+
+  },
+
   methods: {
     getEnergySheetIndex() {
       this.serverError = null;
