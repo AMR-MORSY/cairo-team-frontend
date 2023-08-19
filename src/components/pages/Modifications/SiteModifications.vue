@@ -25,7 +25,7 @@
               ></Column>
             </DataTable>
           </div>
-          <div class="col-6 col-md-4 mt-3">
+          <div class="col-6 col-md-4 mt-3" >
             <Button
               label="Update"
               @click="gotToUpdateModification"
@@ -40,7 +40,7 @@
               class="p-button-raised p-button-secondary"
             />
           </div>
-          <div class="col-6 col-md-4 mt-3">
+          <div class="col-6 col-md-4 mt-3" >
             <Button
               label="Delete"
               @click="deleteModification"
@@ -128,6 +128,10 @@ export default {
           this.modifications = response.data.modifications;
           if (this.modifications.length > 0) {
             this.isModificationsFound = true;
+          }
+          else{
+            this.isModificationsFound = false;
+
           }
         })
         .catch((error) => {
