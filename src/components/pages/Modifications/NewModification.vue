@@ -9,17 +9,9 @@
               <div class="row mt-5 p-5">
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="Subcontrator">Subcontrator:</label>
-                  <select
-                    class="form-select"
-                    id="Subcontrator"
-                    v-model="subcontractor"
-                    :class="{ 'is-invalid': subcontractorError }"
-                  >
-                    <option
-                      :value="subcontractor"
-                      v-for="subcontractor in subcontractors"
-                      :key="subcontractor"
-                    >
+                  <select class="form-select" id="Subcontrator" v-model="subcontractor"
+                    :class="{ 'is-invalid': subcontractorError }">
+                    <option :value="subcontractor" v-for="subcontractor in subcontractors" :key="subcontractor">
                       {{ subcontractor }}
                     </option>
                   </select>
@@ -27,34 +19,17 @@
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="status">Status:</label>
 
-                  <select
-                    class="form-select"
-                    id="status"
-                    v-model="status"
-                    :class="{ 'is-invalid': statusError }"
-                  >
-                    <option
-                      :value="status"
-                      v-for="status in status_options"
-                      :key="status"
-                    >
+                  <select class="form-select" id="status" v-model="status" :class="{ 'is-invalid': statusError }">
+                    <option :value="status" v-for="status in status_options" :key="status">
                       {{ status }}
                     </option>
                   </select>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="Requesters">Requesters:</label>
-                  <select
-                    v-model="requester"
-                    id="Requesters"
-                    class="form-select"
-                    :class="{ 'is-invalid': requesterError }"
-                  >
-                    <option
-                      :value="requester"
-                      v-for="requester in requester_options"
-                      :key="requester"
-                    >
+                  <select v-model="requester" id="Requesters" class="form-select"
+                    :class="{ 'is-invalid': requesterError }">
+                    <option :value="requester" v-for="requester in requester_options" :key="requester">
                       {{ requester }}
                     </option>
                   </select>
@@ -62,18 +37,9 @@
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="Projects">Projects:</label>
 
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                    v-model="project"
-                    id="Projects"
-                    :class="{ 'is-invalid': projectError }"
-                  >
-                    <option
-                      v-for="project in project_options"
-                      :value="project"
-                      :key="project"
-                    >
+                  <select class="form-select" aria-label="Default select example" v-model="project" id="Projects"
+                    :class="{ 'is-invalid': projectError }">
+                    <option v-for="project in project_options" :value="project" :key="project">
                       {{ project }}
                     </option>
                   </select>
@@ -82,71 +48,34 @@
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="request">Request Date:</label>
 
-                  <Datepicker
-                    v-model="request_date"
-                    placeholder="Request Date"
-                    required
-                    id="request"
-                    :autoPosition="false"
-                  />
+                  <Datepicker v-model="request_date" placeholder="Request Date" required id="request"
+                    :autoPosition="false" />
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="finish">Finish Date:</label>
 
-                  <Datepicker
-                    v-model="finish_date"
-                    placeholder="Finish Date:"
-                    id="finish"
-                    :autoPosition="false"
-                  />
+                  <Datepicker v-model="finish_date" placeholder="Finish Date:" id="finish" :autoPosition="false" />
                 </div>
 
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="materials">Cost</label>
-                  <input
-                    type="number"
-                    v-model="cost"
-                    class="form-control"
-                    id="materials"
-                  />
+                  <input type="number" v-model="cost" class="form-control" id="materials" />
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="materials">Materials:</label>
-                  <textarea
-                    v-model="materials"
-                    class="form-control"
-                    id="materials"
-                    cols="3"
-                    rows="3"
-                  ></textarea>
+                  <textarea v-model="materials" class="form-control" id="materials" cols="3" rows="3"></textarea>
                 </div>
                 <div class="col-12 col-lg-6">
                   <label id="Action">Action:</label>
-                  <textarea
-                    v-model="action"
-                    id="Action"
-                    rows="5"
-                    cols="60"
-                    class="form-control"
-                    :class="{ 'is-invalid': actionError }"
-                  >
+                  <textarea v-model="action" id="Action" rows="5" cols="60" class="form-control"
+                    :class="{ 'is-invalid': actionError }">
                   </textarea>
                 </div>
                 <div class="col-12 col-lg-3 mt-5">
-                  <Button
-                    label="back"
-                    type="button"
-                    class="back"
-                    @click="goBack"
-                  />
+                  <Button label="back" type="button" class="back" @click="goBack" />
                 </div>
                 <div class="col-12 col-lg-3 mt-5">
-                  <Button
-                    label="insert"
-                    type="submit"
-                    class="insert"
-                    style="color: white"
-                  />
+                  <Button label="insert" type="submit" class="insert" style="color: white" />
                 </div>
               </div>
             </form>
@@ -184,7 +113,16 @@ export default {
         "Red Tech",
         "H-PLUS",
         "MERG",
-        "STEPS"
+        "STEPS",
+        "GTE",
+        "AFRO",
+        "Benaya",
+        "EEC",
+        "Egypt Gate",
+        "Huawei",
+        "INTEGRA",
+        "Unilink",
+
       ],
       request_date: null,
       request_dateError: false,
@@ -233,9 +171,9 @@ export default {
     },
   },
   computed: {
-  
+
   },
-  mounted() {},
+  mounted() { },
 
 
   methods: {
@@ -291,8 +229,8 @@ export default {
           materials: this.materials,
         };
         console.log(data);
-         Modifications.insertNewModification(data)
-     
+        Modifications.insertNewModification(data)
+
           .then((response) => {
             console.log(response);
             this.subcontractor = null;
@@ -457,6 +395,7 @@ export default {
     background-color: var(--pink-500);
     border-color: var(--pink-500);
   }
+
   .p-button.insert,
   .p-button.insert:hover {
     background-color: var(--teal-400);
@@ -466,6 +405,7 @@ export default {
   .p-inputtext {
     border-color: #79589f;
   }
+
   .p-inputtext:focus {
     box-shadow: 0px 0px 3px 2px #79589f !important;
   }
@@ -481,6 +421,7 @@ export default {
 .form-select option:hover {
   background-color: #79589f !important;
 }
+
 .dp__theme_light {
   --dp-text-color: red;
 
@@ -495,6 +436,6 @@ export default {
   border: 1px solid black;
   border-radius: 5px;
 }
-@media screen and (max-width: 576px) {
-}
+
+@media screen and (max-width: 576px) {}
 </style>
