@@ -9,7 +9,7 @@
       </template>
       <template #content>
          <div class="row mt-5">
-        <div class="col-12 col-md-6 mt-2">
+        <!-- <div class="col-12 col-md-6 mt-2">
           <TopSites :zoneAlarms="{
                 alarms: cairoNorthHieghestPowerAlarmDur,
                 alarmsName: 'hieghestPowerAlarmDur',
@@ -20,8 +20,8 @@
               <Column field="duration" header="Duration" sortable></Column>
             </template>
           </TopSites>
-        </div>
-        <div class="col-12 col-md-6 mt-2">
+        </div> -->
+        <!-- <div class="col-12 col-md-6 mt-2">
           <TopSites  :zoneAlarms="{
                 alarms: cairoNorthSitesPowerAlarmMoreThan2Times,
                 alarmsName: 'sitesPowerAlarmMoreThan2Times',
@@ -32,11 +32,11 @@
               <Column field="count" header="Count" sortable></Column>
             </template>
           </TopSites>
-        </div>
+        </div> -->
          <div class="col-12 col-md-6 mt-2">
           <TopSites :zoneAlarms="{
-                alarms: cairoNorthSitesReportedHTAlarmsDetails,
-                alarmsName: 'sitesReportedHTAlarmsDetails',
+                alarms: cairoNorthSitesReportedHTAlarms,
+                alarmsName: 'sitesReportedHTAlarms',
               }"  @siteCode=" getSiteCode">
             <template #header> Sites Reported HT Alarms </template>
             <template #columns>
@@ -48,8 +48,8 @@
         </div>
          <div class="col-12 col-md-6 mt-2">
           <TopSites :zoneAlarms="{
-                alarms: cairoNorthSitesReportedGenAlarmsDetails,
-                alarmsName: 'sitesReportedGenAlarmsDetails',
+                alarms: cairoNorthSitesReportedGenAlarms,
+                alarmsName: 'sitesReportedGenAlarms',
               }"  @siteCode=" getSiteCode">
             <template #header> Sites Reported Gen Alarms </template>
             <template #columns>
@@ -71,6 +71,9 @@
               </Button>
             </template>
           </div>
+          <zoneSitesReportedDownAlarms zone="Cairo North" :week="period_No" :year="year"></zoneSitesReportedDownAlarms>
+          <zoneDownSitesAfterPowerAlarm zone="Cairo North" :week="period_No" :year="year"></zoneDownSitesAfterPowerAlarm>
+          <zoneSitesDownWithoutPowerAlarms zone="Cairo North" :week="period_No" :year="year"></zoneSitesDownWithoutPowerAlarms>
       </div>
 
       </template>
@@ -88,6 +91,9 @@
 import TopSites from "../energySheet/TopSites.vue";
 import EnergyHelperFunctions from "./EnergyHelperFunctions";
 import SiteAlarmsTable from "../energySheet/SiteAlarmsTable.vue";
+import zoneSitesReportedDownAlarms from "../../helpers/Energy/zoneSitesReportedDownAlarms.vue";
+import zoneDownSitesAfterPowerAlarm from "../../helpers/Energy/zoneDownSitesAfterPowerAlarm.vue";
+import zoneSitesDownWithoutPowerAlarms from"../../helpers/Energy/zoneSitesDownWithoutPowerAlarms.vue";
 export default {
   data() {
     return {
@@ -102,6 +108,9 @@ export default {
   components:{
     TopSites,
     SiteAlarmsTable,
+    zoneSitesReportedDownAlarms,
+    zoneDownSitesAfterPowerAlarm,
+    zoneSitesDownWithoutPowerAlarms,
 
   },
   //  watch:{
@@ -146,26 +155,25 @@ export default {
 
   // },
    beforeUpdate(){
-    if(this.cairoNorthSitesReportedHTAlarmsDetails!=null &&this.cairoNorthSitesReportedHTAlarmsDetails.length>0)
+    if(this.cairoNorthSitesReportedHTAlarms!=null &&this.cairoNorthSitesReportedHTAlarms.length>0)
     this.countHTAlarms=true;
 
   },
-  props: ["cairoNorthHieghestPowerAlarmDur","cairoNorthSitesPowerAlarmMoreThan2Times","cairoNorthSitesReportedHTAlarmsDetails","cairoNorthSitesReportedGenAlarmsDetails","period_No","period","zone"],
+  props: [
+  "cairoNorthSitesReportedHTAlarms",
+  "cairoNorthSitesReportedGenAlarms",
+  "period_No",
+  "period",
+  "zone",
+  "year"],
   methods:{
      getSiteCode(event) {
    
       this.selectedSiteCode = event.siteCode;
       this.alarmsName = event.alarmsName;
     
-      if (
-        this.alarmsName == "hieghestPowerAlarmDur" ||
-        this.alarmsName == "sitesPowerAlarmMoreThan2Times"
-      ) {
-        EnergyHelperFunctions.getSitePowerAlarms(this.selectedSiteCode);
-         
-
-       
-      } else if (this.alarmsName == "sitesReportedHTAlarmsDetails") {
+     
+      if (this.alarmsName == "sitesReportedHTAlarmsDetails") {
         EnergyHelperFunctions.getSiteHighTempAlarms(this.selectedSiteCode);
       } else if (this.alarmsName == "sitesReportedGenAlarmsDetails") {
          EnergyHelperFunctions.getSiteGenAlarms(this.selectedSiteCode);

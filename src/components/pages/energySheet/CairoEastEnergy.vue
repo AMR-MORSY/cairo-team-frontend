@@ -8,41 +8,12 @@
       </template>
       <template #content>
         <div class="row mt-5">
+          
           <div class="col-12 col-md-6 mt-2">
             <TopSites
               :zoneAlarms="{
-                alarms: cairoEastHieghestPowerAlarmDur,
-                alarmsName: 'hieghestPowerAlarmDur',
-              }"
-              @siteCode="getSiteCode"
-            >
-              <template #header> Highest Power Alarm Duration </template>
-              <template #columns>
-                <Column field="siteName" header="Name"></Column>
-                <Column field="duration" header="Duration" sortable></Column>
-              </template>
-            </TopSites>
-          </div>
-          <div class="col-12 col-md-6 mt-2">
-            <TopSites
-              :zoneAlarms="{
-                alarms: cairoEastSitesPowerAlarmMoreThan2Times,
-                alarmsName: 'sitesPowerAlarmMoreThan2Times',
-              }"
-              @siteCode="getSiteCode"
-            >
-              <template #header> Power Alarms per Site </template>
-              <template #columns>
-                <Column field="siteName" header="Name"></Column>
-                <Column field="count" header="Count" sortable></Column>
-              </template>
-            </TopSites>
-          </div>
-          <div class="col-12 col-md-6 mt-2">
-            <TopSites
-              :zoneAlarms="{
-                alarms: cairoEastSitesReportedHTAlarmsDetails,
-                alarmsName: 'sitesReportedHTAlarmsDetails',
+                alarms: cairoEastSitesReportedHTAlarms,
+                alarmsName: 'sitesReportedHTAlarms',
               }"
               @siteCode="getSiteCode"
             >
@@ -61,8 +32,8 @@
           <div class="col-12 col-md-6 mt-2">
             <TopSites
               :zoneAlarms="{
-                alarms: cairoEastSitesReportedGenAlarmsDetails,
-                alarmsName: 'sitesReportedGenAlarmsDetails',
+                alarms: cairoEastSitesReportedGenAlarms,
+                alarmsName: 'sitesReportedGenAlarms',
               }"
               @siteCode="getSiteCode"
             >
@@ -73,7 +44,7 @@
                 <Column
                   field="highest_duration"
                   header="Highest Dur"
-                  sortable=""
+                  sortable
                 ></Column>
               </template>
             </TopSites>
@@ -90,6 +61,10 @@
               </Button>
             </template>
           </div>
+          <zoneSitesReportedDownAlarms zone="Cairo East" :week="period_No" :year="year"></zoneSitesReportedDownAlarms>
+          <zoneDownSitesAfterPowerAlarm zone="Cairo East" :week="period_No" :year="year"></zoneDownSitesAfterPowerAlarm>
+          <zoneSitesDownWithoutPowerAlarms zone="Cairo East" :week="period_No" :year="year"></zoneSitesDownWithoutPowerAlarms>
+       
         </div>
       </template>
     </Card>
@@ -103,6 +78,9 @@
 import TopSites from "../energySheet/TopSites.vue";
 import EnergyHelperFunctions from "./EnergyHelperFunctions";
 import SiteAlarmsTable from "../energySheet/SiteAlarmsTable.vue";
+import zoneSitesReportedDownAlarms from "../../helpers/Energy/zoneSitesReportedDownAlarms.vue";
+import zoneDownSitesAfterPowerAlarm from "../../helpers/Energy/zoneDownSitesAfterPowerAlarm.vue";
+import zoneSitesDownWithoutPowerAlarms from"../../helpers/Energy/zoneSitesDownWithoutPowerAlarms.vue";
 export default {
   data() {
     return {
@@ -116,6 +94,9 @@ export default {
   components: {
     TopSites,
     SiteAlarmsTable,
+    zoneSitesReportedDownAlarms,
+    zoneDownSitesAfterPowerAlarm,
+    zoneSitesDownWithoutPowerAlarms,
   },
   watch: {
     siteAlarms(value) {
@@ -149,33 +130,29 @@ export default {
     },
   },
   beforeUpdate(){
-    if(this.cairoEastSitesReportedHTAlarmsDetails!=null &&this.cairoEastSitesReportedHTAlarmsDetails.length>0)
+    if(this.cairoEastSitesReportedHTAlarms!=null &&this.cairoEastSitesReportedHTAlarms.length>0)
     this.countHTAlarms=true;
 
   },
 
   props: [
-    "cairoEastHieghestPowerAlarmDur",
-    "cairoEastSitesPowerAlarmMoreThan2Times",
-    "cairoEastSitesReportedHTAlarmsDetails",
-    "cairoEastSitesReportedGenAlarmsDetails",
+  
+    "cairoEastSitesReportedHTAlarms",
+    "cairoEastSitesReportedGenAlarms",
     "period",
     "zone",
-    "period_No"
+    "period_No",
+    "year"
   ],
   methods: {
     getSiteCode(event) {
       this.selectedSiteCode = event.siteCode;
       this.alarmsName = event.alarmsName;
 
-      if (
-        this.alarmsName == "hieghestPowerAlarmDur" ||
-        this.alarmsName == "sitesPowerAlarmMoreThan2Times"
-      ) {
-        EnergyHelperFunctions.getSitePowerAlarms(this.selectedSiteCode);
-      } else if (this.alarmsName == "sitesReportedHTAlarmsDetails") {
+    
+       if (this.alarmsName == "sitesReportedHTAlarms") {
         EnergyHelperFunctions.getSiteHighTempAlarms(this.selectedSiteCode);
-      } else if (this.alarmsName == "sitesReportedGenAlarmsDetails") {
+      } else if (this.alarmsName == "sitesReportedGenAlarms") {
         EnergyHelperFunctions.getSiteGenAlarms(this.selectedSiteCode);
       }
     },

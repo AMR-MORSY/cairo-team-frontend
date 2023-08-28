@@ -40,5 +40,21 @@ export default {
     {
         return allInstances.downloadApi.post("energysheet/downloadZoneHTAlarms",data);
 
+    },
+    getSitesReportedDownAlarms(data)
+    {
+        return allInstances.Api.get(`energysheet/zoneSitesReportedDownAlarms/${data.zone}/${data.week}/${data.year}`)
+    },
+
+    getZoneDownSitesAfterPowerAlarm(data)
+    {
+        return allInstances.Api.get(`energysheet/zoneDownSitesAfterPowerAlarm/${data.zone}/${data.week}/${data.year}`)
+    },
+    getZoneSitesDownWithoutPowerAlarms(data)
+    {
+        return allInstances.Api.get(`energysheet/zoneSitesDownWithoutPowerAlarms/${data.zone}/${data.week}/${data.year}`)
     }
+
+
+   
 };
