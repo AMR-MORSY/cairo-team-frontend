@@ -100,7 +100,7 @@
 
 <script>
 import Modifications from "../../../apis/Modifications";
-import allInstances from "../../../apis/Api";
+
 export default {
   data() {
     return {
@@ -109,13 +109,7 @@ export default {
       selectedModification: null,
     };
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin) {
-        return vm.$router.push("/user/login");
-      }
-    });
-  },
+ 
   computed: {
     totalCost() {
       if (!this.modifications) {

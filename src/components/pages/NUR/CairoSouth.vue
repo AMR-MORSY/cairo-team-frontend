@@ -397,6 +397,7 @@ export default {
     },
     getNodalSitesNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
+      let sites = [];
    
        NUR.getNodalSitesWeeklyNUR("Cairo South", this.week, this.year)
         .then((response) => {

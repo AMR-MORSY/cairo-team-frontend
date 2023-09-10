@@ -357,6 +357,7 @@ export default {
     },
     getVipSitesNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
+      let sites = [];
   
        NUR.getVipSitesWeeklyNUR("Giza", this.week, this.year)
         .then((response) => {
@@ -395,6 +396,7 @@ export default {
     },
     getNodalSitesNUR() {
       this.$store.dispatch("displaySpinnerPage", false);
+      let sites = [];
    
         NUR.getNodalSitesWeeklyNUR("Giza", this.week, this.year)
         .then((response) => {

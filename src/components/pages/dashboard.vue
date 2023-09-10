@@ -85,18 +85,18 @@ export default {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border:solid 2px var(--purple-500);
+  border:solid 2px var(surface-400);
   span {
     text-align: center;
     font-size: 5rem;
     z-index: 1;
     
-      color: var(--purple-500);
+      color: gray;
   }
   p {
     text-align: center;
     font-size: 2rem;
-    color: var(--purple-500);
+    color: gray;
   }
 }
 

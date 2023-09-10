@@ -262,7 +262,7 @@ export default {
               {
                 label: "Sites reported HT Alarms",
                 backgroundColor: "var(--purple-500)",
-                data: Object.values(this.alarms.zonesSitesReportedHTAlarms),
+                data: Object.values(this.alarms.zonesNumberSitesReportedHTAlarms),
                 borderWidth: 1,
               },
             ],
@@ -281,7 +281,7 @@ export default {
               {
                 label: "Sites reported Gen Alarms",
                 backgroundColor: "var(--purple-500)",
-                data: Object.values(this.alarms.zonesSitesReportedGenAlarms),
+                data: Object.values(this.alarms.zonesNumberSitesReportedGenAlarms),
                 borderWidth: 1,
               },
             ],

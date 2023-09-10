@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import Sites from '../../../apis/Sites';
 export default {
   data() {
     return {
@@ -24,6 +25,7 @@ export default {
       { id: 2, icon: "add_circle", path: "Cascades" },
       { id: 3, icon: "add_circle", path: "Nodals" },
       { id: 4, icon: "add_circle", path: "New site" },
+      { id: 5, icon: "download", path: "Cairo Sites" },
     ];
   },
   name: "sites",
@@ -41,6 +43,21 @@ export default {
         this.$router.push("/sites/cascades");
       } else if (card[0].path == "Nodals") {
         this.$router.push("/sites/nodals");
+      }
+      else if(card[0].path == "Cairo Sites")
+      {
+        Sites.downloadAll()
+        .then((response) => {
+
+          var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+          fileLink.href = fileUrl;
+          fileLink.setAttribute("download", "AllSites.xlsx");
+          document.body.appendChild(fileLink);
+          fileLink.click();
+        })
+        .catch();
+
       }
     },
   },

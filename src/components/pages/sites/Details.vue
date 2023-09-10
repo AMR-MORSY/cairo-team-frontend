@@ -14,249 +14,133 @@
                 <div class="col-6 col-md-4">
                   <div class="input-field">
                     <h6>Site code:</h6>
-                    <InputText
-                      type="text"
-                      id="siteCode"
-                      disabled
-                      v-model="siteCode"
-                    />
+                    <InputText type="text" id="siteCode" disabled v-model="siteCode" />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Site Name:</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="siteName"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="siteName" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>BSC</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="BSC"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="BSC" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>2G</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="cell2G"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell2G" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>3G</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="cell3G"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell3G" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>4G</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="cell4G"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell4G" disabled />
                   </div>
                 </div>
 
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>RNC</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="RNC"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="RNC" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>OZ</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="operationZone"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="operationZone" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Type</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="type"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="type" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Category</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="category"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="category" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Severity</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="severity"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="severity" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Office</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="office"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="office" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Sharing</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="sharing"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="sharing" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Host</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="host"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="host" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Gest</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="gest"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="gest" disabled />
                   </div>
                 </div>
-                 <div class="col-6 col-md-4">
+                <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Nodal Code</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="nodalCode"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="nodalCode" disabled />
                   </div>
                 </div>
-                 <div class="col-6 col-md-4">
+                <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Nodal Name</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="nodalName"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="nodalName" disabled />
                   </div>
                 </div>
                 <div class="col-6 col-md-4">
                   <div class="form-group">
                     <h6>Status</h6>
-                    <InputText
-                      type="text"
-                      class="p-inputtext-focuse"
-                      id="siteCode"
-                      v-model="status"
-                      disabled
-                    />
+                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="status" disabled />
                   </div>
                 </div>
               </div>
               <div class="row mt-5 px-5 buttons">
-                <div class="col-6 col-sm-4 col-md-4 my-3">
-                  <Button
-                    label="Modifications"
-                    @click="gotToSiteModifications"
-                    class="p-button-raised p-button-warning"
-                  />
+                <div class="col-6  col-md-2 my-3">
+                  <Button label="Modifications" @click="gotToSiteModifications"
+                    class="p-button-raised p-button-warning" />
                 </div>
-                <div class="col-6 col-sm-2 col-md-2 my-3">
-                  <Button
-                    label="NUR"
-                    @click="getSiteNUR"
-                    class="p-button-raised p-button-secondary"
-                  />
+                <div class="col-6  col-md-2 my-3">
+                  <Button label="NUR" @click="getSiteNUR" class="p-button-raised p-button-secondary" />
                 </div>
-                <div class="col-6 col-sm-3 col-md-3 my-3">
-                  <Button
-                    label="Update"
-                    @click="goToSiteUpdate"
-                    class="p-button-raised p-button-help"
-                  />
+                <div class="col-6  col-md-2 my-3">
+                  <Button label="Batteries Health" @click="getSiteBatteriesHealth"
+                    class="p-button-raised p-button-secondary" />
                 </div>
-                <div class="col-6 col-sm-3 col-md-3 my-3 ">
-                  <div
-                    class="speed-dial"
-                  
-                  >
-                    <SpeedDial :model="items" direction="right" :tooltipOptions="{position: 'right'}" :transitionDelay="80" showIcon="pi pi-bell" hideIcon="pi pi-times" buttonClass="p-button-outlined"  >
-                     
+                <div class="col-6  col-md-2 my-3">
+                  <Button label="Update" @click="goToSiteUpdate" class="p-button-raised p-button-help" />
+                </div>
+                <div class="col-6  col-md-4 my-3 ">
+                  <div class="speed-dial">
+                    <SpeedDial :model="items" direction="right" :tooltipOptions="{ position: 'right' }"
+                      :transitionDelay="80" showIcon="pi pi-bell" hideIcon="pi pi-times" buttonClass="p-button-outlined">
+
                     </SpeedDial>
                   </div>
                 </div>
@@ -270,22 +154,13 @@
                 </template>
               </template>
               <template v-if="countCascades">
-                <DataTable
-                  :value="cascades"
-                  responsiveLayout="scroll"
-                  class="p-datatable-sm"
-                  :paginator="true"
-                  :rows="5"
-                  stripedRows
-                  v-model:selection="selectedSite"
-                  selectionMode="single"
-                  dataKey="cascade_code"
-                  @row-select="onRowSelect"
-                >
+                <DataTable :value="cascades" responsiveLayout="scroll" class="p-datatable-sm" :paginator="true" :rows="5"
+                  stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
+                  @row-select="onRowSelect">
                   <Column selectionMode="single"></Column>
                   <Column field="cascade_code" header="Site Code"></Column>
                   <Column field="cascade_name" header="Site Name"></Column>
-                   <Column field="category" header="Site Category"></Column>
+                  <Column field="category" header="Site Category"></Column>
                   <Column field="countCascades" header="Cascades"></Column>
                 </DataTable>
               </template>
@@ -295,11 +170,7 @@
                 </div>
               </template>
 
-              <Button
-                label="Update"
-                @click="goToUpdateCascadesPage"
-                class="p-button-rounded p-button-help"
-              />
+              <Button label="Update" @click="goToUpdateCascadesPage" class="p-button-rounded p-button-help" />
             </TabPanel>
             <TabPanel>
               <template #header>
@@ -309,22 +180,13 @@
                 </template>
               </template>
               <template v-if="countIndirectCascades">
-                <DataTable
-                  :value="indirectCascades"
-                  responsiveLayout="scroll"
-                  class="p-datatable-sm"
-                  :paginator="true"
-                  :rows="5"
-                  stripedRows
-                  v-model:selection="selectedSite"
-                  selectionMode="single"
-                  dataKey="cascade_code"
-                  @row-select="onRowSelect"
-                >
+                <DataTable :value="indirectCascades" responsiveLayout="scroll" class="p-datatable-sm" :paginator="true"
+                  :rows="5" stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
+                  @row-select="onRowSelect">
                   <Column selectionMode="single"></Column>
                   <Column field="cascade_code" header="Site Code"></Column>
                   <Column field="cascade_name" header="Site Name"></Column>
-                     <Column field="category" header="Site Category"></Column>
+                  <Column field="category" header="Site Category"></Column>
                 </DataTable>
               </template>
               <template v-else>
@@ -339,7 +201,6 @@
       <div class="col-md-1"></div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -347,7 +208,9 @@ import Sites from "../../../apis/Sites";
 import siteNURTable from "../NUR/siteNURTable.vue";
 import NUR from "../../../apis/NUR";
 import Energy from "../../../apis/Energy";
-import SiteAlarmsTable from "../energySheet/SiteAlarmsTable.vue";
+import SiteAlarmsTable from "../../helpers/Sites/SiteAlarmsTable.vue";
+import siteBatteriesHealth from "../../helpers/Sites/siteBatteriesHealth.vue";
+import SiteDownAlarmsGroupedByWeek from "../../helpers/Sites/SiteDownAlarmsGroupedByWeek.vue";
 export default {
   data() {
     return {
@@ -365,14 +228,14 @@ export default {
       sharing: null,
       host: null,
       severity: null,
-      status:null,
+      status: null,
       gest: null,
       cascades: null,
       indirectCascades: null,
       selectedSite: null,
-      nodalCode:null,
-      nodalName:null,
-      data:null,
+      nodalCode: null,
+      nodalName: null,
+      data: null,
       NUR2G: [],
       NUR3G: [],
       NUR4G: [],
@@ -381,21 +244,28 @@ export default {
           label: "Power Alarms",
           icon: 'pi pi-bolt',
           command: () => {
-           this.getSitePowerAlarms();
+            this.getSitePowerAlarms();
           },
         },
-         {
+        {
           label: "Gen Alarms",
           icon: 'pi pi-exclamation-circle',
           command: () => {
             this.getSiteGenAlarms();
           },
         },
-         {
+        {
           label: "HT Alarms",
           icon: 'pi pi-power-off',
           command: () => {
-             this.getSiteHTAlarms();
+            this.getSiteHTAlarms();
+          },
+        },
+        {
+          label: "Down Alarms",
+          icon: 'pi pi-power-off',
+          command: () => {
+            this.getSiteDownAlarmsGroupedByWeek();
           },
         },
       ],
@@ -407,6 +277,8 @@ export default {
   components: {
     siteNURTable,
     SiteAlarmsTable,
+    siteBatteriesHealth,
+    SiteDownAlarmsGroupedByWeek
   },
   watch: {
     site_code() {
@@ -435,7 +307,7 @@ export default {
   },
   methods: {
     getSiteNUR() {
-       this.$store.dispatch("displaySpinnerPage", false);
+      this.$store.dispatch("displaySpinnerPage", false);
       let data = {
         site_code: this.site_code,
       };
@@ -472,7 +344,7 @@ export default {
                 },
                 modal: true,
               },
-            
+
               data: {
                 NUR3G: this.NUR3G,
                 NUR2G: this.NUR2G,
@@ -487,12 +359,12 @@ export default {
           console.log(error);
         })
         .finally(() => {
-         this.$store.dispatch("displaySpinnerPage", true);
+          this.$store.dispatch("displaySpinnerPage", true);
         });
     },
     getSiteDetails() {
-       this.$store.dispatch("displaySpinnerPage",false);
-    
+      this.$store.dispatch("displaySpinnerPage", false);
+
       Sites.getSiteDetails(this.site_code)
         .then((response) => {
           console.log(response);
@@ -501,7 +373,7 @@ export default {
           this.type = response.data.site.type;
           this.severity = response.data.site.severity;
           this.sharing = response.data.site.sharing;
-          this.status=response.data.site.status;
+          this.status = response.data.site.status;
           this.host = response.data.site.host;
           this.gest = response.data.site.gest;
           this.cell2G = response.data.site["2G_cells"];
@@ -514,36 +386,36 @@ export default {
           this.category = response.data.site.category;
           this.cascades = response.data.cascades;
           this.indirectCascades = response.data.indirectCascades;
-          this.nodalCode=response.data.site.nodal_code;
-          this.nodalName=response.data.site.nodal_name
-          this.data={
-            site_code:this.siteCode,
+          this.nodalCode = response.data.site.nodal_code;
+          this.nodalName = response.data.site.nodal_name
+          this.data = {
+            site_code: this.siteCode,
           }
         })
         .catch((error) => {
           console.log(error);
         })
         .finally(() => {
-           this.$store.dispatch("displaySpinnerPage",true);
+          this.$store.dispatch("displaySpinnerPage", true);
         });
     },
-    openDialog(){
-         this.$dialog.open(SiteAlarmsTable, {
-          props: {
-            style: {
-              width: "75vw",
-            },
-            breakpoints: {
-              "960px": "75vw",
-              "640px": "90vw",
-            },
-            modal: true,
+    openDialog() {
+      this.$dialog.open(SiteAlarmsTable, {
+        props: {
+          style: {
+            width: "75vw",
           },
+          breakpoints: {
+            "960px": "75vw",
+            "640px": "90vw",
+          },
+          modal: true,
+        },
 
-          onClose: (options) => {
-            this.$store.dispatch("siteAlarms", null);
-          },
-        });
+        onClose: (options) => {
+          this.$store.dispatch("siteAlarms", null);
+        },
+      });
 
 
     },
@@ -562,112 +434,193 @@ export default {
     goToUpdateCascadesPage() {
       this.$router.push(`/sites/cascades/update/${this.siteCode}`);
     },
-    getSitePowerAlarms()
-    {
-      this.$store.dispatch("displaySpinnerPage",false);
-      Energy.getSitePowerAlarms(this.data).then((response)=>{
+    getSitePowerAlarms() {
+      this.$store.dispatch("displaySpinnerPage", false);
+      Energy.getSitePowerAlarms(this.data).then((response) => {
 
-        if(response.data.alarms.length>0)
-        {
-           this.$store.dispatch("siteAlarms",{"alarmName":"power","alarmData":response.data.alarms});
+        if (response.data.alarms.length > 0) {
+          this.$store.dispatch("siteAlarms", { "alarmName": "power", "alarmData": response.data.alarms });
           this.openDialog();
 
         }
-        else{
-            this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `No Alarms`,life: 3000 });
+        else {
+          this.$toast.add({ severity: 'error', summary: 'Opps.....', detail: `No Alarms`, life: 3000 });
 
         }
-         
-        
+
+
         console.log(response)
-      }).catch((error)=>{
-       
-        if(error.response.status==422)
-        {
-          if(error.response.data.errors.site_code)
-          {
-            let site_codeErrors=error.response.data.errors.site_code;
+      }).catch((error) => {
+
+        if (error.response.status == 422) {
+          if (error.response.data.errors.site_code) {
+            let site_codeErrors = error.response.data.errors.site_code;
             site_codeErrors.forEach(element => {
-               this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `${element}`,life: 3000 });
-              
+              this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `${element}`, life: 3000 });
+
             });
           }
         }
 
-      }).finally(()=>{
-        this.$store.dispatch("displaySpinnerPage",true);
+      }).finally(() => {
+        this.$store.dispatch("displaySpinnerPage", true);
 
       })
 
     },
-    getSiteHTAlarms()
-    {
-         this.$store.dispatch("displaySpinnerPage",false);
-      Energy.getSiteHighTempAlarms(this.data).then((response)=>{
-         if(response.data.alarms.length>0)
-        {
-           this.$store.dispatch("siteAlarms",{"alarmName":"highTemp","alarmData":response.data.alarms});
+    getSiteHTAlarms() {
+      this.$store.dispatch("displaySpinnerPage", false);
+      Energy.getSiteHighTempAlarms(this.data).then((response) => {
+        if (response.data.alarms.length > 0) {
+          this.$store.dispatch("siteAlarms", { "alarmName": "highTemp", "alarmData": response.data.alarms });
           this.openDialog();
 
         }
-        else{
-            this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `No Alarms`,life: 3000 });
+        else {
+          this.$toast.add({ severity: 'error', summary: 'Opps.....', detail: `No Alarms`, life: 3000 });
 
         }
-         
-        
-      
-      }).catch((error)=>{
-        if(error.response.status==422)
-        {
-          if(error.response.data.errors.site_code)
-          {
-            let site_codeErrors=error.response.data.errors.site_code;
+
+
+
+      }).catch((error) => {
+        if (error.response.status == 422) {
+          if (error.response.data.errors.site_code) {
+            let site_codeErrors = error.response.data.errors.site_code;
             site_codeErrors.forEach(element => {
-               this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `${element}`,life: 3000 });
-              
+              this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `${element}`, life: 3000 });
+
             });
           }
         }
 
-      }).finally(()=>{
-        this.$store.dispatch("displaySpinnerPage",true);
+      }).finally(() => {
+        this.$store.dispatch("displaySpinnerPage", true);
 
       })
 
 
     },
-    getSiteGenAlarms()
-    {
-       this.$store.dispatch("displaySpinnerPage",false);
-      Energy.getSiteGenAlarms(this.data).then((response)=>{
-          if(response.data.alarms.length>0)
-        {
-          this.$store.dispatch("siteAlarms",{"alarmName":"gen","alarmData":response.data.alarms});
+    getSiteGenAlarms() {
+      this.$store.dispatch("displaySpinnerPage", false);
+      Energy.getSiteGenAlarms(this.data).then((response) => {
+        if (response.data.alarms.length > 0) {
+          this.$store.dispatch("siteAlarms", { "alarmName": "gen", "alarmData": response.data.alarms });
           this.openDialog();
         }
-        else{
-            this.$toast.add({ severity: 'error', summary: 'No Data Found', detail: `No Alarms`,life: 3000 });
+        else {
+          this.$toast.add({ severity: 'error', summary: 'No Data Found', detail: `No Alarms`, life: 3000 });
 
         }
-         
-          
-        
-      
-      }).catch((error)=>{
-        if(error.response.status==422)
-        {
-          if(error.response.data.errors.site_code)
-          {
-            let site_codeErrors=error.response.data.errors.site_code;
+
+
+
+
+      }).catch((error) => {
+        if (error.response.status == 422) {
+          if (error.response.data.errors.site_code) {
+            let site_codeErrors = error.response.data.errors.site_code;
             site_codeErrors.forEach(element => {
-               this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `${element}`,life: 3000 });
-              
+              this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `${element}`, life: 3000 });
+
             });
           }
         }
+      }).finally(() => {
+        this.$store.dispatch("displaySpinnerPage", true);
+
+      })
+
+    },
+    getSiteDownAlarmsGroupedByWeek()
+    {
+      this.$store.dispatch("displaySpinnerPage", false);
+      Energy.getSiteDownAlarmsGroupedByWeek(this.data).then((response) => {
+        if (response.data.statestics.alarms=="exist") {
+          this.$dialog.open(SiteDownAlarmsGroupedByWeek, {
+            props: {
+              style: {
+                width: "75vw",
+              },
+              breakpoints: {
+                "960px": "75vw",
+                "640px": "90vw",
+              },
+              modal: true,
+
+            },
+            data: {
+              downAlarms: response.data.statestics,
+              site_code:this.data.site_code
+            }
+
+
+          });
+
+         
+        }
+        else {
+          this.$toast.add({ severity: 'error', summary: 'No Data Found', detail: `No Alarms`, life: 3000 });
+
+        }
+
+
+
+
+      }).catch((error) => {
+        if (error.response.status == 422) {
+          if (error.response.data.errors.site_code) {
+            let site_codeErrors = error.response.data.errors.site_code;
+            site_codeErrors.forEach(element => {
+              this.$toast.add({ severity: 'error', summary: 'Invalid Code', detail: `${element}`, life: 3000 });
+
+            });
+          }
+        }
+      }).finally(() => {
+        this.$store.dispatch("displaySpinnerPage", true);
+
+      })
+
+
+    },
+    getSiteBatteriesHealth() {
+      this.$store.dispatch("displaySpinnerPage", false);
+      Energy.getSiteBatteriesHealth(this.data).then((response) => {
+
+        if (response.data.statestics.powerAlarms == "exist") {
+          this.$dialog.open(siteBatteriesHealth, {
+            props: {
+              style: {
+                width: "75vw",
+              },
+              breakpoints: {
+                "960px": "75vw",
+                "640px": "90vw",
+              },
+              modal: true,
+
+            },
+            data: {
+              powerAlarms: response.data.statestics
+            }
+
+
+          });
+
+
+
+
+        }
+        else{
+          this.$toast.add({ severity: 'error', summary: 'Opps.....', detail: `Dead Batteries`, life: 3000 });
+
+        }
+
+      }).catch((error)=>{
+
       }).finally(()=>{
-        this.$store.dispatch("displaySpinnerPage",true);
+        this.$store.dispatch("displaySpinnerPage", true);
 
       })
 
@@ -681,15 +634,18 @@ export default {
   .p-tabview-panel {
     color: #79589f;
   }
+
   .p-inputtext {
     border-color: #79589f !important;
     text-align: center;
     color: #79589f;
     font-weight: 500;
   }
+
   .p-inputtext:focus {
     box-shadow: 0px 0px 3px 2px #79589f !important;
   }
+
   .p-badge {
     background-color: #79589f;
     margin-left: 5px;
@@ -699,31 +655,35 @@ export default {
     color: #79589f;
   }
 }
+
 .site-details,
 .buttons {
   border: 1px solid #79589f;
   border-radius: 5px;
   padding: 3rem 0;
 }
+
 .buttons {
   padding: 1rem 0;
 }
+
 .display-none {
   display: none;
 }
+
 ::v-deep.speed-dial {
- 
- 
+
+
   .p-speeddial-direction-right {
-   
+
     .p-speeddial-button {
-    
+
       bottom: 5px;
-       width: 55px;
-       height: 55px;
-       left: 0;
+      width: 55px;
+      height: 55px;
+      left: 0;
     }
-   
+
   }
 }
 </style>

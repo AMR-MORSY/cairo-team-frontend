@@ -58,7 +58,7 @@
 <script>
 import TopSites from "../energySheet/TopSites.vue";
 import EnergyHelperFunctions from "./EnergyHelperFunctions";
-import SiteAlarmsTable from "../energySheet/SiteAlarmsTable.vue";
+import SiteAlarmsTable from "../../helpers/Sites/SiteAlarmsTable.vue";
 import zoneSitesReportedDownAlarms from "../../helpers/Energy/zoneSitesReportedDownAlarms.vue";
 import zoneDownSitesAfterPowerAlarm from "../../helpers/Energy/zoneDownSitesAfterPowerAlarm.vue";
 import zoneSitesDownWithoutPowerAlarms from"../../helpers/Energy/zoneSitesDownWithoutPowerAlarms.vue";

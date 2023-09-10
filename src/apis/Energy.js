@@ -18,11 +18,21 @@ export default {
     getSitePowerAlarms(data){
         return allInstances.Api.post("energysheet/sitePowerAlarms",data);
     },
+    getSiteBatteriesHealth(data)
+    {
+        return allInstances.Api.post("energysheet/siteBatteriesHealth",data);
+
+    },
     getSiteHighTempAlarms(data){
         return allInstances.Api.post("energysheet/siteHighTempAlarms",data);
     },
     getSiteGenAlarms(data){
         return allInstances.Api.post("energysheet/siteGenAlarms",data);
+    },
+    getSiteDownAlarmsGroupedByWeek(data)
+    {
+        return allInstances.Api.post("energysheet/siteDownAlarmsGroupedByWeek",data);
+
     },
     downloadSitePowerAlarms(data)
     {

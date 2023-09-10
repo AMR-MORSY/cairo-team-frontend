@@ -9,30 +9,7 @@
       </template>
       <template #content>
          <div class="row mt-5">
-        <!-- <div class="col-12 col-md-6 mt-2">
-          <TopSites :zoneAlarms="{
-                alarms: cairoSouthHieghestPowerAlarmDur,
-                alarmsName: 'hieghestPowerAlarmDur',
-              }"  @siteCode=" getSiteCode">
-            <template #header> Highest Power Alarm Duration </template>
-            <template #columns>
-              <Column field="siteName" header="Name"></Column>
-              <Column field="duration" header="Duration" sortable></Column>
-            </template>
-          </TopSites>
-        </div> -->
-        <!-- <div class="col-12 col-md-6 mt-2">
-          <TopSites :zoneAlarms="{
-                alarms: cairoSouthSitesPowerAlarmMoreThan2Times,
-                alarmsName: 'sitesPowerAlarmMoreThan2Times',
-              }" @siteCode=" getSiteCode">
-            <template #header> Power Alarms per Site </template>
-            <template #columns>
-              <Column field="siteName" header="Name"></Column>
-              <Column field="count" header="Count" sortable></Column>
-            </template>
-          </TopSites>
-        </div> -->
+      
          <div class="col-12 col-md-6 mt-2">
           <TopSites :zoneAlarms="{
                 alarms: cairoSouthSitesReportedHTAlarms,
@@ -87,7 +64,7 @@
 <script>
 import TopSites from "../energySheet/TopSites.vue";
 import EnergyHelperFunctions from "./EnergyHelperFunctions";
-import SiteAlarmsTable from "../energySheet/SiteAlarmsTable.vue";
+import SiteAlarmsTable from "../../helpers/Sites/SiteAlarmsTable.vue";
 import zoneSitesReportedDownAlarms from "../../helpers/Energy/zoneSitesReportedDownAlarms.vue";
 import zoneDownSitesAfterPowerAlarm from "../../helpers/Energy/zoneDownSitesAfterPowerAlarm.vue";
 import zoneSitesDownWithoutPowerAlarms from"../../helpers/Energy/zoneSitesDownWithoutPowerAlarms.vue";
@@ -115,37 +92,7 @@ export default {
   "period",
   "zone",
   "year"],
-  //  watch: {
-  //   siteAlarms(value) {
-  //     if (value) {
-  //       this.$dialog.open(SiteAlarmsTable, {
-  //         props: {
-  //           style: {
-  //             width: "75vw",
-  //           },
-  //           breakpoints: {
-  //             "960px": "75vw",
-  //             "640px": "90vw",
-  //           },
-  //           modal: true,
-  //         },
-
-  //         onClose: (options) => {
-  //           this.$store.dispatch("siteAlarms", null);
-  //         },
-  //       });
-  //     }
-  //   },
-  // },
-  //  computed: {
-  //   siteAlarms() {
-  //     if (this.$store.state.siteAlarms) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   },
-  // },
+  
   beforeUpdate(){
     if(this.cairoSouthSitesReportedHTAlarms!=null &&this.cairoSouthSitesReportedHTAlarms.length>0)
     this.countHTAlarms=true;

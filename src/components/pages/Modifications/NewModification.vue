@@ -122,6 +122,7 @@ export default {
         "Huawei",
         "INTEGRA",
         "Unilink",
+        "Tele-Trust"
 
       ],
       request_date: null,

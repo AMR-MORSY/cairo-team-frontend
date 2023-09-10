@@ -362,8 +362,6 @@ export default {
 
      
       NUR.getVipSitesWeeklyNUR("Cairo East",this.week,this.year)
-
-      // allInstances.Api.get(`/Nur/vip/week/Cairo East/${this.week}/${this.year}`)
         .then((response) => {
           if (response.data.sites.length > 0) {
             sites = response.data.sites;

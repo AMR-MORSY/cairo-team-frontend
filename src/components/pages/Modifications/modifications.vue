@@ -127,6 +127,14 @@ export default {
         columnValue: this.columnValue,
       };
       console.log(data);
+      // Modifications.getModificationIndex().then((response)=>{
+      //   console.log(response)
+
+      // }).catch((error)=>{
+      //   console.log(error)
+      // }).finally(()=>{
+
+      // });
       this.$router.push(
         `/modifications/index/${this.column}/${this.columnValue}`
       );
