@@ -190,9 +190,6 @@ export default {
 
 
       NUR.cairoPowerYearlyAnalysis(this.tickets[0].year)
-      
-
-      // allInstances.Api.get(`/Nur/cairo/yearly/PowerNUR/${this.tickets[0].year}`)
         .then((response) => {
           console.log(response);
           let labels = Object.keys(response.data.NUR_C_yearly.cairo);
@@ -214,6 +211,7 @@ export default {
               labels: labels,
               cairo: cairo,
               zones: zones,
+              title:"Main Power"
             },
           });
         })

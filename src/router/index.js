@@ -32,42 +32,10 @@ import siteUpdate from "../components/pages/sites/siteUpdate.vue";
 import energyStatestics from "../components/pages/energySheet/energyStatestics.vue";
 import notFound from "../components/notFound.vue";
 import store  from "../vuex/store";
- 
-// const routes = [
-//     { path: "/energy/sheet", component: Sheet },
-//     { path: "/energy", component: energy },
-//     { path: "/energy/index", component: energyIndex },
-//     { path: "/energy/statestics/:week/:year", component: energyStatestics,props:true },
-//     { path: "/dashboard", component: dashboard },
-//     {path:"/modifications/index/:columnName/:columnValue",component:modificationsIndex,props:true},
-//     {path:"/modifications/new/:site_code/:site_name",component:NewModification,props:true},
-//     {path:"/modifications/update/:id",component:UpdateModification,props:true},
-//     { path: "/sites", component: sites },
-//     {path:"/sites/details/:site_code",component:Details,props:true},
-//     { path: "/sites/cascades", component: cascades },
-//     { path: "/sites/storeSites", component: newSitesInsert },
-//     { path: "/sites/storeSite", component: newSiteInsert },
-//     { path: "/sites/update/:siteCode", component: siteUpdate,props:true },
-//     { path: "/sites/nodals", component: nodals },
-//     {path:"/sites/cascades/update/:site_code",component:CascadesUpdate,props:true},
-//     { path: "/modifications", component: modifications },
-//     { path: "/modifications/sitemodifications/:site_code/:site_name", component: SiteModifications,props:true },
-//     { path: "/nur", component: NUR },
-//     { path: "/nur/index", component: nurIndex },
-//     { path: "/nur/statestics/:week/:year", component: NURStatestics,props:true },
-//     { path: "/nur/2G", component: NUR2G },
-//     { path: "/nur/3G", component: NUR3G },
-//     { path: "/nur/4G", component: NUR4G },
-//     { path: "/", redirect: "/home" },
-//     { path: "/home", component: home },
-//     { path: "/:pathMatch(.*)*", component: notFound },
-//     { path: "/users", component: users },
-//     { path: "/user/login", component: login, name: "login" },
-//     { path: "/user/register", component: register },
-//     { path: "/user/resetpassword", component: resetPassword },
-//     { path: "/unauthorized", component: unauthorized },
-// ];
+import validateToken from "../components/pages/User/validateToken.vue";
+import TheWelcome from "../components/TheWelcome.vue";
 
+ 
 
 const routes = [
     { path: "/energy/sheet", component: Sheet,    meta: { requiresAuth: true, requiresSuperAdmin:true } },
@@ -78,7 +46,7 @@ const routes = [
     {path:"/modifications/index/:columnName/:columnValue",component:modificationsIndex,props:true,    meta: { requiresAuth: true }},
     {path:"/modifications/new/:site_code/:site_name",component:NewModification,props:true,    meta: { requiresAuth: true,requiresSuperAdmin:true }},
     {path:"/modifications/update/:id",component:UpdateModification,props:true,    meta: { requiresAuth: true,requiresSuperAdmin:true }},
-    { path: "/sites", component: sites,    meta: { requiresAuth: true,requiresSuperAdmin:true } },
+    { path: "/sites", component: sites,    meta: { requiresAuth: true } },
     {path:"/sites/details/:site_code",component:Details,props:true,    meta: { requiresAuth: true }},
     { path: "/sites/cascades", component: cascades ,    meta: { requiresAuth: true,requiresSuperAdmin:true }},
     { path: "/sites/storeSites", component: newSitesInsert,    meta: { requiresAuth: true,requiresSuperAdmin:true } },
@@ -86,7 +54,7 @@ const routes = [
     { path: "/sites/update/:siteCode", component: siteUpdate,props:true,requiresSuperAdmin:true },
     { path: "/sites/nodals", component: nodals,    meta: { requiresAuth: true,requiresSuperAdmin:true } },
     {path:"/sites/cascades/update/:site_code",component:CascadesUpdate,props:true,requiresSuperAdmin:true},
-    { path: "/modifications", component: modifications,    meta: { requiresAuth: true } },
+    { path: "/modifications", component: modifications,    meta: { requiresAuth: true,requiresSuperAdmin:true} },
     { path: "/modifications/sitemodifications/:site_code/:site_name", component: SiteModifications,props:true ,    meta: { requiresAuth: true }},
     { path: "/nur", component: NUR,    meta: { requiresAuth: true } },
     { path: "/nur/index", component: nurIndex,    meta: { requiresAuth: true }  },
@@ -94,14 +62,16 @@ const routes = [
     { path: "/nur/2G", component: NUR2G ,    meta: { requiresAuth: true,requiresSuperAdmin:true }},
     { path: "/nur/3G", component: NUR3G ,    meta: { requiresAuth: true ,requiresSuperAdmin:true}},
     { path: "/nur/4G", component: NUR4G ,    meta: { requiresAuth: true ,requiresSuperAdmin:true}},
-    { path: "/", redirect: "/home" },
-    { path: "/home", component: home },
-    { path: "/:pathMatch(.*)*", component: notFound },
+    { path: "/", redirect: "/welcome" },
+    {path:"/welcome",component:TheWelcome,meta:{hideNavbar:true} },
+    { path: "/home", component: home,name:"home", meta: { requiresAuth: true } },
+    { path: "/:pathMatch(.*)*", component: notFound,meta:{hideNavbar:true} },
     { path: "/users", component: users,    meta: { requiresAuth: true,requiresSuperAdmin:true } },
-    { path: "/user/login", component: login, name: "login" },
-    { path: "/user/register", component: register },
-    { path: "/user/resetpassword", component: resetPassword },
-    { path: "/unauthorized", component: unauthorized },
+    { path: "/user/login", component: login, name: "login",meta:{hideNavbar:true,requiresAuth:false} },
+    { path: "/user/:token", component: validateToken, name: "validateToken",props:true,meta:{hideNavbar:true} },
+    { path: "/user/register", component: register,meta:{hideNavbar:true,requiresAuth:false} },
+    { path: "/user/resetpassword", component: resetPassword,meta:{hideNavbar:true,requiresAuth:false} },
+    { path: "/unauthorized", component: unauthorized,meta:{hideNavbar:true},name:"unauthorized" },
 ];
 const router = createRouter({
     history: createWebHistory(),
@@ -116,9 +86,10 @@ router.beforeEach((to,from,next)=>{
     }
     if(to.meta.requiresSuperAdmin && !store.getters.isSuperAdmin)
     {
-        next({name:"login"});
+        next({name:"unauthorized"});
 
     }
+  
     else{
         next();
     }

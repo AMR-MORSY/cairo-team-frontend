@@ -1,7 +1,7 @@
 <template>
-  <div class="container overflow-hidden px-5 mb-5">
-    <TransitionGroup class="row gx-5 mt-5" tag="div" name="cards" appear>
-      <div class="col-6 col-md-4 mt-5" v-for="card in cards" :key="card.id">
+  <div class="container overflow-hidden px-5 pb-3 mb-5">
+    <TransitionGroup class="row  gx-sm-2   mt-5" tag="div" name="cards" appear>
+      <div class="col-12 col-sm-6 col-md-4 mt-5" v-for="card in cards" :key="card.id">
         <div class="card" @click.self="formatElement(card.id)">
           <span class="material-symbols-rounded"> {{ card.icon }} </span>
           <p>{{ card.path }}</p>

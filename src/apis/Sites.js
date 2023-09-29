@@ -4,6 +4,10 @@ export default {
     submitSitesSheet(sheet) {
         return allInstances.uploadApi.post("/sites/store", sheet);
     },
+    index(){
+      return allInstances.Api.get(`/sites/index`)
+
+    },
     downloadAll() {
         return allInstances.downloadApi.get("sites/downloadAll");
     },
@@ -20,6 +24,11 @@ export default {
       return allInstances.Api.post("/sites/nodals", sheet);
 
 
+
+    },
+    downloadNodals()
+    {
+      return allInstances.downloadApi.get("sites/nodals/download");
 
     },
     searchSites(data)

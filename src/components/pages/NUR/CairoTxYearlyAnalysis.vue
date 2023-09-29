@@ -1,11 +1,7 @@
 <template>
+  <p style="text-align: center;">{{ title }}</p>
   <div>
-    <Chart
-      type="line"
-      :data="yearlyData"
-      :options="lightOptions"
-      :plugins="plugins"
-    ></Chart>
+    <Chart type="line" :data="yearlyData" :options="lightOptions" :plugins="plugins"></Chart>
   </div>
 </template>
 
@@ -15,12 +11,13 @@ export default {
   data() {
     return {
       yearlyData: null,
+      title: null,
       lightOptions: {
         plugins: {
-          title: {
-            display: true,
-            text: "Transmission",
-          },
+          // title: {
+          //   display: true,
+          //   text: "Transmission",
+          // },
           legend: {
             labels: {
               color: "red",
@@ -47,63 +44,62 @@ export default {
     };
   },
   name: "CairoTxYearlyAnalysis",
-    inject: ["dialogRef"],
+  inject: ["dialogRef"],
   mounted() {
     this.mountChartData();
   },
   methods: {
-    getZoneNewValues(zoneKeys,zoneValues,cairoKeys)
-    {
-      let zoneNewValus=[];
-      for(var i=0;i<cairoKeys.length;i++)
-      {
-       
-        let filtered=zoneKeys.filter(key=>{
-          return key==cairoKeys[i];
+    getZoneNewValues(zoneKeys, zoneValues, cairoKeys) {
+      let zoneNewValus = [];
+      for (var i = 0; i < cairoKeys.length; i++) {
+
+        let filtered = zoneKeys.filter(key => {
+          return key == cairoKeys[i];
 
         });
-        if(filtered.length!=0)
-        {
-          let index=zoneKeys.indexOf(filtered[0]);
-          zoneNewValus[i]=zoneValues[index];
+        if (filtered.length != 0) {
+          let index = zoneKeys.indexOf(filtered[0]);
+          zoneNewValus[i] = zoneValues[index];
 
         }
-         else{
-          zoneNewValus[i]=0
+        else {
+          zoneNewValus[i] = 0
         }
       }
       return zoneNewValus;
 
     },
-    mountChartData(){
-       let cairoKeys= Object.keys(this.dialogRef.data.cairo);
-      let cairoEastKeys=Object.keys(this.dialogRef.data.zones["CAIRO EAST"]) ;
-      let cairoEastValues=Object.values(this.dialogRef.data.zones["CAIRO EAST"]);
-      let cairoSouthKeys=Object.keys(this.dialogRef.data.zones["CAIRO SOUTH"]) ;
-      let cairoSouthValues=Object.values(this.dialogRef.data.zones["CAIRO SOUTH"]);
-      let cairoNorthKeys=Object.keys(this.dialogRef.data.zones["CAIRO NORTH"]) ;
-      let cairoNorthValues=Object.values(this.dialogRef.data.zones["CAIRO NORTH"]);
-      let gizaKeys=Object.keys(this.dialogRef.data.zones["GIZA"]) ;
-      let gizaValues=Object.values(this.dialogRef.data.zones["GIZA"]);
-      
-      
-     
+    mountChartData() {
+      let cairoKeys = Object.keys(this.dialogRef.data.cairo);
+      let cairoEastKeys = Object.keys(this.dialogRef.data.zones["CAIRO EAST"]);
+      let cairoEastValues = Object.values(this.dialogRef.data.zones["CAIRO EAST"]);
+      let cairoSouthKeys = Object.keys(this.dialogRef.data.zones["CAIRO SOUTH"]);
+      let cairoSouthValues = Object.values(this.dialogRef.data.zones["CAIRO SOUTH"]);
+      let cairoNorthKeys = Object.keys(this.dialogRef.data.zones["CAIRO NORTH"]);
+      let cairoNorthValues = Object.values(this.dialogRef.data.zones["CAIRO NORTH"]);
+      let gizaKeys = Object.keys(this.dialogRef.data.zones["GIZA"]);
+      let gizaValues = Object.values(this.dialogRef.data.zones["GIZA"]);
 
-      let cairoEastNewValues=this.getZoneNewValues(cairoEastKeys,cairoEastValues,cairoKeys)
-       let cairoSouthNewValues=this.getZoneNewValues(cairoSouthKeys,cairoSouthValues,cairoKeys)
-        let cairoNorthNewValues=this.getZoneNewValues(cairoNorthKeys,cairoNorthValues,cairoKeys)
-         let gizaNewValues=this.getZoneNewValues(gizaKeys,gizaValues,cairoKeys)
-    
+
+
+
+      let cairoEastNewValues = this.getZoneNewValues(cairoEastKeys, cairoEastValues, cairoKeys)
+      let cairoSouthNewValues = this.getZoneNewValues(cairoSouthKeys, cairoSouthValues, cairoKeys)
+      let cairoNorthNewValues = this.getZoneNewValues(cairoNorthKeys, cairoNorthValues, cairoKeys)
+      let gizaNewValues = this.getZoneNewValues(gizaKeys, gizaValues, cairoKeys)
+      
+      this.title = this.dialogRef.data.title;
+
       this.yearlyData = {
         labels: this.dialogRef.data.labels,
-          datasets: [
+        datasets: [
           {
             data: Object.values(this.dialogRef.data.cairo),
             label: "Cairo",
             borderColor: "black",
           },
           {
-            data:cairoEastNewValues,
+            data: cairoEastNewValues,
             label: "Cairo East",
             borderColor: "#C3B1E1",
           },
@@ -118,17 +114,16 @@ export default {
             borderColor: "orange",
           },
           {
-            data:gizaNewValues,
+            data: gizaNewValues,
             label: "Giza",
             borderColor: "green",
           },
         ],
-      
+
       };
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

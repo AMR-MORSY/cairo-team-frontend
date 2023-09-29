@@ -209,6 +209,7 @@ export default {
               labels: labels,
               cairo: cairo,
               zones: zones,
+              title:"Modification"
             },
           });
         })

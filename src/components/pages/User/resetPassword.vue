@@ -27,7 +27,7 @@
         </form>
       </div>
 
-      <div class="alert alert-secondary">
+      <!-- <div class="alert alert-secondary">
         <form @submit.prevent="validateToken">
           <div class="form-group">
             <label for="token">Token</label>
@@ -51,46 +51,9 @@
             Validate Token
           </button>
         </form>
-      </div>
+      </div> -->
 
-      <div class="alert alert-success" v-if="tokenValid">
-        <form @submit.prevent="changePassword">
-          <div class="form-group">
-            <label for="newpassword">Change Password</label>
-            <input
-              type="password"
-              class="form-control"
-              v-bind:class="{ 'is-invaled': errorNewPassword }"
-              id="newpassword"
-              v-model="newPassword"
-              autocomplete="off"
-            />
-            <div >
-              {{ errorNewPassword }}
-            </div>
-            <div v-if="passwordBackendError">
-                <p v-for="error in passwordBackendError" :key="error">{{error}}</p>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="password-confirmation">Password Confirmation</label>
-            <input
-              type="password"
-              class="form-control"
-              v-bind:class="{ 'is-invaled': errorPasswordConfirmation }"
-              id="password-confirmation"
-              v-model="passwordConfirmation"
-              autocomplete="off"
-            />
-            <div >
-              {{ errorPasswordConfirmation }}
-            </div>
-          </div>
-          <button type="submit" class="btn btn-success mt-2">
-            Change Password
-          </button>
-        </form>
-      </div>
+     
     </div>
   </div>
 </template>
@@ -107,21 +70,10 @@ export default {
         token: "",
       },
 
-      newPassword: "",
-      passwordConfirmation: "",
-
-      errorNewPassword: null,
-      errorPasswordConfirmation: null,
-
+    
       errorEmail: null,
       infoEmail: null,
-      infoToken: null,
-      user_id: null,
-      passwordBackendError:null,
-
-      errorToken: null,
-
-      tokenValid: false,
+   
     };
   },
   name: "resetPassword",
@@ -133,9 +85,12 @@ export default {
         this.errorEmail = "Email Field is Required";
       }
       if (!this.errorEmail) {
+        this.$store.dispatch("displaySpinnerPage", false);
+
         User.sendToken(this.emailForm)
           .then(() => {
             this.infoEmail = "Email Sent, please check your mail";
+     
           })
           .catch((error) => {
             if (error.response.status == 422) {
@@ -143,64 +98,14 @@ export default {
             } else if (error.response.status == 401) {
               this.errorEmail = error.response.data.error;
             }
+          }).finally(()=>{
+            this.$store.dispatch("displaySpinnerPage", true);
+
           });
       }
     },
-    validateToken() {
-      this.errorToken = null;
-      if (!this.tokenForm.token) {
-        this.errorToken = "Token is required";
-      } else {
-        User.validateToken(this.tokenForm)
-          .then((response) => {
-            if (response.data.id) {
-              this.infoToken = "Token is Valid";
-              this.user_id = response.data.id;
-              this.tokenValid = true;
-            }
-          })
-          .catch((error) => {
-            if (error.response.status == 422) {
-              this.errorToken = error.response.data.errors.token;
-            } else if (error.response.status == 401) {
-              this.errorToken = error.response.data.error;
-            }
-          });
-      }
-    },
-    changePassword() {
-      this.errorPasswordConfirmation = null;
-      this.errorNewPassword = null;
-      this.passwordBackendError=null;
-      if (!this.newPassword) {
-        this.errorNewPassword = "New Password is required";
-      }
-      if (!this.passwordConfirmation) {
-        this.errorPasswordConfirmation = "Password confirmation is required";
-      }
-      if (this.passwordConfirmation != this.newPassword) {
-        this.errorPasswordConfirmation = "Password are not matched";
-      }
-      if (!this.errorPasswordConfirmation && !this.errorNewPassword) {
-        const data = {
-          user_id: this.user_id,
-          password: this.newPassword,
-          password_confirmation: this.passwordConfirmation,
-        };
-        User.resetPassword(data)
-          .then(() => {
-            this.$router.push("/user/login");
-          })
-          .catch(error=>{
-            if(error.response.status==422)
-            {
-              
-                this.passwordBackendError=error.response.data.errors.password;
-                
-            }
-          });
-      }
-    },
+  
+    
   },
 };
 </script>

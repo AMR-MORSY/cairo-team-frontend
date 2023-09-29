@@ -1,19 +1,19 @@
 <template>
   <div class="container mb-3">
     <div class="row">
-      <div class="col-12 col-lg-4"></div>
-      <div class="col-12 col-lg-4">
+      <div class="col-1 col-md-3 col-lg-4"></div>
+      <div class="col-10 col-md-6 col-lg-4 ">
         <div class="form-container">
-          <Card style="border: 1px solid #79589f; border-radius: 5px">
+          <Card style="border: 1px solid  #673EE6 ; border-radius: 5px">
             <template #title>
-              <p class="p-card-title text-center" style="color: #79589f">
+              <p class="p-card-title text-center" style="color:  #673EE6 ;">
                 Login
               </p>
             </template>
             <template #content>
               <form @submit.prevent="submitLoginForm">
                 <div class="row">
-                  <div class="col-12">
+                  <!-- <div class="col-12"> -->
                     <div class="field w-100">
                       <span class="p-float-label">
                         <InputText
@@ -26,8 +26,8 @@
                         <label for="inputtext">Email</label>
                       </span>
                     </div>
-                  </div>
-                  <div class="col-12">
+                  <!-- </div> -->
+                  <!-- <div class="col-12"> -->
                     <div class="field w-100 mt-4">
                       <span class="p-float-label">
                         <Password
@@ -41,8 +41,8 @@
                         <label for="password">Password</label>
                       </span>
                     </div>
-                  </div>
-                  <div class="col-12 mt-2">
+                  <!-- </div> -->
+                  <!-- <div class="col-12 mt-2"> -->
                     <div
                       class="d-flex w-100 align-items-center justify-content-flex-start mt-3"
                     >
@@ -50,30 +50,30 @@
                         >Forgot Password?</router-link
                       >
                     </div>
-                  </div>
+                  <!-- </div> -->
 
-                  <div class="col-12">
+                  <!-- <div class="col-12"> -->
                     <Button
                       label="Sign in"
                       class="w-100 mt-4"
                       type="submit"
-                      style="background-color: #79589f"
+                    
                     />
-                  </div>
+                  <!-- </div> -->
                 </div>
               </form>
             </template>
           </Card>
         </div>
       </div>
-      <div class="col-12 col-lg-4"></div>
+      <div class="col-1 col-md-3 col-lg-4 "></div>
     </div>
   </div>
   <Toast />
 </template>
 
 <script >
-import axios from "axios";
+
 import User from "../../../apis/User";
 
 export default {
@@ -106,6 +106,7 @@ export default {
         this.$store.dispatch("displaySpinnerPage", false);
         User.login(this.form)
           .then((response) => {
+            console.log(response);
             sessionStorage.setItem(
               "User",
               JSON.stringify(response.data.user_data)
@@ -154,28 +155,28 @@ export default {
 
 ::v-deep(.p-password input) {
   width: 100%;
-  border-color: #79589f;
+  border-color:  #673EE6 !important;
 }
 ::v-deep(.p-password input:focus) {
-  border-color: #79589f !important;
-  box-shadow: 0px 0px 3px 2px #79589f !important;
+  border-color: #673EE6 !important;
+  box-shadow: 0px 0px 3px 2px #673EE6 !important;
 }
 .p-button {
-  background-color: #79589f !important;
-  border-color: #79589f !important;
+  background-color: #673EE6 !important;
+  border-color: #673EE6 !important;
 }
 .p-button:focus {
-  box-shadow: 0px 0px 3px 2px #79589f !important ;
+  box-shadow: 0px 0px 3px 2px  #673EE6 !important;
 }
 .p-inputtext {
-  border-color: #79589f;
+  border-color:  #673EE6 ;
 }
 .p-inputtext:focus {
-  box-shadow: 0px 0px 3px 2px #79589f !important;
-  border-color: #79589f !important ;
+  box-shadow: 0px 0px 3px 2px #673EE6 !important;
+  border-color:  #673EE6 !important;
 }
 .p-inputtext:hover {
-  border-color: #79589f !important ;
+  border-color:  #673EE6 !important;
 }
 
 .bd-placeholder-img {

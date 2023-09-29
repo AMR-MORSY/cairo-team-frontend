@@ -268,11 +268,11 @@ export default {
           action: this.action,
           materials: this.materials,
         };
-        console.log(data);
+       
         Modifications.updateModification(data)
 
           .then((response) => {
-            console.log(response);
+          
 
             this.$toast.add({
               severity: "success",
@@ -282,7 +282,7 @@ export default {
             });
           })
           .catch((error) => {
-            console.log(error);
+       
             if (error.response.status == 422) {
               let errors = error.response.data.errors;
 

@@ -1,12 +1,17 @@
 <template >
-  <navbar @displaySitesTable="displaySitesTable"></navbar>
+  <navbar v-if="!$route.meta.hideNavbar" @displaySitesTable="displaySitesTable"></navbar>
   <router-view></router-view>
 
-  <DynamicDialog  />
-  <ConfirmDialog ></ConfirmDialog>
+  <DynamicDialog />
+  <ConfirmDialog></ConfirmDialog>
 
   <SpinnerPage :displayNone="displaySpinnerPage"></SpinnerPage>
-  <!-- <DialogMessage :displayDialog="displayDialog" :dialogMessage="dialogMessage"/> -->
+
+  <BootstrapToast></BootstrapToast>
+
+  
+  <Toast />
+ 
 </template>
 
 <script >
@@ -17,9 +22,12 @@ import User from "./apis/User";
 import SpinnerPage from "../src/components/helpers/SpinnerPage.vue";
 import navbar from "../src/components/navbar.vue";
 import SitesTable from "../src/components/pages/sites/SitesTable.vue";
+import BootstrapToast from "../src/components/helpers/BootStrapToast.vue";
+import "bootstrap";
+
 
 export default {
-  components: { SpinnerPage, navbar,SitesTable },
+  components: { SpinnerPage, navbar, SitesTable, BootstrapToast },
   data() {
     return {
       showModal: false,
@@ -27,7 +35,7 @@ export default {
       data: "session will end after 2 minutes, renew session",
     };
   },
- 
+
 
   computed: {
     displaySpinnerPage() {
@@ -56,6 +64,7 @@ export default {
   name: "app",
 
   methods: {
+  
     // showSessionTimeOutNotification() {
     //   this.$confirm.require({
     //     message: "Session will expire in 2 minutes.renew the session?",
@@ -130,12 +139,8 @@ export default {
     // },
   },
 
-  
+
 };
 </script>
 
-<style lang="scss" >
-body {
-  background-color: #dde0e3;
-}
-</style>
+<style lang="scss" ></style>

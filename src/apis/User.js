@@ -4,6 +4,11 @@ export default {
   register(form) {
     return allInstances.Api.post("/user/register", form);
   },
+  logout()
+  {
+    return allInstances.Api.post("user/logout");
+
+  },
 
   login(form) {
     return allInstances.Api.post("/user/login", form);
@@ -18,7 +23,7 @@ export default {
   sendToken(form) {
     return allInstances.Api.post("/user/sendToken", form);
   },
-  refreshSession() {
-    return allInstances.Api.get("/user/refreshsession");
+  refreshTocken(data) {
+    return allInstances.Api.post("/user/refreshtoken",data);
   },
 };

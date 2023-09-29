@@ -1,7 +1,7 @@
 <template>
-  <div class="container overflow-hidden px-5 mb-5">
-    <TransitionGroup class="row gx-5 mt-5" tag="div" name="cards" appear>
-      <div class="col-6 col-md-4 mt-5" v-for="card in cards" :key="card.id">
+  <div class="container overflow-hidden px-5 pb-3 mb-5">
+    <TransitionGroup class="row  gx-sm-2   mt-5" tag="div" name="cards" appear>
+      <div class="col-12 col-sm-6 col-md-4 mt-5" v-for="card in cards" :key="card.id">
         <div class="card" @click.self="formatElement(card.id)">
           <span class="material-symbols-rounded"> {{ card.icon }} </span>
           <p>{{ card.path }}</p>
@@ -26,37 +26,86 @@ export default {
       { id: 3, icon: "add_circle", path: "Nodals" },
       { id: 4, icon: "add_circle", path: "New site" },
       { id: 5, icon: "download", path: "Cairo Sites" },
+      { id: 6, icon: "download", path: "Download Nodals" },
     ];
   },
   name: "sites",
+  computed: {
+
+    isSuperAdmin() {
+      return this.$store.getters.isSuperAdmin;
+
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
+
+    },
+
+
+  },
   methods: {
     formatElement(id) {
       let card = this.cards.filter((element) => {
         return element.id == id;
       });
       console.log(card);
-      if (card[0].path == "New sites") {
+      if (card[0].path == "New sites" && this.isSuperAdmin) {
         this.$router.push("/sites/storeSites");
-      } else if (card[0].path == "New site") {
+      }
+      else {
+        this.$router.push("/unauthorized");
+
+      }
+      if (card[0].path == "New site" && (this.isSuperAdmin || this.isAdmin)) {
         this.$router.push("/sites/storeSite");
-      } else if (card[0].path == "Cascades") {
+      }
+      else {
+        this.$router.push("/unauthorized");
+
+      }
+      if (card[0].path == "Cascades" && this.isSuperAdmin) {
         this.$router.push("/sites/cascades");
-      } else if (card[0].path == "Nodals") {
+      }
+      else {
+        this.$router.push("/unauthorized");
+
+      }
+      if (card[0].path == "Nodals" && this.isSuperAdmin) {
         this.$router.push("/sites/nodals");
       }
-      else if(card[0].path == "Cairo Sites")
-      {
-        Sites.downloadAll()
-        .then((response) => {
+      else {
+        this.$router.push("/unauthorized");
 
-          var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
-          var fileLink = document.createElement("a");
-          fileLink.href = fileUrl;
-          fileLink.setAttribute("download", "AllSites.xlsx");
-          document.body.appendChild(fileLink);
-          fileLink.click();
-        })
-        .catch();
+      }
+      if (card[0].path == "Cairo Sites") {
+        Sites.downloadAll()
+          .then((response) => {
+
+            var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
+            var fileLink = document.createElement("a");
+            fileLink.href = fileUrl;
+            fileLink.setAttribute("download", "AllSites.xlsx");
+            document.body.appendChild(fileLink);
+            fileLink.click();
+          })
+          .catch();
+
+      }
+      else if (card[0].path == "Download Nodals") {
+        Sites.downloadNodals()
+          .then((response) => {
+            console.log(response);
+            var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
+            var fileLink = document.createElement("a");
+            fileLink.href = fileUrl;
+            fileLink.setAttribute(
+              "download",
+              `Nodals.xlsx`
+            );
+            document.body.appendChild(fileLink);
+            fileLink.click();
+          })
+          .catch((error) => { });
 
       }
     },
@@ -75,12 +124,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+
   span {
     text-align: center;
     font-size: 5rem;
     z-index: 1;
     color: gray;
   }
+
   p {
     text-align: center;
     font-size: 2rem;
@@ -98,6 +149,7 @@ export default {
 
   transform: scale(0.7);
 }
+
 .cards-enter-active {
   transition: all 1s ease;
 }

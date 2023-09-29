@@ -116,13 +116,13 @@
                   <div class="col-12 col-sm-6 col-lg-3">
                     <label for="sharing">sharing:</label>
                     <select id="sharing" v-model="sharing" class="form-select">
-                        <option ></option>
+                   
                       <option
-                        :value="sharing"
-                        v-for="sharing in sharingOptions"
-                        :key="sharing"
-                      >
-                        {{ sharing }}
+                        :value= "shar"
+                        v-for="shar in sharingOptions"
+                        :key="shar"
+                        >
+                        {{ shar }}
                       </option>
                     </select>
                   </div>
@@ -244,7 +244,7 @@ export default {
       severity: null,
     
       severityOptions: ["Bronze", "Silver", "Golden"],
-      sharing: null,
+      sharing: "No",
       sharingError:false,
       sharingOptions: ["Yes", "No"],
       host: null,
@@ -252,7 +252,7 @@ export default {
       hostOptions: ["VF", "OG", "ET", "WE"],
       gest: null,
       gestError:false,
-      gestOptions: ["VF", "OG", "ET", "WE"],
+      gestOptions: ["VF", "OG", "ET", "WE","ET+VF","ET+VF+WE","VF+WE","ET+WE"],
       oz: null,
       ozOptions: ["Cairo South", "Cairo East", "Cairo North", "Giza"],
       cells2G: null,

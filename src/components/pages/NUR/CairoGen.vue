@@ -107,13 +107,7 @@ export default {
       return this.$store.getters.isLogin;
     },
   },
-   beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin) {
-        return vm.$router.push("/user/login");
-      }
-    });
-  },
+ 
   inject: ["dialogRef"],
   mounted() {
     this.mountChartData();

@@ -20,7 +20,7 @@ export default {
         plugins: {
           title: {
             display: true,
-            text: "Generator",
+            text: "Generator"
           },
           legend: {
             labels: {

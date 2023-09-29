@@ -47,23 +47,14 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ConfirmDialog from 'primevue/confirmdialog';
 import SpeedDial from 'primevue/speeddial';
 
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
+
+
 import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// import './assets/main.css'
+ import './assets/main.css'
 
 const app = createApp(App)
 
@@ -74,6 +65,7 @@ app.use(router)
 .use(ToastService)
 .use(DialogService)
 .use(ConfirmationService)
+
 .directive('tooltip', Tooltip)
 .component('Datepicker', Datepicker)
 .component('ConfirmDialog', ConfirmDialog)

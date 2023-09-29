@@ -1,13 +1,9 @@
 <template>
-  <div class="container overflow-hidden px-5 mb-5">
-    <TransitionGroup class="row gx-5 mt-5" tag="div" name="cards" appear>
-      <div class="col-6 col-md-4 mt-5" v-for="card in cards" :key="card.id">
-        <div class="card" @click.self="formatElement(card.id)">
-          <span class="material-symbols-rounded"> {{ card.icon }} </span>
-          <p>{{ card.path }}</p>
-        </div>
-      </div>
-    </TransitionGroup>
+  <div class="container-fluid ">
+   
+  </div>
+  <div class="d-flex justify-content-center align-items-center w-100 p-5">
+    <h1>The Greatest Team Ever</h1>
   </div>
 </template>
 
@@ -83,4 +79,12 @@ export default {
 .cards-enter-active {
   transition: all 1s ease;
 }
+.container-fluid{
+  background-image: url("../components/logos/GTR-North-Africa-2022-Cairo_2000x500.jpg");
+  background-position: center;
+  background-size: cover;
+  
+  height: 50vh;
+}
+
 </style>

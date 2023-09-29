@@ -263,7 +263,7 @@ export default {
       hostOptions: ["VF", "OG", "ET", "WE"],
       gest: null,
       gestError: false,
-      gestOptions: ["VF", "OG", "ET", "WE"],
+      gestOptions: ["VF", "OG", "ET", "WE","ET+VF","ET+VF+WE","VF+WE","ET+WE"],
       oz: null,
       ozOptions: ["Cairo South", "Cairo East", "Cairo North", "Giza"],
       cells2G: null,
