@@ -1,6 +1,6 @@
 <template>
-  <div class="container mt-5">
-    <div class="row mt-5">
+  <div class="container ">
+    <div class="row ">
       <div class="col-md-1"></div>
       <div class="col-12 col-md-10 mt-5 mb-3">
         <div class="card">
@@ -11,132 +11,132 @@
               </template>
 
               <div class="row site-details">
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="input-field">
                     <h6>Site code:</h6>
                     <InputText type="text" id="siteCode" disabled v-model="siteCode" />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4  ">
                   <div class="form-group">
                     <h6>Site Name:</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="siteName" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>BSC</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="BSC" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>2G</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell2G" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>3G</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell3G" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>4G</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell4G" disabled />
                   </div>
                 </div>
 
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>RNC</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="RNC" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>OZ</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="operationZone" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Type</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="type" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Category</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="category" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Severity</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="severity" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Office</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="office" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Sharing</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="sharing" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Host</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="host" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Gest</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="gest" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Nodal Code</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="nodalCode" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Nodal Name</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="nodalName" disabled />
                   </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6  col-lg-4 ">
                   <div class="form-group">
                     <h6>Status</h6>
                     <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="status" disabled />
                   </div>
                 </div>
               </div>
-              <div class="row mt-5 px-5 buttons">
-                <div class="col-6  col-md-2 my-3">
+              <div class="row mt-5 px-5 pb-5 buttons">
+                <div class="col-6   my-3">
                   <Button label="Modifications" @click="gotToSiteModifications"
                     class="p-button-raised p-button-warning" />
                 </div>
-                <div class="col-6  col-md-2 my-3">
+                <div class="col-6   my-3">
                   <Button label="NUR" @click="getSiteNUR" class="p-button-raised p-button-secondary" />
                 </div>
-                <div class="col-6  col-md-2 my-3">
+                <div class="col-6   my-3">
                   <Button label="Batteries Health" @click="getSiteBatteriesHealth"
                     class="p-button-raised p-button-secondary" />
                 </div>
-                <div class="col-6  col-md-2 my-3">
+                <div class="col-6   my-3">
                   <Button label="Update" @click="goToSiteUpdate" class="p-button-raised p-button-help" />
                 </div>
-                <div class="col-6  col-md-4 my-3 ">
+                <div class="col-12   my-3 ">
                   <div class="speed-dial">
                     <SpeedDial :model="items" direction="right" :tooltipOptions="{ position: 'right' }"
                       :transitionDelay="80" showIcon="pi pi-bell" hideIcon="pi pi-times" buttonClass="p-button-outlined">
