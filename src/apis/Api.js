@@ -22,6 +22,13 @@ function showUnauthorizedToast()
 
 
 }
+function showNetworkToast()
+{
+  const NetworkToast = document.getElementById('NetworkErrorToast');
+  const NetworkToastBootstrap = new bootstrap.Toast(NetworkToast);
+  NetworkToastBootstrap.show();
+
+}
 
 
 Api.defaults.withCredentials = true;
@@ -34,9 +41,11 @@ Api.interceptors.request.use(function (config) {
 
 Api.interceptors.response.use(
   function (response) {
+    
     return response;
   },
   function (error) {
+   
     if (
      
       error.response.status == 419 ||
@@ -54,6 +63,11 @@ Api.interceptors.response.use(
     else if( error.response.status == 401 )
     {
       showUnauthorizedToast();
+
+    }
+    else if(error.message=="Network Error")
+    {
+      showNetworkToast();
 
     }
 
@@ -92,17 +106,30 @@ uploadApi.interceptors.response.use(
     return response;
   },
   function (error) {
+    store.dispatch("displaySpinnerPage", true);
     if (
-      error.response.status == 403 ||
+     
       error.response.status == 419 ||
-      error.response.status == 401
+      error.response.status == 403
     ) {
-      store.dispatch("displaySpinnerPage", true);
-      sessionStorage.removeItem("User");
 
-      store.dispatch("userData", null);
 
-      router.push({ path: "/user/login" });
+      router.push({ path: "/unauthorized" });
+   
+     
+
+     
+     
+    }
+    else if( error.response.status == 401 )
+    {
+      showUnauthorizedToast();
+
+    }
+    else if(error.message=="Network Error")
+    {
+      showNetworkToast();
+
     }
 
     return Promise.reject(error);
@@ -116,17 +143,30 @@ downloadApi.interceptors.response.use(
     return response;
   },
   function (error) {
+    store.dispatch("displaySpinnerPage", true);
     if (
-      error.response.status == 403 ||
+     
       error.response.status == 419 ||
-      error.response.status == 401
+      error.response.status == 403
     ) {
-      store.dispatch("displaySpinnerPage", true);
-      sessionStorage.removeItem("User");
 
-      store.dispatch("userData", null);
 
-      router.push({ path: "/user/login" });
+      router.push({ path: "/unauthorized" });
+   
+     
+
+     
+     
+    }
+    else if( error.response.status == 401 )
+    {
+      showUnauthorizedToast();
+
+    }
+    else if(error.message=="Network Error")
+    {
+      showNetworkToast();
+
     }
 
     return Promise.reject(error);

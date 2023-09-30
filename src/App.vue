@@ -8,6 +8,9 @@
   <SpinnerPage :displayNone="displaySpinnerPage"></SpinnerPage>
 
   <BootstrapToast></BootstrapToast>
+  <NetworkErrorToast></NetworkErrorToast>
+
+
 
   
   <Toast />
@@ -24,10 +27,11 @@ import navbar from "../src/components/navbar.vue";
 import SitesTable from "../src/components/pages/sites/SitesTable.vue";
 import BootstrapToast from "../src/components/helpers/BootStrapToast.vue";
 import "bootstrap";
+import NetworkErrorToast from "./components/helpers/NetworkErrorToast.vue";
 
 
 export default {
-  components: { SpinnerPage, navbar, SitesTable, BootstrapToast },
+  components: { SpinnerPage, navbar, SitesTable, BootstrapToast, NetworkErrorToast },
   data() {
     return {
       showModal: false,
@@ -64,6 +68,7 @@ export default {
   name: "app",
 
   methods: {
+    
   
     // showSessionTimeOutNotification() {
     //   this.$confirm.require({

@@ -63,7 +63,7 @@ export default {
         this.$router.push("/unauthorized");
 
       }
-      if (card[0].path == "Cascades" && this.isSuperAdmin) {
+      if (card[0].path == "Cascades"  && this.isSuperAdmin) {
         this.$router.push("/sites/cascades");
       }
       else {
@@ -77,7 +77,7 @@ export default {
         this.$router.push("/unauthorized");
 
       }
-      if (card[0].path == "Cairo Sites") {
+      if (card[0].path == "Cairo Sites" && (this.isSuperAdmin || this.isAdmin)) {
         Sites.downloadAll()
           .then((response) => {
 
@@ -91,7 +91,11 @@ export default {
           .catch();
 
       }
-      else if (card[0].path == "Download Nodals") {
+      else{
+        this.$router.push("/unauthorized");
+
+      }
+      if (card[0].path == "Download Nodals" && (this.isSuperAdmin || this.isAdmin)) {
         Sites.downloadNodals()
           .then((response) => {
             console.log(response);
@@ -107,6 +111,9 @@ export default {
           })
           .catch((error) => { });
 
+      }
+      else{
+        this.$router.push("/unauthorized");
       }
     },
   },

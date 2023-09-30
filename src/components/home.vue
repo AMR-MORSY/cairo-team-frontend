@@ -1,17 +1,31 @@
 <template>
   <section id="intro">
-    <!-- <div class="overlay"> </div> -->
-   
+
   </section>
-  <section >
+  <section>
     <div id="breif">
-      <!-- <div class="overlay"> </div> -->
+
       <div class="container-fluid">
         <div class="row">
           <div class="col-12 col-lg-6">
 
             <div class="breif-container">
-              <h2>Nur Analysis</h2>
+            
+              <Transition  name="NUR" appear>
+                <h3>NUR Analysis</h3>
+                
+              </Transition>
+              <Transition  name="Alarm" appear>
+                <h3>Zone Site Alarms Analysis</h3>
+                
+              </Transition>
+              <Transition  name="dataBase" appear>
+                <h3>Sites Equipment DataBase</h3>
+                
+              </Transition>
+
+
+
             </div>
 
 
@@ -35,102 +49,52 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      cards: null,
-    };
-  },
-  created() {
-    this.cards = [
-      { id: 1, icon: "electric_bolt", path: "Energy" },
-      { id: 2, icon: " signal_disconnected", path: "NUR" },
-      { id: 3, icon: " auto_fix_off", path: "Modifications" },
-    ];
-  },
 
-  methods: {
-    formatElement(id) {
-      let card = this.cards.filter((element) => {
-        return element.id == id;
-      });
-      console.log(card);
-      if (card[0].path == "Energy") {
-        this.$router.push("/energy/index");
-      } else if (card[0].path == "NUR") {
-        this.$router.push("/nur/index");
-      }
-      else if (card[0].path == "Modifications") {
-        this.$router.push("/modifications");
-      }
+
+export default {
+    data() {
+        return {
+            cards: null,
+        };
     },
-  },
-  name: "home",
-};
+    methods: {},
+    name: "home",
+  }
 </script>
 
 <style lang="scss" scoped>
-.card {
-  background-color: white;
-  box-shadow: 1px 3px 5px rgba($color: white, $alpha: 0.1);
-  height: 250px;
-  width: 100%;
-  transition: all 0.5s ease;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  span {
-    text-align: center;
-    font-size: 5rem;
-    z-index: 1;
-    color: gray;
-  }
-
-  p {
-    text-align: center;
-    font-size: 2rem;
-    color: gray;
-  }
+.NUR-enter-active {
+  animation: transformx 1s ease ;
 }
-
-.card:hover {
-  transform: scale(1.02);
-  transition: all 0.5s ease;
-}
-
-.cards-enter-from {
+.Alarm-enter-active {
   opacity: 0;
-
-  transform: scale(0.7);
+  animation: transformx 1s ease ;
+  animation-delay: 1s;
 }
-
-.cards-enter-active {
-  transition: all 1s ease;
+.dataBase-enter-active {
+  opacity: 0;
+  animation: transformx 1s ease ;
+  animation-delay: 2s;
 }
 
 #intro {
-  background:linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(255,255,255,1)), url("../components/logos/GTR-North-Africa-2022-Cairo_2000x500.jpg");
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 1)), url("../components/logos/GTR-North-Africa-2022-Cairo_2000x500.jpg");
   background-size: cover;
   position: relative;
- overflow: hidden;
+  overflow: hidden;
 
   height: 50vh;
 
 
 }
-.overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
- 
- 
-   
-  }
+
+@keyframes transformx {
+  0%{transform: translateX(-100%);opacity: 0}
+
+  100%{transform: translateX(0);opacity: 1}
+  
+}
+
 
 
 #breif {
@@ -139,7 +103,7 @@ export default {
   overflow-y: hidden;
 
   .image-container {
-   
+
     width: 100%;
     height: 50vh;
     display: flex;
@@ -163,8 +127,10 @@ export default {
       }
     }
   }
-  .breif-container{
+
+  .breif-container {
     opacity: 0.5;
+    padding: 2rem 2rem;
   }
 
 }
