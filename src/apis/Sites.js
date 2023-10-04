@@ -53,5 +53,10 @@ export default {
       return allInstances.Api.post("/sites/update",data)
 
 
+    },
+    getBatteriesDetails(data)
+    {
+      return allInstances.Api.post("/instruments/siteBatteriesData",data)
+
     }
 };

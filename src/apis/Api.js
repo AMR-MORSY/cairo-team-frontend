@@ -36,15 +36,18 @@ Api.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 Api.interceptors.request.use(function (config) {
   config.headers.Authorization = `Bearer ${store.getters.token}`;
+  store.dispatch("displaySpinnerPage", false);
   return config;
 });
 
 Api.interceptors.response.use(
   function (response) {
+    store.dispatch("displaySpinnerPage", true);
     
     return response;
   },
   function (error) {
+    store.dispatch("displaySpinnerPage", true);
    
     if (
      

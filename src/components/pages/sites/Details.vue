@@ -11,130 +11,161 @@
               </template>
 
               <div class="row site-details">
-                <div class="col-6  col-lg-4 ">
-                  <div class="input-field">
-                    <h6>Site code:</h6>
-                    <InputText type="text" id="siteCode" disabled v-model="siteCode" />
+                <div class="col-12 col-sm-6 col-lg-4 ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="siteCode">Site code</span>
+                    <input type="text" class="form-control" disabled v-model="siteCode" aria-describedby="siteCode" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4  ">
-                  <div class="form-group">
-                    <h6>Site Name:</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="siteName" disabled />
+                <div class="col-12 col-sm-6 col-lg-4  ">
+                  <div class="input-group" id="siteCode">
+                    <span class="input-group-text" id="siteName">Site Name</span>
+                    <input type="text" disabled class="form-control" v-model="siteName" aria-describedby="siteName" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>BSC</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="BSC" disabled />
+                <div class="col-12 col-sm-6 col-lg-4  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="BSC">BSC</span>
+                    <input type="text" disabled class="form-control" v-model="BSC" aria-describedby="BSC" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>2G</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell2G" disabled />
-                  </div>
-                </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>3G</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell3G" disabled />
-                  </div>
-                </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>4G</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="cell4G" disabled />
+                <div class="col-12 col-sm-6 col-lg-4  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="RNC">RNC</span>
+                    <input type="text" disabled class="form-control" v-model="RNC" aria-describedby="RNC" />
                   </div>
                 </div>
 
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>RNC</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="RNC" disabled />
+                <div class="col-12 col-sm-6 col-lg-4  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="oz">OZ</span>
+                    <input type="text" disabled class="form-control" v-model="operationZone" aria-describedby="oz" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>OZ</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="operationZone" disabled />
+
+
+                <div class="col-12 col-sm-6 col-lg-4  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="severity">Severity</span>
+                    <input type="text" disabled class="form-control" v-model="severity" aria-describedby="severity" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Type</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="type" disabled />
+                <div class="col-12 col-sm-6 col-lg-4  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="office">Office</span>
+                    <input type="text" disabled class="form-control" v-model="office" aria-describedby="office" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Category</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="category" disabled />
+
+                <div class="col-12 col-sm-6 col-lg-4  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="nodalCode">Nodal Code</span>
+                    <input type="text" disabled class="form-control" v-model="nodalCode" aria-describedby="nodalCode" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Severity</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="severity" disabled />
+                <div class="col-12 col-sm-6  col-lg-4 ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="nodal">Nodal Name</span>
+                    <input type="text" disabled class="form-control" v-model="nodalName" aria-describedby="nodal" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Office</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="office" disabled />
+
+
+                <div class="col-11 m-auto my-5" style="height: 1px; border: 2px dashed #79589f;"></div>
+
+
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="2g">2G</span>
+                    <input type="text" disabled class="form-control" aria-describedby="2g" v-model="cell2G" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Sharing</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="sharing" disabled />
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="3g">3G</span>
+                    <input type="text" disabled class="form-control" v-model="cell3G" aria-describedby="3g" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Host</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="host" disabled />
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="4g">4G</span>
+                    <input type="text" disabled class="form-control" v-model="cell4G" aria-describedby="4g" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Gest</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="gest" disabled />
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="category">Category</span>
+                    <input type="text" disabled class="form-control" v-model="category" aria-describedby="category" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Nodal Code</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="nodalCode" disabled />
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="sharing">Sharing</span>
+                    <input type="text" disabled class="form-control" v-model="sharing" aria-describedby="sharing" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Nodal Name</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="nodalName" disabled />
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="host">Host</span>
+                    <input type="text" disabled class="form-control" v-model="host" aria-describedby="host" />
                   </div>
                 </div>
-                <div class="col-6  col-lg-4 ">
-                  <div class="form-group">
-                    <h6>Status</h6>
-                    <InputText type="text" class="p-inputtext-focuse" id="siteCode" v-model="status" disabled />
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="guest">Gest</span>
+                    <input type="text"  disabled class="form-control" v-model="gest" aria-describedby="guest" />
                   </div>
                 </div>
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="status">Status</span>
+                    <input type="text" disabled class="form-control" v-model="status" aria-describedby="status" />
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3  ">
+                  <div class="input-group">
+                    <span class="input-group-text" id="type">Type</span>
+                    <input type="text" disabled class="form-control" v-model="type" aria-describedby="type" />
+                  </div>
+                </div>
+
+
+
+
+
               </div>
-              <div class="row mt-5 px-5 pb-5 buttons">
-                <div class="col-6   my-3">
+
+
+              <div class="row mt-5 py-5 buttons">
+                <div class="col-6 col-md-3  my-3">
                   <Button label="Modifications" @click="gotToSiteModifications"
                     class="p-button-raised p-button-warning" />
                 </div>
-                <div class="col-6   my-3">
+                <div class="col-6 col-md-3  my-3">
                   <Button label="NUR" @click="getSiteNUR" class="p-button-raised p-button-secondary" />
                 </div>
-                <div class="col-6   my-3">
+                <div class="col-6 col-md-3 my-3">
                   <Button label="Batteries Health" @click="getSiteBatteriesHealth"
                     class="p-button-raised p-button-secondary" />
                 </div>
-                <div class="col-6   my-3">
+                <div class="col-6 col-md-3 my-3">
                   <Button label="Update" @click="goToSiteUpdate" class="p-button-raised p-button-help" />
+                </div>
+                <div class="col-6 col-md-3 my-3">
+                  <Button label="Batteries Data" @click="getBatteriesData" class="p-button-raised p-button-help" />
+                </div>
+                <div class="col-6 col-md-3 my-3">
+                  <Button label="Rectifier Data" @click="getRectifierData" class="p-button-raised p-button-secondary" />
+                </div>
+                <div class="col-6 col-md-3 my-3">
+                  <Button label="Site Data" @click="getSiteData" class="p-button-raised p-button-secondary" />
+                </div>
+                <div class="col-6 col-md-3 my-3">
+                  <Button label="MW Data" @click="getMWData" class="p-button-raised p-button-secondary" />
+                </div>
+                <div class="col-6 col-md-3 my-3">
+                  <Button label="BTS Data" @click="getBTSData" class="p-button-raised p-button-secondary" />
                 </div>
                 <div class="col-12   my-3 ">
                   <div class="speed-dial">
@@ -211,6 +242,7 @@ import Energy from "../../../apis/Energy";
 import SiteAlarmsTable from "../../helpers/Sites/SiteAlarmsTable.vue";
 import siteBatteriesHealth from "../../helpers/Sites/siteBatteriesHealth.vue";
 import SiteDownAlarmsGroupedByWeek from "../../helpers/Sites/SiteDownAlarmsGroupedByWeek.vue";
+import EquipmentDetails from "../../helpers/Sites/EquipmentDetails.vue";
 export default {
   data() {
     return {
@@ -278,7 +310,8 @@ export default {
     siteNURTable,
     SiteAlarmsTable,
     siteBatteriesHealth,
-    SiteDownAlarmsGroupedByWeek
+    SiteDownAlarmsGroupedByWeek,
+    EquipmentDetails,
   },
   watch: {
     site_code() {
@@ -532,11 +565,10 @@ export default {
       })
 
     },
-    getSiteDownAlarmsGroupedByWeek()
-    {
+    getSiteDownAlarmsGroupedByWeek() {
       this.$store.dispatch("displaySpinnerPage", false);
       Energy.getSiteDownAlarmsGroupedByWeek(this.data).then((response) => {
-        if (response.data.statestics.alarms=="exist") {
+        if (response.data.statestics.alarms == "exist") {
           this.$dialog.open(SiteDownAlarmsGroupedByWeek, {
             props: {
               style: {
@@ -551,13 +583,13 @@ export default {
             },
             data: {
               downAlarms: response.data.statestics,
-              site_code:this.data.site_code
+              site_code: this.data.site_code
             }
 
 
           });
 
-         
+
         }
         else {
           this.$toast.add({ severity: 'error', summary: 'No Data Found', detail: `No Alarms`, life: 3000 });
@@ -612,19 +644,103 @@ export default {
 
 
         }
-        else{
+        else {
           this.$toast.add({ severity: 'error', summary: 'Opps.....', detail: `Dead Batteries`, life: 3000 });
 
         }
 
-      }).catch((error)=>{
+      }).catch((error) => {
 
-      }).finally(()=>{
+      }).finally(() => {
         this.$store.dispatch("displaySpinnerPage", true);
 
       })
 
+    },
+
+    getBatteriesData()
+    {
+      Sites.getBatteriesDetails(this.data).then((response)=>{
+        console.log(response)
+        let batteriesData=[];
+        if(response.data.data=="found data")
+        {
+          let battery={
+            "Battery Brand":response.data.battery_brand
+          }
+          batteriesData.push(battery);
+          battery={
+            "Battery Volt":response.data.battery_volt
+          };
+          batteriesData.push(battery);
+          battery={
+            "Battery Amp Hr":response.data.battery_amp_hr
+          };
+          batteriesData.push(battery);
+          battery={
+            "Number Strings":response.data.no_strings
+          };
+          batteriesData.push(battery);
+          battery={
+            "Number Batteries":response.data.no_batteries
+          };
+          batteriesData.push(battery);
+          battery={
+            "Batteries Status":response.data.batteries_status
+          };
+          batteriesData.push(battery);
+
+          this.$dialog.open(EquipmentDetails, {
+            props: {
+              style: {
+                width: "75vw",
+              },
+              // breakpoints: {
+              //   "960px": "75vw",
+              //   "640px": "90vw",
+              // },
+              modal: true,
+            },
+
+            data: {
+              statestics: batteriesData,
+              id: response.data.id,
+              
+            },
+          });
+
+
+
+        }
+        else{
+          this.$toast.add({
+              severity: "error",
+              summary: "Error Message",
+              detail: "No Data Found",
+              life: 3000,
+            });
+        }
+      }).catch((error)=>{
+
+      })
+    },
+    getSiteData()
+    {
+
+    },
+    getRectifierData()
+    {
+
+    },
+    getMWData()
+    {
+
+    },
+    getBTSData()
+    {
+
     }
+
   },
 };
 </script>
@@ -686,4 +802,51 @@ export default {
 
   }
 }
-</style>
+
+.input-group {
+   
+    margin-bottom: 1rem;
+  }
+
+@media screen and (min-width:320px) and (max-width: 480px) {
+
+  /* smartphones, iPhone, portrait 480x320 phones */
+  .input-group {
+     max-width: 80%;
+     margin-left: auto;
+     margin-right: auto;
+   
+  
+  }
+}
+
+@media screen and (min-width:481px) and (max-width: 640px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  .input-group {
+     max-width: 80%;
+     margin-left: auto;
+     margin-right: auto;
+   
+  
+  }
+
+}
+
+@media screen and (min-width:641px) and (max-width: 960) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  .input-group {
+     max-width: 80%;
+     margin-left: auto;
+     margin-right: auto;
+   
+  
+  }
+}
+
+
+@media screen and (min-width:961px)and  (max-width: 1024px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+ 
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
+ 
+}</style>

@@ -1,5 +1,5 @@
 <template>
-  <div :class="$route.name == 'home' ? 'nav-cont' : ''" v-if="!$route.meta.hideNavbar">
+  <div :class="$route.name == 'home' ? 'nav-cont' :''"  v-if="!$route.meta.hideNavbar">
     <nav class="navbar bg-transparent  navbar-expand-lg  border-bottom">
       <div class="container">
         <a class="navbar-brand font-weight-bolder" href="#">Cairo Team</a>
