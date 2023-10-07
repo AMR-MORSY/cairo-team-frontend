@@ -1,5 +1,5 @@
 <template>
-  <div :class="$route.name == 'home' ? 'nav-cont' :''"  v-if="!$route.meta.hideNavbar">
+  <div :class="$route.name == 'home' ? 'nav-cont':'nav-uncont'" v-if="!$route.meta.hideNavbar">
     <nav class="navbar bg-transparent  navbar-expand-lg  border-bottom">
       <div class="container">
         <a class="navbar-brand font-weight-bolder" href="#">Cairo Team</a>
@@ -9,12 +9,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <form class="d-flex flex-grow-1 " role="search" @submit.prevent="submitSearch">
-            <input class="form-control me-2" v-model="search" type="search" placeholder="Search by site code"
+            <input class="form-control me-2" @focusout="closeMenu()" v-model="search" type="search" placeholder="Search by site code"
               aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item" @click.prevent="closeMenu()">
               <router-link class="nav-link" :class="$route.name == 'home' ? 'display_none' : 'display'" to="/home"
                 Active>Home</router-link>
             </li>
@@ -26,24 +26,29 @@
                 v-if="isLogin">Dashboard</a>
 
               <ul class="dropdown-menu">
-                <li>
+                <li @click.prevent="closeMenu()">
                   <router-link class="dropdown-item" to="/sites">Sites</router-link>
                 </li>
-                <li>
+                <li @click.prevent="closeMenu()">
+
                   <router-link class="dropdown-item" to="/nur">NUR</router-link>
+
                 </li>
-                <li>
-                  <router-link class="dropdown-item" to="/modifications" v-if="isSuperAdmin">Modifications</router-link>
+                <li @click.prevent="closeMenu()">
+                  <router-link class="dropdown-item"
+                    to="/modifications" v-if="isSuperAdmin">Modifications</router-link>
                 </li>
-                <li>
-                  <router-link class="dropdown-item" to="/energy">Energy</router-link>
+                <li @click.prevent="closeMenu()">
+                  <router-link  class="dropdown-item"
+                    to="/energy">Energy</router-link>
                 </li>
 
 
               </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" v-if="isLogin" role="button" @click="logout">Logout</a>
+            <li class="nav-item" @click.prevent="closeMenu()">
+              <a  class="nav-link" v-if="isLogin"
+                role="button" @click="logout">Logout</a>
             </li>
 
           </ul>
@@ -138,6 +143,17 @@ export default {
           this.$store.dispatch("displaySpinnerPage", true);
         });
     },
+
+    closeMenu() {
+      const menuToggle = document.getElementById('navbarSupportedContent')
+      const bsCollapse = new bootstrap.Collapse(menuToggle,{toggle: false});
+      if (menuToggle.classList.contains('show'))
+      {
+        bsCollapse.toggle();
+
+      }
+     
+    }
   }
 };
 </script>
@@ -174,6 +190,13 @@ export default {
   right: 0;
   z-index: 5;
 
+}
+.nav-uncont{
+  position: unset;
+  top: unset;
+  left: unset;
+  right: unset;
+  z-index: unset;
 }
 
 @media (max-width: 990px) {

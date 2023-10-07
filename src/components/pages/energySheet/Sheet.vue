@@ -9,8 +9,9 @@
               {{ serverError }}
             </div>
           </div>
+          <h5 class="text-center">Energy</h5>
 
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mb-2">
             <div class="form-group">
               <select v-model="week" id="weeks" class="form-select">
                 <option value="">select week</option>
@@ -26,7 +27,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mb-2">
             <div class="form-group">
               <select v-model="year" class="form-select">
                 <option value="">select year</option>
@@ -43,7 +44,7 @@
             </div>
           </div>
 
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 mb-2">
             <div class="form-group">
               <label for="power">Energy Sheet:</label>
               <input type="file" name="energy_sheet" class="form-control" id="energy_sheet" @change="energySheetFile" />
@@ -243,17 +244,64 @@ export default {
 .index {
   margin-top: 6em;
 
-  .header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+ 
+}
 
-    p {
-      font-size: 2rem;
-      font-weight: 900;
-      color: darkmagenta;
-    }
+
+
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ 
+ 
+  
+  .card{
+    
+    width: 95%;
+   
+   
   }
+
+
+}
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+  
+  
+  .card{
+    
+    width: 90%;
+   
+   
+  }
+}
+
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+  
+  
+  .card{
+    
+    width: 80%;
+   
+   
+  }
+}
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  #analysis{
+  
+  .card{
+    
+    width: 80%;
+   
+   
+  }
+}
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
+
+  
+  .card{
+    
+    width: 75%;
+   
+   
+  }
+
 }
 </style>

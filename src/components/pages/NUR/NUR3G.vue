@@ -90,7 +90,7 @@
               <input
                 type="number"
                 class="form-control"
-                placeholder="2G Cells"
+                placeholder="3G Cells"
                 v-model="cells"
               />
               <div v-if="cellsErrors">

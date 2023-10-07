@@ -1,14 +1,17 @@
 <template>
   <section id="analysis">
     <div class="container">
-      <div class="card index">
+      <div class="card ">
         <div v-if="serverError">
           <p style="color: red">{{ serverError }}</p>
+        </div>
+        <div class="col-12 mb-1">
+          <h5>Select modifications:</h5>
         </div>
         <form @submit.prevent="submitFilterForm">
           <div class="row">
             <div class="col-12 col-md-6">
-              <div class="form-group">
+              <div class="form-group ">
                 <select class="form-select" @change="submitColumn" id="column">
                   <option value="">Filter By:</option>
                   <option v-for="column in columns" :key="column">
@@ -18,7 +21,7 @@
               </div>
             </div>
             <div class="col-12 col-md-6">
-              <div class="form-group">
+              <div class="form-group ">
                 <select
                   class="form-select"
                   @change="submitColumnValue"
@@ -126,15 +129,7 @@ export default {
         columnName: this.column,
         columnValue: this.columnValue,
       };
-      console.log(data);
-      // Modifications.getModificationIndex().then((response)=>{
-      //   console.log(response)
-
-      // }).catch((error)=>{
-      //   console.log(error)
-      // }).finally(()=>{
-
-      // });
+      
       this.$router.push(
         `/modifications/index/${this.column}/${this.columnValue}`
       );
@@ -144,74 +139,73 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index,
-.helper-table-container {
-  width: 70%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 2rem;
-}
-.index {
-  margin-top: 6em;
-  .header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    p {
-      font-size: 2rem;
-      font-weight: 900;
-      color: darkmagenta;
+#analysis{
+  margin-top: 5rem;
+  .card{
+    padding: 2rem 2rem;
+    width: 60%;
+    margin: auto;
+    .form-group{
+      margin-bottom: 1rem;
     }
   }
 }
 
-@media screen and (max-width: 575px) {
-  #analysis {
-    .container {
-      .form-container {
-        width: 100%;
-      }
 
-      .button-container {
-        width: 100%;
-      }
-    }
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ 
+  #analysis{
+  
+  .card{
+    
+    width: 95%;
+   
+   
   }
 }
 
-@media (min-width: 576px) and (max-width: 767px) {
-  #analysis {
-    .container {
-      .form-container {
-        width: 100%;
-      }
-
-      .button-container {
-        width: 100%;
-      }
-    }
+}
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+  #analysis{
+  
+  .card{
+    
+    width: 90%;
+   
+   
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
-  #analysis {
-    .container {
-      .form-container {
-        width: 100%;
-      }
-
-      .button-container {
-        width: 100%;
-
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-      }
-    }
+}
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+  #analysis{
+  
+  .card{
+    
+    width: 80%;
+   
+   
   }
 }
-@media (min-width: 992px) and (max-width: 1199px) {
 }
-@media (min-width: 1200px) and (max-width: 1500px) /* extra large windows*/ {
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  #analysis{
+  
+  .card{
+    
+    width: 80%;
+   
+   
+  }
+}
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
+  #analysis{
+  
+  .card{
+    
+    width: 75%;
+   
+   
+  }
+}
 }
 </style>

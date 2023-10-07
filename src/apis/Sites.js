@@ -58,5 +58,30 @@ export default {
     {
       return allInstances.Api.post("/instruments/siteBatteriesData",data)
 
+    },
+    getRectifierDetails(data)
+    {
+      return allInstances.Api.post("/instruments/siteRectifierData",data)
+
+    },
+    getSiteDeepDetails(data)
+    {
+      return allInstances.Api.post("/instruments/siteDeepData",data)
+
+    },
+    getSiteMWDetails(data)
+    {
+      return allInstances.Api.post("/instruments/siteMWData",data)
+
+    },
+    getSiteBTSDetails(data)
+    {
+      return allInstances.Api.post("/instruments/siteBTSData",data)
+
+    },
+    getSitePowerDetails(data)
+    {
+      return allInstances.Api.post("/instruments/sitePowerData",data)
+
     }
 };

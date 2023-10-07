@@ -2,8 +2,9 @@
   <div class="cont">
     <div class="lock"></div>
     <div class="message">
-      <h1>Access to this page is restricted</h1>
-      <p>Please check with the site admin if you believe this is a mistake.</p>
+      <h2 class="text-center">Access to this page is restricted</h2>
+      <p class="text-center" style="color: black;">Please check with the site admin if you believe this is a mistake.</p>
+     <h3 type="button" style="display: block; color: red;text-align: center; text-decoration:underline; padding-top: 3rem;"  @click="this.$router.go(-1)">Go back</h3>
     </div>
 
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="container ">
     <div class="row ">
-      <div class="col-md-1"></div>
+      <div class="col-1"></div>
       <div class="col-12 col-md-10 mt-5 mb-3">
         <div class="card">
           <TabView class="myTabView" ref="tabview4">
@@ -9,8 +9,8 @@
               <template #header>
                 <span class="header">{{ siteName }}</span>
               </template>
-
-              <div class="row site-details">
+             
+                <div class="row site-details">
                 <div class="col-12 col-sm-6 col-lg-4 ">
                   <div class="input-group">
                     <span class="input-group-text" id="siteCode">Site code</span>
@@ -113,7 +113,7 @@
                 <div class="col-12 col-sm-6 col-lg-3  ">
                   <div class="input-group">
                     <span class="input-group-text" id="guest">Gest</span>
-                    <input type="text"  disabled class="form-control" v-model="gest" aria-describedby="guest" />
+                    <input type="text" disabled class="form-control" v-model="gest" aria-describedby="guest" />
                   </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3  ">
@@ -167,6 +167,9 @@
                 <div class="col-6 col-md-3 my-3">
                   <Button label="BTS Data" @click="getBTSData" class="p-button-raised p-button-secondary" />
                 </div>
+                <div class="col-6 col-md-3 my-3">
+                  <Button label="Power Data" @click="getPowerData" class="p-button-raised p-button-secondary" />
+                </div>
                 <div class="col-12   my-3 ">
                   <div class="speed-dial">
                     <SpeedDial :model="items" direction="right" :tooltipOptions="{ position: 'right' }"
@@ -176,6 +179,10 @@
                   </div>
                 </div>
               </div>
+
+              
+
+             
             </TabPanel>
             <TabPanel>
               <template #header>
@@ -229,7 +236,7 @@
           </TabView>
         </div>
       </div>
-      <div class="col-md-1"></div>
+      <div class="col-1"></div>
     </div>
   </div>
 </template>
@@ -535,7 +542,7 @@ export default {
 
     },
     getSiteGenAlarms() {
-      this.$store.dispatch("displaySpinnerPage", false);
+
       Energy.getSiteGenAlarms(this.data).then((response) => {
         if (response.data.alarms.length > 0) {
           this.$store.dispatch("siteAlarms", { "alarmName": "gen", "alarmData": response.data.alarms });
@@ -559,9 +566,6 @@ export default {
             });
           }
         }
-      }).finally(() => {
-        this.$store.dispatch("displaySpinnerPage", true);
-
       })
 
     },
@@ -658,86 +662,410 @@ export default {
 
     },
 
-    getBatteriesData()
-    {
-      Sites.getBatteriesDetails(this.data).then((response)=>{
-        console.log(response)
-        let batteriesData=[];
-        if(response.data.data=="found data")
-        {
-          let battery={
-            "Battery Brand":response.data.battery_brand
+    getBatteriesData() {
+      Sites.getBatteriesDetails(this.data).then((response) => {
+        
+        let batteriesData = [];
+        if (response.data.data == "found data") {
+          let battery = {
+            "Battery Brand": response.data.battery_brand
           }
           batteriesData.push(battery);
-          battery={
-            "Battery Volt":response.data.battery_volt
+          battery = {
+            "Battery Volt": response.data.battery_volt
           };
           batteriesData.push(battery);
-          battery={
-            "Battery Amp Hr":response.data.battery_amp_hr
+          battery = {
+            "Battery Amp Hr": response.data.battery_amp_hr
           };
           batteriesData.push(battery);
-          battery={
-            "Number Strings":response.data.no_strings
+          battery = {
+            "No. Strings": response.data.no_strings
           };
           batteriesData.push(battery);
-          battery={
-            "Number Batteries":response.data.no_batteries
+          battery = {
+            "No. Batteries": response.data.no_batteries
           };
           batteriesData.push(battery);
-          battery={
-            "Batteries Status":response.data.batteries_status
+          battery = {
+            "Batteries Status": response.data.batteries_status
           };
           batteriesData.push(battery);
 
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "75vw",
+                width: "90vw",
               },
-              // breakpoints: {
-              //   "960px": "75vw",
-              //   "640px": "90vw",
-              // },
+
               modal: true,
             },
 
             data: {
               statestics: batteriesData,
               id: response.data.id,
-              
+              topic:"Batteries"
+
             },
           });
 
 
 
         }
-        else{
+        else {
           this.$toast.add({
-              severity: "error",
-              summary: "Error Message",
-              detail: "No Data Found",
-              life: 3000,
-            });
+            severity: "error",
+            summary: "Error Message",
+            detail: "No Data Found",
+            life: 3000,
+          });
         }
-      }).catch((error)=>{
+      }).catch((error) => {
 
       })
     },
-    getSiteData()
-    {
+    getSiteData() {
+      Sites.getSiteDeepDetails(this.data).then((response) => {
+       
+        let siteData = [];
+        if (response.data.data == "found data") {
+          let site = {
+            "On Air Date": response.data.on_air_date
+          }
+          siteData.push(site);
+          site = {
+            "Topology": response.data.topology
+          };
+          siteData.push(site);
+          site = {
+            "NTRA Cluster": response.data.ntra_cluster
+          };
+          siteData.push(site);
+          site = {
+            "Care CEO": response.data.care_ceo
+          };
+          siteData.push(site);
+          site = {
+            "Axis": response.data.axsees
+          };
+          siteData.push(site);
+          site = {
+            "Serve Compound": response.data.serve_compound
+          };
+          siteData.push(site);
+          site = {
+            "No. LDN Accounts": response.data.no_ldn_accounts
+          };
+          siteData.push(site);
+          site = {
+            "No. Tp Accounts": response.data.no_tp_accounts
+          };
+          siteData.push(site);
+          site = {
+            "AC1 Type": response.data.ac1_type
+          };
+          siteData.push(site);
+          site = {
+            "AC1 HP": response.data.ac1_hp
+          };
+          siteData.push(site);
+          site = {
+            "AC2 Type": response.data.ac2_type
+          };
+          siteData.push(site);
+          site = {
+            "AC2 HP": response.data.ac2_hp
+          };
+          siteData.push(site);
+          site = {
+            "Network Type": response.data.network_type
+          };
+          siteData.push(site);
+          site = {
+            "Last PM Date": response.data.last_pm_date
+          };
+          siteData.push(site);
+          site = {
+            "Access Permission": response.data.need_access_permission
+          };
+          siteData.push(site);
+          site = {
+            "Permission Type": response.data.permission_type
+          };
+          siteData.push(site);
+
+          this.$dialog.open(EquipmentDetails, {
+            props: {
+              style: {
+                width: "90vw",
+              },
+
+              modal: true,
+            },
+
+            data: {
+              statestics: siteData,
+              id: response.data.id,
+              topic:"Site Data"
+
+            },
+          });
+
+
+
+        }
+        else {
+          this.$toast.add({
+            severity: "error",
+            summary: "Error Message",
+            detail: "No Data Found",
+            life: 3000,
+          });
+        }
+      }).catch((error) => {
+
+      })
 
     },
-    getRectifierData()
-    {
+    getRectifierData() {
+      Sites.getRectifierDetails(this.data).then((response) => {
+
+        let rectifierData = [];
+        if (response.data.data == "found data") {
+          let rectifier = {
+            "Rectifier Brand": response.data.rec_brand
+          }
+          rectifierData.push(rectifier);
+          rectifier = {
+            "Module Capacity": response.data.module_capacity
+          };
+          rectifierData.push(rectifier);
+          rectifier = {
+            "No. Module": response.data.no_module
+          };
+          rectifierData.push(rectifier);
+          rectifier = {
+            "PLVD Value": response.data.pld_value
+          };
+          rectifierData.push(rectifier);
+          rectifier = {
+            "Net ECO": response.data.net_eco
+          };
+          rectifierData.push(rectifier);
+          rectifier = {
+            "Net ECO Activation": response.data.net_eco_activation
+          };
+          rectifierData.push(rectifier);
+
+          this.$dialog.open(EquipmentDetails, {
+            props: {
+              style: {
+                width: "90vw",
+              },
+
+              modal: true,
+            },
+
+            data: {
+              statestics: rectifierData,
+              id: response.data.id,
+              topic:"Rectifier Data"
+
+            },
+          });
+
+
+
+        }
+        else {
+          this.$toast.add({
+            severity: "error",
+            summary: "Error Message",
+            detail: "No Data Found",
+            life: 3000,
+          });
+        }
+      }).catch((error) => {
+
+      })
 
     },
-    getMWData()
-    {
+    getMWData() {
+      Sites.getSiteMWDetails(this.data).then((response) => {
+
+        let MWData = [];
+        if (response.data.data == "found data") {
+          let MW = {
+            "No MW": response.data.no_mw
+          };
+          MWData.push(MW);
+          MW = {
+            "MW Type": response.data.mw_type
+          };
+          MWData.push(MW);
+          MW = {
+            "Eband": response.data.eband
+          };
+
+          MWData.push(MW);
+          this.$dialog.open(EquipmentDetails, {
+            props: {
+              style: {
+                width: "90vw",
+              },
+
+              modal: true,
+            },
+
+            data: {
+              statestics: MWData,
+              id: response.data.id,
+              topic:"MW Data"
+
+            },
+          });
+
+
+
+        }
+        else {
+          this.$toast.add({
+            severity: "error",
+            summary: "Error Message",
+            detail: "No Data Found",
+            life: 3000,
+          });
+        }
+      }).catch((error) => {
+
+      })
+
 
     },
-    getBTSData()
-    {
+    getBTSData() {
+      Sites.getSiteBTSDetails(this.data).then((response) => {
+
+        let BTSData = [];
+        if (response.data.data == "found data") {
+          let BTS = {
+            "No BTS": response.data.no_bts
+          };
+          BTSData.push(BTS);
+          BTS = {
+            "MRFU 2G": response.data.mrfu_2G
+          };
+          BTSData.push(BTS);
+          BTS = {
+            "MRFU 3G": response.data.mrfu_3G
+          };
+          BTSData.push(BTS);
+          BTS = {
+            "MRFU 4G": response.data.mrfu_4G
+          };
+          BTSData.push(BTS);
+          BTS = {
+            "TDD": response.data.tdd
+          };
+
+          BTSData.push(BTS);
+          this.$dialog.open(EquipmentDetails, {
+            props: {
+              style: {
+                width: "90vw",
+              },
+
+              modal: true,
+            },
+
+            data: {
+              statestics: BTSData,
+              id: response.data.id,
+              topic:"BTS Data"
+
+            },
+          });
+
+
+
+        }
+        else {
+          this.$toast.add({
+            severity: "error",
+            summary: "Error Message",
+            detail: "No Data Found",
+            life: 3000,
+          });
+        }
+      }).catch((error) => {
+
+      })
+
+
+
+    },
+    getPowerData() {
+      Sites.getSitePowerDetails(this.data).then((response) => {
+
+        let powerData = [];
+        if (response.data.data == "found data") {
+          let power = {
+            "Power Source": response.data.power_source
+          };
+          powerData.push(power);
+         power = {
+            "PM Type": response.data.power_meter_type
+          };
+          powerData.push(power);
+         power = {
+            "Power Cable Cross Sec": response.data.power_cable_cross_sec
+          };
+          powerData.push(power);
+         power = {
+            "Power Cable Length": response.data.power_cable_length
+          };
+          powerData.push(power);
+         power = {
+            "Gen Capacity": response.data.gen_capacity
+          };
+
+          powerData.push(power);
+          power = {
+            "Overhaul Power Consump": response.data.overhaul_power_consumption
+          };
+
+          powerData.push(power);
+          this.$dialog.open(EquipmentDetails, {
+            props: {
+              style: {
+                width: "90vw",
+              },
+
+              modal: true,
+            },
+
+            data: {
+              statestics:powerData,
+              id: response.data.id,
+              topic:"Power Data"
+
+            },
+          });
+
+
+
+        }
+        else {
+          this.$toast.add({
+            severity: "error",
+            summary: "Error Message",
+            detail: "No Data Found",
+            life: 3000,
+          });
+        }
+      }).catch((error) => {
+
+      })
+
 
     }
 
@@ -746,6 +1074,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 ::v-deep.myTabView {
   .p-tabview-panel {
     color: #79589f;
@@ -772,6 +1101,11 @@ export default {
   }
 }
 
+Button{
+  min-width: 150px;
+  display: block;
+  margin: auto;
+}
 .site-details,
 .buttons {
   border: 1px solid #79589f;
@@ -779,9 +1113,7 @@ export default {
   padding: 3rem 0;
 }
 
-.buttons {
-  padding: 1rem 0;
-}
+
 
 .display-none {
   display: none;
@@ -797,56 +1129,62 @@ export default {
       bottom: 5px;
       width: 55px;
       height: 55px;
-      left: 0;
+      left:  30px;
     }
 
   }
 }
 
 .input-group {
-   
-    margin-bottom: 1rem;
-  }
+
+  margin-bottom: 1rem;
+}
 
 @media screen and (min-width:320px) and (max-width: 480px) {
 
   /* smartphones, iPhone, portrait 480x320 phones */
   .input-group {
-     max-width: 80%;
-     margin-left: auto;
-     margin-right: auto;
-   
-  
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+
   }
 }
 
 @media screen and (min-width:481px) and (max-width: 640px) {
+
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
   .input-group {
-     max-width: 80%;
-     margin-left: auto;
-     margin-right: auto;
-   
-  
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+
   }
 
 }
 
 @media screen and (min-width:641px) and (max-width: 960) {
+
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   .input-group {
-     max-width: 80%;
-     margin-left: auto;
-     margin-right: auto;
-   
-  
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+
   }
 }
 
 
-@media screen and (min-width:961px)and  (max-width: 1024px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
- 
+@media screen and (min-width:961px)and (max-width: 1024px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+
 }
-@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
- 
-}</style>
+
+@media (min-width:1025px) {
+  /* big landscape tablets, laptops, and desktops */
+
+}
+</style>

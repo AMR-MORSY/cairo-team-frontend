@@ -215,7 +215,7 @@ export default {
         this.project &&
         this.status
       ) {
-        this.$store.dispatch("displaySpinnerPage", false);
+      
         let data = {
           site_code: this.site_code,
           site_name: this.site_name,
@@ -367,9 +367,7 @@ export default {
               }
             }
           })
-          .finally(() => {
-            this.$store.dispatch("displaySpinnerPage", true);
-          });
+         
       }
     },
   },

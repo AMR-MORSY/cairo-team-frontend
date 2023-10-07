@@ -1,10 +1,10 @@
 <template>
   <div class="container mt-5 mb-5">
     <div class="row mt-5">
-      <!-- <div class="col-12 col-lg-1"></div> -->
-      <div class="col-12 col-lg-12">
+    
+      <div class="col-12 ">
         <div class="card mt-5">
-          <template v-if="modifications.length > 0">
+          <template v-if="thereIsMod">
             <DataTable
               :value="modifications"
               :paginator="true"
@@ -86,14 +86,14 @@
             </download-excel> -->
           </template>
 
-          <template v-else>
+          <template v-if=" noModifications">
             <div class="no-modification">
               <p>No Modifications Available</p>
             </div>
           </template>
         </div>
       </div>
-      <!-- <div class="col-12 col-lg-1"></div> -->
+     
     </div>
   </div>
 </template>
@@ -107,6 +107,8 @@ export default {
       modifications: [],
       isRowSelected: false,
       selectedModification: null,
+      thereIsMod:false,
+      noModifications:false,
     };
   },
  
@@ -133,7 +135,7 @@ export default {
   name: "modificationsIndex",
   methods: {
     getModificationsIndex() {
-      this.$store.dispatch("displaySpinnerPage", false);
+
       let data = {
         columnName: this.columnName,
         columnValue: this.columnValue,
@@ -142,9 +144,18 @@ export default {
        Modifications.getModificationIndex(data)
    
         .then((response) => {
+         
           this.modifications = response.data.modifications;
+          if(this.modifications.length>0)
+          {
+            this.thereIsMod=true;
+          }
+          else{
+            this.noModifications=true;
+          }
         })
         .catch((error) => {
+         
           if (error.response.status == 422) {
             let errors = error.response.data.errors;
             if (errors.columnName) {
@@ -169,7 +180,7 @@ export default {
           }
         })
         .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
+        
         });
     },
 

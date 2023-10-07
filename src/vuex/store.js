@@ -26,50 +26,69 @@ const store = createStore({
       }
     },
     isSuperAdmin(state) {
-      let userRoles= state.userData.roles;
-      userRoles=toRaw(userRoles);
-      if (userRoles) {
-     
-        let userRole = null;
-        userRole=userRoles.filter((role) => {
-          return role.name == "super-admin";
-        });
+      
+      if(state.userData)
+      {
+        let userRoles= state.userData.roles;
+        userRoles=toRaw(userRoles);
+        if (userRoles) {
        
-        if (userRole.length>0) {
-          return true;
-        } else {
+          let userRole = null;
+          userRole=userRoles.filter((role) => {
+            return role.name == "super-admin";
+          });
+         
+          if (userRole.length>0) {
+            return true;
+          } else {
+            return false;
+          }
+  
+        }
+        else {
           return false;
+  
         }
 
       }
-      else {
+      else
+      {
         return false;
-
       }
+     
 
      
     },
     isAdmin(state) {
-      let userRoles= state.userData.roles;
-      userRoles=toRaw(userRoles);
-      if (userRoles) {
      
-        let userRole = null;
-        userRole=userRoles.filter((role) => {
-          return role.name == "admin";
-        });
+      if(state.userData)
+      {
+        let userRoles= state.userData.roles;
+        userRoles=toRaw(userRoles);
+        if (userRoles) {
        
-        if (userRole.length>0) {
-          return true;
-        } else {
+          let userRole = null;
+          userRole=userRoles.filter((role) => {
+            return role.name == "admin";
+          });
+         
+          if (userRole.length>0) {
+            return true;
+          } else {
+            return false;
+          }
+  
+        }
+        else {
           return false;
+  
         }
 
       }
-      else {
-        return false;
-
+      else{
+        return false
       }
+    
 
      
     },

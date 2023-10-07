@@ -10,10 +10,11 @@
   <BootstrapToast></BootstrapToast>
   <NetworkErrorToast></NetworkErrorToast>
 
+  <Toast/>
 
 
-  
-  <Toast />
+
+ 
  
 </template>
 
@@ -148,4 +149,6 @@ export default {
 };
 </script>
 
-<style lang="scss" ></style>
+<style lang="scss" >
+
+</style>
