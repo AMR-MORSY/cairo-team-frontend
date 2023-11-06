@@ -1,112 +1,143 @@
 <template>
-  <div class="container mb-3">
-    <div class="row">
-      <div class="col-1 col-md-3 col-lg-4"></div>
-      <div class="col-10 col-md-6 col-lg-4 ">
-        <div class="form-container">
-          <Card style="border: 1px solid  #673EE6 ; border-radius: 5px">
-            <template #title>
-              <p class="p-card-title text-center" style="color:  #673EE6 ;">
-                Login
-              </p>
-            </template>
-            <template #content>
-              <form @submit.prevent="submitLoginForm">
-                <div class="row">
-                  <!-- <div class="col-12"> -->
-                    <div class="field w-100">
-                      <span class="p-float-label">
-                        <InputText
-                          id="inputtext"
-                          class="w-100"
-                          type="text"
-                          v-model="form.email"
-                          :class="{ 'p-invalid': emailError }"
-                        />
-                        <label for="inputtext">Email</label>
-                      </span>
-                    </div>
-                  <!-- </div> -->
-                  <!-- <div class="col-12"> -->
-                    <div class="field w-100 mt-4">
-                      <span class="p-float-label">
-                        <Password
-                          toggleMask
-                          v-model="form.password"
-                          id="password"
-                          class="w-100"
-                          :feedback="false"
-                          :class="{ 'p-invalid': passwordError }"
-                        ></Password>
-                        <label for="password">Password</label>
-                      </span>
-                    </div>
-                  <!-- </div> -->
-                  <!-- <div class="col-12 mt-2"> -->
-                    <div
-                      class="d-flex w-100 align-items-center justify-content-flex-start mt-3"
-                    >
-                      <router-link to="/user/resetPassword"
-                        >Forgot Password?</router-link
-                      >
-                    </div>
-                  <!-- </div> -->
+  <userNavBar></userNavBar>
+  <div class="container">
 
-                  <!-- <div class="col-12"> -->
-                    <Button
-                      label="Sign in"
-                      class="w-100 mt-4"
-                      type="submit"
-                    
-                    />
-                  <!-- </div> -->
-                </div>
-              </form>
-            </template>
-          </Card>
-        </div>
-      </div>
-      <div class="col-1 col-md-3 col-lg-4 "></div>
-    </div>
+    <Card class="form-container">
+
+      <template #content>
+     
+
+          <p class=" text-center" style="color:  #673EE6 ; font-size: 1.5rem; font-weight: 700;">
+            Log in
+          </p>
+
+          <form @submit.prevent="submitLoginForm" novalidate>
+
+            <div class="my-3">
+
+              <div class="input-group ">
+                <span class="input-group-text" id="email">
+
+                  Email
+
+                </span>
+
+                <input class="form-control " :class="{ 'is-invalid': v$.email.$error }" type="text"
+                  v-model.trim="v$.email.$model" aria-describedby="email" />
+
+
+
+              </div>
+              <div v-if="v$.email.$error">
+                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                  v-for="error in v$.email.$errors">
+                  {{ error.$message }}</div>
+              </div>
+            </div>
+
+
+
+            <div class="input-group ">
+              <span class="input-group-text" id="pass">
+
+                Password
+
+              </span>
+              <input class="form-control " :class="{ 'is-invalid': v$.password.$error }" type="password"
+                v-model.trim="v$.password.$model" aria-describedby="pass" />
+
+            </div>
+            <div v-if="v$.password.$error">
+              <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                v-for="error in v$.password.$errors">
+                {{ error.$message }}</div>
+            </div>
+
+
+
+            <div class="d-flex w-100 align-items-center justify-content-flex-start my-3 pl-1">
+              <router-link to="/user/resetPassword">Forgot Password?</router-link>
+            </div>
+
+            <button class="btn  w-100" type="submit">Log in</button>
+
+
+          </form>
+
+
+
+
+
+
+
+      </template>
+
+
+
+    </Card>
+
+
   </div>
-  <Toast />
 </template>
 
 <script >
 
 import User from "../../../apis/User";
 
+import { email, required } from '@vuelidate/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { helpers } from '@vuelidate/validators';
+import userNavBar from "../../helpers/User/userNavBar.vue";
+
+
+
+
 export default {
+  setup: () => ({ v$: useVuelidate() }),
   data() {
     return {
-      form: {
-        email: null,
-        password: null,
-      },
 
-      passwordError: null,
+      email: null,
+      password: null,
 
-      emailError: null,
+
+
     };
   },
   name: "login",
+  components:{
+    userNavBar,
+  },
+
+  validations() {
+
+    return {
+
+
+      email: {
+        required: helpers.withMessage('Email is required', required),
+        email: helpers.withMessage('please enter a valid email address', email)
+      },
+
+      password: {
+        required: helpers.withMessage('Password is required', required),
+
+      }
+
+    }
+  },
 
   methods: {
     submitLoginForm() {
-      this.passwordError = null;
-      this.emailError = null;
 
-      if (!this.form.email) {
-        this.emailError = "Email is required";
-      }
-      if (!this.form.password) {
-        this.passwordError = "Password is required";
-      }
-      if (!this.passwordError && !this.emailError) {
-        this.$store.dispatch("displaySpinnerPage", false);
-        User.login(this.form)
+      if (!this.v$.$invalid) {
+        let form={
+          email:this.email,
+          password:this.password
+        }
+        User.login(form)
           .then((response) => {
-            console.log(response);
+           
             sessionStorage.setItem(
               "User",
               JSON.stringify(response.data.user_data)
@@ -119,7 +150,7 @@ export default {
           })
           .catch((error) => {
             if (error.response) {
-              console.log(error.response);
+            
               if (error.response.status == 401) {
                 this.$toast.add({
                   severity: "error",
@@ -139,57 +170,35 @@ export default {
               }
             }
           })
-          .finally(() => {
-            this.$store.dispatch("displaySpinnerPage", true);
-          });
+
+
       }
+
+
+
+
     },
   },
 };
 </script>
 
 <style lang="scss"  scoped>
+.container{
+  height: 100vh !important;
+  
 .form-container {
-  margin-top: 6em;
-}
+  margin-left: auto;
+  margin-right: auto;
+   margin-bottom: 20px !important;
+  max-width: 300px;
 
-::v-deep(.p-password input) {
-  width: 100%;
-  border-color:  #673EE6 !important;
-}
-::v-deep(.p-password input:focus) {
-  border-color: #673EE6 !important;
-  box-shadow: 0px 0px 3px 2px #673EE6 !important;
-}
-.p-button {
-  background-color: #673EE6 !important;
-  border-color: #673EE6 !important;
-}
-.p-button:focus {
-  box-shadow: 0px 0px 3px 2px  #673EE6 !important;
-}
-.p-inputtext {
-  border-color:  #673EE6 ;
-}
-.p-inputtext:focus {
-  box-shadow: 0px 0px 3px 2px #673EE6 !important;
-  border-color:  #673EE6 !important;
-}
-.p-inputtext:hover {
-  border-color:  #673EE6 !important;
-}
-
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
+  button {
+    background-color: #673EE6;
+    border: unset;
+    color: white;
   }
+
 }
+}
+  
 </style>

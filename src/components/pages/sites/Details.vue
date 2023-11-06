@@ -9,8 +9,8 @@
               <template #header>
                 <span class="header">{{ siteName }}</span>
               </template>
-             
-                <div class="row site-details">
+
+              <div class="row site-details">
                 <div class="col-12 col-sm-6 col-lg-4 ">
                   <div class="input-group">
                     <span class="input-group-text" id="siteCode">Site code</span>
@@ -180,16 +180,19 @@
                 </div>
               </div>
 
-              
 
-             
+
+
             </TabPanel>
             <TabPanel>
               <template #header>
-                <span class="header">Cascades</span>
-                <template v-if="countCascades">
-                  <Badge :value="countCascades"></Badge>
-                </template>
+                <div class="d-flex justify-content-center">
+                  <span class="header">Cascades</span>
+
+                  <Badge :value="countCascades" v-if="countCascades"></Badge>
+                </div>
+
+
               </template>
               <template v-if="countCascades">
                 <DataTable :value="cascades" responsiveLayout="scroll" class="p-datatable-sm" :paginator="true" :rows="5"
@@ -621,7 +624,7 @@ export default {
 
     },
     getSiteBatteriesHealth() {
-      this.$store.dispatch("displaySpinnerPage", false);
+    
       Energy.getSiteBatteriesHealth(this.data).then((response) => {
 
         if (response.data.statestics.powerAlarms == "exist") {
@@ -649,14 +652,11 @@ export default {
 
         }
         else {
-          this.$toast.add({ severity: 'error', summary: 'Opps.....', detail: `Dead Batteries`, life: 3000 });
+          this.$toast.add({ severity: 'error', summary: 'Opps.....', detail: `No power Alarms recorded/Dead Batteries`, life: 3000 });
 
         }
 
       }).catch((error) => {
-
-      }).finally(() => {
-        this.$store.dispatch("displaySpinnerPage", true);
 
       })
 
@@ -664,7 +664,7 @@ export default {
 
     getBatteriesData() {
       Sites.getBatteriesDetails(this.data).then((response) => {
-        
+
         let batteriesData = [];
         if (response.data.data == "found data") {
           let battery = {
@@ -704,7 +704,8 @@ export default {
             data: {
               statestics: batteriesData,
               id: response.data.id,
-              topic:"Batteries"
+              topic: "Batteries",
+              rowData:response.data
 
             },
           });
@@ -726,7 +727,7 @@ export default {
     },
     getSiteData() {
       Sites.getSiteDeepDetails(this.data).then((response) => {
-       
+
         let siteData = [];
         if (response.data.data == "found data") {
           let site = {
@@ -806,7 +807,8 @@ export default {
             data: {
               statestics: siteData,
               id: response.data.id,
-              topic:"Site Data"
+              topic: "Site Data",
+              rowData:response.data
 
             },
           });
@@ -869,7 +871,8 @@ export default {
             data: {
               statestics: rectifierData,
               id: response.data.id,
-              topic:"Rectifier Data"
+              topic: "Rectifier Data",
+              rowData:response.data
 
             },
           });
@@ -920,7 +923,8 @@ export default {
             data: {
               statestics: MWData,
               id: response.data.id,
-              topic:"MW Data"
+              topic: "MW Data",
+              rowData:response.data,
 
             },
           });
@@ -980,7 +984,8 @@ export default {
             data: {
               statestics: BTSData,
               id: response.data.id,
-              topic:"BTS Data"
+              topic: "BTS Data",
+              rowData:response.data,
 
             },
           });
@@ -1012,19 +1017,19 @@ export default {
             "Power Source": response.data.power_source
           };
           powerData.push(power);
-         power = {
+          power = {
             "PM Type": response.data.power_meter_type
           };
           powerData.push(power);
-         power = {
+          power = {
             "Power Cable Cross Sec": response.data.power_cable_cross_sec
           };
           powerData.push(power);
-         power = {
+          power = {
             "Power Cable Length": response.data.power_cable_length
           };
           powerData.push(power);
-         power = {
+          power = {
             "Gen Capacity": response.data.gen_capacity
           };
 
@@ -1044,9 +1049,10 @@ export default {
             },
 
             data: {
-              statestics:powerData,
+              statestics: powerData,
               id: response.data.id,
-              topic:"Power Data"
+              topic: "Power Data",
+              rowData:response.data
 
             },
           });
@@ -1074,38 +1080,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 ::v-deep.myTabView {
   .p-tabview-panel {
     color: #79589f;
-  }
 
-  .p-inputtext {
-    border-color: #79589f !important;
-    text-align: center;
-    color: #79589f;
-    font-weight: 500;
-  }
 
-  .p-inputtext:focus {
-    box-shadow: 0px 0px 3px 2px #79589f !important;
   }
 
   .p-badge {
     background-color: #79589f;
     margin-left: 5px;
-  }
 
-  .header {
-    color: #79589f;
+
+    .header {
+      color: #79589f;
+
+    }
   }
 }
 
-Button{
+Button {
   min-width: 150px;
   display: block;
   margin: auto;
 }
+
 .site-details,
 .buttons {
   border: 1px solid #79589f;
@@ -1129,7 +1128,7 @@ Button{
       bottom: 5px;
       width: 55px;
       height: 55px;
-      left:  30px;
+      left: 30px;
     }
 
   }
@@ -1147,7 +1146,23 @@ Button{
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
+    input,span{
+      font-size: 0.7rem;
+    }
+    span{
+      font-weight: 500;
+    }
 
+
+
+  }
+  Button {
+    font-size: 0.7rem;
+  }
+  .header {
+    font-size: 0.7rem;
+    min-width: 80px;
+    
 
   }
 }
@@ -1159,7 +1174,23 @@ Button{
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
+    input,span{
+      font-size: 0.7rem;
+    }
+    span{
+      font-weight: 500;
+    }
 
+
+
+  }
+  Button {
+    font-size: 0.7rem;
+  }
+  .header {
+    font-size: 0.7rem;
+    min-width: 80px;
+    
 
   }
 
@@ -1172,19 +1203,81 @@ Button{
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
+    input,span{
+      font-size: 0.7rem;
+    }
+    span{
+      font-weight: 500;
+    }
 
+
+
+  }
+  Button {
+    font-size: 0.7rem;
+  }
+  .header {
+    font-size: 0.7rem;
+    min-width: 80px;
+    
 
   }
 }
 
 
 @media screen and (min-width:961px)and (max-width: 1024px) {
+  .input-group {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    input,span{
+      font-size:0.7rem;
+    }
+    span{
+      font-weight: 500;
+    }
+
+
+
+  }
+  Button {
+    font-size:0.7rem;
+  }
+  .header {
+    font-size:0.7rem;
+    min-width: 80px;
+    
+
+  }
   /* tablet, landscape iPad, lo-res laptops ands desktops */
 
 }
 
 @media (min-width:1025px) {
   /* big landscape tablets, laptops, and desktops */
+  .input-group {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    input,span{
+      font-size: 0.9rem;
+    }
+    span{
+      font-weight: 500;
+    }
+
+
+
+  }
+  Button {
+    font-size: 1rem;
+  }
+  .header {
+    font-size: 0.9rem;
+    min-width: 80px;
+    
+
+  }
 
 }
 </style>

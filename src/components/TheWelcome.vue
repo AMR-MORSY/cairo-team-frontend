@@ -29,13 +29,13 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-md-6 mt-5">
+      <div class="col-md-6 mt-2">
 
-        <div class="text-container">
+        <div class="text-container ">
           <h2>The Greatest Team Ever</h2>
 
 
-          <div class=" row mt-5 ">
+          <div class="row gx-0 mt-5 ">
             <div v-if="displaySpinner">
               <ProgressSpinner style="width: 50px; height: 50px" animationDuration=".5s" />
 
@@ -104,7 +104,7 @@
         </div>
 
       </div>
-      <div class="col-md-6 mt-5">
+      <div class="col-md-6 mt-2">
         <div class="image-container">
           <img style="width: 100%;" src="../components/logos/header-image-2x-8fa7b8.webp" alt="">
 
@@ -260,6 +260,9 @@ export default {
 
 
 
+}
+.text-container{
+  max-width: 500px;
 }
 
 .me-auto {

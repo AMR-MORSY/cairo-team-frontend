@@ -33,6 +33,7 @@ export default {
   computed: {
 
     isSuperAdmin() {
+      
       return this.$store.getters.isSuperAdmin;
 
     },
@@ -48,36 +49,26 @@ export default {
       let card = this.cards.filter((element) => {
         return element.id == id;
       });
-      console.log(card);
-      if (card[0].path == "New sites" && this.isSuperAdmin) {
+    
+      if (card[0].path == "New sites") {
         this.$router.push("/sites/storeSites");
       }
-      else {
-        this.$router.push("/unauthorized");
-
+    
+     else if (card[0].path == "New site") {
+      
+       
+        this.$router.push({path:"/sites/storeSite"});
       }
-      if (card[0].path == "New site" && (this.isSuperAdmin || this.isAdmin)) {
-        this.$router.push("/sites/storeSite");
-      }
-      else {
-        this.$router.push("/unauthorized");
-
-      }
-      if (card[0].path == "Cascades"  && this.isSuperAdmin) {
+     
+     else if (card[0].path == "Cascades" ) {
         this.$router.push("/sites/cascades");
       }
-      else {
-        this.$router.push("/unauthorized");
-
-      }
-      if (card[0].path == "Nodals" && this.isSuperAdmin) {
+      
+      else if (card[0].path == "Nodals" ) {
         this.$router.push("/sites/nodals");
       }
-      else {
-        this.$router.push("/unauthorized");
-
-      }
-      if (card[0].path == "Cairo Sites" && (this.isSuperAdmin || this.isAdmin)) {
+     
+     else if (card[0].path == "Cairo Sites" && (this.isSuperAdmin || this.isAdmin)) {
         Sites.downloadAll()
           .then((response) => {
 
@@ -91,11 +82,8 @@ export default {
           .catch();
 
       }
-      else{
-        this.$router.push("/unauthorized");
-
-      }
-      if (card[0].path == "Download Nodals" && (this.isSuperAdmin || this.isAdmin)) {
+    
+    else if (card[0].path == "Download Nodals" && (this.isSuperAdmin || this.isAdmin)) {
         Sites.downloadNodals()
           .then((response) => {
             console.log(response);

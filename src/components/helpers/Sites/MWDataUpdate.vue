@@ -1,0 +1,223 @@
+<template>
+    <div class="container-fluid">
+        <h3>{{ topic }}</h3>
+        <form @submit.prevent="submitUpdateForm()" novalidate>
+            <div class="row gx-1">
+                <div class="col-12 col-md-6 col-xl-4  ">
+                    <div class="input-group">
+                        <span class="input-group-text w-50" id="no_mw">No. MW</span>
+                        <input type="number" class="form-control w-50"
+                            :class="{ 'is-invalid': v$.form.no_mw.$error }"
+                            v-model.trim="v$.form.no_mw.$model" aria-describedby="no_mw" />
+                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                            v-for="error in v$.form.no_mw.$errors">
+                            {{ error.$message }}</div>
+                    </div>
+                </div>
+
+             
+                <div class="col-12 col-md-6 col-xl-4  ">
+                    <div class="input-group">
+                        <span class="input-group-text w-50" id="mw_type">MW Type</span>
+                        <input type="text" class="form-control w-50 " :class="{ 'is-invalid': v$.form.mw_type.$error }"
+                            v-model.trim="v$.form.mw_type.$model" aria-describedby="mw_type" />
+                        <div v-if="v$.form.mw_type.$error">
+                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                                v-for="error in v$.form.mw_type.$errors">
+                                {{ error.$message }}</div>
+                        </div>
+                    </div>
+                </div>
+             
+          
+             
+                <div class="col-12 col-md-6 col-xl-4  ">
+                    <div class="input-group">
+                        <span class="input-group-text w-50" id="eband">E Band</span>
+                        <select class="form-select w-50"
+                            :class="{ 'is-invalid': v$.form.eband.$error }"
+                            v-model.trim="v$.form.eband.$model" aria-describedby="eband">
+                            <option value=""></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                            v-for="error in v$.form.eband.$errors">
+                            {{ error.$message }}</div>
+                    </div>
+                </div>
+            
+             
+
+                <div class="col-6">
+                    <div class="button-container">
+                        <Button label="Update" type="submit" icon="pi pi-external-link" severity="success" text raised />
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</template>
+
+<script>
+import { maxLength, minLength, minValue,maxValue,required } from '@vuelidate/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { helpers } from '@vuelidate/validators';
+import Sites from '../../../apis/Sites';
+export default {
+    setup: () => ({ v$: useVuelidate() }),
+    data() {
+
+
+        return {
+            form: {
+                
+                no_mw: 0,
+                mw_type: null,
+                eband: null,
+                id:null,
+               
+             
+             
+
+
+            },
+            topic: null,
+
+        };
+    },
+    validations() {
+        const stringReg = helpers.regex(/^[a-zA-Z0-9 \/]+$/);
+        const booleanReg = helpers.regex(/^Yes|No$/);
+
+        return {
+
+
+            form: {
+              
+
+                no_mw: {
+                    required:helpers.withMessage("zero or Max 50 MW",required),
+
+                    minValue: helpers.withMessage("min 1 MW link", minValue(1)),
+                    maxValue: helpers.withMessage("max 50 MW link", maxValue(50)),
+                   
+
+
+
+                },
+                mw_type: {
+                    minLength:helpers.withMessage("min 3 characters",minLength(3)),
+                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
+                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
+
+
+
+                },
+             
+              
+             
+                eband: {
+                    required:helpers.withMessage("Yes or No",required),
+                    booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
+
+                },
+            
+
+
+
+
+
+            },
+
+        }
+    },
+    name: "MWDataUpdate",
+    inject: ["dialogRef"],
+
+    mounted() {
+        this.mountData()
+
+    },
+    methods: {
+        mountData() {
+           
+            this.form.no_mw = this.dialogRef.data.rowData.no_mw;
+            this.form.mw_type = this.dialogRef.data.rowData.mw_type;
+            this.form.eband = this.dialogRef.data.rowData.eband;
+           this.form.id=this.dialogRef.data.id;
+            this.topic = this.dialogRef.data.topic;
+
+        },
+        submitUpdateForm() {
+
+            if (!this.v$.$invalid) {
+             
+            
+                Sites.updateSiteMWDetails(this.form).then((response) => {
+                    if (response.data.message == "updated successfully") {
+                        this.$toast.add({
+                            severity: "success",
+                            summary: "Success Message",
+                            detail: "Updated Successfully",
+                            life: 3000,
+                        });
+
+                    }
+
+                }).catch((error) => {
+                    if(error.response.status==404)
+                    {
+                        this.$router.push({name:"notFound"})
+                    }
+
+                });
+
+            }
+          
+
+
+        }
+
+
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.input-group {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.button-container {
+
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1em;
+
+}
+
+@media screen and (min-width:320px) and (max-width: 480px) {
+
+    /* smartphones, iPhone, portrait 480x320 phones */
+
+}
+
+@media screen and (min-width:481px) and (max-width: 640px) {
+
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+
+
+}
+
+@media screen and (min-width:641px) and (max-width: 960) {
+
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+
+}
+</style>

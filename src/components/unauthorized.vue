@@ -2,9 +2,9 @@
   <div class="cont">
     <div class="lock"></div>
     <div class="message">
-      <h2 class="text-center">Access to this page is restricted</h2>
+      <h3 class="text-center">Access to this page is restricted</h3>
       <p class="text-center" style="color: black;">Please check with the site admin if you believe this is a mistake.</p>
-     <h3 type="button" style="display: block; color: red;text-align: center; text-decoration:underline; padding-top: 3rem;"  @click="this.$router.go(-1)">Go back</h3>
+     <h3 type="button" style="display: block; color: red;text-align: center; text-decoration:underline; padding-top: 3rem;"  @click="$router.go(-1)">Go back</h3>
     </div>
 
   </div>
@@ -34,11 +34,13 @@ $animationTime: 2s;
 
 .cont {
   height: 100vh;
+  max-width: 400px;
+ 
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // background: linear-gradient(to bottom right, #EEE, #AAA);
   background-color: white;
 }
 

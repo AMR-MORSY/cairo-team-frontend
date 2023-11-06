@@ -5,34 +5,27 @@
   <DynamicDialog />
   <ConfirmDialog></ConfirmDialog>
 
-  <SpinnerPage :displayNone="displaySpinnerPage"></SpinnerPage>
+  <SpinnerPage :displayNone="displaySpinnerPage" style="z-index: 10000000000;"></SpinnerPage>
 
-  <BootstrapToast></BootstrapToast>
+  <UnauthenticatedToast></UnauthenticatedToast>
   <NetworkErrorToast></NetworkErrorToast>
 
-  <Toast/>
-
-
-
  
- 
+  <Toast position="center" :breakpoints="{'480px':{'width':'80%','margin':'auto'}}" />
 </template>
 
 <script >
-import User from "./apis/User";
-
-
-// import DialogMessage from "./DialogMessage.vue";
 import SpinnerPage from "../src/components/helpers/SpinnerPage.vue";
 import navbar from "../src/components/navbar.vue";
 import SitesTable from "../src/components/pages/sites/SitesTable.vue";
-import BootstrapToast from "../src/components/helpers/BootStrapToast.vue";
+import UnauthenticatedToast from "../src/components/helpers/UnauthenticatedToast.vue";
 import "bootstrap";
 import NetworkErrorToast from "./components/helpers/NetworkErrorToast.vue";
+import { right } from "@popperjs/core";
 
 
 export default {
-  components: { SpinnerPage, navbar, SitesTable, BootstrapToast, NetworkErrorToast },
+  components: { SpinnerPage, navbar, SitesTable, UnauthenticatedToast, NetworkErrorToast },
   data() {
     return {
       showModal: false,
@@ -53,42 +46,13 @@ export default {
       return this.$store.state.dialogMessage;
     },
 
-    // sessoinTimeOut() {
-    //   if (this.$store.state.sessionTimeOut) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // },
-    // sessionEnd() {
-    //   if (this.$store.state.sessionEnd) {
-    //     return true;
-    //   }
-    // },
+
   },
   name: "app",
 
   methods: {
-    
-  
-    // showSessionTimeOutNotification() {
-    //   this.$confirm.require({
-    //     message: "Session will expire in 2 minutes.renew the session?",
-    //     header: "Confirmation",
-    //     icon: "pi pi-exclamation-triangle",
-    //     position: "top",
-    //     acceptClass: "p-button-help",
-    //     rejectClass: "p-button-danger",
-    //     accept: () => {
-    //       this.$confirm.close();
-    //       this.refreshSession();
-    //     },
-    //     reject: () => {
-    //       this.$confirm.close();
-    //       this.goToLogin();
-    //     },
-    //   });
-    // },
+
+
     displaySitesTable(event) {
       this.$dialog.open(SitesTable, {
         props: {
@@ -111,44 +75,11 @@ export default {
     displayTheSpinner(event) {
       this.displaySpinnerPage = event;
     },
-    // refreshSession() {
-    //   User.refreshSession()
-    //     .then((response) => {
-    //       sessionStorage.setItem("Auth", true);
-    //       sessionStorage.setItem("userData", JSON.stringify(response.data));
-    //       this.$store.dispatch("changeLoginState", true);
-    //       this.$store.dispatch("userData", response.data.user);
-    //       this.$store.dispatch("userPermissions", response.data.permissions);
-    //       this.$store.dispatch("userRoles", response.data.roles);
-    //     })
-    //     .catch((error) => {
-    //       if (error) {
-    //         sessionStorage.removeItem("Auth");
-    //         sessionStorage.removeItem("userData");
-    //         this.$store.dispatch("changeLoginState", false);
-    //         this.$store.dispatch("userData", null);
-    //         this.$store.dispatch("userPermissions", null);
-    //         this.$store.dispatch("userRoles", null);
-    //         this.$router.push({ path: "/user/login" });
-    //       }
-    //     });
-    //   // this.$store.dispatch("changeTimeOut",false);
-    // },
-    // goToLogin() {
-    //   sessionStorage.removeItem("Auth");
-    //   sessionStorage.removeItem("userData");
-    //   this.$store.dispatch("changeLoginState", false);
-    //   this.$store.dispatch("userData", null);
-    //   this.$store.dispatch("userPermissions", null);
-    //   this.$store.dispatch("userRoles", null);
-    //   this.$router.push({ path: "/user/login" });
-    // },
+
   },
 
 
 };
 </script>
 
-<style lang="scss" >
-
-</style>
+<style lang="scss" ></style>

@@ -9,6 +9,7 @@ const store = createStore({
     siteAlarms: null,
     displayDialog: false,
     dialogMessage: "",
+    showUnauthenticatedToast:false,
   },
   getters: {
     isLogin(state) {
@@ -18,6 +19,7 @@ const store = createStore({
      
       if (state.userData) {
         let userToken = state.userData.token.plainTextToken;
+        
         return userToken;
       } else {
         let userToken = null;
@@ -39,6 +41,7 @@ const store = createStore({
           });
          
           if (userRole.length>0) {
+          
             return true;
           } else {
             return false;
@@ -103,11 +106,13 @@ const store = createStore({
         return userName;
       }
     },
+    showUnauthenticatedToast(state)
+    {
+      return state.showUnauthenticatedToast;
+    }
   },
   mutations: {
-    NEW_STATUS(state, status) {
-      state.isLogin = status;
-    },
+  
     USER_DATA(state, user) {
       state.userData = user;
     },
@@ -135,11 +140,13 @@ const store = createStore({
     DIALOG_MESSAGE(state, message) {
       state.dialogMessage = message;
     },
+    SHOW_UNAUTH_TOAST(state,status)
+    {
+      state.showUnauthenticatedToast=status;
+    }
   },
   actions: {
-    changeLoginState({ commit }, status) {
-      commit("NEW_STATUS", status);
-    },
+  
     userData({ commit }, user) {
       commit("USER_DATA", user);
     },
@@ -164,6 +171,10 @@ const store = createStore({
     dialogMessage({ commit }, message) {
       commit("DIALOG_MESSAGE", message);
     },
+    showUnauthToast({commit},status)
+    {
+      commit("SHOW_UNAUTH_TOAST",status)
+    }
   },
 });
 export default store;

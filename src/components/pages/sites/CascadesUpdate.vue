@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
-    <div class="row mt-5">
-      <div class="col-12 mt-5">
+    <div class="row">
+      <div class="col-12 ">
         <PickList
           v-model="pickListData"
           listStyle="height:342px"
@@ -39,14 +39,14 @@
           </template>
         </PickList>
       </div>
-      <div class="col-4 mt-4">
-        <div class="p-inputgroup">
+      <div class="col-6 mt-4">
+        <div class="p-inputgroup w-100">
           <InputText v-model="search" placeholder="Site Code......." />
           <Button icon="pi pi-search" @click.prevent="submitSearch" type="button" class="p-button-warning" />
         </div>
       </div>
-      <div class="col-4 mt-2"></div>
-      <div class="col-4 mt-4 mb-4">
+    
+      <div class="col-6 mt-4 mb-4">
         <Button
           label="Save"
           :disabled="isDisabled"

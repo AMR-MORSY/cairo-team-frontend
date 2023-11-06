@@ -70,9 +70,9 @@ export default {
     methods: {
         mountChartsBefore() {
             let powerAlarmsCountBeforeDown = this.dialogRef.data.powerAlarms.powerAlarmsCountBeforeDown;
-            let avgBackuptime = this.dialogRef.data.powerAlarms.avgBackuptime;
+            let maxBackuptime = this.dialogRef.data.powerAlarms.maxBackuptime;
             let valuespowerAlarmsCountBeforeDown = Object.values(powerAlarmsCountBeforeDown);
-            let valuesavgBackuptime = Object.values(avgBackuptime);
+            let valuesmaxBackuptime = Object.values(maxBackuptime);
             let yearsBefore = Object.keys(powerAlarmsCountBeforeDown);
             this.chartsBefore = [];
 
@@ -89,9 +89,9 @@ export default {
                                 borderWidth: 1,
                             },
                             {
-                                label: "Average Backuptime",
+                                label: "Max Backuptime",
                                 backgroundColor: "var(--purple-500)",
-                                data: Object.values(valuesavgBackuptime[i]),
+                                data: Object.values(valuesmaxBackuptime[i]),
                                 borderWidth: 1,
                             },
                         ],
@@ -109,9 +109,9 @@ export default {
         },
         mountChartsWithout() {
             let powerAlarmsWithoutDown = this.dialogRef.data.powerAlarms.powerAlarmsWithoutDown;
-            let avgAlarmsDurationWithoutDown = this.dialogRef.data.powerAlarms.avgAlarmsDurationWithoutDown;
+            let maxAlarmsDurationWithoutDown = this.dialogRef.data.powerAlarms.maxAlarmsDurationWithoutDown;
             let valuespowerAlarmsWithoutDown = Object.values(powerAlarmsWithoutDown);
-            let valuesavgAlarmsDurationWithoutDown = Object.values(avgAlarmsDurationWithoutDown);
+            let valuesmaxAlarmsDurationWithoutDown = Object.values(maxAlarmsDurationWithoutDown);
             let yearsWithout = Object.keys(powerAlarmsWithoutDown);
             this.chartsWithout = [];
 
@@ -128,9 +128,9 @@ export default {
                                 borderWidth: 1,
                             },
                             {
-                                label: "Average Backuptime",
+                                label: "Max Backuptime",
                                 backgroundColor: "var(--purple-500)",
-                                data: Object.values(valuesavgAlarmsDurationWithoutDown[i]),
+                                data: Object.values(valuesmaxAlarmsDurationWithoutDown[i]),
                                 borderWidth: 1,
                             },
                         ],

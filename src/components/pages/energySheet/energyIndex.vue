@@ -1,5 +1,5 @@
 <template>
-   <index alarms="energy" />
+   <index alarms="Energy" />
 </template>
 
 <script>

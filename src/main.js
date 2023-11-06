@@ -46,16 +46,20 @@ import Divider from 'primevue/divider';
 import ConfirmationService from 'primevue/confirmationservice';
 import ConfirmDialog from 'primevue/confirmdialog';
 import SpeedDial from 'primevue/speeddial';
+import OverlayPanel from 'primevue/overlaypanel';
+
 
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 
 
 
-import "bootstrap/dist/css/bootstrap.min.css"
+import './assets/main.scss'
 
 
- import './assets/main.css'
+
+
+ 
 
 const app = createApp(App)
 
@@ -66,6 +70,7 @@ app.use(router)
 .use(ToastService)
 .use(DialogService)
 .use(ConfirmationService)
+
 
 .directive('tooltip', Tooltip)
 .component('Datepicker', Datepicker)
@@ -100,4 +105,5 @@ app.use(router)
 .component("navbar",navbar)
 .component("spinnerButton",spinnerButton)
 .component("helperTable",helperTable)
+.component("OverlayPanel",OverlayPanel)
 .mount('#app')

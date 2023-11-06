@@ -59,14 +59,29 @@ export default {
       return allInstances.Api.post("/instruments/siteBatteriesData",data)
 
     },
+    updateBatteriesData(data)
+    {
+      return allInstances.Api.post("/instruments/updateBatteriesData",data)
+
+    },
+   
     getRectifierDetails(data)
     {
       return allInstances.Api.post("/instruments/siteRectifierData",data)
 
     },
+    updateRectifierDetails(data)
+    {
+      return allInstances.Api.post("/instruments/updateRectifierData",data)
+    },
     getSiteDeepDetails(data)
     {
       return allInstances.Api.post("/instruments/siteDeepData",data)
+
+    },
+    updatesiteDeepDetails(data)
+    {
+      return allInstances.Api.post("/instruments/updateSiteDeepData",data)
 
     },
     getSiteMWDetails(data)
@@ -74,14 +89,30 @@ export default {
       return allInstances.Api.post("/instruments/siteMWData",data)
 
     },
+    updateSiteMWDetails(data)
+    {
+      return allInstances.Api.post("/instruments/updateMWData",data)
+
+    },
     getSiteBTSDetails(data)
     {
       return allInstances.Api.post("/instruments/siteBTSData",data)
 
     },
+    updateSiteBTSDetails(data)
+    {
+      return allInstances.Api.post("/instruments/updateSiteBTSData",data)
+
+    },
+   
     getSitePowerDetails(data)
     {
       return allInstances.Api.post("/instruments/sitePowerData",data)
+
+    },
+    updateSitePowerDetails(data)
+    {
+      return allInstances.Api.post("/instruments/updateSitePowerData",data)
 
     }
 };

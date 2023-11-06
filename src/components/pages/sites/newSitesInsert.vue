@@ -117,28 +117,10 @@ export default {
     isLogin() {
       return this.$store.state.isLogin;
     },
-    isSuperAdmin() {
-      let userRoles = this.$store.state.userRoles;
-      let userRole = null;
-      userRoles.forEach((role) => {
-        if (role.name == "super-admin") {
-          userRole = role.name;
-        }
-      });
-      if (userRole) {
-        return true;
-      } else {
-        return false;
-      }
-    },
+    
+     
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (!vm.isLogin || vm.isSuperAdmin == false) {
-        return vm.$router.push(from.path);
-      }
-    });
-  },
+
   methods: {
     closeModal() {
       return (this.showModal = false);

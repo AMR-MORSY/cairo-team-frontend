@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="row mt-5">
+    <div class="row">
       <div class="col-12 mt-5 mb-5">
-        <Card>
-          <template #content>
+        <Fieldset>
+          <template #legend> <span class="material-symbols-rounded mx-1">add_circle</span><span>New Site</span>  </template>
             <div class="form">
               <form @submit.prevent="insertNewSite">
                 <div class="row  p-5">
@@ -194,7 +194,7 @@
                         <Button
                           label="back"
                           type="button"
-                          class="back"
+                          class="p-button-raised p-button-help"
                           @click="goBack"
                         />
                       </div>
@@ -202,7 +202,7 @@
                         <Button
                           label="insert"
                           type="submit"
-                          class="insert"
+                          class="p-button-raised p-button-warning"
                           style="color: white"
                         />
                       </div>
@@ -211,8 +211,8 @@
                 </div>
               </form>
             </div>
-          </template>
-        </Card>
+         
+        </Fieldset>
       </div>
     </div>
   </div>
@@ -311,7 +311,7 @@ export default {
         !this.sharingError
        
       ) {
-         this.$store.dispatch("displaySpinnerPage",false);
+       
         let data = {
           site_code: this.site_code,
           site_name: this.site_name,
@@ -329,7 +329,7 @@ export default {
           "3G_cells":this.cells3G,
           "4G_cells":this.cells4G,
         };
-        console.log(data);
+      
    
        Sites.createNewSite(data)
           .then((response) => {
@@ -513,9 +513,7 @@ export default {
               }
             }
           })
-          .finally(() => {
-             this.$store.dispatch("displaySpinnerPage",true);
-          });
+         
       }
     },
   },
@@ -524,50 +522,168 @@ export default {
 
 <style lang="scss" scoped>
 
+::v-deep(.p-fieldset) {
+  position: relative;
+ 
 
-  .p-button.back,
-  .p-button.back:hover {
-    background-color: var(--pink-500);
-    border-color: var(--pink-500);
-  }
-  .p-button.insert,
-  .p-button.insert:hover {
-    background-color: var(--teal-400);
-    border-color: var(--teal-400);
+  .p-fieldset-legend {
+    max-width: 200px;
+    color: white;
+   display: flex;
+   justify-content: center;
+    position: absolute;
+    top: 0px;
+    left: 50px;
+    z-index: 2;
+    background-color: rgba($color: gray, $alpha: 1);
   }
 
-  .p-inputtext {
-    border-color: #79589f;
-  }
-  .p-inputtext:focus {
+
+
+  select:focus {
     box-shadow: 0px 0px 3px 2px #79589f !important;
-  }
+    border: unset;
 
-  .p-inputtextarea {
-    resize: none;
-    width: 100%;
   }
 
 
-// $dp__border_radius: 30px !default;
+  .dp__theme_light {
+    --dp-text-color: #79589f;
 
-.form-select option:hover {
-  background-color: #79589f !important;
-}
-.dp__theme_light {
-  --dp-text-color: red;
+    --dp-icon-color: #79589f;
 
-  --dp-icon-color: #79589f;
-
-  --dp-border-color: #79589f;
+    --dp-border-color: #79589f;
+  }
 }
 
 .form {
- 
+  margin-top: 10px;
   width: 100%;
   border: 1px solid black;
   border-radius: 5px;
 }
-@media screen and (max-width: 576px) {
+
+@media (min-width:320px) {
+
+  /* smartphones, iPhone, portrait 480x320 phones */
+  ::v-deep(.p-fieldset) {
+
+
+    .p-fieldset-legend {
+      font-size: 0.7rem;
+
+
+    }
+
+    .p-button {
+      font-size: 0.7rem;
+    }
+
+    select,input,label,textarea {
+      font-size: 0.7rem;
+    }
+    .dp__theme_light {
+      font-size: 0.7rem;
+  }
+
+
+  }
+
 }
+
+@media (min-width:481px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.7rem;
+
+
+}
+
+.p-button {
+  font-size: 0.7rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.7rem;
+}
+
+
+}
+}
+
+@media (min-width:641px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.7rem;
+
+
+}
+
+.p-button {
+  font-size: 0.7rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.7rem;
+}
+
+
+}
+}
+
+@media (min-width:961px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.9rem;
+
+
+}
+
+.p-button {
+  font-size: 0.9rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.9rem;
+}
+
+
+}
+}
+
+@media (min-width:1025px) {
+
+  /* big landscape tablets, laptops, and desktops */
+  ::v-deep(.p-fieldset) {
+
+
+    .p-fieldset-legend {
+      font-size: 1rem;
+
+
+    }
+
+    .p-button {
+      font-size: 0.9rem;
+    }
+
+    select,input {
+      font-size: 0.9rem;
+    }
+
+
+  }
+
+}
+
+
 </style>

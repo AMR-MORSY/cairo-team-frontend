@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div class="row mt-5">
-      <div class="col-12 mt-5">
+    <div class="row mt-3">
+      <div class="col-12 my-2 ">
         <Fieldset>
           <template #legend>{{ site_code }}-{{ site_name }} </template>
           <div class="form">
             <form @submit.prevent="insertNewModification">
-              <div class="row mt-5 p-5">
+              <div class="row p-5">
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="Subcontrator">Subcontrator:</label>
                   <select class="form-select" id="Subcontrator" v-model="subcontractor"
@@ -71,11 +71,11 @@
                     :class="{ 'is-invalid': actionError }">
                   </textarea>
                 </div>
-                <div class="col-12 col-lg-3 mt-5">
-                  <Button label="back" type="button" class="back" @click="goBack" />
+                <div class="col-6 col-lg-3 mt-5">
+                  <Button label="back" type="button" class="p-button-raised p-button-secondary" @click="goBack" />
                 </div>
-                <div class="col-12 col-lg-3 mt-5">
-                  <Button label="insert" type="submit" class="insert" style="color: white" />
+                <div class="col-6 col-lg-3 mt-5">
+                  <Button label="insert" type="submit" class="p-button-raised p-button-help" style="color: white" />
                 </div>
               </div>
             </form>
@@ -377,64 +377,164 @@ export default {
 <style lang="scss" scoped>
 ::v-deep(.p-fieldset) {
   position: relative;
+ 
 
   .p-fieldset-legend {
-    width: 25%;
+    max-width: 200px;
     color: white;
     text-align: center;
     position: absolute;
-    top: 20px;
+    top: 0px;
     left: 50px;
     z-index: 2;
     background-color: rgba($color: gray, $alpha: 1);
   }
 
-  .p-button.back,
-  .p-button.back:hover {
-    background-color: var(--pink-500);
-    border-color: var(--pink-500);
-  }
 
-  .p-button.insert,
-  .p-button.insert:hover {
-    background-color: var(--teal-400);
-    border-color: var(--teal-400);
-  }
 
-  .p-inputtext {
-    border-color: #79589f;
-  }
-
-  .p-inputtext:focus {
+  select:focus {
     box-shadow: 0px 0px 3px 2px #79589f !important;
+    border: unset;
+
   }
 
-  .p-inputtextarea {
-    resize: none;
-    width: 100%;
+
+  .dp__theme_light {
+    --dp-text-color: #79589f;
+
+    --dp-icon-color: #79589f;
+
+    --dp-border-color: #79589f;
   }
-}
-
-// $dp__border_radius: 30px !default;
-
-.form-select option:hover {
-  background-color: #79589f !important;
-}
-
-.dp__theme_light {
-  --dp-text-color: red;
-
-  --dp-icon-color: #79589f;
-
-  --dp-border-color: #79589f;
 }
 
 .form {
-  margin-top: 50px;
+  margin-top: 10px;
   width: 100%;
   border: 1px solid black;
   border-radius: 5px;
 }
 
-@media screen and (max-width: 576px) {}
+@media (min-width:320px) {
+
+  /* smartphones, iPhone, portrait 480x320 phones */
+  ::v-deep(.p-fieldset) {
+
+
+    .p-fieldset-legend {
+      font-size: 0.7rem;
+
+
+    }
+
+    .p-button {
+      font-size: 0.7rem;
+    }
+
+    select,input,label,textarea {
+      font-size: 0.7rem;
+    }
+    .dp__theme_light {
+      font-size: 0.7rem;
+  }
+
+
+  }
+
+}
+
+@media (min-width:481px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.7rem;
+
+
+}
+
+.p-button {
+  font-size: 0.7rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.7rem;
+}
+
+
+}
+}
+
+@media (min-width:641px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.7rem;
+
+
+}
+
+.p-button {
+  font-size: 0.7rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.7rem;
+}
+
+
+}
+}
+
+@media (min-width:961px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.9rem;
+
+
+}
+
+.p-button {
+  font-size: 0.9rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.9rem;
+}
+
+
+}
+}
+
+@media (min-width:1025px) {
+
+  /* big landscape tablets, laptops, and desktops */
+  ::v-deep(.p-fieldset) {
+
+
+    .p-fieldset-legend {
+      font-size: 0.9rem;
+
+
+    }
+
+    .p-button {
+      font-size: 0.9rem;
+    }
+
+    select,input {
+      font-size: 0.9rem;
+    }
+
+
+  }
+
+}
+
 </style>

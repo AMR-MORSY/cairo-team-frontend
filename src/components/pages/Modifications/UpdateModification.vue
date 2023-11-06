@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div class="row mt-5">
-      <div class="col-12 mt-5">
+    <div class="row mt-3">
+      <div class="col-12 my-2 ">
         <Fieldset>
           <template #legend>{{ site_code }}-{{ site_name }} </template>
           <div class="form">
             <form @submit.prevent="updateModification">
-              <div class="row mt-5 p-5">
+              <div class="row  p-5">
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="Subcontrator">Subcontrator:</label>
                   <select class="form-select" id="Subcontrator" v-model="subcontractor"
@@ -15,6 +15,7 @@
                       {{ subcontractor }}
                     </option>
                   </select>
+                
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
                   <label for="status">Status:</label>
@@ -70,12 +71,12 @@
                     :class="{ 'is-invalid': actionError }">
                   </textarea>
                 </div>
-                <div class="col-12 col-lg-3 mt-5">
+                <div class="col-6 col-lg-3 mt-5">
                   <Button label="Back" type="submit" @click.prevent="goBack" class="p-button-raised p-button-warning"
                     style="color: white" />
                 </div>
-                <div class="col-12 col-lg-3 mt-5">
-                  <Button label="Update" type="submit" class="p-button-raised p-button-warning" style="color: white" />
+                <div class="col-6 col-lg-3 mt-5">
+                  <Button label="Update" type="submit" class="p-button-raised p-button-help" style="color: white" />
                 </div>
               </div>
             </form>
@@ -189,7 +190,7 @@ export default {
     },
 
     getModificationDetails() {
-      this.$store.dispatch("displaySpinnerPage", false);
+
 
       Modifications.getModificationDetails(this.id)
 
@@ -202,11 +203,11 @@ export default {
 
           this.request_date = response.data.details.request_date;
           this.requester = response.data.details.requester;
-          // requester_options=response.data.details.;
+
           this.project = response.data.details.project;
-          // project_options: null,
+
           this.status = response.data.details.status;
-          // status_options: null,
+
           this.finish_date = response.data.details.finish_date;
           this.action = response.data.details.action;
           this.cost = response.data.details.cost;
@@ -215,9 +216,7 @@ export default {
         .catch((error) => {
           console.log(error);
         })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+
     },
     updateModification() {
       this.subcontractorError = false;
@@ -253,7 +252,7 @@ export default {
         this.project &&
         this.status
       ) {
-        this.$store.dispatch("displaySpinnerPage", false);
+
         let data = {
           id: this.id,
           site_code: this.site_code,
@@ -268,11 +267,11 @@ export default {
           action: this.action,
           materials: this.materials,
         };
-       
+
         Modifications.updateModification(data)
 
           .then((response) => {
-          
+
 
             this.$toast.add({
               severity: "success",
@@ -282,7 +281,7 @@ export default {
             });
           })
           .catch((error) => {
-       
+
             if (error.response.status == 422) {
               let errors = error.response.data.errors;
 
@@ -398,9 +397,7 @@ export default {
               }
             }
           })
-          .finally(() => {
-            this.$store.dispatch("displaySpinnerPage", true);
-          });
+
       }
     },
   },
@@ -410,57 +407,163 @@ export default {
 <style lang="scss" scoped>
 ::v-deep(.p-fieldset) {
   position: relative;
+ 
 
   .p-fieldset-legend {
-    width: 25%;
+    max-width: 200px;
     color: white;
     text-align: center;
     position: absolute;
-    top: 20px;
+    top: 0px;
     left: 50px;
     z-index: 2;
     background-color: rgba($color: gray, $alpha: 1);
   }
 
-  .p-button {
-    background-color: #79589f !important;
-    border-color: #79589f !important;
-  }
 
-  .p-inputtext {
-    border-color: #79589f;
-  }
 
-  .p-inputtext:focus {
+  select:focus {
     box-shadow: 0px 0px 3px 2px #79589f !important;
+    border: unset;
+
   }
 
-  .p-inputtextarea {
-    resize: none;
-    width: 100%;
+
+  .dp__theme_light {
+    --dp-text-color: #79589f;
+
+    --dp-icon-color: #79589f;
+
+    --dp-border-color: #79589f;
   }
-}
-
-// $dp__border_radius: 30px !default;
-
-.form-select option:hover {
-  background-color: #79589f !important;
-}
-
-.dp__theme_light {
-  --dp-text-color: #79589f;
-
-  --dp-icon-color: #79589f;
-
-  --dp-border-color: #79589f;
 }
 
 .form {
-  margin-top: 50px;
+  margin-top: 10px;
   width: 100%;
   border: 1px solid black;
   border-radius: 5px;
 }
 
-@media screen and (max-width: 576px) {}
+@media (min-width:320px) {
+
+  /* smartphones, iPhone, portrait 480x320 phones */
+  ::v-deep(.p-fieldset) {
+
+
+    .p-fieldset-legend {
+      font-size: 0.7rem;
+
+
+    }
+
+    .p-button {
+      font-size: 0.7rem;
+    }
+
+    select,input,label,textarea {
+      font-size: 0.7rem;
+    }
+    .dp__theme_light {
+      font-size: 0.7rem;
+  }
+
+
+  }
+
+}
+
+@media (min-width:481px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.7rem;
+
+
+}
+
+.p-button {
+  font-size: 0.7rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.7rem;
+}
+
+
+}
+}
+
+@media (min-width:641px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.7rem;
+
+
+}
+
+.p-button {
+  font-size: 0.7rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.7rem;
+}
+
+
+}
+}
+
+@media (min-width:961px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  ::v-deep(.p-fieldset) {
+
+
+.p-fieldset-legend {
+  font-size: 0.9rem;
+
+
+}
+
+.p-button {
+  font-size: 0.9rem;
+}
+
+select,input,label,textarea {
+  font-size: 0.9rem;
+}
+
+
+}
+}
+
+@media (min-width:1025px) {
+
+  /* big landscape tablets, laptops, and desktops */
+  ::v-deep(.p-fieldset) {
+
+
+    .p-fieldset-legend {
+      font-size: 0.9rem;
+
+
+    }
+
+    .p-button {
+      font-size: 0.9rem;
+    }
+
+    select,input {
+      font-size: 0.9rem;
+    }
+
+
+  }
+
+}
 </style>

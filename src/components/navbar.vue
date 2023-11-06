@@ -36,7 +36,7 @@
                 </li>
                 <li @click.prevent="closeMenu()">
                   <router-link class="dropdown-item"
-                    to="/modifications" v-if="isSuperAdmin">Modifications</router-link>
+                    to="/modifications" >Modifications</router-link>
                 </li>
                 <li @click.prevent="closeMenu()">
                   <router-link  class="dropdown-item"
@@ -80,12 +80,7 @@ export default {
       return this.$store.getters.isLogin
 
     },
-    isSuperAdmin() {
-      return this.$store.getters.isSuperAdmin;
-
-    },
-
-
+  
     userName() {
       return this.$store.getters.userName;
     },
@@ -128,9 +123,9 @@ export default {
     },
 
     logout() {
-      this.$store.dispatch("displaySpinnerPage", false);
+     
       User.logout().then((data) => {
-        console.log(data);
+      
         this.$store.dispatch("userData", null);
         sessionStorage.removeItem("User");
 
@@ -139,9 +134,7 @@ export default {
         .catch((error) => {
 
         })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+      
     },
 
     closeMenu() {

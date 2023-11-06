@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import axios from "axios";
+
 import spinnerButton from "../../helpers/spinnerButton.vue";
 import Energy from "../../../apis/Energy";
 

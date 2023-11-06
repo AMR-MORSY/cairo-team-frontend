@@ -25,7 +25,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 100;
+    z-index: 10000;
     background-color: rgba($color: #ffff, $alpha: 0.7);
   }
 

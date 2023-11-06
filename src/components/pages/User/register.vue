@@ -1,183 +1,172 @@
 <template>
- 
-  <div class="container mb-3">
-    <div class="row">
-      <div class="col-12 col-lg-4"></div>
-      <div class="col-12 col-lg-4">
-        <div class="form-container">
-          <Card style="border: 1px solid #79589f; border-radius: 5px">
-            <template #title class="p-card-title">
-              <p class="text-center" style="color: #79589f">Register</p>
-            </template>
-            <template #content>
-              <form @submit.prevent="submitRegisterForm">
-                
-                <div class="row">
-                  <div class="col-12">
-                    <div class="field w-100">
-                      <span class="p-float-label">
-                        <InputText
-                          id="inputtext"
-                          class="w-100"
-                          type="text"
-                          v-model="form.name"
-                          :class="{ 'p-invalid': nameError }"
-                        />
-                        <label for="inputtext">Name</label>
-                      </span>
-                    </div>
-                  </div>
+  <userNavBar></userNavBar>
+  <div class="container">
+    <Card class="form-container">
+      <template #title class="p-card-title">
+        <p class="text-center" style="color: #673EE6 ">Register</p>
+      </template>
+      <template #content>
+        <form @submit.prevent="submitRegisterForm" novalidate>
 
-                  <div class="col-12">
-                    <div class="field w-100 mt-4">
-                      <span class="p-float-label">
-                        <InputText
-                          id="inputtext"
-                          class="w-100"
-                          type="text"
-                          v-model="form.email"
-                          :class="{ 'p-invalid': emailError }"
-                        />
-                        <label for="inputtext">Email</label>
-                      </span>
-                    </div>
-                  </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="field w-100">
+                <span class="p-float-label">
+                  <InputText id="inputtext" class="w-100" type="text" v-model.trim="v$.name.$model"
+                    :class="{ 'p-invalid': v$.name.$error }" />
+                  <label for="inputtext">Name</label>
+                </span>
+              </div>
+              <div v-if="v$.name.$error">
+                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                  v-for="error in v$.name.$errors">
+                  {{ error.$message }}</div>
+              </div>
+            </div>
 
-                  <div class="col-12">
-                    <div class="field w-100 mt-4">
-                      <span class="p-float-label">
-                        <Password
-                          toggleMask
-                          v-model="form.password"
-                          id="password"
-                          class="w-100"
-                          required
-                          :feedback="true"
-                          :class="{ 'p-invalid': passwordError }"
-                        >
-                          <template #header>
-                            <h6>Pick a password</h6>
-                          </template>
-                          <template #footer="sp">
-                            {{ sp.level }}
-                            <Divider />
-                            <p class="mt-2">Suggestions</p>
-                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                              <li>At least one lowercase</li>
-                              <li>At least one uppercase</li>
-                              <li>At least one from [@$!%*?&]</li>
-                              <li>Minimum 8 characters</li>
-                            </ul>
-                          </template></Password
-                        >
-                        <label for="password">Password</label>
-                      </span>
-                    </div>
-                  </div>
+            <div class="col-12">
+              <div class="field w-100 mt-4">
+                <span class="p-float-label">
+                  <InputText id="inputtext" class="w-100" type="text" v-model.trim="v$.email.$model"
+                    :class="{ 'p-invalid': v$.email.$error }" />
+                  <label for="inputtext">Email</label>
+                </span>
+              </div>
+              <div v-if="v$.email.$error">
+                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                  v-for="error in v$.email.$errors">
+                  {{ error.$message }}</div>
+              </div>
+            </div>
 
-                  <div class="col-12">
-                    <div class="w-100 mt-4">
-                      <span class="p-float-label">
-                        <Password
-                          toggleMask
-                          v-model="form.password_confirmation"
-                          id="password"
-                          class="w-100"
-                          :feedback="false"
-                          required
-                          :class="{ 'p-invalid': passwordConfirmationError }"
-                        >
-                        </Password>
-                        <label for="password">Confirm Password</label>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="w-100 mt-4">
-                      <Button
-                        label="Sign up"
-                        class="w-100"
-                        type="submit"
-                        style="background-color: #79589f"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <!-- </div> -->
-              </form>
-            </template>
-          </Card>
-        </div>
-      </div>
-      <div class="col-12 col-lg-4"></div>
-    </div>
+            <div class="col-12">
+              <div class="field w-100 mt-4">
+                <span class="p-float-label">
+                  <Password toggleMask v-model.trim="v$.password.$model" id="password" class="w-100" required
+                    :feedback="true" :class="{ 'p-invalid': v$.password.$error }">
+                    <template #header>
+                      <h6>Pick a password</h6>
+                    </template>
+                    <template #footer="sp">
+                      {{ sp.level }}
+                      <Divider />
+                      <p class="mt-2">Suggestions</p>
+                      <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                        <li>At least one lowercase</li>
+                        <li>At least one uppercase</li>
+                        <li>At least one from [@$!%*?&]</li>
+                        <li>Minimum 8 characters</li>
+                      </ul>
+                    </template>
+                  </Password>
+                  <label for="password">Password</label>
+                </span>
+              </div>
+              <div v-if="v$.password.$error">
+                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                  v-for="error in v$.password.$errors">
+                  {{ error.$message }}</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="w-100 mt-4">
+                <span class="p-float-label">
+                  <Password toggleMask v-model.trim="v$.password_confirmation.$model" id="password" class="w-100"
+                    :feedback="false" required :class="{ 'p-invalid': v$.password_confirmation.$error }">
+                  </Password>
+                  <label for="password">Confirm Password</label>
+                </span>
+              </div>
+              <div v-if="v$.password_confirmation.$error">
+                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                  v-for="error in v$.password_confirmation.$errors">
+                  {{ error.$message }}</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="w-100 mt-4">
+                <button  class="w-100 btn" :disabled="v$.$invalid" type="submit" style="background-color:  #673EE6;color: white;">Sign Up</button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </template>
+    </Card>
   </div>
-  <Toast />
 </template>
 
 <script>
 import User from "../../../apis/User";
+
+import { email, required, maxLength, sameAs, alpha,minLength } from '@vuelidate/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { helpers } from '@vuelidate/validators'
+import userNavBar from "../../helpers/User/userNavBar.vue";
+
 export default {
+  setup: () => ({ v$: useVuelidate() }),
+  validations() {
+    const passReg=helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+    return {
+      name: {
+        required: helpers.withMessage('Name is required', required),
+        
+        minLength: helpers.withMessage("min 3 characters", minLength(3)),
+        maxLength:helpers.withMessage("max 50 characters", maxLength(50)),
+        alpha: helpers.withMessage('Alphabit characters only', alpha),
+
+      },
+
+
+      email: {
+        required: helpers.withMessage('Email is required', required),
+        email: helpers.withMessage('please enter a valid email address', email)
+      },
+
+      password: {
+        required: helpers.withMessage('Password is required', required),
+        passReg:helpers.withMessage("Password does not match requirements",passReg),
+
+      },
+      password_confirmation: {
+       
+        required: helpers.withMessage('Password is required', required),
+        sameAs: helpers.withMessage('Password and confirmation are not matched', sameAs(this.password)),
+
+      },
+
+    }
+
+  },
   data() {
     return {
-      form: {
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-      },
-      nameError: null,
-      passwordError: null,
-      passwordConfirmationError: null,
-      emailError: null,
+
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+
     };
   },
+  components:{
+    userNavBar,
+  },
 
-  computed: {
-    isLogin() {
-      return this.$store.state.isLogin;
-    },
-  },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      if (vm.isLogin) {
-        return vm.$router.push(from.path);
-      }
-    });
-  },
+ 
   methods: {
     submitRegisterForm() {
-      this.nameError = null;
-      this.passwordError = null;
-      this.passwordConfirmationError = null;
-      this.emailError = null;
 
-      if (!this.form.name) {
-        this.nameError = "Email is required";
-      }
-      if (!this.form.email) {
-        this.emailError = "Email is required";
-      }
-      if (!this.form.password) {
-        this.passwordError = "Password is required";
-      }
-      if (this.form.password != this.form.password_confirmation) {
-        this.passwordConfirmationError = "Password is required";
-        this.$toast.add({
-          severity: "error",
-          summary: "Error Message",
-          detail: "password & password confirmation does not match",
-          life: 6000,
-        });
-      }
-      if (
-        !this.passwordError &&
-        !this.passwordConfirmationError &&
-        !this.nameError &&
-        !this.emailError
-      ) {
-         this.$store.dispatch("displaySpinnerPage",false);
-        User.register(this.form)
+
+      if (!this.v$.$invalid) {
+        let form = {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation
+        }
+        User.register(form)
           .then(() => {
             this.$router.push({ path: "/user/login" });
           })
@@ -216,46 +205,40 @@ export default {
               }
             }
           })
-          .finally(() => {
-         this.$store.dispatch("displaySpinnerPage",true);
-          });
+
+
+
       }
+
+
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.container{
+  height: 100vh !important;
+  
 .form-container {
-  margin-top: 6em;
-}
+  margin-left: auto;
+  margin-right: auto;
+   margin-bottom: 20px !important;
+  max-width: 300px;
 
+  button {
+    background-color: #673EE6;
+    border: unset;
+    color: white;
+  }
+
+}
+}
 ::v-deep(.p-password input) {
   width: 100%;
-  border-color: #79589f ;
+ 
 }
-::v-deep(.p-password input:focus) {
-  border-color: #79589f !important;
-  box-shadow: 0px 0px 3px 2px #79589f !important;
-}
-.p-button {
-  background-color: #79589f !important;
-  border-color: #79589f !important;
-}
-.p-button:focus {
-  box-shadow: 0px 0px 3px 2px #79589f !important ;
-}
-.p-inputtext {
-  border-color: #79589f;
-}
-.p-inputtext:focus {
-  box-shadow: 0px 0px 3px 2px #79589f !important;
-  border-color: #79589f !important ;
-}
-.p-inputtext:hover{
-   border-color: #79589f !important ;
 
-}
 
 .bd-placeholder-img {
   font-size: 1.125rem;
