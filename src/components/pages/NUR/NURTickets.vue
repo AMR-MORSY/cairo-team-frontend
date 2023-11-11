@@ -52,8 +52,7 @@
         stripedRows
         :rows="5"
       >
-        <!-- <Column field="site_name" header="Site Name"></Column>
-        <Column field="site_code" header="site_code"></Column> -->
+      
 
         <Column field="begin" header="begin"></Column>
         <Column field="end" header="End"></Column>

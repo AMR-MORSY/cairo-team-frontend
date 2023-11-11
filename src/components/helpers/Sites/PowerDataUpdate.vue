@@ -206,6 +206,17 @@ export default {
         this.mountData()
 
     },
+    watch:{
+        $route(to,from)
+        {
+            if(to.path=="/user/login")
+            {
+                this.dialogRef.close();
+            }
+
+        }
+
+    },
     methods: {
         mountData() {
             this.form.power_source = this.dialogRef.data.rowData.power_source;

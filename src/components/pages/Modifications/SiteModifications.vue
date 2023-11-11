@@ -29,9 +29,6 @@
               :disabled="!isRowSelected" />
           </div>
         </div>
-
-
-
       </Fieldset>
     </div>
 

@@ -183,6 +183,17 @@ export default {
     },
     name: "BatteriesUpdate",
     inject: ["dialogRef"],
+    watch:{
+        $route(to,from)
+        {
+            if(to.path=="/user/login")
+            {
+                this.dialogRef.close();
+            }
+
+        }
+
+    },
 
     mounted() {
         this.mountData()

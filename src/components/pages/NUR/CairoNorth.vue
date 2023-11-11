@@ -145,7 +145,7 @@
       </template>
     </Card>
   </div>
-  <!-- <DynamicDialog :key="cairoNorthNur" /> -->
+
 </template>
 
 <script>

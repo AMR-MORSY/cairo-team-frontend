@@ -58,6 +58,17 @@ export default {
   mounted() {
     this.mountTableData();
   },
+  watch:{
+        $route(to,from)
+        {
+            if(to.path=="/user/login")
+            {
+                this.dialogRef.close();
+            }
+
+        }
+
+    },
 
   name: "SiteAlarmsTable",
   methods: {

@@ -66,6 +66,17 @@ export default {
         this.mountChartData();
 
     },
+    watch:{
+        $route(to,from)
+        {
+            if(to.path=="/user/login")
+            {
+                this.dialogRef.close();
+            }
+
+        }
+
+    },
 
     methods: {
         mountChartsBefore() {

@@ -5,21 +5,7 @@
         <ProgressSpinner />
       </div>
 
-      <!-- <DataTable
-              :value="zoneNUR"
-              responsiveLayout="scroll"
-              class="p-datatable-sm"
-              stripedRows
-              v-model:selection="selectedSite"
-              selectionMode="single"
-              dataKey="siteCode"
-              @row-select="onRowSelect"
-            >
-              <Column selectionMode="single"></Column>
-              <slot name="columns"> </slot>
-
-           
-            </DataTable> -->
+    
     </div>
   </div>
 </template>

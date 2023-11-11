@@ -2,6 +2,7 @@ import router from "../../router/index";
 import store from "../../vuex/store";
 
 
+
 import * as bootstrap from "bootstrap";
 window.bootstrap = bootstrap;
 
@@ -43,6 +44,7 @@ function clearStorageAndLogin()
     sessionStorage.removeItem("User");
     store.dispatch("userData", null);
     store.dispatch("showUnauthToast",false);
+  
    
     router.push({ path: "/user/login" });
 

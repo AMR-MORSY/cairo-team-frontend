@@ -114,5 +114,11 @@ export default {
     {
       return allInstances.Api.post("/instruments/updateSitePowerData",data)
 
+    },
+    getSiteWANSDetails(data)
+    {
+      return allInstances.Api.post("/Transmission/getSiteWANS",data)
+
+
     }
 };

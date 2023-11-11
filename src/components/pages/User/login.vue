@@ -5,64 +5,64 @@
     <Card class="form-container">
 
       <template #content>
-     
-
-          <p class=" text-center" style="color:  #673EE6 ; font-size: 1.5rem; font-weight: 700;">
-            Log in
-          </p>
-
-          <form @submit.prevent="submitLoginForm" novalidate>
-
-            <div class="my-3">
-
-              <div class="input-group ">
-                <span class="input-group-text" id="email">
-
-                  Email
-
-                </span>
-
-                <input class="form-control " :class="{ 'is-invalid': v$.email.$error }" type="text"
-                  v-model.trim="v$.email.$model" aria-describedby="email" />
 
 
+        <p class=" text-center" style="color:  #673EE6 ; font-size: 1.5rem; font-weight: 700;">
+          Log in
+        </p>
 
-              </div>
-              <div v-if="v$.email.$error">
-                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                  v-for="error in v$.email.$errors">
-                  {{ error.$message }}</div>
-              </div>
-            </div>
+        <form @submit.prevent="submitLoginForm" novalidate>
 
-
+          <div class="my-3">
 
             <div class="input-group ">
-              <span class="input-group-text" id="pass">
+              <span class="input-group-text" id="email">
 
-                Password
+                Email
 
               </span>
-              <input class="form-control " :class="{ 'is-invalid': v$.password.$error }" type="password"
-                v-model.trim="v$.password.$model" aria-describedby="pass" />
+
+              <input class="form-control " :class="{ 'is-invalid': v$.email.$error }" type="text"
+                v-model.trim="v$.email.$model" aria-describedby="email" />
+
+
 
             </div>
-            <div v-if="v$.password.$error">
+            <div v-if="v$.email.$error">
               <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                v-for="error in v$.password.$errors">
+                v-for="error in v$.email.$errors">
                 {{ error.$message }}</div>
             </div>
+          </div>
 
 
 
-            <div class="d-flex w-100 align-items-center justify-content-flex-start my-3 pl-1">
-              <router-link to="/user/resetPassword">Forgot Password?</router-link>
-            </div>
+          <div class="input-group ">
+            <span class="input-group-text" id="pass">
 
-            <button class="btn  w-100" type="submit">Log in</button>
+              Password
+
+            </span>
+            <input class="form-control " :class="{ 'is-invalid': v$.password.$error }" type="password"
+              v-model.trim="v$.password.$model" aria-describedby="pass" />
+
+          </div>
+          <div v-if="v$.password.$error">
+            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+              v-for="error in v$.password.$errors">
+              {{ error.$message }}</div>
+          </div>
 
 
-          </form>
+
+          <div class="d-flex w-100 align-items-center justify-content-flex-start my-3 pl-1">
+            <router-link to="/user/resetPassword">Forgot Password?</router-link>
+          </div>
+
+          <button class="btn  w-100" type="submit">Log in</button>
+
+
+        </form>
 
 
 
@@ -94,6 +94,7 @@ import userNavBar from "../../helpers/User/userNavBar.vue";
 
 export default {
   setup: () => ({ v$: useVuelidate() }),
+  
   data() {
     return {
 
@@ -105,10 +106,10 @@ export default {
     };
   },
   name: "login",
-  components:{
+  components: {
     userNavBar,
   },
-
+ 
   validations() {
 
     return {
@@ -131,13 +132,13 @@ export default {
     submitLoginForm() {
 
       if (!this.v$.$invalid) {
-        let form={
-          email:this.email,
-          password:this.password
+        let form = {
+          email: this.email,
+          password: this.password
         }
         User.login(form)
           .then((response) => {
-           
+
             sessionStorage.setItem(
               "User",
               JSON.stringify(response.data.user_data)
@@ -150,7 +151,7 @@ export default {
           })
           .catch((error) => {
             if (error.response) {
-            
+
               if (error.response.status == 401) {
                 this.$toast.add({
                   severity: "error",
@@ -183,22 +184,21 @@ export default {
 </script>
 
 <style lang="scss"  scoped>
-.container{
+.container {
   height: 100vh !important;
-  
-.form-container {
-  margin-left: auto;
-  margin-right: auto;
-   margin-bottom: 20px !important;
-  max-width: 300px;
 
-  button {
-    background-color: #673EE6;
-    border: unset;
-    color: white;
+  .form-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px !important;
+    max-width: 300px;
+
+    button {
+      background-color: #673EE6;
+      border: unset;
+      color: white;
+    }
+
   }
-
 }
-}
-  
 </style>

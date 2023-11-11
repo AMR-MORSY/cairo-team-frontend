@@ -149,7 +149,7 @@
       </template>
     </Card>
   </div>
-  <!-- <DynamicDialog :key="GizaNur" /> -->
+ 
 </template>
 
 <script>

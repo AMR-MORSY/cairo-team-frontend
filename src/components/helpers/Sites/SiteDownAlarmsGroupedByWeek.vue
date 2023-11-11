@@ -64,6 +64,17 @@ export default {
     },
     name: "SiteDownAlarmsGroupedByWeek",
     inject: ["dialogRef"],
+    watch:{
+        $route(to,from)
+        {
+            if(to.path=="/user/login")
+            {
+                this.dialogRef.close();
+            }
+
+        }
+
+    },
     mounted() {
         this.mountChartData();
         this.mountTable();

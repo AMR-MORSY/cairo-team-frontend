@@ -347,6 +347,17 @@ export default {
         this.mountData()
 
     },
+    watch:{
+        $route(to,from)
+        {
+            if(to.path=="/user/login")
+            {
+                this.dialogRef.close();
+            }
+
+        }
+
+    },
     methods: {
         mountData() {
             this.form.on_air_date = this.dialogRef.data.rowData.on_air_date;

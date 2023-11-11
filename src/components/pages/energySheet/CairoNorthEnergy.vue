@@ -9,30 +9,7 @@
       </template>
       <template #content>
          <div class="row mt-5">
-        <!-- <div class="col-12 col-md-6 mt-2">
-          <TopSites :zoneAlarms="{
-                alarms: cairoNorthHieghestPowerAlarmDur,
-                alarmsName: 'hieghestPowerAlarmDur',
-              }"  @siteCode=" getSiteCode">
-            <template #header> Highest Power Alarm Duration </template>
-            <template #columns>
-              <Column field="siteName" header="Name"></Column>
-              <Column field="duration" header="Duration" sortable></Column>
-            </template>
-          </TopSites>
-        </div> -->
-        <!-- <div class="col-12 col-md-6 mt-2">
-          <TopSites  :zoneAlarms="{
-                alarms: cairoNorthSitesPowerAlarmMoreThan2Times,
-                alarmsName: 'sitesPowerAlarmMoreThan2Times',
-              }" @siteCode=" getSiteCode">
-            <template #header> Power Alarms per Site </template>
-            <template #columns>
-              <Column field="siteName" header="Name"></Column>
-              <Column field="count" header="Count" sortable></Column>
-            </template>
-          </TopSites>
-        </div> -->
+      
          <div class="col-12 col-md-6 mt-2">
           <TopSites :zoneAlarms="{
                 alarms: cairoNorthSitesReportedHTAlarms,
@@ -80,10 +57,6 @@
      
     </Card>
   </div>
-   <!-- <DynamicDialog key="cairoNorth" v-model:visible="dialog">
-    <SiteAlarmsTable/>
-
-  </DynamicDialog> -->
  
 </template>
 

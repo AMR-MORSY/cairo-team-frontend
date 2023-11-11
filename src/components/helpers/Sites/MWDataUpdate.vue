@@ -142,6 +142,17 @@ export default {
         this.mountData()
 
     },
+    watch:{
+        $route(to,from)
+        {
+            if(to.path=="/user/login")
+            {
+                this.dialogRef.close();
+            }
+
+        }
+
+    },
     methods: {
         mountData() {
            

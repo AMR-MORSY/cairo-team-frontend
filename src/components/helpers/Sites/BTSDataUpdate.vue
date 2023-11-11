@@ -120,6 +120,17 @@ export default {
 
         };
     },
+    watch:{
+        $route(to,from)
+        {
+            if(to.path=="/user/login")
+            {
+                this.dialogRef.close();
+            }
+
+        }
+
+    },
     validations() {
         const stringReg = helpers.regex(/^[a-zA-Z0-9 \/]+$/);
         const booleanReg = helpers.regex(/^Yes|No$/);

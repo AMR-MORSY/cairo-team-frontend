@@ -48,42 +48,12 @@ export default {
 
       this.$emit("siteCode",{siteCode:this.selectedSite.siteCode,alarmsName:this.zoneAlarms.alarmsName})
 
-      // let data = {
-      //   site_code: this.selectedSite.siteCode,
-      // };
      
-      // NUR.getSiteNUR(data)
-      //   .then((response) => {
-      //     console.log(response);
-          
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   }).finally(()=>{
-      //       this.displayNone=true;
-      //   });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// .display {
-//   display: none;
-// }
-// .table-container {
-//   position: relative;
-//   .spinner {
-//     position: absolute;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     top: 0;
-//     left: 0;
-//     bottom: 0;
-//     right: 0;
-//     z-index: 1;
-//     background-color: rgba($color: #ffff, $alpha: 0.7);
-//   }
-// }
+
 </style>

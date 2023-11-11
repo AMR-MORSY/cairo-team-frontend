@@ -84,7 +84,7 @@
       </div>
     </div>
   </div>
-  <Toast :key="newModification" />
+
 </template>
 
 <script>
