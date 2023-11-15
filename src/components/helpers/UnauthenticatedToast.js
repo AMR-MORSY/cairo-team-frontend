@@ -7,7 +7,7 @@ import * as bootstrap from "bootstrap";
 window.bootstrap = bootstrap;
 
 
-const timeoutInMS = 10 * 60 * 1000; // 3 minutes -> 3 * 60 * 1000
+const timeoutInMS = 60 * 60 * 1000; // 3 minutes -> 3 * 60 * 1000
 let timeoutId;
   
 function handleInactive() {

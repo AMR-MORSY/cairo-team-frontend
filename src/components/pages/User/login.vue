@@ -94,7 +94,7 @@ import userNavBar from "../../helpers/User/userNavBar.vue";
 
 export default {
   setup: () => ({ v$: useVuelidate() }),
-  
+
   data() {
     return {
 
@@ -109,7 +109,7 @@ export default {
   components: {
     userNavBar,
   },
- 
+
   validations() {
 
     return {
@@ -129,51 +129,47 @@ export default {
   },
 
   methods: {
-    submitLoginForm() {
+  async  submitLoginForm() {
 
-      if (!this.v$.$invalid) {
-        let form = {
-          email: this.email,
-          password: this.password
-        }
-        User.login(form)
-          .then((response) => {
-
-            sessionStorage.setItem(
-              "User",
-              JSON.stringify(response.data.user_data)
-            );
-            this.$store.dispatch("userData", response.data.user_data);
-
-            this.$router.push({
-              path: "/home",
-            });
-          })
-          .catch((error) => {
-            if (error.response) {
-
-              if (error.response.status == 401) {
-                this.$toast.add({
-                  severity: "error",
-                  summary: "Error Message",
-                  detail: error.response.data.message,
-                  life: 6000,
-                });
-              }
-
-              if (error.response.status == 422) {
-                this.$toast.add({
-                  severity: "error",
-                  summary: "Error Message",
-                  detail: "invalid credentials",
-                  life: 6000,
-                });
-              }
-            }
-          })
+      const isFormCorrect = await this.v$.$validate()
 
 
+      if (!isFormCorrect) return
+
+
+      let form = {
+        email: this.email,
+        password: this.password
       }
+      User.login(form)
+        .then((response) => {
+
+          sessionStorage.setItem(
+            "User",
+            JSON.stringify(response.data.user_data)
+          );
+          this.$store.dispatch("userData", response.data.user_data);
+
+          this.$router.push({
+            path: "/home",
+          });
+        })
+        .catch((error) => {
+          if (error.response) {
+
+            if (error.response.status == 422) {
+              this.$toast.add({
+                severity: "error",
+                summary: "Error Message",
+                detail: "invalid credentials",
+                life: 3000,
+              });
+            }
+          }
+        })
+
+
+
 
 
 

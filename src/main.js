@@ -49,6 +49,12 @@ import SpeedDial from 'primevue/speeddial';
 import OverlayPanel from 'primevue/overlaypanel';
 
 
+import JsonExcel from "vue-json-excel3";
+
+
+ 
+
+
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 
@@ -70,6 +76,8 @@ app.use(router)
 .use(ToastService)
 .use(DialogService)
 .use(ConfirmationService)
+
+
 
 
 .directive('tooltip', Tooltip)
@@ -106,4 +114,5 @@ app.use(router)
 .component("spinnerButton",spinnerButton)
 .component("helperTable",helperTable)
 .component("OverlayPanel",OverlayPanel)
+.component("downloadExcel", JsonExcel)
 .mount('#app')

@@ -86,7 +86,8 @@
             </div>
             <div class="col-12">
               <div class="w-100 mt-4">
-                <button  class="w-100 btn" :disabled="v$.$invalid" type="submit" style="background-color:  #673EE6;color: white;">Sign Up</button>
+                <button class="w-100 btn"  type="submit"
+                  style="background-color:  #673EE6;color: white;">Sign Up</button>
               </div>
             </div>
           </div>
@@ -100,7 +101,7 @@
 <script>
 import User from "../../../apis/User";
 
-import { email, required, maxLength, sameAs, alpha,minLength } from '@vuelidate/validators'
+import { email, required, maxLength, sameAs, alpha, minLength } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators'
 import userNavBar from "../../helpers/User/userNavBar.vue";
@@ -108,13 +109,12 @@ import userNavBar from "../../helpers/User/userNavBar.vue";
 export default {
   setup: () => ({ v$: useVuelidate() }),
   validations() {
-    const passReg=helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+    const passReg = helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
     return {
       name: {
         required: helpers.withMessage('Name is required', required),
-        
         minLength: helpers.withMessage("min 3 characters", minLength(3)),
-        maxLength:helpers.withMessage("max 50 characters", maxLength(50)),
+        maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
         alpha: helpers.withMessage('Alphabit characters only', alpha),
 
       },
@@ -127,11 +127,11 @@ export default {
 
       password: {
         required: helpers.withMessage('Password is required', required),
-        passReg:helpers.withMessage("Password does not match requirements",passReg),
+        passReg: helpers.withMessage("Password does not match requirements", passReg),
 
       },
       password_confirmation: {
-       
+
         required: helpers.withMessage('Password is required', required),
         sameAs: helpers.withMessage('Password and confirmation are not matched', sameAs(this.password)),
 
@@ -150,65 +150,67 @@ export default {
 
     };
   },
-  components:{
+  components: {
     userNavBar,
   },
 
- 
+
   methods: {
-    submitRegisterForm() {
+    async submitRegisterForm() {
+      const isFormCorrect = await this.v$.$validate()
 
 
-      if (!this.v$.$invalid) {
-        let form = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        }
-        User.register(form)
-          .then(() => {
-            this.$router.push({ path: "/user/login" });
-          })
-          .catch((error) => {
-            if (error.response.status == 422) {
-              let errors = error.response.data.errors;
-              if (errors.email) {
-                errors.email.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Error Message",
-                    detail: element,
-                    life: 6000,
-                  });
-                });
-              }
-              if (errors.name) {
-                errors.name.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Error Message",
-                    detail: element,
-                    life: 6000,
-                  });
-                });
-              }
-              if (errors.password) {
-                errors.password.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Error Message",
-                    detail: element,
-                    life: 6000,
-                  });
-                });
-              }
-            }
-          })
+      if (!isFormCorrect) return
 
-
-
+      let form = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.password_confirmation
       }
+      User.register(form)
+        .then(() => {
+          this.$router.push({ path: "/user/login" });
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            let errors = error.response.data.errors;
+            if (errors.email) {
+              errors.email.forEach((element) => {
+                this.$toast.add({
+                  severity: "error",
+                  summary: "Error Message",
+                  detail: element,
+                  life: 6000,
+                });
+              });
+            }
+            if (errors.name) {
+              errors.name.forEach((element) => {
+                this.$toast.add({
+                  severity: "error",
+                  summary: "Error Message",
+                  detail: element,
+                  life: 6000,
+                });
+              });
+            }
+            if (errors.password) {
+              errors.password.forEach((element) => {
+                this.$toast.add({
+                  severity: "error",
+                  summary: "Error Message",
+                  detail: element,
+                  life: 6000,
+                });
+              });
+            }
+          }
+        })
+
+
+
+
 
 
     },
@@ -217,26 +219,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container{
+.container {
   height: 100vh !important;
-  
-.form-container {
-  margin-left: auto;
-  margin-right: auto;
-   margin-bottom: 20px !important;
-  max-width: 300px;
 
-  button {
-    background-color: #673EE6;
-    border: unset;
-    color: white;
+  .form-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px !important;
+    max-width: 300px;
+
+    button {
+      background-color: #673EE6;
+      border: unset;
+      color: white;
+    }
+
   }
+}
 
-}
-}
 ::v-deep(.p-password input) {
   width: 100%;
- 
+
 }
 
 

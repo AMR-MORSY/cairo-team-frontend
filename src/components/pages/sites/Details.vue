@@ -171,8 +171,12 @@
                   <Button label="Power Data" @click="getPowerData" class="p-button-raised p-button-secondary" />
                 </div>
                 <div class="col-6 col-md-3 my-3">
-                  <Button label="WAN" @click="getSiteWANSData" class="p-button-raised p-button-secondary" />
+                  <Button label="Tx.issues" @click="getSiteWANSData" class="p-button-raised p-button-secondary" />
                 </div>
+                <div class="col-6 col-md-3 my-3">
+                  <Button icon="pi pi-search" label="Tx issues" @click="SearchTxIssues()" />
+                </div>
+            
                 <div class="col-12   my-3 ">
                   <div class="speed-dial">
                     <SpeedDial :model="items" direction="right" :tooltipOptions="{ position: 'right' }"
@@ -257,6 +261,7 @@ import siteBatteriesHealth from "../../helpers/Sites/siteBatteriesHealth.vue";
 import SiteDownAlarmsGroupedByWeek from "../../helpers/Sites/SiteDownAlarmsGroupedByWeek.vue";
 import EquipmentDetails from "../../helpers/Sites/EquipmentDetails.vue";
 import TransmissionDetails from "../../helpers/Transmission/TransmissionDetails.vue";
+import SearchTxIssuesForm from "../../helpers/Transmission/SearchTxIssuesForm.vue";
 export default {
   data() {
     return {
@@ -327,6 +332,7 @@ export default {
     SiteDownAlarmsGroupedByWeek,
     EquipmentDetails,
     TransmissionDetails,
+    SearchTxIssuesForm,
   },
   watch: {
     site_code() {
@@ -1080,13 +1086,13 @@ export default {
 
     },
     getSiteWANSData(){
-      Sites.getSiteWANSDetails(this.data).then((response)=>{
-        console.log(response)
-       
-        if(response.data.message=="data found")
-        {
-         
-          this.$dialog.open(TransmissionDetails, {
+      this.$router.push({path:`/siteTxIssues/${this.site_code}`});
+     
+
+    },
+    SearchTxIssues()
+    {
+      this.$dialog.open(SearchTxIssuesForm, {
             props: {
               style: {
                 width: "90vw",
@@ -1095,35 +1101,8 @@ export default {
               modal: true,
             },
 
-            data: {
-              statestics: response.data.WANS,
-             
-              topic: "WAN Data",
-             
-
-            },
+           
           });
-
-          
-          
-          
-          
-          
-          
-
-
-        }
-        else{
-          this.$toast.add({
-            severity: "error",
-            summary: "Error Message",
-            detail: "No Data Found",
-            life: 3000,
-          });
-
-        }
-
-      })
 
     }
 

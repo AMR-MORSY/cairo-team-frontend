@@ -1,10 +1,10 @@
 <template>
-    <div class="container-fluid ">
+    <div class="container pb-5">
         <div class="row site-details gx-1">
             <div class="col-6"></div>
 
             <div class="col-12">
-                <p>{{ topic }}</p>
+                <p>{{ topic }}<span>({{ statestics.length }})</span></p>
             </div>
 
             <DataTable :value="statestics" paginatorStyle="font-size:1vw;" responsiveLayout="scroll" :paginator="true"
@@ -22,10 +22,24 @@
             </DataTable>
 
             <div class="col-6">
-                <div class="button-container">
-                    <Button label="Update" :disabled="disabled" @click.prevent="openOverlayUpdate()" icon="pi pi-external-link" severity="success"  text raised />
+
+                <Button label="Update" :disabled="disabled" @click.prevent="openOverlayUpdate()" icon="pi pi-external-link"
+                    severity="success" text raised />
+
+
+            </div>
+            <div class="col-6">
+                <div class="d-flex w-100 justify-content-end ">
+                    <download-excel :data="statestics" class="btn btn-danger" type="xlsx" :name="topic">
+
+                        Export Excel
+
+                    </download-excel>
+
 
                 </div>
+
+
             </div>
 
 
@@ -37,46 +51,42 @@
 <script>
 
 import TransmissionUpdate from "./TransmissionUpdate.vue";
+
+
+
 export default {
     data() {
 
 
         return {
-            statestics: null,
-            topic: null,
+
             selectedRow: null,
             disabled: true,
 
         };
     },
     name: "TransmissionDetails",
-    inject: ["dialogRef"],
+
+    props: ["statestics", "topic"],
     components: {
         TransmissionUpdate,
-       
+
 
     },
 
 
 
-    mounted() {
-        this.mountData()
-
-    },
+  
     methods: {
-        mountData() {
-            this.statestics = this.dialogRef.data.statestics;
-            this.topic = this.dialogRef.data.topic;
 
 
-        },
         onRowSelect() {
             this.disabled = false;
 
-           
+
         },
         openOverlayUpdate() {
-            this.dialogRef.close();
+
 
             this.$dialog.open(TransmissionUpdate, {
                 props: {
@@ -89,8 +99,9 @@ export default {
 
                 data: {
                     rowData: this.selectedRow,
-                   
-                    topic: this.topic
+
+                    topic: this.topic,
+                    purpos:"update",
 
                 },
             });

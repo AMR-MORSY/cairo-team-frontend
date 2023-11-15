@@ -34,6 +34,8 @@ import notFound from "../components/notFound.vue";
 import store from "../vuex/store";
 import validateToken from "../components/pages/User/validateToken.vue";
 import TheWelcome from "../components/TheWelcome.vue";
+import siteTxIssues from "../components/pages/Transmission/siteTxIssues.vue";
+import SearchTxIssues from "../components/pages/Transmission/SearchTxIssues.vue";
 
 const routes = [
   {
@@ -442,6 +444,27 @@ const routes = [
    
   },
   },
+  {
+    path: "/siteTxIssues/:site_code",
+    component: siteTxIssues,
+    props: true,
+    
+    meta:{requiresAuth: true},
+    name: "siteTxIssues",
+   
+   
+  },
+  {
+    path: "/searchTxIssues/:fromDate/:toDate/:issue",
+    component: SearchTxIssues,
+    props: true,
+    
+    meta:{requiresAuth: true},
+    name: "searchTxIssues",
+   
+   
+  },
+  
 ];
 const router = createRouter({
   history: createWebHistory(),
