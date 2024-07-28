@@ -27,7 +27,6 @@ import dashboard from "../components/pages/dashboard.vue";
 import NUR from "../components/pages/NUR/NUR.vue";
 import energy from "../components/pages/energySheet/energy.vue";
 import sites from "../components/pages/sites/sites.vue";
-import users from "../components/pages/User/users.vue";
 import siteUpdate from "../components/pages/sites/siteUpdate.vue";
 import energyStatestics from "../components/pages/energySheet/energyStatestics.vue";
 import notFound from "../components/notFound.vue";
@@ -36,24 +35,15 @@ import validateToken from "../components/pages/User/validateToken.vue";
 import TheWelcome from "../components/TheWelcome.vue";
 import siteTxIssues from "../components/pages/Transmission/siteTxIssues.vue";
 import SearchTxIssues from "../components/pages/Transmission/SearchTxIssues.vue";
+import validateSignUpCode from "../components/pages/User/validateSignUpCode.vue";
+import ActivateUserAccount from "../components/pages/User/ActivateUserAccount.vue";
 
 const routes = [
   {
     path: "/energy/sheet",
     component: Sheet,
-    meta: { requiresAuth: true, requiresSuperAdmin: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+    meta: { requiresAuth: true },
+  
   },
   { path: "/energy", component: energy, meta: { requiresAuth: true } },
   {
@@ -79,71 +69,27 @@ const routes = [
     component: NewModification,
     props: true,
     meta: { requiresAuth: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+   
   },
   {
     path: "/modifications/update/:id",
     component: UpdateModification,
     props: true,
     meta: { requiresAuth: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+  
   },
   {
     path: "/modifications",
     component: modifications,
     meta: { requiresAuth: true},
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+  
   },
   {
     path: "/modifications/sitemodifications/:site_code/:site_name",
     component: SiteModifications,
     props: true,
     meta: { requiresAuth: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin || store.getters.isAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+   
   },
   { path: "/sites", component: sites, meta: { requiresAuth: true } },
   {
@@ -156,108 +102,41 @@ const routes = [
     path: "/sites/cascades",
     component: cascades,
     meta: { requiresAuth: true},
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin || store.getters.isAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+   
   },
   {
     path: "/sites/storeSites",
     component: newSitesInsert,
     meta: { requiresAuth: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin || store.getters.isAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+   
   },
   {
     path: "/sites/storeSite",
     component: newSiteInsert,
     meta: { requiresAuth: true},
     name:"storeSite",
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin || store.getters.isAdmin)
-        {
-       
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    }
+   
   },
   {
     path: "/sites/update/:siteCode",
     component: siteUpdate,
     props: true,
     meta: { requiresAuth: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin || store.getters.isAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+  
   },
   {
     path: "/sites/nodals",
     component: nodals,
     meta: { requiresAuth: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin || store.getters.isAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+ 
   },
   {
     path: "/sites/cascades/update/:site_code",
     component: CascadesUpdate,
     props: true,
     
-    meta:{requiresSuperAdmin: true, requiresAdmin: true},
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin || store.getters.isAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+    meta:{requiresAuth: true},
+  
   },
   
   { path: "/nur", component: NUR, meta: { requiresAuth: true } },
@@ -271,53 +150,20 @@ const routes = [
   {
     path: "/nur/2G",
     component: NUR2G,
-    meta: { requiresAuth: true, requiresSuperAdmin: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+    meta: { requiresAuth: true },
+   
   },
   {
     path: "/nur/3G",
     component: NUR3G,
-    meta: { requiresAuth: true, requiresSuperAdmin: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+    meta: { requiresAuth: true },
+   
   },
   {
     path: "/nur/4G",
     component: NUR4G,
-    meta: { requiresAuth: true, requiresSuperAdmin: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
+    meta: { requiresAuth: true },
+   
   },
   { path: "/", redirect: "/welcome" },
   { path: "/welcome", component: TheWelcome, meta: { hideNavbar: true } },
@@ -328,23 +174,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   { path: "/:pathMatch(.*)*", component: notFound, meta: { hideNavbar: true },name:"notFound" },
-  {
-    path: "/users",
-    component: users,
-    meta: { requiresAuth: true, requiresSuperAdmin: true },
-    beforeEnter: (to, from, next) => {
-        if(store.getters.isSuperAdmin)
-        {
-            next();
-
-        }
-        else{
-            next({name:"unauthorized"});
-
-        }
-     
-    },
-  },
+  
   {
     path: "/user/login",
     component: login,
@@ -353,7 +183,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if(store.getters.isLogin)
       {
-        next({name:"notFound"});
+        next({path:"/welcome"});
          
 
       }
@@ -374,7 +204,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if(store.getters.isLogin)
       {
-        next({name:"notFound"});
+        next({path:"/welcome"});
          
 
       }
@@ -387,13 +217,56 @@ const routes = [
   },
   },
   {
+    path: "/user/signUp/:code",
+    component: validateSignUpCode,
+    name: "validateSignUpCode",
+    props: true,
+    meta: { hideNavbar: true },
+    beforeEnter: (to, from, next) => {
+      if(store.getters.isLogin)
+      {
+        next({path:"/welcome"});
+         
+
+      }
+      else{
+        next();
+         
+
+      }
+   
+  },
+  },
+  {
+    path: "/user/activateUserAccount",
+    component: ActivateUserAccount,
+    name: "ActivateUserAccount",
+    
+    meta: { hideNavbar: true },
+    beforeEnter: (to, from, next) => {
+      if(store.getters.isLogin)
+      {
+        next({path:"/welcome"});
+         
+
+      }
+      else{
+        next();
+         
+
+      }
+   
+  },
+
+  },
+  {
     path: "/user/register",
     component: register,
     meta: { hideNavbar: true },
     beforeEnter: (to, from, next) => {
       if(store.getters.isLogin)
       {
-        next({name:"notFound"});
+        next({path:"/welcome"});
          
 
       }
@@ -412,8 +285,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if(store.getters.isLogin)
       {
-        next({name:"notFound"});
-         
+        next({path:"/welcome"});   
 
       }
       else{
@@ -425,25 +297,14 @@ const routes = [
   },
   },
   {
-    path: "/unauthorized",
+    path: "/unauthorized/:path",
     component: unauthorized,
-    meta: { hideNavbar: true },
+    meta: { hideNavbar: true,requiresAuth:true },
     name: "unauthorized",
-    beforeEnter: (to, from, next) => {
-      if(!store.getters.isLogin)
-      {
-        next({name:"notFound"});
-         
-
-      }
-      else{
-        next();
-         
-
-      }
+    props:true,
    
   },
-  },
+  
   {
     path: "/siteTxIssues/:site_code",
     component: siteTxIssues,

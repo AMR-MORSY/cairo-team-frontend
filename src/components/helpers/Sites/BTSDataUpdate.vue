@@ -8,8 +8,8 @@
                     <div class="input-group">
                         <span class="input-group-text w-50" id="Battery-Brand">No. BTS</span>
                         <input type="number" min="0" class="form-control w-50 "
-                            :class="{ 'is-invalid': v$.form.no_bts.$error }"
-                            v-model.trim="v$.form.no_bts.$model" aria-describedby="Battery-Brand" />
+                            :class="{ 'is-invalid': v$.form.no_bts.$error }" v-model.trim="v$.form.no_bts.$model"
+                            aria-describedby="Battery-Brand" />
                         <div v-if="v$.form.no_bts.$error">
                             <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                                 v-for="error in v$.form.no_bts.$errors">
@@ -22,8 +22,9 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="mrfu_2G">MRFU 2G</span>
-                        <input type="number" min="0" class="form-control w-50 " :class="{ 'is-invalid': v$.form.mrfu_2G.$error }"
-                            v-model.trim="v$.form.mrfu_2G.$model" aria-describedby="mrfu_2G" />
+                        <input type="number" min="0" class="form-control w-50 "
+                            :class="{ 'is-invalid': v$.form.mrfu_2G.$error }" v-model.trim="v$.form.mrfu_2G.$model"
+                            aria-describedby="mrfu_2G" />
                         <div v-if="v$.form.mrfu_2G.$error">
                             <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                                 v-for="error in v$.form.mrfu_2G.$errors">
@@ -34,8 +35,9 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="Battery-Volt">MRFU 3G</span>
-                        <input type="number" min="0" class="form-control w-50 " :class="{ 'is-invalid': v$.form.mrfu_3G.$error }"
-                            v-model.trim="v$.form.mrfu_3G.$model" aria-describedby="Battery-Volt" />
+                        <input type="number" min="0" class="form-control w-50 "
+                            :class="{ 'is-invalid': v$.form.mrfu_3G.$error }" v-model.trim="v$.form.mrfu_3G.$model"
+                            aria-describedby="Battery-Volt" />
                         <div v-if="v$.form.mrfu_3G.$error">
                             <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                                 v-for="error in v$.form.mrfu_3G.$errors">
@@ -46,8 +48,9 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="Battery-Volt">MRFU 4G</span>
-                        <input type="number" min="0" class="form-control w-50 " :class="{ 'is-invalid': v$.form.mrfu_4G.$error }"
-                            v-model.trim="v$.form.mrfu_4G.$model" aria-describedby="Battery-Volt" />
+                        <input type="number" min="0" class="form-control w-50 "
+                            :class="{ 'is-invalid': v$.form.mrfu_4G.$error }" v-model.trim="v$.form.mrfu_4G.$model"
+                            aria-describedby="Battery-Volt" />
                         <div v-if="v$.form.mrfu_2G.$error">
                             <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                                 v-for="error in v$.form.mrfu_4G.$errors">
@@ -58,10 +61,9 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="tdd">TDD</span>
-                        <select class="form-select w-50"
-                            :class="{ 'is-invalid': v$.form.tdd.$error }"
+                        <select class="form-select w-50" :class="{ 'is-invalid': v$.form.tdd.$error }"
                             v-model.trim="v$.form.tdd.$model" aria-describedby="tdd">
-                          
+
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
@@ -93,7 +95,7 @@
 </template>
 
 <script>
-import { maxLength, minLength,minValue,maxValue,required } from '@vuelidate/validators'
+import { maxLength, minLength, minValue, maxValue, required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
@@ -109,22 +111,20 @@ export default {
                 mrfu_3G: 0,
                 mrfu_4G: 0,
                 tdd: null,
-                id:null,
-           
+                id: null,
+
 
 
 
             },
             topic: null,
-         
+
 
         };
     },
-    watch:{
-        $route(to,from)
-        {
-            if(to.path=="/user/login")
-            {
+    watch: {
+        $route(to, from) {
+            if (to.path == "/user/login") {
                 this.dialogRef.close();
             }
 
@@ -140,35 +140,35 @@ export default {
 
             form: {
                 no_bts: {
-                    required:helpers.withMessage("zero or Max 50 BTS",required),
+                    required: helpers.withMessage("zero or Max 50 BTS", required),
 
                     minValue: helpers.withMessage("No or Max 50 BTS", minValue(0)),
-                    maxValue: helpers.withMessage("No or Max 50 BTS",maxValue(50)),
-                    
+                    maxValue: helpers.withMessage("No or Max 50 BTS", maxValue(50)),
+
 
                 },
                 mrfu_2G: {
-                    required:helpers.withMessage("zero or Max 50 BTS",required),
+                    required: helpers.withMessage("zero or Max 50 BTS", required),
                     minValue: helpers.withMessage("No or Max 50 BTS", minValue(0)),
-                    maxValue: helpers.withMessage("No or Max 50 BTS",maxValue(50)),
-                    
+                    maxValue: helpers.withMessage("No or Max 50 BTS", maxValue(50)),
+
 
 
                 },
 
                 mrfu_3G: {
-                    required:helpers.withMessage("zero or Max 50 MRFU",required),
+                    required: helpers.withMessage("zero or Max 50 MRFU", required),
                     minValue: helpers.withMessage("No or Max 50 MRFU", minValue(0)),
-                    maxValue: helpers.withMessage("No or Max 50 MRFU",maxValue(50)),
-                    
+                    maxValue: helpers.withMessage("No or Max 50 MRFU", maxValue(50)),
+
 
 
                 },
                 mrfu_4G: {
-                    required:helpers.withMessage("zero or Max 50 MRFU",required),
+                    required: helpers.withMessage("zero or Max 50 MRFU", required),
                     minValue: helpers.withMessage("No or Max 50 MRFU", minValue(0)),
-                    maxValue: helpers.withMessage("No or Max 50 MRFU",maxValue(50)),
-                    
+                    maxValue: helpers.withMessage("No or Max 50 MRFU", maxValue(50)),
+
 
 
                 },
@@ -176,8 +176,8 @@ export default {
                     booleanReg: helpers.withMessage("Yes or No only", booleanReg),
 
                 },
-               
-        
+
+
 
 
             },
@@ -203,10 +203,9 @@ export default {
 
 
         },
-        submitUpdateForm() {
-
-            if (!this.v$.$invalid) {
-            
+        async submitUpdateForm() {
+            const isFormCorrect = await this.v$.$validate()
+            if (!isFormCorrect) return
             Sites.updateSiteBTSDetails(this.form).then((response) => {
                 if (response.data.message == "updated successfully") {
                     this.$toast.add({
@@ -219,14 +218,19 @@ export default {
                 }
 
             }).catch((error) => {
-                if(error.response.status==404)
-                {
-                    this.$router.push({name:"notFound"})
+                if (error.response.status == 204) {
+                    this.$toast.add({
+                        severity: "info",
+                        summary: "Success Message",
+                        detail: "site instrument not found",
+                        life: 3000,
+                    });
+                  
                 }
 
             });
 
-        }
+
 
 
 

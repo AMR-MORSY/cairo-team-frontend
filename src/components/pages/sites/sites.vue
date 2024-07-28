@@ -21,29 +21,16 @@ export default {
   },
   created() {
     this.cards = [
-      { id: 1, icon: "add_circle", path: "New sites" },
-      { id: 2, icon: "add_circle", path: "Cascades" },
-      { id: 3, icon: "add_circle", path: "Nodals" },
+      // { id: 1, icon: "add_circle", path: "New sites" },
+      // { id: 2, icon: "add_circle", path: "Cascades" },
+      // { id: 3, icon: "add_circle", path: "Nodals" },
       { id: 4, icon: "add_circle", path: "New site" },
       { id: 5, icon: "download", path: "Cairo Sites" },
       { id: 6, icon: "download", path: "Download Nodals" },
     ];
   },
   name: "sites",
-  computed: {
-
-    isSuperAdmin() {
-      
-      return this.$store.getters.isSuperAdmin;
-
-    },
-    isAdmin() {
-      return this.$store.getters.isAdmin;
-
-    },
-
-
-  },
+ 
   methods: {
     formatElement(id) {
       let card = this.cards.filter((element) => {
@@ -68,7 +55,7 @@ export default {
         this.$router.push("/sites/nodals");
       }
      
-     else if (card[0].path == "Cairo Sites" && (this.isSuperAdmin || this.isAdmin)) {
+     else if (card[0].path == "Cairo Sites" ) {
         Sites.downloadAll()
           .then((response) => {
 
@@ -83,7 +70,7 @@ export default {
 
       }
     
-    else if (card[0].path == "Download Nodals" && (this.isSuperAdmin || this.isAdmin)) {
+    else if (card[0].path == "Download Nodals") {
         Sites.downloadNodals()
           .then((response) => {
             console.log(response);
@@ -100,9 +87,7 @@ export default {
           .catch((error) => { });
 
       }
-      else{
-        this.$router.push("/unauthorized");
-      }
+     
     },
   },
 };

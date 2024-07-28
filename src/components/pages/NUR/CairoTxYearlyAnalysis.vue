@@ -1,7 +1,7 @@
 <template>
   <p style="text-align: center;">{{ title }}</p>
   <div>
-    <Chart type="line" :data="yearlyData" :options="lightOptions" :plugins="plugins"></Chart>
+    <Chart type="line" :data="yearlyData" :options="lightOptions" ></Chart>
   </div>
 </template>
 
@@ -14,10 +14,7 @@ export default {
       title: null,
       lightOptions: {
         plugins: {
-          // title: {
-          //   display: true,
-          //   text: "Transmission",
-          // },
+         
           legend: {
             labels: {
               color: "red",
@@ -34,11 +31,7 @@ export default {
           },
         },
 
-        scales: {
-          y: {
-            suggestedMin: 0,
-          },
-        },
+       
       },
       plugins: [ChartDataLabels],
     };

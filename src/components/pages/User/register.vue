@@ -86,8 +86,7 @@
             </div>
             <div class="col-12">
               <div class="w-100 mt-4">
-                <button class="w-100 btn"  type="submit"
-                  style="background-color:  #673EE6;color: white;">Sign Up</button>
+                <button class="w-100 btn" type="submit" style="background-color:  #673EE6;color: white;">Sign Up</button>
               </div>
             </div>
           </div>
@@ -96,6 +95,17 @@
       </template>
     </Card>
   </div>
+  <Dialog v-model:visible="visible" modal :showHeader="false" :style="{ width: '50vw' }"
+    :breakpoints="{ '700px': '70vw' }">
+
+    <p class="m-0">
+      <span class="confirmation">Confirmation</span>
+    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ message }} </p>
+    </p>
+    <template #footer>
+      <Button label="Ok" icon="pi pi-check" @click="closeConfirmation()" autofocus />
+    </template>
+  </Dialog>
 </template>
 
 <script>
@@ -110,12 +120,13 @@ export default {
   setup: () => ({ v$: useVuelidate() }),
   validations() {
     const passReg = helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+    const nameReg=helpers.regex(/^[a-zA-Z]{3,}[a-zA-Z ]*$/);
     return {
       name: {
         required: helpers.withMessage('Name is required', required),
         minLength: helpers.withMessage("min 3 characters", minLength(3)),
         maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-        alpha: helpers.withMessage('Alphabit characters only', alpha),
+        nameReg: helpers.withMessage('Alphabit characters only', nameReg),
 
       },
 
@@ -147,6 +158,8 @@ export default {
       email: "",
       password: "",
       password_confirmation: "",
+      visible:false,
+      message:"",
 
     };
   },
@@ -170,7 +183,9 @@ export default {
       }
       User.register(form)
         .then(() => {
-          this.$router.push({ path: "/user/login" });
+          this.visible=true;
+          this.message="Your account has been created Successfully.Please check your e-mail to verify your account "
+        
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -214,6 +229,11 @@ export default {
 
 
     },
+    closeConfirmation()
+    {
+      this.$router.push({ path: "/welcome" });
+
+    }
   },
 };
 </script>

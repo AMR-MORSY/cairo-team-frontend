@@ -3,25 +3,45 @@ import router from "../router/index";
 import store from "../vuex/store";
 
 import * as bootstrap from "bootstrap";
-
+window.bootstrap = bootstrap;
 let Api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-function showUnauthintecatedToast() {
-  const toastLiveExample = document.getElementById("liveToast");
-  const toastBootstrap = new bootstrap.Toast(toastLiveExample);
-  store.dispatch("showUnauthToast", true);
 
-  toastBootstrap.show();
+function unauthorizedUnauthintecatedErrorResponse(error) {
+  if (error.response.status == 419 || error.response.status == 403) {
+    let response = error.response;
+    if (response.config.method == "post") {
+      router.push({ path: "/unauthorized/1" });
+    } else if (response.config.method == "get") {
+      router.push({ path: "/unauthorized/2" });
+    }
+  } else if (error.response.status == 401) {
+    showUnauthintecatedToast();
+  }else if(error.response.status == 404)
+  {
+    router.push({name:"notFound"});
+  }
 }
 function showNetworkToast() {
   const NetworkToast = document.getElementById("NetworkErrorToast");
   const NetworkToastBootstrap = new bootstrap.Toast(NetworkToast);
   NetworkToastBootstrap.show();
 }
+
+function showUnauthintecatedToast() {
+  const toastLiveExample = document.getElementById("liveToast");
+  const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+  sessionStorage.removeItem("User");
+  store.dispatch("userData", null);
+  store.dispatch("showUnauthToast", true);
+
+  toastBootstrap.show();
+}
+
 
 Api.defaults.withCredentials = true;
 Api.defaults.baseURL = import.meta.env.VITE_BASE_URL;
@@ -40,15 +60,17 @@ Api.interceptors.response.use(
   },
   function (error) {
     store.dispatch("displaySpinnerPage", true);
-
-    if (error.response.status == 419 || error.response.status == 403) {
-      router.push({ path: "/unauthorized" });
-    } else if (error.response.status == 401) {
-      showUnauthintecatedToast();
-    } else if (error.message == "Network Error") {
+    if(!error.response)
+    {
+      
       showNetworkToast();
     }
+    else{
+     
+      unauthorizedUnauthintecatedErrorResponse(error);
+    }
 
+   
     return Promise.reject(error);
   }
 );
@@ -64,6 +86,27 @@ downloadApi.interceptors.request.use(function (config) {
   store.dispatch("displaySpinnerPage", false);
   return config;
 });
+
+downloadApi.defaults.withCredentials = true;
+downloadApi.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+downloadApi.interceptors.response.use(
+  function (response) {
+    store.dispatch("displaySpinnerPage", true);
+    return response;
+  },
+  function (error) {
+    
+    store.dispatch("displaySpinnerPage", true);
+    if(!error.response)
+    {
+      showNetworkToast();
+    }
+    else{
+      unauthorizedUnauthintecatedErrorResponse(error);
+    }
+    return Promise.reject(error);
+  }
+);
 
 let uploadApi = axios.create({
   headers: {
@@ -85,38 +128,18 @@ uploadApi.interceptors.response.use(
   },
   function (error) {
     store.dispatch("displaySpinnerPage", true);
-    if (error.response.status == 419 || error.response.status == 403) {
-      router.push({ path: "/unauthorized" });
-    } else if (error.response.status == 401) {
-      showUnauthintecatedToast();
-    } else if (error.message == "Network Error") {
+ 
+    if(!error.response)
+    {
       showNetworkToast();
+    }
+    else{
+      unauthorizedUnauthintecatedErrorResponse(error);
     }
 
     return Promise.reject(error);
   }
 );
-downloadApi.defaults.withCredentials = true;
-downloadApi.defaults.baseURL = import.meta.env.VITE_BASE_URL;
-downloadApi.interceptors.response.use(
-  function (response) {
-    store.dispatch("displaySpinnerPage", true);
-    return response;
-  },
-  function (error) {
-    store.dispatch("displaySpinnerPage", true);
-    if (error.response.status == 419 || error.response.status == 403) {
-      router.push({ path: "/unauthorized" });
-    } else if (error.response.status == 401) {
-      showUnauthintecatedToast();
-    } else if (error.message == "Network Error") {
-      showNetworkToast();
-    }
-
-    return Promise.reject(error);
-  }
-);
-
 function allInstances() {
   return {
     Api: Api,

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import "bootstrap";
 
+import "bootstrap";
 export default {
     data() {
 

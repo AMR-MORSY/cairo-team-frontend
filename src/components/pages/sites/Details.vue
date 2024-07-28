@@ -174,13 +174,14 @@
                   <Button label="Tx.issues" @click="getSiteWANSData" class="p-button-raised p-button-secondary" />
                 </div>
                 <div class="col-6 col-md-3 my-3">
-                  <Button icon="pi pi-search" label="Tx issues" @click="SearchTxIssues()" />
+                  <Button icon="pi pi-search" label="Tx issues" @click="SearchTxIssues()" v-if="$can('read_TX_data')" />
                 </div>
-            
+
                 <div class="col-12   my-3 ">
                   <div class="speed-dial">
                     <SpeedDial :model="items" direction="right" :tooltipOptions="{ position: 'right' }"
-                      :transitionDelay="80" showIcon="pi pi-bell" hideIcon="pi pi-times" buttonClass="p-button-outlined">
+                      :transitionDelay="80" showIcon="pi pi-bell" hideIcon="pi pi-times"
+                      buttonClass="p-button-outlined">
 
                     </SpeedDial>
                   </div>
@@ -202,8 +203,8 @@
 
               </template>
               <template v-if="countCascades">
-                <DataTable :value="cascades" responsiveLayout="scroll" class="p-datatable-sm" :paginator="true" :rows="5"
-                  stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
+                <DataTable :value="cascades" responsiveLayout="scroll" class="p-datatable-sm" :paginator="true"
+                  :rows="5" stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
                   @row-select="onRowSelect">
                   <Column selectionMode="single"></Column>
                   <Column field="cascade_code" header="Site Code"></Column>
@@ -249,6 +250,24 @@
       <div class="col-1"></div>
     </div>
   </div>
+
+  <Dialog v-model:visible="visible" modal :showHeader="false" :style="{ width: '50vw' }"
+    :breakpoints="{ '700px': '70vw' }">
+
+    <p class="m-0">
+      <span class="confirmation">Confirmation</span>
+    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ message }} </p>
+    </p>
+    <template #footer>
+      <div class="d-flex justify-content-around align-items-center">
+        <Button label="No" icon="pi " @click="closeConfirmation()"  class="mr-3 btn btn-danger"/>
+        <Button label="Yes" icon="pi pi-check" @click="insertNewBatteryData()" class="btn btn-info"  />
+
+      </div>
+  
+     
+    </template>
+  </Dialog>
 </template>
 
 <script>
@@ -262,6 +281,8 @@ import SiteDownAlarmsGroupedByWeek from "../../helpers/Sites/SiteDownAlarmsGroup
 import EquipmentDetails from "../../helpers/Sites/EquipmentDetails.vue";
 import TransmissionDetails from "../../helpers/Transmission/TransmissionDetails.vue";
 import SearchTxIssuesForm from "../../helpers/Transmission/SearchTxIssuesForm.vue";
+import SiteBatteriesTable from "../../helpers/Sites/SiteBatteriesTable.vue";
+import BatteriesUpdate from "../../helpers/Sites/BatteriesUpdate.vue";
 export default {
   data() {
     return {
@@ -287,6 +308,7 @@ export default {
       nodalCode: null,
       nodalName: null,
       data: null,
+      id: null,
       NUR2G: [],
       NUR3G: [],
       NUR4G: [],
@@ -320,6 +342,8 @@ export default {
           },
         },
       ],
+      visible: false,
+      message: "",
     };
   },
   props: ["site_code"],
@@ -333,6 +357,7 @@ export default {
     EquipmentDetails,
     TransmissionDetails,
     SearchTxIssuesForm,
+    SiteBatteriesTable
   },
   watch: {
     site_code() {
@@ -442,6 +467,7 @@ export default {
           this.indirectCascades = response.data.indirectCascades;
           this.nodalCode = response.data.site.nodal_code;
           this.nodalName = response.data.site.nodal_name
+          this.id = response.data.site.id;
           this.data = {
             site_code: this.siteCode,
           }
@@ -635,7 +661,7 @@ export default {
 
     },
     getSiteBatteriesHealth() {
-    
+
       Energy.getSiteBatteriesHealth(this.data).then((response) => {
 
         if (response.data.statestics.powerAlarms == "exist") {
@@ -674,64 +700,42 @@ export default {
     },
 
     getBatteriesData() {
-      Sites.getBatteriesDetails(this.data).then((response) => {
-
-        let batteriesData = [];
-        if (response.data.data == "found data") {
-          let battery = {
-            "Battery Brand": response.data.battery_brand
-          }
-          batteriesData.push(battery);
-          battery = {
-            "Battery Volt": response.data.battery_volt
-          };
-          batteriesData.push(battery);
-          battery = {
-            "Battery Amp Hr": response.data.battery_amp_hr
-          };
-          batteriesData.push(battery);
-          battery = {
-            "No. Strings": response.data.no_strings
-          };
-          batteriesData.push(battery);
-          battery = {
-            "No. Batteries": response.data.no_batteries
-          };
-          batteriesData.push(battery);
-          battery = {
-            "Batteries Status": response.data.batteries_status
-          };
-          batteriesData.push(battery);
-
-          this.$dialog.open(EquipmentDetails, {
+      Sites.getBatteriesDetails(this.id).then((response) => {
+        console.log(response);
+        if (response.data.success == true) {
+          this.$dialog.open(SiteBatteriesTable, {
             props: {
               style: {
-                width: "90vw",
+                width: "75vw",
               },
-
+              breakpoints: {
+                "960px": "75vw",
+                "640px": "90vw",
+              },
               modal: true,
-            },
 
+            },
             data: {
-              statestics: batteriesData,
-              id: response.data.id,
-              topic: "Batteries",
-              rowData:response.data
+              batteries: response.data.batteries,
+              site_code: this.site_code
+            }
 
-            },
+
           });
-
-
 
         }
         else {
-          this.$toast.add({
-            severity: "error",
-            summary: "Error Message",
-            detail: "No Data Found",
-            life: 3000,
-          });
+          // this.$toast.add({
+          //   severity: "error",
+          //   summary: "Error Message",
+          //   detail: "No batteries data",
+          //   life: 3000,
+          // });
+          this.message = "No batteries data, Insert new Data? ";
+          this.visible = true;
         }
+
+
       }).catch((error) => {
 
       })
@@ -819,7 +823,7 @@ export default {
               statestics: siteData,
               id: response.data.id,
               topic: "Site Data",
-              rowData:response.data
+              rowData: response.data
 
             },
           });
@@ -883,7 +887,7 @@ export default {
               statestics: rectifierData,
               id: response.data.id,
               topic: "Rectifier Data",
-              rowData:response.data
+              rowData: response.data
 
             },
           });
@@ -935,7 +939,7 @@ export default {
               statestics: MWData,
               id: response.data.id,
               topic: "MW Data",
-              rowData:response.data,
+              rowData: response.data,
 
             },
           });
@@ -996,7 +1000,7 @@ export default {
               statestics: BTSData,
               id: response.data.id,
               topic: "BTS Data",
-              rowData:response.data,
+              rowData: response.data,
 
             },
           });
@@ -1063,7 +1067,7 @@ export default {
               statestics: powerData,
               id: response.data.id,
               topic: "Power Data",
-              rowData:response.data
+              rowData: response.data
 
             },
           });
@@ -1085,26 +1089,59 @@ export default {
 
 
     },
-    getSiteWANSData(){
-      this.$router.push({path:`/siteTxIssues/${this.site_code}`});
-     
+    getSiteWANSData() {
+      this.$router.push({ path: `/siteTxIssues/${this.site_code}` });
+
 
     },
-    SearchTxIssues()
-    {
+    SearchTxIssues() {
       this.$dialog.open(SearchTxIssuesForm, {
-            props: {
-              style: {
-                width: "90vw",
-              },
+        props: {
+          style: {
+            width: "90vw",
+          },
 
-              modal: true,
-            },
+          modal: true,
+        },
 
-           
-          });
 
-    }
+      });
+
+    },
+    closeConfirmation() {
+      this.message = "";
+      this.visible = false;
+
+    },
+    insertNewBatteryData() {
+      this.message = "";
+      this.visible = false;
+
+      this.$dialog.open(BatteriesUpdate, {
+        props: {
+          style: {
+            width: "75vw",
+          },
+          breakpoints: {
+            "960px": "75vw",
+            "640px": "90vw",
+          },
+          modal: true,
+
+        },
+        data: {
+          battery: null,
+          action: "create",
+          site_code: this.siteCode
+        }
+
+
+      });
+
+
+    },
+
+
 
 
   },
@@ -1112,23 +1149,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep.myTabView {
+.p-tabview {
+  color: #79589f !important;
+
   .p-tabview-panel {
-    color: #79589f;
+    color: #79589f !important;
+    text-decoration: none !important;
 
 
   }
 
-  .p-badge {
-    background-color: #79589f;
-    margin-left: 5px;
-
-
-    .header {
-      color: #79589f;
-
-    }
+  .p-tabview-selected {
+    color: #79589f !important;
   }
+
+
 }
 
 Button {
@@ -1150,7 +1185,7 @@ Button {
   display: none;
 }
 
-::v-deep.speed-dial {
+.speed-dial {
 
 
   .p-speeddial-direction-right {
@@ -1178,23 +1213,28 @@ Button {
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
-    input,span{
+
+    input,
+    span {
       font-size: 0.7rem;
     }
-    span{
+
+    span {
       font-weight: 500;
     }
 
 
 
   }
+
   Button {
     font-size: 0.7rem;
   }
+
   .header {
     font-size: 0.7rem;
     min-width: 80px;
-    
+
 
   }
 }
@@ -1206,23 +1246,28 @@ Button {
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
-    input,span{
+
+    input,
+    span {
       font-size: 0.7rem;
     }
-    span{
+
+    span {
       font-weight: 500;
     }
 
 
 
   }
+
   Button {
     font-size: 0.7rem;
   }
+
   .header {
     font-size: 0.7rem;
     min-width: 80px;
-    
+
 
   }
 
@@ -1235,23 +1280,28 @@ Button {
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
-    input,span{
+
+    input,
+    span {
       font-size: 0.7rem;
     }
-    span{
+
+    span {
       font-weight: 500;
     }
 
 
 
   }
+
   Button {
     font-size: 0.7rem;
   }
+
   .header {
     font-size: 0.7rem;
     min-width: 80px;
-    
+
 
   }
 }
@@ -1262,52 +1312,64 @@ Button {
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
-    input,span{
-      font-size:0.7rem;
+
+    input,
+    span {
+      font-size: 0.7rem;
     }
-    span{
+
+    span {
       font-weight: 500;
     }
 
 
 
   }
+
   Button {
-    font-size:0.7rem;
+    font-size: 0.7rem;
   }
+
   .header {
-    font-size:0.7rem;
+    font-size: 0.7rem;
     min-width: 80px;
-    
+
 
   }
+
   /* tablet, landscape iPad, lo-res laptops ands desktops */
 
 }
 
 @media (min-width:1025px) {
+
   /* big landscape tablets, laptops, and desktops */
   .input-group {
     max-width: 80%;
     margin-left: auto;
     margin-right: auto;
-    input,span{
+
+    input,
+    span {
       font-size: 0.9rem;
     }
-    span{
+
+    span {
       font-weight: 500;
     }
 
 
 
   }
+
   Button {
     font-size: 1rem;
   }
+
   .header {
     font-size: 0.9rem;
     min-width: 80px;
-    
+
 
   }
 

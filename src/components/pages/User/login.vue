@@ -55,8 +55,9 @@
 
 
 
-          <div class="d-flex w-100 align-items-center justify-content-flex-start my-3 pl-1">
-            <router-link to="/user/resetPassword">Forgot Password?</router-link>
+          <div class="d-flex w-100 align-items-center justify-content-between my-3 pl-1">
+            <router-link to="/user/resetPassword" class="links">Forgot Password?</router-link>
+            <router-link to="/user/register" class="links">Create new Account</router-link>
           </div>
 
           <button class="btn  w-100" type="submit">Log in</button>
@@ -78,6 +79,18 @@
 
 
   </div>
+  <Dialog v-model:visible="visible" modal :showHeader="false" :style="{ width: '50vw' }"
+    :breakpoints="{ '700px': '70vw' }">
+
+    <p class="m-0">
+      <span class="confirmation">Error</span>
+    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ message }} </p>
+    </p>
+    <template #footer>
+      <Button label="Activate Account" icon="pi pi-check" @click="$router.push({ name: 'ActivateUserAccount' })" autofocus />
+      <Button label="No" icon="pi pi-check" @click="hideDialog()" />
+    </template>
+  </Dialog>
 </template>
 
 <script >
@@ -100,12 +113,15 @@ export default {
 
       email: null,
       password: null,
+      visible: false,
+      message: "",
 
 
 
     };
   },
   name: "login",
+
   components: {
     userNavBar,
   },
@@ -128,8 +144,13 @@ export default {
     }
   },
 
+
   methods: {
-  async  submitLoginForm() {
+    hideDialog() {
+      this.visible = false;
+
+    },
+    async submitLoginForm() {
 
       const isFormCorrect = await this.v$.$validate()
 
@@ -143,27 +164,65 @@ export default {
       }
       User.login(form)
         .then((response) => {
+        
+          if (response.data.message == "User loged in successfully") {
+            sessionStorage.setItem(
+              "User",
+              JSON.stringify(response.data.user_data)
+            );
+            this.$store.dispatch("userData", response.data.user_data);
 
-          sessionStorage.setItem(
-            "User",
-            JSON.stringify(response.data.user_data)
-          );
-          this.$store.dispatch("userData", response.data.user_data);
+            this.$router.push({
+              path: "/home",
+            });
 
-          this.$router.push({
-            path: "/home",
-          });
+          }
+          else if (response.data.message == "Account is not verified yet") {
+            this.visible = true;
+            this.message = response.data.message
+
+          }
+          else {
+
+            this.$toast.add({
+              severity: "error",
+              summary: "Error Message",
+              detail: " This email address does not exist",
+              life: 6000,
+            });
+
+          }
+
+
         })
         .catch((error) => {
+          console.log(error)
           if (error.response) {
 
             if (error.response.status == 422) {
-              this.$toast.add({
-                severity: "error",
-                summary: "Error Message",
-                detail: "invalid credentials",
-                life: 3000,
-              });
+              if (error.response.data.errors) {
+                let emailError = error.response.data.errors.email;
+                emailError.forEach((error) => {
+                  this.$toast.add({
+                    severity: "error",
+                    summary: "Error Message",
+                    detail: error,
+                    life: 3000,
+                  });
+
+                })
+              }
+              else{
+                this.$toast.add({
+                    severity: "error",
+                    summary: "Error Message",
+                    detail: "invalid credentials",
+                    life: 3000,
+                  });
+
+              }
+            
+
             }
           }
         })
@@ -195,6 +254,11 @@ export default {
       color: white;
     }
 
+    .links {
+      font-size: clamp(13px, 2vw, 15px);
+    }
+
   }
+
 }
 </style>

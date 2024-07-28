@@ -76,14 +76,7 @@
                 />
               </div>
             </div>
-            <!-- <download-excel
-              class="btn btn-default"
-              :data="downloadModifications"
-              worksheet="My Worksheet"
-              name="Modifications.xls"
-            >
-              Download Excel
-            </download-excel> -->
+         
           </template>
 
           <template v-if=" noModifications">
@@ -208,9 +201,9 @@ export default {
         .catch((error) => {});
     },
     onRowSelect() {
-      if (this.isAdmin[0].name == "super-admin") {
+ 
         this.isRowSelected = true;
-      }
+      
     },
     gotToUpdateModification() {
       this.$router.push(

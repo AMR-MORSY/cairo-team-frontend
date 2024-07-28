@@ -4,7 +4,7 @@
       type="line"
       :data="yearlyData"
       :options="lightOptions"
-      :plugins="plugins"
+      
     ></Chart>
   </div>
 </template>
@@ -26,25 +26,21 @@ export default {
               color: "red",
             },
           },
-          datalabels: {
-            anchor: "center",
+          // datalabels: {
+          //   anchor: "center",
             
-            labels: {
-              // title: {
-              //   color: "green",
-              // },
-              value: {
-                color: "black",
-              },
-            },
-          },
+          //   // labels: {
+          //   //   // title: {
+          //   //   //   color: "green",
+          //   //   // },
+          //   //   value: {
+          //   //     color: "black",
+          //   //   },
+          //   // },
+          // },
         },
 
-        scales: {
-          y: {
-            suggestedMin: 0,
-          },
-        },
+       
       },
       plugins: [ChartDataLabels],
     };

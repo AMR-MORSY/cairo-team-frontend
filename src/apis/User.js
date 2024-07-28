@@ -26,4 +26,20 @@ export default {
   refreshTocken(data) {
     return allInstances.Api.post("/user/refreshtoken",data);
   },
+  validateSignUpCode(code)
+  {
+    return allInstances.Api.get(`/user/signUp/${code}`);
+  },
+  activateUserAccount(data)
+  {
+    return allInstances.Api.post("/user/activateUserAccount",data);
+
+  },
+  userAbilities()
+  {
+      return allInstances.Api.get("admin/abilities");
+
+
+  },
+
 };

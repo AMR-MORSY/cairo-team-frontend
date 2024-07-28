@@ -1,5 +1,5 @@
 <template>
-  <div :class="$route.name == 'home' ? 'nav-cont':'nav-uncont'" v-if="!$route.meta.hideNavbar">
+  <div :class="$route.name == 'home' ? 'nav-cont' : 'nav-uncont'" v-if="!$route.meta.hideNavbar">
     <nav class="navbar bg-transparent  navbar-expand-lg  border-bottom">
       <div class="container">
         <a class="navbar-brand font-weight-bolder" href="#">Cairo Team</a>
@@ -9,10 +9,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <form class="d-flex flex-grow-1 " role="search" @submit.prevent="submitSearch">
-            <input class="form-control me-2" @focusout="closeMenu()" v-model="search" type="search" placeholder="Search by site code"
-              aria-label="Search">
+            <input class="form-control me-2" @focusout="closeMenu()" v-model="v$.search.$model" type="search"
+              placeholder="Search by site code" :class="{ 'is-invalid': v$.search.$error }" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+
+         
+
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item" @click.prevent="closeMenu()">
               <router-link class="nav-link" :class="$route.name == 'home' ? 'display_none' : 'display'" to="/home"
@@ -29,26 +32,27 @@
                 <li @click.prevent="closeMenu()">
                   <router-link class="dropdown-item" to="/sites">Sites</router-link>
                 </li>
-                <li @click.prevent="closeMenu()">
+                <li @click.prevent="closeMenu()" v-if="$can('read_NUR_data')">
 
                   <router-link class="dropdown-item" to="/nur">NUR</router-link>
 
                 </li>
                 <li @click.prevent="closeMenu()">
-                  <router-link class="dropdown-item"
-                    to="/modifications" >Modifications</router-link>
+                  <router-link class="dropdown-item" to="/modifications">Modifications</router-link>
                 </li>
                 <li @click.prevent="closeMenu()">
-                  <router-link  class="dropdown-item"
-                    to="/energy">Energy</router-link>
+                  <router-link class="dropdown-item" to="/energy">Energy</router-link>
                 </li>
+                <li @click.prevent="closeMenu()" v-if="$can('read_TX_data')">
+                  <a class="dropdown-item" role="button" @click="SearchTxIssues()">search Tx issues</a>
+                </li>
+
 
 
               </ul>
             </li>
             <li class="nav-item" @click.prevent="closeMenu()">
-              <a  class="nav-link" v-if="isLogin"
-                role="button" @click="logout">Logout</a>
+              <a class="nav-link" v-if="isLogin" role="button" @click="logout">Logout</a>
             </li>
 
           </ul>
@@ -63,6 +67,11 @@
 <script>
 import User from "../apis/User";
 import Sites from "../apis/Sites";
+import { maxLength, required } from '@vuelidate/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { helpers } from '@vuelidate/validators';
+import SitesTable from "../components/pages/sites/SitesTable.vue";
+import SearchTxIssuesForm from "../components/helpers/Transmission/SearchTxIssuesForm.vue";
 
 
 export default {
@@ -74,13 +83,18 @@ export default {
   emits: ["displaySitesTable"],
   name: "navbar",
 
+  components: {
+    SitesTable,
+    SearchTxIssuesForm
+  },
+
   computed: {
     isLogin() {
 
       return this.$store.getters.isLogin
 
     },
-  
+
     userName() {
       return this.$store.getters.userName;
     },
@@ -88,9 +102,27 @@ export default {
   mounted() {
 
   },
+  setup: () => ({ v$: useVuelidate() }),
+  validations() {
+    const nameReg = helpers.regex(/^[a-zA-Z0-9 _-]{3,}$/);
+
+    return {
+
+
+      search: {
+        required: helpers.withMessage('Email is required', required),
+        maxLength: helpers.withMessage('Email is required', maxLength(50)),
+        nameReg: helpers.withMessage('please enter a valid site name or code', nameReg)
+      },
+
+
+
+    }
+  },
   methods: {
-    submitSearch() {
-      this.$store.dispatch("displaySpinnerPage", false);
+    async submitSearch() {
+      const isFormCorrect = await this.v$.$validate()
+      if (!isFormCorrect) return
       Sites.searchSites(this.search)
         .then((response) => {
           console.log(response);
@@ -102,7 +134,23 @@ export default {
               life: 3000,
             });
           } else {
-            this.$emit("displaySitesTable", response.data.sites);
+            this.$dialog.open(SitesTable, {
+              props: {
+                style: {
+                  width: "90vw",
+                },
+
+                modal: true,
+              },
+
+              data: {
+                sites: response.data.sites,
+
+
+              },
+
+            })
+
           }
         })
         .catch((error) => {
@@ -116,16 +164,31 @@ export default {
             });
           }
         })
-        .finally(() => {
 
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
     },
 
+    SearchTxIssues()
+    {
+      this.$dialog.open(SearchTxIssuesForm, {
+            props: {
+              style: {
+                width: "90vw",
+              },
+
+              modal: true,
+            },
+
+           
+          });
+
+    },
+
+
+
     logout() {
-     
+
       User.logout().then((data) => {
-      
+
         this.$store.dispatch("userData", null);
         sessionStorage.removeItem("User");
 
@@ -134,18 +197,17 @@ export default {
         .catch((error) => {
 
         })
-      
+
     },
 
     closeMenu() {
       const menuToggle = document.getElementById('navbarSupportedContent')
-      const bsCollapse = new bootstrap.Collapse(menuToggle,{toggle: false});
-      if (menuToggle.classList.contains('show'))
-      {
+      const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
+      if (menuToggle.classList.contains('show')) {
         bsCollapse.toggle();
 
       }
-     
+
     }
   }
 };
@@ -184,7 +246,8 @@ export default {
   z-index: 5;
 
 }
-.nav-uncont{
+
+.nav-uncont {
   position: unset;
   top: unset;
   left: unset;

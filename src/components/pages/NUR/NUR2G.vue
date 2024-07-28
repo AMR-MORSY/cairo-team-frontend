@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <Toast />
+ 
     <div class="card index">
       <div class="header">
         <p>2G</p>

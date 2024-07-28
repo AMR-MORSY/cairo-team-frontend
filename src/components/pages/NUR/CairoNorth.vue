@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Card class="mt-5" style="background-color: #c3b1e1">
+    <Card class="mt-5" >
       <template #title>
-        <p style="font-size: 16px; color: white; pading: 0; text-align: center">
+        <p style="font-size: 16px; color: black; pading: 0; text-align: center">
           Cairo North
         </p>
       </template>

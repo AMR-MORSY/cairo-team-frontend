@@ -1,50 +1,32 @@
 <template>
   <div class="d-flex justify-content-center align-items-center">
     <p class="w-100 text-center">
-      <span style="color:gray; font-weight=500;">NUR: </span
-      ><span style="color:red; font-weight=500;">{{ NUR }}</span>
+      <span style="color:gray; font-weight=500;">NUR: </span><span style="color:red; font-weight=500;">{{ NUR }}</span>
     </p>
   </div>
   <div class="container">
     <div class="row">
       <div class="col">
-            <div
-        class="w-25"
-        style="display: flex; align-items: center; justify-content: center"
-      >
-        <img
-          src="../../logos/week-icon.svg"
-          @click="getCairoPowerYearlyNUR"
-          style="cursor: pointer"
-          alt=""
-          class="w-25"
-          v-tooltip.right="'Weekly Analysis'"
-        />
-      </div>
+
       </div>
       <div class="col-4">
-        <Chart
-          type="doughnut"
-          :data="ticketsType"
-          :options="lightOptions"
-          :plugins="plugins"
-        />
+        <Chart type="doughnut" :data="ticketsType" :options="lightOptions" :plugins="plugins" />
       </div>
       <div class="col"></div>
     </div>
   </div>
   <div>
-    <DataTable
-      :value="sites"
-      responsiveLayout="scroll"
-      class="p-datatable-sm"
-      stripedRows
-      :rows="5"
-      v-model:selection="selectedSite"
-      selectionMode="single"
-      dataKey="site_code"
-      @row-select="onRowSelect"
-    >
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <h3>Sites</h3>
+      <div  style=" display: flex; align-items: center; justify-content: flex-end">
+        <img src="../../logos/week-icon.svg"  @click="getCairoPowerYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
+        v-tooltip.right="'Weekly Analysis'" />
+
+      </div>
+      
+    </div>
+    <DataTable :value="sites" responsiveLayout="scroll" class="p-datatable-sm" stripedRows :rows="5"
+      v-model:selection="selectedSite" selectionMode="single" dataKey="site_code" @row-select="onRowSelect">
       <Column selectionMode="single"></Column>
       <Column field="site_name" header="Name"></Column>
       <Column field="site_code" header="Code"></Column>
@@ -100,8 +82,8 @@ export default {
   mounted() {
     this.mountData();
   },
-    computed: {
-  
+  computed: {
+
     isLogin() {
       return this.$store.getters.isLogin;
     },
@@ -184,8 +166,7 @@ export default {
 
       if (data) exportFromJSON({ data, fileName, exportType });
     },
-    getCairoPowerYearlyNUR()
-    {
+    getCairoPowerYearlyNUR() {
 
 
 
@@ -211,7 +192,7 @@ export default {
               labels: labels,
               cairo: cairo,
               zones: zones,
-              title:"Main Power"
+              title: "Main Power"
             },
           });
         })
@@ -225,5 +206,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

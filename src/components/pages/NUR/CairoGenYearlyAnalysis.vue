@@ -4,7 +4,7 @@
       type="line"
       :data="yearlyData"
       :options="lightOptions"
-      :plugins="plugins"
+     
     ></Chart>
   </div>
 </template>

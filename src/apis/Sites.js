@@ -9,7 +9,7 @@ export default {
 
     },
     downloadAll() {
-        return allInstances.downloadApi.get("sites/downloadAll");
+        return allInstances.downloadApi.post("sites/downloadAll");
     },
     getAllCascades() {
         return allInstances.downloadApi.get("sites/cascades");
@@ -28,7 +28,7 @@ export default {
     },
     downloadNodals()
     {
-      return allInstances.downloadApi.get("sites/nodals/download");
+      return allInstances.downloadApi.post("sites/nodals/download");
 
     },
     searchSites(data)
@@ -56,12 +56,22 @@ export default {
     },
     getBatteriesDetails(data)
     {
-      return allInstances.Api.post("/instruments/siteBatteriesData",data)
+      return allInstances.Api.get(`/batteries/${data}`)
 
     },
-    updateBatteriesData(data)
+    updateBatteriesData(id,data)
     {
-      return allInstances.Api.post("/instruments/updateBatteriesData",data)
+      return allInstances.Api.put(`/batteries/${id}`,data)
+
+    },
+    deleteBatteryRecord(id)
+    {
+      return allInstances.Api.delete(`/batteries/${id}`)
+
+    },
+    insertNewBatterydata(data)
+    {
+      return allInstances.Api.post("/batteries/store",data)
 
     },
    

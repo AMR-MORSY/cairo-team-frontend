@@ -230,10 +230,9 @@ export default {
 
 
         },
-        submitUpdateForm() {
-
-            if (!this.v$.$invalid) {
-            
+       async submitUpdateForm() {
+            const isFormCorrect = await this.v$.$validate()
+            if (!isFormCorrect) return
             Sites.updateSitePowerDetails(this.form).then((response) => {
                 if (response.data.message == "updated successfully") {
                     this.$toast.add({
@@ -246,14 +245,19 @@ export default {
                 }
 
             }).catch((error) => {
-                if(error.response.status==404)
-                {
-                    this.$router.push({name:"notFound"})
+                if (error.response.status == 204) {
+                    this.$toast.add({
+                        severity: "info",
+                        summary: "Success Message",
+                        detail: "site instrument not found",
+                        life: 3000,
+                    });
+                  
                 }
 
             });
 
-        }
+        
 
 
 

@@ -1,10 +1,11 @@
 <template>
-  <section id="analysis">
+  <div v-if="serverError">
+    <p style="color: red">{{ serverError }}</p>
+  </div>
+  <section id="analysis" v-if="status">
     <div class="container">
       <div class="card ">
-        <div v-if="serverError">
-          <p style="color: red">{{ serverError }}</p>
-        </div>
+
         <div class="col-12 mb-1">
           <h5>Select modifications:</h5>
         </div>
@@ -22,11 +23,7 @@
             </div>
             <div class="col-12 col-md-6">
               <div class="form-group ">
-                <select
-                  class="form-select"
-                  @change="submitColumnValue"
-                  id="columnValue"
-                >
+                <select class="form-select" @change="submitColumnValue" id="columnValue">
                   <option value=""></option>
                   <option v-for="value in columnValues" :key="value">
                     {{ value }}
@@ -37,12 +34,7 @@
 
             <div class="col-12 mt-3">
               <div class="button-container">
-                <button
-                  class="btn"
-                  :disabled="disabled"
-                  type="submit"
-                  style="background-color: #79589f; color: white"
-                >
+                <button class="btn" :disabled="disabled" type="submit" style="background-color: #79589f; color: white">
                   submit
                 </button>
                 <!-- <button class="btn btn-primary"[disabled]='!isDataFound'  (click)="downloadsites()">Excel Export</button> -->
@@ -84,8 +76,8 @@ export default {
         return false;
       }
     },
-  
-  
+
+
   },
   mounted() {
     this.getModificationAnalysis();
@@ -109,8 +101,8 @@ export default {
       this.columnValue = e.target.value;
     },
     getModificationAnalysis() {
-       Modifications.getModificationAnalysis()
-     
+      Modifications.getModificationAnalysis()
+
         .then((response) => {
           this.status = response.data.index.status;
           this.subcontractor = response.data.index.subcontractor;
@@ -125,11 +117,7 @@ export default {
         });
     },
     submitFilterForm() {
-      let data = {
-        columnName: this.column,
-        columnValue: this.columnValue,
-      };
-      
+     
       this.$router.push(
         `/modifications/index/${this.column}/${this.columnValue}`
       );
@@ -139,73 +127,88 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#analysis{
+#analysis {
   margin-top: 5rem;
-  .card{
+
+  .card {
     padding: 2rem 2rem;
     width: 60%;
     margin: auto;
-    .form-group{
+
+    .form-group {
       margin-bottom: 1rem;
     }
   }
 }
 
 
-@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ 
-  #analysis{
-  
-  .card{
-    
-    width: 95%;
-   
-   
+@media (min-width:320px) {
+
+  /* smartphones, iPhone, portrait 480x320 phones */
+  #analysis {
+
+    .card {
+
+      width: 95%;
+
+
+    }
+  }
+
+}
+
+@media (min-width:481px) {
+
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  #analysis {
+
+    .card {
+
+      width: 90%;
+
+
+    }
   }
 }
 
-}
-@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
-  #analysis{
-  
-  .card{
-    
-    width: 90%;
-   
-   
+@media (min-width:641px) {
+
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  #analysis {
+
+    .card {
+
+      width: 80%;
+
+
+    }
   }
 }
-}
-@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
-  #analysis{
-  
-  .card{
-    
-    width: 80%;
-   
-   
+
+@media (min-width:961px) {
+
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  #analysis {
+
+    .card {
+
+      width: 80%;
+
+
+    }
   }
 }
-}
-@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
-  #analysis{
-  
-  .card{
-    
-    width: 80%;
-   
-   
+
+@media (min-width:1025px) {
+
+  /* big landscape tablets, laptops, and desktops */
+  #analysis {
+
+    .card {
+
+      width: 75%;
+
+
+    }
   }
-}
-}
-@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
-  #analysis{
-  
-  .card{
-    
-    width: 75%;
-   
-   
-  }
-}
-}
-</style>
+}</style>

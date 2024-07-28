@@ -1,269 +1,168 @@
 <template>
   <div class="container mt-5" v-if="isNURAvailable">
-    <Card>
-      <template #content>
-        <div class="row">
-          <div class="col"></div>
-          <div class="col-10">
-            <div class="title">
-              <p>Week:{{ week }}</p>
-            </div>
-          </div>
-          <div class="col"></div>
-          <div class="col-12 col-md-6 col-lg-4 mt-5">
-            <Card>
-              <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
-                  2G NUR
-                </p>
-              </template>
-              <template #content>
-                <Chart
-                  type="bar"
-                  :data="zones2GNUR"
-                  :options="lightOptions"
-                  :plugins="plugins"
-                />
-              </template>
-              <template #footer>
-                <p>Cairo 2G NUR={{ cairo2GNUR }}</p>
-              </template>
-            </Card>
-          </div>
-          <div class="col-12 col-md-6 col-lg-4 mt-5">
-            <Card>
-              <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
-                  3G NUR
-                </p>
-              </template>
-              <template #content>
-                <Chart
-                  type="bar"
-                  :data="zones3GNUR"
-                  :options="lightOptions"
-                  :plugins="plugins"
-                />
-              </template>
-              <template #footer>
-                <p>Cairo 3G NUR={{ cairo3GNUR }}</p>
-              </template>
-            </Card>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-4 mt-5">
-            <Card>
-              <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
-                  4G NUR
-                </p>
-              </template>
-              <template #content>
-                <Chart
-                  type="bar"
-                  :data="zones4GNUR"
-                  :options="lightOptions"
-                  :plugins="plugins"
-                />
-              </template>
-              <template #footer>
-                <p>Cairo 4G NUR={{ cairo4GNUR }}</p>
-              </template>
-            </Card>
-          </div>
+
+
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-10">
+        <div class="title">
+          <p>Week:{{ week }}</p>
         </div>
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg-4 mt-5">
-            <Card>
-              <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
-                  Combined NUR
-                </p>
-                <div class="row">
-                  <div class="col"></div>
-                  <div class="col-10">
-                    <div
-                      style="
+      </div>
+      <div class="col"></div>
+      <div class="col-12 col-md-6 col-lg-4 mt-5">
+        <Card>
+          <template #title>
+            <p style="font-size: 16px; pading: 0; text-align: center">
+              2G NUR
+            </p>
+          </template>
+          <template #content>
+            <Chart type="bar" :data="zones2GNUR" :options="lightOptions" :plugins="plugins" />
+          </template>
+          <template #footer>
+            <p>Cairo 2G NUR={{ cairo2GNUR }}</p>
+          </template>
+        </Card>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mt-5">
+        <Card>
+          <template #title>
+            <p style="font-size: 16px; pading: 0; text-align: center">
+              3G NUR
+            </p>
+          </template>
+          <template #content>
+            <Chart type="bar" :data="zones3GNUR" :options="lightOptions" :plugins="plugins" />
+          </template>
+          <template #footer>
+            <p>Cairo 3G NUR={{ cairo3GNUR }}</p>
+          </template>
+        </Card>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4 mt-5">
+        <Card>
+          <template #title>
+            <p style="font-size: 16px; pading: 0; text-align: center">
+              4G NUR
+            </p>
+          </template>
+          <template #content>
+            <Chart type="bar" :data="zones4GNUR" :options="lightOptions" :plugins="plugins" />
+          </template>
+          <template #footer>
+            <p>Cairo 4G NUR={{ cairo4GNUR }}</p>
+          </template>
+        </Card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4 mt-5">
+        <Card>
+          <template #title>
+            <p style="font-size: 16px; pading: 0; text-align: center">
+              Combined NUR
+            </p>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col-10">
+                <div style="
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                      "
-                    >
-                      <div
-                        class="w-50"
-                        style="
+                      ">
+                  <div class="w-50" style="
                           display: flex;
                           align-items: center;
                           justify-content: center;
-                        "
-                      >
-                        <img
-                          src="../../logos/week-icon.svg"
-                          @click="getCairoNUR_CYearlyAnalysis"
-                          style="cursor: pointer"
-                          alt=""
-                          class="w-25"
-                          v-tooltip.right="'Weekly Analysis'"
-                        />
-                      </div>
-                    </div>
+                        ">
+                    <img src="../../logos/week-icon.svg" @click="getCairoNUR_CYearlyAnalysis" style="cursor: pointer"
+                      alt="" class="w-25" v-tooltip.right="'Weekly Analysis'" />
                   </div>
-                  <div class="col"></div>
                 </div>
-              </template>
-              <template #content>
-                <Chart
-                  type="bar"
-                  :data="zonesCombinedNUR"
-                  :options="lightOptions"
-                  :plugins="plugins"
-                />
-              </template>
-            </Card>
-          </div>
-          <div class="col-12 col-md-6 col-lg-4 mt-5">
-            <Card>
-              <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
-                  Response With Access
-                </p>
-              </template>
-              <template #content>
-                <Chart
-                  type="bar"
-                  :data="zonesResponseWithAccess"
-                  :options="lightOptions"
-                  :plugins="plugins"
-                />
-              </template>
-            </Card>
-          </div>
-          <div class="col-12 col-md-6 col-lg-4 mt-5">
-            <Card>
-              <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
-                  Response Without Access
-                </p>
-              </template>
-              <template #content>
-                <Chart
-                  type="bar"
-                  :data="zonesResponseWithoutAccess"
-                  :options="lightOptions"
-                  :plugins="plugins"
-                />
-              </template>
-            </Card>
-          </div>
-          <div class="col-12 mt-5">
+              </div>
+              <div class="col"></div>
+            </div>
+          </template>
+          <template #content>
+            <Chart type="bar" :data="zonesCombinedNUR" :options="lightOptions" :plugins="plugins" />
+          </template>
+        </Card>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mt-5">
+        <Card>
+          <template #title>
+            <p style="font-size: 16px; pading: 0; text-align: center">
+              Response With Access
+            </p>
+          </template>
+          <template #content>
+            <Chart type="bar" :data="zonesResponseWithAccess" :options="lightOptions" :plugins="plugins" />
+          </template>
+        </Card>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mt-5">
+        <Card>
+          <template #title>
+            <p style="font-size: 16px; pading: 0; text-align: center">
+              Response Without Access
+            </p>
+          </template>
+          <template #content>
+            <Chart type="bar" :data="zonesResponseWithoutAccess" :options="lightOptions" :plugins="plugins" />
+          </template>
+        </Card>
+      </div>
+      <div class="col-12 mt-5">
+        <Card>
+          <template #content>
             <div class="row">
-              <div class="col-6 col-sm-6 col-md-3">
-                <div
-                  class="transmission w-100"
-                  style="cursor: pointer"
-                  @click="getCairoMWWeeklyNUR"
-                >
-                  <img
-                    src="../../logos/favpng_falesia-systems-sp-o-o-microwave-transmission-mini-link-rectifier-xpic.png"
-                    alt=""
-                    class="w-50 m-auto d-block"
-                  />
-                </div>
-              </div>
-              <div class="col-6 col-sm-6 col-md-3">
-                <div
-                  class="gen w-100"
-                  style="cursor: pointer"
-                  @click="getCairoGenWeeklyNUR"
-                >
-                  <img
-                    src="../../logos/33kva-cat-silent-diesel-generator-cat-de33gc.jpg"
-                    alt=""
-                    class="w-50 m-auto d-block"
-                  />
-                </div>
-              </div>
-              <div class="col-6 col-sm-6 col-md-3">
-                <div
-                  class="BTS w-100"
-                  style="cursor: pointer"
-                  @click="getCairoNodeBWeeklyNUR"
-                >
-                  <img
-                    src="../../logos/Nortel-GSM-800012000.jpg"
-                    alt=""
-                    class="w-50 m-auto d-block"
-                  />
-                </div>
-              </div>
+          <div class="col-6 col-sm-6 col-md-3">
+            <div class="transmission w-100" style="cursor: pointer" @click="getCairoMWWeeklyNUR">
+              <img src="../../logos/favpng_falesia-systems-sp-o-o-microwave-transmission-mini-link-rectifier-xpic.png"
+                alt="" class="w-50 m-auto d-block" />
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-3">
+            <div class="gen w-100" style="cursor: pointer" @click="getCairoGenWeeklyNUR">
+              <img src="../../logos/33kva-cat-silent-diesel-generator-cat-de33gc.jpg" alt=""
+                class="w-50 m-auto d-block" />
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-3">
+            <div class="BTS w-100" style="cursor: pointer" @click="getCairoNodeBWeeklyNUR">
+              <img src="../../logos/Nortel-GSM-800012000.jpg" alt="" class="w-50 m-auto d-block" />
+            </div>
+          </div>
 
-              <div class="col-6 col-sm-6 col-md-3">
-                <div
-                  class="power w-100"
-                  style="cursor: pointer"
-                  @click="getCairoPowerWeeklyNUR"
-                >
-                  <img
-                    src="../../logos/power-plant-icon.svg"
-                    alt=""
-                    class="w-50 m-auto d-block"
-                  />
-                </div>
-              </div>
-              <div class="col-6 col-sm-6 col-md-3">
-                <div
-                  class="modifications w-75"
-                  style="cursor: pointer"
-                  @click="getCairoModificationWeeklyNUR"
-                >
-                  <img
-                    src="../../logos/clipart3239793.png"
-                    alt=""
-                    class="w-50 m-auto d-block"
-                  />
-                </div>
-              </div>
+          <div class="col-6 col-sm-6 col-md-3">
+            <div class="power w-100" style="cursor: pointer" @click="getCairoPowerWeeklyNUR">
+              <img src="../../logos/power-plant-icon.svg" alt="" class="w-50 m-auto d-block" />
+            </div>
+          </div>
+          <div class="col-6 col-sm-6 col-md-3">
+            <div class="modifications w-75" style="cursor: pointer" @click="getCairoModificationWeeklyNUR">
+              <img src="../../logos/clipart3239793.png" alt="" class="w-50 m-auto d-block" />
             </div>
           </div>
         </div>
-      </template>
-    </Card>
 
-    <CairoSouth
-      :cairoSouthTopNUR="cairoSouthTopNUR"
-      :cairoSouthRepeatedSites="cairoSouthRepeatedSites"
-      :cairoSouthGen="cairoSouthGen"
-      :cairoSouthSubsystem="cairoSouthSubsystem"
-      :cairoSouthAccessStatesitcs="cairoSouthAccessStatesitcs"
-      :week="week"
-      :year="year"
-    />
-    <CairoEast
-      :cairoEastTopNUR="cairoEastTopNUR"
-      :cairoEastRepeatedSites="cairoEastRepeatedSites"
-      :cairoEastGen="cairoEastGen"
-      :cairoEastSubsystem="cairoEastSubsystem"
-      :cairoEastAccessStatesitcs="cairoEastAccessStatesitcs"
-      :week="week"
-      :year="year"
-    />
-    <CairoNorth
-      :cairoNorthTopNUR="cairoNorthTopNUR"
-      :cairoNorthRepeatedSites="cairoNorthRepeatedSites"
-      :cairoNorthGen="cairoNorthGen"
-      :cairoNorthSubsystem="cairoNorthSubsystem"
-      :cairoNorthAccessStatesitcs="cairoNorthAccessStatesitcs"
-      :week="week"
-      :year="year"
-    />
-    <Giza
-      :gizaTopNUR="gizaTopNUR"
-      :gizaRepeatedSites="gizaRepeatedSites"
-      :gizaGen="gizaGen"
-      :gizaSubsystem="gizaSubsystem"
-      :gizaAccessStatesitcs="gizaAccessStatesitcs"
-      :week="week"
-      :year="year"
-    />
+          </template>
+        </Card>
+      
+      </div>
+    </div>
+    <CairoSouth :cairoSouthTopNUR="cairoSouthTopNUR" :cairoSouthRepeatedSites="cairoSouthRepeatedSites"
+      :cairoSouthGen="cairoSouthGen" :cairoSouthSubsystem="cairoSouthSubsystem"
+      :cairoSouthAccessStatesitcs="cairoSouthAccessStatesitcs" :week="week" :year="year" />
+    <CairoEast :cairoEastTopNUR="cairoEastTopNUR" :cairoEastRepeatedSites="cairoEastRepeatedSites"
+      :cairoEastGen="cairoEastGen" :cairoEastSubsystem="cairoEastSubsystem"
+      :cairoEastAccessStatesitcs="cairoEastAccessStatesitcs" :week="week" :year="year" />
+    <CairoNorth :cairoNorthTopNUR="cairoNorthTopNUR" :cairoNorthRepeatedSites="cairoNorthRepeatedSites"
+      :cairoNorthGen="cairoNorthGen" :cairoNorthSubsystem="cairoNorthSubsystem"
+      :cairoNorthAccessStatesitcs="cairoNorthAccessStatesitcs" :week="week" :year="year" />
+    <Giza :gizaTopNUR="gizaTopNUR" :gizaRepeatedSites="gizaRepeatedSites" :gizaGen="gizaGen"
+      :gizaSubsystem="gizaSubsystem" :gizaAccessStatesitcs="gizaAccessStatesitcs" :week="week" :year="year" />
   </div>
   <template v-else>
     <div class="container mt-5">
@@ -292,17 +191,13 @@
                 </p>
               </div>
             </template>
-            <template v-if="notFoundErrors">
+            <template v-if="notFoundErrors.length">
               <div class="errors card">
                 <p v-for="error in notFoundErrors" :key="error">
                   {{ error }}
                 </p>
                 <div>
-                  <Button
-                    label="Back"
-                    class="p-button-danger"
-                    @click="this.$router.go(-1)"
-                  />
+                  <Button label="Back" class="p-button-danger" @click="this.$router.go(-1)" />
                 </div>
               </div>
             </template>
@@ -340,7 +235,7 @@ export default {
 
       monthErrors: null,
       yearErrors: null,
-      notFoundErrors: null,
+      notFoundErrors: [],
       isNURAvailable: false,
       zones2GNUR: null,
       zones3GNUR: null,
@@ -400,7 +295,7 @@ export default {
     },
   },
   computed: {
-   
+
     isLogin() {
       return this.$store.getters.isLogin;
     },
@@ -419,7 +314,7 @@ export default {
     CairoNodeB,
     CairoModification,
   },
- 
+
   methods: {
     Responses(zoneExceed, zoneWith) {
       let exceed = [];
@@ -438,7 +333,7 @@ export default {
       return response;
     },
     getNUR() {
-      this.$store.dispatch("displaySpinnerPage", false);
+
       let data = {
         week: this.week,
 
@@ -446,10 +341,15 @@ export default {
       };
 
       NUR.getNur(data)
-    
+
         .then((response) => {
-          console.log(response);
-          let NUR = response.data.NUR;
+          if(response.data.errors)
+          {
+          
+            this.notFoundErrors = response.data.errors;
+          }
+          else{
+            let NUR = response.data.NUR;
           this.isNURAvailable = true;
           this.zones2GNUR = {
             labels: Object.keys(NUR.NUR2G.zonesNUR2G),
@@ -635,9 +535,13 @@ export default {
           //     NUR.NUR3G.zonesNUR3GAccessCountTickets["GIZA"].access,
           //   NUR: NUR.NUR3G.zonesNUR3GAccessNUR["GIZA"].access,
           // };
+
+          }
+        
+         
         })
         .catch((error) => {
-          console.log(error);
+     
           this.isNURAvailable = false;
           if (error.response.status == 422) {
             let errors = error.response.data.errors;
@@ -659,20 +563,15 @@ export default {
                 this.yearErrors.push(element);
               });
             }
-          } else if (error.response.status == 404) {
-            this.notFoundErrors = error.response.data.errors;
-          }
+          } 
         })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+
     },
     getCairoMWWeeklyNUR() {
-      this.$store.dispatch("displaySpinnerPage", false);
-    
-         NUR.getCairoMWWeeklyNUR(this.week, this.year)
+   
+      NUR.getCairoMWWeeklyNUR(this.week, this.year)
         .then((response) => {
-          console.log(response);
+      
           let siteData = [];
           let sites = response.data.sites;
           sites.forEach((site) => {
@@ -697,15 +596,12 @@ export default {
             },
           });
         })
-        .catch((error) => {})
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+      
     },
 
     getCairoGenWeeklyNUR() {
-      this.$store.dispatch("displaySpinnerPage", false);
-   
+     
+
       NUR.getCairoGenWeeklyNUR(this.week, this.year)
 
         .then((response) => {
@@ -735,17 +631,15 @@ export default {
           });
         })
         .catch((error) => {
-          console.log(error);
+      
         })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+       
     },
 
     getCairoNUR_CYearlyAnalysis() {
-      this.$store.dispatch("displaySpinnerPage", false);
-     
-       NUR.cairoNUR_CYearlyAnalysis(this.year)
+    
+
+      NUR.cairoNUR_CYearlyAnalysis(this.year)
 
         .then((response) => {
           let cairo = response.data.NUR_C_yearly.cairo;
@@ -769,18 +663,12 @@ export default {
           });
           console.log(response);
         })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+      
     },
     getCairoPowerWeeklyNUR() {
-      this.$store.dispatch("displaySpinnerPage", false);
    
-      NUR.getCairoPowerWeeklyNUR(this.week,this.year)
-    
+      NUR.getCairoPowerWeeklyNUR(this.week, this.year)
+
         .then((response) => {
           console.log(response);
           let siteData = [];
@@ -807,18 +695,15 @@ export default {
             },
           });
         })
-        .catch((error) => {})
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+     
     },
     getCairoNodeBWeeklyNUR() {
-      this.$store.dispatch("displaySpinnerPage", false);
     
-       NUR.getCairoNodeBWeeklyNUR(this.week,this.year)
- 
+
+      NUR.getCairoNodeBWeeklyNUR(this.week, this.year)
+
         .then((response) => {
-            console.log(response);
+          console.log(response);
           let siteData = [];
           let sites = response.data.sites;
           sites.forEach((site) => {
@@ -843,19 +728,15 @@ export default {
             },
           });
         })
-        .catch((error) => {})
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+       
     },
-     getCairoModificationWeeklyNUR()
-     {
-        this.$store.dispatch("displaySpinnerPage", false);
-    
-      NUR.getCairoModificationsBWeeklyNUR(this.week,this.year)
-     
+    getCairoModificationWeeklyNUR() {
+      
+
+      NUR.getCairoModificationsBWeeklyNUR(this.week, this.year)
+
         .then((response) => {
-            console.log(response);
+          console.log(response);
           let siteData = [];
           let sites = response.data.sites;
           sites.forEach((site) => {
@@ -880,11 +761,8 @@ export default {
             },
           });
         })
-        .catch((error) => {})
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
-     }
+       
+    }
   },
 };
 </script>
@@ -892,6 +770,7 @@ export default {
 <style lang="scss" scoped>
 .table-container {
   position: relative;
+
   .spinner {
     position: absolute;
     display: flex;
@@ -905,9 +784,11 @@ export default {
     background-color: rgba($color: #ffff, $alpha: 0.7);
   }
 }
+
 .title {
   margin-top: 50px;
   width: 100%;
+
   p {
     width: 100%;
     text-align: center;
@@ -917,10 +798,12 @@ export default {
 
 .errors {
   padding: 3rem;
+
   p {
     color: red;
     text-align: center;
   }
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -930,31 +813,39 @@ export default {
 .fade-bounce-enter-active {
   animation: woble 1s ease;
 }
+
 @keyframes woble {
   0% {
     opacity: 0;
     transform: translateY(-300px);
   }
+
   50% {
     opacity: 1;
     transform: translateY(0px);
   }
+
   60% {
     transform: translateY(16px);
   }
+
   70% {
     transform: translateY(-16px);
   }
+
   80% {
     transform: translateY(8px);
   }
+
   90% {
     transform: translateY(-8px);
   }
+
   100% {
     transform: translateY(0px);
   }
 }
+
 .transmission,
 .gen,
 .BTS,
@@ -963,23 +854,29 @@ export default {
   position: relative;
   margin-bottom: 10px;
 }
+
 .modifications,
 .power {
   padding-top: 10px;
   margin: auto;
 }
+
 .BTS::after {
   content: "Node";
 }
+
 .gen::after {
   content: "Generators";
 }
+
 .modifications::after {
   content: "Modifications";
 }
+
 .power::after {
   content: "Power";
 }
+
 .gen::after,
 .transmission::after,
 .BTS::after,
@@ -994,6 +891,7 @@ export default {
 
   color: black;
 }
+
 // .BTS::after{
 //   left: 18px;
 // }
@@ -1002,6 +900,7 @@ export default {
   bottom: -20px;
   // left: -20px;
 }
+
 .transmission::after {
   content: "Transmission";
 }

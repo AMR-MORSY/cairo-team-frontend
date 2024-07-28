@@ -4,7 +4,7 @@
     <div class="message">
       <h3 class="text-center">Access to this page is restricted</h3>
       <p class="text-center" style="color: black;">Please check with the site admin if you believe this is a mistake.</p>
-     <h3 type="button" style="display: block; color: red;text-align: center; text-decoration:underline; padding-top: 3rem;"  @click="$router.go(-1)">Go back</h3>
+     <h3 type="button" style="display: block; color: red;text-align: center; text-decoration:underline; padding-top: 3rem;"  @click="$router.go(-`${path}`)">Go back</h3>
     </div>
 
   </div>
@@ -16,6 +16,7 @@ export default {
     return {};
   },
   name: "unauthorized",
+  props:["path"],
 };
 </script>
 
@@ -41,7 +42,7 @@ $animationTime: 2s;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  
 }
 
 h1 {

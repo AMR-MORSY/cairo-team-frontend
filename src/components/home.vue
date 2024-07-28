@@ -113,6 +113,7 @@ export default {
  
   overflow-y: hidden;
   padding: 2rem 2rem;
+  background-color: white;
 
   .image-container {
 

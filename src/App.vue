@@ -10,8 +10,8 @@
   <UnauthenticatedToast></UnauthenticatedToast>
   <NetworkErrorToast></NetworkErrorToast>
 
- 
-  <Toast position="center" :breakpoints="{'480px':{'width':'80%','margin':'auto'}}" />
+
+  <Toast position="center" :breakpoints="{ '480px': { 'width': '80%', 'margin': 'auto' } }" />
 </template>
 
 <script >
@@ -19,9 +19,11 @@ import SpinnerPage from "../src/components/helpers/SpinnerPage.vue";
 import navbar from "../src/components/navbar.vue";
 import SitesTable from "../src/components/pages/sites/SitesTable.vue";
 import UnauthenticatedToast from "../src/components/helpers/UnauthenticatedToast.vue";
-import "bootstrap";
+
 import NetworkErrorToast from "./components/helpers/NetworkErrorToast.vue";
-import { right } from "@popperjs/core";
+import User from "./apis/User";
+
+
 
 
 export default {
@@ -33,7 +35,35 @@ export default {
       data: "session will end after 2 minutes, renew session",
     };
   },
+  watch: {
+    $route() {
+     
+      if (this.$store.getters.isLogin) {
+        User.userAbilities().then((response) => {
+          console.log(response)
+          let rules=[];
 
+          if(response.data.permissions.length>0)
+          {
+            response.data.permissions.forEach((element)=>{
+              let rule={
+                action:element
+              };
+              rules.push(rule)
+            })
+
+          }
+        
+          this.$ability.update(rules)
+       
+        })
+
+      }
+
+    }
+
+  },
+  
 
   computed: {
     displaySpinnerPage() {
@@ -50,9 +80,8 @@ export default {
   },
   name: "app",
 
+
   methods: {
-
-
     displaySitesTable(event) {
       this.$dialog.open(SitesTable, {
         props: {
@@ -75,6 +104,19 @@ export default {
     displayTheSpinner(event) {
       this.displaySpinnerPage = event;
     },
+
+    updateAbility(user) {
+      const { can, rules } = new AbilityBuilder(Ability);
+
+      if (user.role === 'admin') {
+        can('manage', 'all');
+      } else {
+        can('read', 'all');
+      }
+
+      this.$ability.update(rules);
+    }
+
 
   },
 

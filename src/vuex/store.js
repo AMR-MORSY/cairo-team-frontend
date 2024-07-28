@@ -27,74 +27,74 @@ const store = createStore({
         return userToken;
       }
     },
-    isSuperAdmin(state) {
+    // isSuperAdmin(state) {
       
-      if(state.userData)
-      {
-        let userRoles= state.userData.roles;
-        userRoles=toRaw(userRoles);
-        if (userRoles) {
+    //   if(state.userData)
+    //   {
+    //     let userRoles= state.userData.roles;
+    //     userRoles=toRaw(userRoles);
+    //     if (userRoles) {
        
-          let userRole = null;
-          userRole=userRoles.filter((role) => {
-            return role.name == "super-admin";
-          });
+    //       let userRole = null;
+    //       userRole=userRoles.filter((role) => {
+    //         return role.name == "super-admin";
+    //       });
          
-          if (userRole.length>0) {
+    //       if (userRole.length>0) {
           
-            return true;
-          } else {
-            return false;
-          }
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
   
-        }
-        else {
-          return false;
+    //     }
+    //     else {
+    //       return false;
   
-        }
+    //     }
 
-      }
-      else
-      {
-        return false;
-      }
+    //   }
+    //   else
+    //   {
+    //     return false;
+    //   }
      
 
      
-    },
-    isAdmin(state) {
+    // },
+    // isAdmin(state) {
      
-      if(state.userData)
-      {
-        let userRoles= state.userData.roles;
-        userRoles=toRaw(userRoles);
-        if (userRoles) {
+    //   if(state.userData)
+    //   {
+    //     let userRoles= state.userData.roles;
+    //     userRoles=toRaw(userRoles);
+    //     if (userRoles) {
        
-          let userRole = null;
-          userRole=userRoles.filter((role) => {
-            return role.name == "admin";
-          });
+    //       let userRole = null;
+    //       userRole=userRoles.filter((role) => {
+    //         return role.name == "admin";
+    //       });
          
-          if (userRole.length>0) {
-            return true;
-          } else {
-            return false;
-          }
+    //       if (userRole.length>0) {
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
   
-        }
-        else {
-          return false;
+    //     }
+    //     else {
+    //       return false;
   
-        }
+    //     }
 
-      }
-      else{
-        return false
-      }
+    //   }
+    //   else{
+    //     return false
+    //   }
     
 
      
-    },
+    // },
     userName(state) { 
     if (state.userData) {
         let userName = state.userData.user.name;
@@ -116,12 +116,12 @@ const store = createStore({
     USER_DATA(state, user) {
       state.userData = user;
     },
-    USER_PERMISSIONS(state, permissions) {
-      state.userPermissions = permissions;
-    },
-    USER_Roles(state, Roles) {
-      state.userRoles = Roles;
-    },
+    // USER_PERMISSIONS(state, permissions) {
+    //   state.userPermissions = permissions;
+    // },
+    // USER_Roles(state, Roles) {
+    //   state.userRoles = Roles;
+    // },
     CHANGE_TIME_OUT(state, status) {
       state.sessionTimeOut = status;
     },
@@ -150,12 +150,12 @@ const store = createStore({
     userData({ commit }, user) {
       commit("USER_DATA", user);
     },
-    userPermissions({ commit }, permissions) {
-      commit("USER_PERMISSIONS", permissions);
-    },
-    userRoles({ commit }, roles) {
-      commit("USER_Roles", roles);
-    },
+    // userPermissions({ commit }, permissions) {
+    //   commit("USER_PERMISSIONS", permissions);
+    // },
+    // userRoles({ commit }, roles) {
+    //   commit("USER_Roles", roles);
+    // },
     setNUR({ commit }, NUR) {
       commit("SET_NUR", NUR);
     },

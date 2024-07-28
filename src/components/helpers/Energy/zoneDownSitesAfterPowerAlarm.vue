@@ -19,7 +19,7 @@
   
     methods: {
         getZoneDownSitesAfterPowerAlarm() {
-        this.$store.dispatch("displaySpinnerPage", false);
+       
         let data = {
           zone: this.zone,
           week: this.week,
@@ -49,9 +49,7 @@
           console.log(error);
   
         })
-          .finally(() => {
-            this.$store.dispatch("displaySpinnerPage", true);
-          });
+        
       }
     }
   

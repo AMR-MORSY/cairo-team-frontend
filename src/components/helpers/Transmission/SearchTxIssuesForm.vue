@@ -52,7 +52,8 @@
 
                 <div class="col-6 mt-5">
                     <div class="button-container">
-                        <Button label="Search" :disabled="v$.$invalid" type="submit" icon="pi pi-external-link" severity="success" text raised />
+                        <Button label="Search" :disabled="v$.$invalid" type="submit" icon="pi pi-external-link"
+                            severity="success" text raised />
 
                     </div>
                 </div>
@@ -64,7 +65,7 @@
 </template>
 
 <script>
-import {  required } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 export default {
@@ -78,13 +79,12 @@ export default {
         };
     },
     name: "SearchTxIssuesForm.vue",
-    inject:["dialogRef"],
+    inject: ["dialogRef"],
 
     validations() {
         const mustBeEqualOrGreater = (value) => {
 
-            if(value>=this.From)
-            {
+            if (value >= this.From) {
                 return true
             }
             return false;
@@ -94,20 +94,20 @@ export default {
         return {
             From: {
                 required: helpers.withMessage("Required !", required),
-               
-              
+
+
 
 
             },
             toDate: {
                 required: helpers.withMessage("Required !", required),
-                mustBeEqualOrGreater:helpers.withMessage("Equal or greater than From date",mustBeEqualOrGreater)
-              
+                mustBeEqualOrGreater: helpers.withMessage("Equal or greater than From date", mustBeEqualOrGreater)
+
 
             },
             issue: {
                 required: helpers.withMessage("Required !", required),
-               
+
 
 
             },
@@ -119,15 +119,16 @@ export default {
         }
     },
 
-    methods:{
-        submitSearchForm()
-        {
-            
-            if (!this.v$.$invalid) {
-              
-                this.dialogRef.close();
-                this.$router.push({path:`/searchTxIssues/${this.From}/${this.toDate}/${this.issue}`})
-            }
+    methods: {
+        async submitSearchForm() {
+
+            const isFormCorrect = await this.v$.$validate()
+            if (!isFormCorrect) return
+
+
+            this.dialogRef.close();
+            this.$router.push({ path: `/searchTxIssues/${this.From}/${this.toDate}/${this.issue}` })
+
 
 
         }

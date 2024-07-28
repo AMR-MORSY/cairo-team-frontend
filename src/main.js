@@ -12,8 +12,8 @@ import 'chartkick/chart.js';
 import PrimeVue from 'primevue/config';
 import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
-import  "primevue/resources/themes/saga-blue/theme.css";      //theme
-import  "primevue/resources/primevue.min.css";                 //core css
+ import  "primevue/resources/themes/saga-blue/theme.css";      //theme
+//  import  "primevue/resources/primevue.min.css";    
 import  "primeicons/primeicons.css";
 import Card from 'primevue/card';
 import Password from 'primevue/password';
@@ -47,6 +47,9 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ConfirmDialog from 'primevue/confirmdialog';
 import SpeedDial from 'primevue/speeddial';
 import OverlayPanel from 'primevue/overlaypanel';
+import { abilitiesPlugin } from '@casl/vue';
+import ability from './services/ability';
+
 
 
 import JsonExcel from "vue-json-excel3";
@@ -76,10 +79,9 @@ app.use(router)
 .use(ToastService)
 .use(DialogService)
 .use(ConfirmationService)
-
-
-
-
+.use(abilitiesPlugin, ability, {
+    useGlobalProperties: true
+  })
 .directive('tooltip', Tooltip)
 .component('Datepicker', Datepicker)
 .component('ConfirmDialog', ConfirmDialog)

@@ -4,21 +4,7 @@
       <span style="color: Black; font-weight: 500">NUR: </span
       ><span style="color: red; font-weight: 500">{{ NUR }}</span>
     </p>
-    <div style="display: flex; align-items: center; justify-content: center">
-      <div
-        class="w-50"
-        style="display: flex; align-items: center; justify-content: center"
-      >
-        <img
-          src="../../logos/week-icon.svg"
-          @click="getCairoGenYearlyNUR"
-          style="cursor: pointer"
-          alt=""
-          class="w-25"
-          v-tooltip.right="'Weekly Analysis'"
-        />
-      </div>
-    </div>
+   
   </div>
   <div class="container">
     <div class="row">
@@ -35,7 +21,17 @@
     </div>
   </div>
   <div class="table-container">
-    <h3>Sites</h3>
+  
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <h3>Sites</h3>
+      <div  style=" display: flex; align-items: center; justify-content: flex-end">
+        <img src="../../logos/week-icon.svg"   @click="getCairoGenYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
+        v-tooltip.right="'Weekly Analysis'" />
+
+      </div>
+      
+    </div>
+  
     <DataTable
       :value="sites"
       responsiveLayout="scroll"

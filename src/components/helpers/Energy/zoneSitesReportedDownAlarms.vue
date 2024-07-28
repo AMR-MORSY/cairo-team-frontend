@@ -19,7 +19,7 @@ export default {
 
   methods: {
     getSitesReportedDownAlarms() {
-      this.$store.dispatch("displaySpinnerPage", false);
+  
       let data = {
         zone: this.zone,
         week: this.week,
@@ -49,9 +49,7 @@ export default {
         console.log(error);
 
       })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+       
     }
   }
 

@@ -8,19 +8,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-         <div
-        class="w-25"
-        style="display: flex; align-items: center; justify-content: center"
-      >
-        <img
-          src="../../logos/week-icon.svg"
-          @click="getCairoNodeBYearlyNUR"
-          style="cursor: pointer"
-          alt=""
-          class="w-25"
-          v-tooltip.right="'Weekly Analysis'"
-        />
-      </div>
+       
       </div>
       <div class="col-4">
         <Chart
@@ -34,6 +22,15 @@
     </div>
   </div>
   <div>
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <h3>Sites</h3>
+      <div  style=" display: flex; align-items: center; justify-content: flex-end">
+        <img src="../../logos/week-icon.svg"   @click="getCairoNodeBYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
+        v-tooltip.right="'Weekly Analysis'" />
+
+      </div>
+      
+    </div>
     <DataTable
       :value="sites"
       responsiveLayout="scroll"

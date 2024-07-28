@@ -95,7 +95,7 @@ export default {
 
     methods: {
         getSiteTxIssues() {
-            Transmission.getSiteTxIssues({ "site_code": this.site_code }).then((response) => {
+            Transmission.getSiteTxIssues(this.site_code).then((response) => {
                 console.log(response);
                 if (response.data.messages.WANS == "data found") {
                     this.WANSAvailable = true;

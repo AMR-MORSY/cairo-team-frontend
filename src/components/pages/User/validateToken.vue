@@ -1,26 +1,39 @@
 <template>
+    <userNavBar></userNavBar>
     <div class="mt-5 d-flex aligin-items-center justify-content-center">
 
         <div class="alert alert-success" v-if="tokenValid">
             <form @submit.prevent="changePassword">
                 <div class="form-group">
                     <label for="newpassword">Change Password</label>
-                    <input type="password" class="form-control" v-bind:class="{ 'is-invaled': errorNewPassword }"
-                        id="newpassword" v-model="newPassword" autocomplete="off" />
-                    <div>
-                        {{ errorNewPassword }}
+                    <input type="password" class="form-control"
+                        v-bind:class="[v$.newPassword.$error || passwordBackendError ? 'is-invalid' : '']" id="newpassword"
+                        v-model.trim="v$.newPassword.$model" autocomplete="off" />
+                        <p>*At least 8 characters <br>*includes a special char.<br>*includes uppercase letter<br>*includes a number</p>
+
+                    <div v-if="v$.newPassword.$error">
+                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                            v-for="error in v$.newPassword.$errors">
+                            {{ error.$message }}</div>
                     </div>
-                    <div v-if="passwordBackendError">
-                        <p v-for="error in passwordBackendError" :key="error">{{ error }}</p>
-                    </div>
+
+
                 </div>
                 <div class="form-group">
                     <label for="password-confirmation">Password Confirmation</label>
-                    <input type="password" class="form-control" v-bind:class="{ 'is-invaled': errorPasswordConfirmation }"
-                        id="password-confirmation" v-model="passwordConfirmation" autocomplete="off" />
-                    <div>
-                        {{ errorPasswordConfirmation }}
-                    </div>
+                    <input type="password" class="form-control"
+                        v-bind:class="[v$.passwordConfirmation.$error || passwordBackendError ? 'is-invalid' : '']"
+                        id="password-confirmation" v-model.trim="v$.passwordConfirmation.$model" autocomplete="off" />
+
+
+                </div>
+                <div v-if="v$.passwordConfirmation.$error">
+                    <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                        v-for="error in v$.passwordConfirmation.$errors">
+                        {{ error.$message }}</div>
+                </div>
+                <div v-if="passwordBackendError">
+                    <p v-for="error in passwordBackendError" :key="error">{{ error }}</p>
                 </div>
                 <button type="submit" class="btn btn-success mt-2">
                     Change Password
@@ -34,6 +47,11 @@
 
 <script>
 import User from "../../../apis/User";
+
+import { required, sameAs } from '@vuelidate/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { helpers } from '@vuelidate/validators'
+import userNavBar from "../../helpers/User/userNavBar.vue";
 export default {
     data() {
         return {
@@ -43,16 +61,39 @@ export default {
             errorToken: false,
             newPassword: "",
             passwordConfirmation: "",
-            passwordBackendError:null,
-            errorNewPassword: null,
-            errorPasswordConfirmation: null,
+            passwordBackendError: null,
+
 
 
 
         };
     },
     name: "validateToken",
+    components: {
+    userNavBar,
+  },
     props: ["token"],
+    setup: () => ({ v$: useVuelidate() }),
+    validations() {
+        const passReg = helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
+
+        return {
+
+
+            newPassword: {
+                required: helpers.withMessage('Password is required', required),
+                passReg: helpers.withMessage("Password does not match requirements", passReg),
+
+            },
+            passwordConfirmation: {
+
+                required: helpers.withMessage('Password is required', required),
+                sameAs: helpers.withMessage('Password and confirmation are not matched', sameAs(this.newPassword)),
+
+            },
+
+        }
+    },
     mounted() {
         this.validateToken();
 
@@ -60,9 +101,9 @@ export default {
     methods: {
 
         validateToken() {
-            this.$store.dispatch("displaySpinnerPage", false);
-            let data={
-                "token":this.token
+
+            let data = {
+                "token": this.token
             }
 
             User.validateToken(data)
@@ -75,66 +116,64 @@ export default {
                         this.tokenValid = true;
 
                     }
+                    else if(response.data.error)
+                    {
+                        this.errorToken =response.data.error;
+                        this.invalidToken = true;
+
+                    }
                 })
                 .catch((error) => {
                     if (error.response.status == 422) {
                         this.errorToken = error.response.data.errors.token[0];
                         this.invalidToken = true;
-                    } else if (error.response.status == 401) {
-                        this.errorToken = error.response.data.error;
-                        this.invalidToken = true;
                     }
-                }).finally(() => {
-                    this.$store.dispatch("displaySpinnerPage", true);
                 })
 
         },
-        changePassword() {
-            this.errorPasswordConfirmation = null;
-            this.errorNewPassword = null;
-            this.passwordBackendError = null;
-            if (!this.newPassword) {
-                this.errorNewPassword = "New Password is required";
-            }
-            if (!this.passwordConfirmation) {
-                this.errorPasswordConfirmation = "Password confirmation is required";
-            }
-            if (this.passwordConfirmation != this.newPassword) {
-                this.errorPasswordConfirmation = "Password are not matched";
-            }
-            if (!this.errorPasswordConfirmation && !this.errorNewPassword) {
-                let data = {
-                    user_id: this.user_id,
-                    password: this.newPassword,
-                    password_confirmation: this.passwordConfirmation,
-                };
-                console.log(data)
-                this.$store.dispatch("displaySpinnerPage", false);
-                User.resetPassword(data)
+        async changePassword() {
+            const isFormCorrect = await this.v$.$validate()
 
-                    .then((response) => {
-                        sessionStorage.setItem(
-                            "User",
-                            JSON.stringify(response.data.user_data)
-                        );
-                        this.$store.dispatch("userData", response.data.user_data);
 
-                        this.$router.push({
-                            path: "/home",
-                        });
+            if (!isFormCorrect) return
 
-                        // this.$router.push("/user/login");
-                    })
-                    .catch(error => {
-                        if (error.response.status == 422) {
 
-                            this.passwordBackendError = error.response.data.errors.password;
+            let data = {
+                user_id: this.user_id,
+                password: this.newPassword,
+                password_confirmation: this.passwordConfirmation,
+            };
+            console.log(data)
 
-                        }
-                    }).finally(() => {
-                        this.$store.dispatch("displaySpinnerPage", true);
-                    })
-            }
+            User.resetPassword(data)
+
+                .then((response) => {
+                    sessionStorage.setItem(
+                        "User",
+                        JSON.stringify(response.data.user_data)
+                    );
+                    this.$toast.add({
+                        severity: "success",
+                        summary: "Success Message",
+                        detail: " Password changed successfully",
+                        life: 3000,
+                    });
+                    this.$store.dispatch("userData", response.data.user_data);
+
+                    this.$router.push({
+                        path: "/home",
+                    });
+
+                  
+                })
+                .catch(error => {
+                    if (error.response.status == 422) {
+
+                        this.passwordBackendError = error.response.data.errors.password;
+
+                    }
+                })
+
         },
 
     }

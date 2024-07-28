@@ -4,7 +4,7 @@
             <div class="col-6"></div>
             <div class="col-6">
                 <div class="button-container">
-                    <Button label="Update" :disabled="disabled" icon="pi pi-external-link" @click="openOverlayUpdate(event)"
+                    <Button label="Update"  icon="pi pi-external-link" @click="openOverlayUpdate(event)"
                         severity="success" text raised />
 
                 </div>
@@ -62,18 +62,7 @@ export default {
         PowerDataUpdate,
 
     },
-    computed: {
-        disabled() {
-            if (this.$store.getters.isAdmin || this.$store.getters.isSuperAdmin) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-
-    },
-
+    
 
     mounted() {
         this.mountData()

@@ -1,8 +1,8 @@
 import allInstances from "./Api";
 export default{
-    getSiteTxIssues(data)
+    getSiteTxIssues(siteCode)
     {
-        return allInstances.Api.post("/Transmission/getSiteTXIssues",data)
+        return allInstances.Api.get(`/Transmission/getSiteTXIssues/${siteCode}`)
     },
     searchTxIssues(fromDate,toDate,issue)
     {

@@ -163,9 +163,10 @@ export default {
             this.topic = this.dialogRef.data.topic;
 
         },
-        submitUpdateForm() {
+      async  submitUpdateForm() {
 
-            if (!this.v$.$invalid) {
+            const isFormCorrect = await this.v$.$validate()
+            if (!isFormCorrect) return
              
             
                 Sites.updateSiteMWDetails(this.form).then((response) => {
@@ -180,14 +181,18 @@ export default {
                     }
 
                 }).catch((error) => {
-                    if(error.response.status==404)
-                    {
-                        this.$router.push({name:"notFound"})
-                    }
-
+                    if (error.response.status == 204) {
+                    this.$toast.add({
+                        severity: "info",
+                        summary: "Success Message",
+                        detail: "site instrument not found",
+                        life: 3000,
+                    });
+                  
+                }
                 });
 
-            }
+            
           
 
 

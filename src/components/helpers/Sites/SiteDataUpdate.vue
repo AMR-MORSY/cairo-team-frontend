@@ -7,9 +7,9 @@
                 <div class="col-12 col-md-6  ">
                     <div class="input-group">
                         <label class="input-group-text w-25" for="on_air_date">On air date</label>
-                     
+
                         <Datepicker class="form-control w-75 " v-model.trim="form.on_air_date" id="on_air_date" />
-                    
+
 
                     </div>
 
@@ -17,8 +17,8 @@
                 <div class="col-12 col-md-6">
                     <div class="input-group">
                         <span class="input-group-text w-25" id=" last_pm_date">Last PM date</span>
-                        <Datepicker class="form-control w-75" v-model.trim="form.last_pm_date"  />
-                   
+                        <Datepicker class="form-control w-75" v-model.trim="form.last_pm_date" />
+
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-xl-4  ">
@@ -36,12 +36,13 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="ntra_cluster">NTRA</span>
-                        <select class="form-select w-50 " :class="{ 'is-invalid': v$.form.ntra_cluster.$error }" v-model.trim="v$.form.ntra_cluster.$model" aria-describedby="ntra_cluster">
-                           
+                        <select class="form-select w-50 " :class="{ 'is-invalid': v$.form.ntra_cluster.$error }"
+                            v-model.trim="v$.form.ntra_cluster.$model" aria-describedby="ntra_cluster">
+
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
-                     
+
                         <div v-if="v$.form.ntra_cluster.$error">
                             <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                                 v-for="error in v$.form.ntra_cluster.$errors">
@@ -52,13 +53,13 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id=" care_ceo">Care CEO</span>
-                        <select  class="form-select w-50 " :class="{ 'is-invalid': v$.form.care_ceo.$error }"
+                        <select class="form-select w-50 " :class="{ 'is-invalid': v$.form.care_ceo.$error }"
                             v-model.trim="v$.form.care_ceo.$model" aria-describedby="care_ceo">
-                       
+
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
-                    
+
                         <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                             v-for="error in v$.form.care_ceo.$errors">
                             {{ error.$message }}</div>
@@ -68,8 +69,9 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="axsees">Axis</span>
-                        <select  class="form-select w-50 " :class="{ 'is-invalid': v$.form.axsees.$error }"  v-model.trim="v$.form.axsees.$model" aria-describedby="axsees" >
-                       
+                        <select class="form-select w-50 " :class="{ 'is-invalid': v$.form.axsees.$error }"
+                            v-model.trim="v$.form.axsees.$model" aria-describedby="axsees">
+
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
@@ -81,10 +83,9 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="serve_compound">Serve Compound</span>
-                        <select class="form-select w-50"
-                            :class="{ 'is-invalid': v$.form.serve_compound.$error }"
+                        <select class="form-select w-50" :class="{ 'is-invalid': v$.form.serve_compound.$error }"
                             v-model.trim="v$.form.serve_compound.$model" aria-describedby="serve_compound">
-                        
+
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
@@ -165,19 +166,17 @@
                             {{ error.$message }}</div>
                     </div>
                 </div>
-             
+
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id=" need_access_permission">Access Permission</span>
-                        <select class="form-select w-50"
-                            :class="{ 'is-invalid': v$.form.need_access_permission.$error }"
-                            v-model.trim="v$.form.need_access_permission.$model"
-                            aria-describedby=" need_access_permission">
-                          
+                        <select class="form-select w-50" :class="{ 'is-invalid': v$.form.need_access_permission.$error }"
+                            v-model.trim="v$.form.need_access_permission.$model" aria-describedby=" need_access_permission">
+
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
-                     
+
                         <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                             v-for="error in v$.form.need_access_permission.$errors">
                             {{ error.$message }}</div>
@@ -194,6 +193,7 @@
                             {{ error.$message }}</div>
                     </div>
                 </div>
+                
 
 
                 <div class="col-6">
@@ -210,7 +210,7 @@
 </template>
 
 <script>
-import { maxLength, minLength, minValue,maxValue } from '@vuelidate/validators'
+import { maxLength, minLength, minValue, maxValue } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
@@ -237,7 +237,7 @@ export default {
                 last_pm_date: null,
                 need_access_permission: null,
                 permission_type: null,
-                id:null,
+                id: null,
 
 
 
@@ -255,16 +255,12 @@ export default {
 
             form: {
                 topology: {
-                  
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
-
-
-
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
                 },
                 ntra_cluster: {
-                    
+
                     booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
 
                 },
@@ -279,53 +275,53 @@ export default {
                 },
                 no_ldn_accounts: {
                     minValue: helpers.withMessage("zero or Max 150 Accounts", minValue(0)),
-                    maxValue: helpers.withMessage("zero or Max 150 Accounts",maxValue(150)),
-                   
+                    maxValue: helpers.withMessage("zero or Max 150 Accounts", maxValue(150)),
+
                 },
                 no_tp_accounts: {
                     minValue: helpers.withMessage("zero or Max 150 Accounts", minValue(0)),
-                    maxValue: helpers.withMessage("zero or Max 150 Accounts",maxValue(150)),
-                   
-                   
+                    maxValue: helpers.withMessage("zero or Max 150 Accounts", maxValue(150)),
+
+
 
                 },
                 ac1_type: {
-                  
+
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
 
                 },
                 ac2_type: {
-                
+
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
 
                 },
                 ac1_hp: {
-                  
+
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
 
                 },
                 ac2_hp: {
-                 
+
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
 
                 },
                 network_type: {
-                 
+
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
 
                 },
-             
+
                 need_access_permission: {
                     booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
 
                 },
                 permission_type: {
-                  
+
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
 
@@ -347,11 +343,9 @@ export default {
         this.mountData()
 
     },
-    watch:{
-        $route(to,from)
-        {
-            if(to.path=="/user/login")
-            {
+    watch: {
+        $route(to, from) {
+            if (to.path == "/user/login") {
                 this.dialogRef.close();
             }
 
@@ -381,11 +375,10 @@ export default {
 
 
         },
-        submitUpdateForm() {
+        async submitUpdateForm() {
 
-            if (!this.v$.$invalid) {
-              
-            
+            const isFormCorrect = await this.v$.$validate()
+            if (!isFormCorrect) return
             Sites.updatesiteDeepDetails(this.form).then((response) => {
                 if (response.data.message == "updated successfully") {
                     this.$toast.add({
@@ -398,15 +391,21 @@ export default {
                 }
 
             }).catch((error) => {
-                if(error.response.status==404)
-                {
-                    this.$router.push({name:"notFound"})
+
+                if (error.response.status == 204) {
+                    this.$toast.add({
+                        severity: "info",
+                        summary: "Success Message",
+                        detail: "site instrument not found",
+                        life: 3000,
+                    });
+
                 }
 
             });
 
-        }
-       
+
+
 
 
 

@@ -28,33 +28,16 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-between align-items-center">
-    <h3>Sites</h3>
-    <div
-      style="
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 70%;
-      "
-    >
-      <div
-        class="w-25"
-        style="display: flex; align-items: center; justify-content: center"
-      >
-        <img
-          src="../../logos/week-icon.svg"
-          @click="getCairoMWYearlyNUR"
-          style="cursor: pointer"
-          alt=""
-          class="w-25"
-          v-tooltip.right="'Weekly Analysis'"
-        />
-      </div>
-    </div>
-  </div>
-
   <div>
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <h3>Sites</h3>
+      <div  style=" display: flex; align-items: center; justify-content: flex-end">
+        <img src="../../logos/week-icon.svg"      @click="getCairoMWYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
+        v-tooltip.right="'Weekly Analysis'" />
+
+      </div>
+      
+    </div>
     <DataTable
       :value="sites"
       responsiveLayout="scroll"
