@@ -251,21 +251,21 @@
     </div>
   </div>
 
-  <Dialog v-model:visible="visible" modal :showHeader="false" :style="{ width: '50vw' }"
+  <Dialog v-model:visible="dialogVisible" modal :showHeader="false" :style="{ width: '50vw' }"
     :breakpoints="{ '700px': '70vw' }">
 
     <p class="m-0">
       <span class="confirmation">Confirmation</span>
-    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ message }} </p>
+    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ dialogMessage }} </p>
     </p>
     <template #footer>
-      <div class="d-flex justify-content-around align-items-center">
-        <Button label="No" icon="pi " @click="closeConfirmation()"  class="mr-3 btn btn-danger"/>
-        <Button label="Yes" icon="pi pi-check" @click="insertNewBatteryData()" class="btn btn-info"  />
+      <div class=" d-flex align-items-center justify-content-around  w-100">
+        <button @click="closeConfirmation()" class="d-block btn btn-danger">No</button>
+        <button @click="insertNewData()" class="btn d-block btn-info">Yes</button>
 
       </div>
-  
-     
+
+
     </template>
   </Dialog>
 </template>
@@ -283,6 +283,7 @@ import TransmissionDetails from "../../helpers/Transmission/TransmissionDetails.
 import SearchTxIssuesForm from "../../helpers/Transmission/SearchTxIssuesForm.vue";
 import SiteBatteriesTable from "../../helpers/Sites/SiteBatteriesTable.vue";
 import BatteriesUpdate from "../../helpers/Sites/BatteriesUpdate.vue";
+
 export default {
   data() {
     return {
@@ -342,8 +343,9 @@ export default {
           },
         },
       ],
-      visible: false,
-      message: "",
+      dialogVisible: false,
+      dialogMessage: "",
+      insertionDataField: '',
     };
   },
   props: ["site_code"],
@@ -446,7 +448,7 @@ export default {
 
       Sites.getSiteDetails(this.site_code)
         .then((response) => {
-          console.log(response);
+        
           this.siteName = response.data.site.site_name;
           this.siteCode = response.data.site.site_code;
           this.type = response.data.site.type;
@@ -701,7 +703,7 @@ export default {
 
     getBatteriesData() {
       Sites.getBatteriesDetails(this.id).then((response) => {
-        console.log(response);
+      
         if (response.data.success == true) {
           this.$dialog.open(SiteBatteriesTable, {
             props: {
@@ -725,14 +727,10 @@ export default {
 
         }
         else {
-          // this.$toast.add({
-          //   severity: "error",
-          //   summary: "Error Message",
-          //   detail: "No batteries data",
-          //   life: 3000,
-          // });
-          this.message = "No batteries data, Insert new Data? ";
-          this.visible = true;
+
+          this.dialogMessage = "No batteries data, Insert new Data? ";
+          this.dialogVisible = true;
+        
         }
 
 
@@ -741,10 +739,77 @@ export default {
       })
     },
     getSiteData() {
+      let siteData = [];
+     
+          let site = {
+            "On Air Date": null
+          }
+          siteData.push(site);
+          site = {
+            "Topology":null
+          };
+          siteData.push(site);
+          site = {
+            "NTRA Cluster": null
+          };
+          siteData.push(site);
+          site = {
+            "Care CEO": null
+          };
+          siteData.push(site);
+          site = {
+            "Axis": null
+          };
+          siteData.push(site);
+          site = {
+            "Serve Compound": null
+          };
+          siteData.push(site);
+          site = {
+            "No. LDN Accounts":null
+          };
+          siteData.push(site);
+          site = {
+            "No. Tp Accounts": null
+          };
+          siteData.push(site);
+          site = {
+            "AC1 Type": null
+          };
+          siteData.push(site);
+          site = {
+            "AC1 HP": null
+          };
+          siteData.push(site);
+          site = {
+            "AC2 Type": null
+          };
+          siteData.push(site);
+          site = {
+            "AC2 HP": null
+          };
+          siteData.push(site);
+          site = {
+            "Network Type": null
+          };
+          siteData.push(site);
+          site = {
+            "Last PM Date":null
+          };
+          siteData.push(site);
+          site = {
+            "Access Permission": null
+          };
+          siteData.push(site);
+          site = {
+            "Permission Type": null
+          };
+          siteData.push(site);
       Sites.getSiteDeepDetails(this.data).then((response) => {
 
-        let siteData = [];
+       
         if (response.data.data == "found data") {
+          let siteData = [];
           let site = {
             "On Air Date": response.data.on_air_date
           }
@@ -823,7 +888,8 @@ export default {
               statestics: siteData,
               id: response.data.id,
               topic: "Site Data",
-              rowData: response.data
+              rowData: response.data,
+              action:'Update',
 
             },
           });
@@ -832,12 +898,27 @@ export default {
 
         }
         else {
-          this.$toast.add({
-            severity: "error",
-            summary: "Error Message",
-            detail: "No Data Found",
-            life: 3000,
+          this.$dialog.open(EquipmentDetails, {
+            props: {
+              style: {
+                width: "90vw",
+              },
+
+              modal: true,
+            },
+
+            data: {
+              statestics: siteData,
+              id:null,
+              topic: "Site Data",
+              action:'Insert',
+              site_code:this.siteCode,
+              rowData: null,
+            },
           });
+
+       
+        
         }
       }).catch((error) => {
 
@@ -845,10 +926,36 @@ export default {
 
     },
     getRectifierData() {
+      
+      let rectifierData = []; ////////array of input field names
+        let rectifier = {
+            "Rectifier Brand": null
+          }
+          rectifierData.push(rectifier);
+          rectifier = {
+            "Module Capacity":null
+          };
+          rectifierData.push(rectifier);
+          rectifier = {
+            "No. Module": null
+          };
+          rectifierData.push(rectifier);
+          rectifier = {
+            "PLVD Value": null
+          };
+          rectifierData.push(rectifier);
+          rectifier = {
+            "Net ECO": null
+          };
+          rectifierData.push(rectifier);
+          rectifier = {
+            "Net ECO Activation": null
+          };
+          rectifierData.push(rectifier);
       Sites.getRectifierDetails(this.data).then((response) => {
 
-        let rectifierData = [];
         if (response.data.data == "found data") {
+          let rectifierData = [];
           let rectifier = {
             "Rectifier Brand": response.data.rec_brand
           }
@@ -873,7 +980,6 @@ export default {
             "Net ECO Activation": response.data.net_eco_activation
           };
           rectifierData.push(rectifier);
-
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
@@ -887,25 +993,48 @@ export default {
               statestics: rectifierData,
               id: response.data.id,
               topic: "Rectifier Data",
-              rowData: response.data
+              rowData: response.data,
+              action:"Update",
+              site_code:this.siteCode
 
             },
           });
 
 
-
         }
         else {
-          this.$toast.add({
-            severity: "error",
-            summary: "Error Message",
-            detail: "No Data Found",
-            life: 3000,
+          this.$dialog.open(EquipmentDetails, {
+            props: {
+              style: {
+                width: "90vw",
+              },
+
+              modal: true,
+            },
+
+            data: {
+              statestics: rectifierData,
+              id: null,
+              topic: "Rectifier Data",
+              rowData: null,
+              action:'Insert',
+              site_code:this.siteCode
+             
+
+            },
           });
+          
+          
+          
+
+
+      
         }
       }).catch((error) => {
 
       })
+
+    
 
     },
     getMWData() {
@@ -1109,15 +1238,16 @@ export default {
 
     },
     closeConfirmation() {
-      this.message = "";
-      this.visible = false;
+      this.dialogMessage = "";
+      this.dialogVisible = false;
 
     },
-    insertNewBatteryData() {
-      this.message = "";
-      this.visible = false;
-
-      this.$dialog.open(BatteriesUpdate, {
+    insertNewData() {
+      this.dailogMessage = "";
+      this.dialogVisible = false;
+      
+    
+        this.$dialog.open(BatteriesUpdate, {
         props: {
           style: {
             width: "75vw",
@@ -1137,6 +1267,11 @@ export default {
 
 
       });
+      
+
+      
+     
+    
 
 
     },
@@ -1161,6 +1296,7 @@ export default {
 
   .p-tabview-selected {
     color: #79589f !important;
+
   }
 
 
@@ -1170,6 +1306,10 @@ Button {
   min-width: 150px;
   display: block;
   margin: auto;
+}
+
+.btn {
+  min-width: 60px !important;
 }
 
 .site-details,
@@ -1229,6 +1369,7 @@ Button {
 
   Button {
     font-size: 0.7rem;
+
   }
 
   .header {

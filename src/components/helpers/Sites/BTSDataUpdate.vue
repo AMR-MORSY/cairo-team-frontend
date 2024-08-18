@@ -118,6 +118,7 @@ export default {
 
             },
             topic: null,
+            action:null,
 
 
         };

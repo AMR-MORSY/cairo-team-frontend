@@ -84,9 +84,19 @@ export default {
     {
       return allInstances.Api.post("/instruments/updateRectifierData",data)
     },
+    insertRectifierDetails(data)
+    {
+      return allInstances.Api.post("/instruments/insertRectifierData",data);
+
+    },
     getSiteDeepDetails(data)
     {
       return allInstances.Api.post("/instruments/siteDeepData",data)
+
+    },
+    insertSiteDeepDetails(data)
+    {
+      return allInstances.Api.post("/instruments/insertSiteDeepData",data);
 
     },
     updatesiteDeepDetails(data)

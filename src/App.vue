@@ -40,7 +40,7 @@ export default {
      
       if (this.$store.getters.isLogin) {
         User.userAbilities().then((response) => {
-          console.log(response)
+       
           let rules=[];
 
           if(response.data.permissions.length>0)

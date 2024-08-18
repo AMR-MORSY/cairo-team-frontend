@@ -246,7 +246,7 @@ export default {
 
       type: null,
 
-      typeOptions: ["Shelter", "Micro", "Outdoor"],
+      typeOptions: ["Macro", "Micro", "Indoor","Pico","Mobile Station"],
       statusOptions:["On Air","Off Air"],
       status:null,
       category: null,
@@ -265,7 +265,7 @@ export default {
       gestError: false,
       gestOptions: ["VF", "OG", "ET", "WE","ET+VF","ET+VF+WE","VF+WE","ET+WE"],
       oz: null,
-      ozOptions: ["Cairo South", "Cairo East", "Cairo North", "Giza"],
+      ozOptions: ["Cairo South", "Cairo East", "Cairo North", "Giza","North Upper","Red Sea","South Upper","Sinai","ALEX","NORTH COAST","Delta South","Delta North"],
       cells2G: null,
       cells3G: null,
       cells4G: null,
@@ -366,7 +366,7 @@ export default {
           "4G_cells": this.cells4G,
           status:this.status
         };
-        console.log(data);
+   
     
          Sites.updateSite(data)
           .then((response) => {
@@ -393,6 +393,7 @@ export default {
             this.office = response.data.site.office;
             this.oz = response.data.site.oz;
             this.category = response.data.site.category;
+            this.status=response.data.site.status;
           })
           .catch((error) => {
             console.log(error);

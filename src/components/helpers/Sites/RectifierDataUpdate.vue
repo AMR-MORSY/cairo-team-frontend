@@ -4,12 +4,13 @@
         <form @submit.prevent="submitUpdateForm()" novalidate>
             <div class="row gx-1">
 
-             
+
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="rec_brand">Rec Brand</span>
-                        <input type="text" class="form-control w-50 " :class="{ 'is-invalid': v$.form.rec_brand.$error }"
-                            v-model.trim="v$.form.rec_brand.$model" aria-describedby="rec_brand" />
+                        <input type="text" class="form-control w-50 "
+                            :class="{ 'is-invalid': v$.form.rec_brand.$error }" v-model.trim="v$.form.rec_brand.$model"
+                            aria-describedby="rec_brand" />
                         <div v-if="v$.form.rec_brand.$error">
                             <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                                 v-for="error in v$.form.rec_brand.$errors">
@@ -88,7 +89,8 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="module_capacity">Module Capacity</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.module_capacity.$error }"
+                        <input type="text" class="form-control w-50"
+                            :class="{ 'is-invalid': v$.form.module_capacity.$error }"
                             v-model.trim="v$.form.module_capacity.$model" aria-describedby="module_capacity" />
                         <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                             v-for="error in v$.form.module_capacity.$errors">
@@ -118,8 +120,7 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="net_eco">Net Eco</span>
-                        <select class="form-select w-50"
-                            :class="{ 'is-invalid': v$.form.net_eco.$error }"
+                        <select class="form-select w-50" :class="{ 'is-invalid': v$.form.net_eco.$error }"
                             v-model.trim="v$.form.net_eco.$model" aria-describedby="net_eco">
                             <option value=""></option>
                             <option value="Yes">Yes</option>
@@ -133,18 +134,20 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id="net_eco_activation">Net Eco Activation</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.net_eco_activation.$error }"
+                        <input type="text" class="form-control w-50"
+                            :class="{ 'is-invalid': v$.form.net_eco_activation.$error }"
                             v-model.trim="v$.form.net_eco_activation.$model" aria-describedby="net_eco_activation" />
                         <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                             v-for="error in v$.form.net_eco_activation.$errors">
                             {{ error.$message }}</div>
                     </div>
                 </div>
-             
+
 
                 <div class="col-6">
                     <div class="button-container">
-                        <Button label="Update" type="submit" icon="pi pi-external-link" severity="success" text raised />
+                        <Button :label="action" type="submit" icon="pi pi-external-link" severity="success" text
+                            raised />
 
                     </div>
                 </div>
@@ -156,7 +159,7 @@
 </template>
 
 <script>
-import { maxLength, minLength, ipAddress } from '@vuelidate/validators'
+import { maxLength, minLength, ipAddress,required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
@@ -167,20 +170,23 @@ export default {
 
         return {
             form: {
-                
+
                 rec_brand: null,
                 module_capacity: null,
                 pld_value: null,
                 no_module: null,
-                net_eco:null,
-                net_eco_activation:null,
-                id:null,
-             
-             
+                net_eco: null,
+                net_eco_activation: null,
+                id: null,
+                site_code:null,
+
+
 
 
             },
             topic: null,
+            action:null
+
 
         };
     },
@@ -192,12 +198,12 @@ export default {
 
 
             form: {
-              
+
 
                 rec_brand: {
-                 
+
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
 
@@ -205,33 +211,34 @@ export default {
                 },
                 module_capacity: {
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
 
                 },
                 no_module: {
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                  
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
+
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
                 },
-           
+
                 pld_value: {
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
 
                 },
-              
-             
+
+
                 net_eco: {
                     booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
+                    // required:helpers.withMessage('net_eco is required',required)
 
                 },
                 net_eco_activation: {
                     ipAddress: helpers.withMessage("invalid IP address", ipAddress),
-                   
+
 
                 },
 
@@ -251,11 +258,9 @@ export default {
         this.mountData()
 
     },
-    watch:{
-        $route(to,from)
-        {
-            if(to.path=="/user/login")
-            {
+    watch: {
+        $route(to, from) {
+            if (to.path == "/user/login") {
                 this.dialogRef.close();
             }
 
@@ -264,23 +269,31 @@ export default {
     },
     methods: {
         mountData() {
-           
-            this.form.rec_brand = this.dialogRef.data.rowData.rec_brand;
-            this.form.module_capacity = this.dialogRef.data.rowData.module_capacity;
-            this.form.no_module = this.dialogRef.data.rowData.no_module;
-            this.form.pld_value = this.dialogRef.data.rowData.pld_value;
-            this.form.net_eco = this.dialogRef.data.rowData.net_eco;
-            this.form.net_eco_activation = this.dialogRef.data.rowData.net_eco_activation;
+            if (this.dialogRef.data.action == "Update") {////////
+                this.form.rec_brand = this.dialogRef.data.rowData.rec_brand;
+                this.form.module_capacity = this.dialogRef.data.rowData.module_capacity;
+                this.form.no_module = this.dialogRef.data.rowData.no_module;
+                this.form.pld_value = this.dialogRef.data.rowData.pld_value;
+                this.form.net_eco = this.dialogRef.data.rowData.net_eco;
+                this.form.net_eco_activation = this.dialogRef.data.rowData.net_eco_activation;
+                this.form.id = this.dialogRef.data.id;
+
+
+            }
             this.topic = this.dialogRef.data.topic;
-            this.form.id = this.dialogRef.data.id;
+            this.action=this.dialogRef.data.action;
+            this.form.site_code=this.dialogRef.data.site_code;
+
+
+
 
         },
-       async submitUpdateForm() {
+        async submitUpdateForm() {
 
             const isFormCorrect = await this.v$.$validate()
             if (!isFormCorrect) return
-            
-            Sites.updateRectifierDetails(this.form).then((response) => {
+            if (this.action == 'Update') {
+                Sites.updateRectifierDetails(this.form).then((response) => {
                 if (response.data.message == "updated successfully") {
                     this.$toast.add({
                         severity: "success",
@@ -299,12 +312,44 @@ export default {
                         detail: "site instrument not found",
                         life: 3000,
                     });
-                  
+
                 }
 
             });
 
-        
+
+            }
+            else{
+                Sites.insertRectifierDetails(this.form).then((response)=>{
+                   
+                    if (response.data.message == "inserted successfully") {
+                    this.$toast.add({
+                        severity: "success",
+                        summary: "Success Message",
+                        detail: "Inserted Successfully",
+                        life: 3000,
+                    });
+
+                }
+
+
+                }).catch((error) => {
+                if (error.response.status == 204) {
+                    this.$toast.add({
+                        severity: "info",
+                        summary: "Success Message",
+                        detail: "site instrument not found",
+                        life: 3000,
+                    });
+
+                }
+
+            });
+
+            }
+
+         
+
 
 
 

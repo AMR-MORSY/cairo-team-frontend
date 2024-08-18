@@ -125,7 +125,7 @@ export default {
       if (!isFormCorrect) return
       Sites.searchSites(this.search)
         .then((response) => {
-          console.log(response);
+         
           if (response.data.message == "No data Found") {
             this.$toast.add({
               severity: "info",

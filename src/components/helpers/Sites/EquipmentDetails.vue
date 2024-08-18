@@ -4,7 +4,7 @@
             <div class="col-6"></div>
             <div class="col-6">
                 <div class="button-container">
-                    <Button label="Update"  icon="pi pi-external-link" @click="openOverlayUpdate(event)"
+                    <Button :label="action" icon="pi pi-external-link" @click="openOverlayUpdate(event)"
                         severity="success" text raised />
 
                 </div>
@@ -16,7 +16,7 @@
             <div class="col-12 col-md-6 col-xl-4  " v-for="statestic in statestics" :key="statestic">
                 <div class="input-group">
                     <span class="input-group-text w-50" :id="Object.keys(statestic)[0]">{{ Object.keys(statestic)[0]
-                    }}</span>
+                        }}</span>
                     <input type="text" class="form-control w-50 " disabled :value="Object.values(statestic)[0]"
                         :aria-describedby="Object.keys(statestic)[0]" />
                 </div>
@@ -48,7 +48,8 @@ export default {
         return {
             statestics: null,
             topic: null,
-            id:null,
+         
+            action: null,
         };
     },
     name: "EquipmentDetails",
@@ -62,7 +63,7 @@ export default {
         PowerDataUpdate,
 
     },
-    
+
 
     mounted() {
         this.mountData()
@@ -70,15 +71,63 @@ export default {
     },
     methods: {
         mountData() {
+          
             this.statestics = this.dialogRef.data.statestics;
             this.topic = this.dialogRef.data.topic;
-            this.id=this.dialogRef.data.id;
+            this.action = this.dialogRef.data.action;
+
 
         },
         openOverlayUpdate() {
             this.dialogRef.close();
             if (this.topic == "Site Data") {
-                this.$dialog.open( SiteDataUpdate, {
+                if (this.action == 'Update') {
+                    this.$dialog.open(SiteDataUpdate, {
+                    props: {
+                        style: {
+                            width: "90vw",
+                        },
+
+                        modal: true,
+                    },
+
+                    data: {
+                        rowData: this.dialogRef.data.rowData,///////row data and the id of the data will be available in case of updating
+                        id: this.dialogRef.data.id,
+                        topic: this.topic,
+                        action:this.action
+
+                    },
+                });
+
+                }
+                else{
+                    this.$dialog.open(SiteDataUpdate, {
+                    props: {
+                        style: {
+                            width: "90vw",
+                        },
+
+                        modal: true,
+                    },
+
+                    data: {
+                     
+                        topic: this.topic,
+                        action:this.action,
+                        site_code:this.dialogRef.data.site_code
+
+                    },
+                })
+            }
+        
+             
+
+            }
+           
+            else if (this.topic == "Rectifier Data") {
+                if (this.action == 'Update') {
+                    this.$dialog.open(RectifierDataUpdate, {
                     props: {
                         style: {
                             width: "90vw",
@@ -89,15 +138,16 @@ export default {
 
                     data: {
                         rowData: this.dialogRef.data.rowData,
-                        id:this.id,
-                        topic: this.topic
+                        id: this.id,
+                        topic: this.topic,
+                        action:this.action
 
                     },
                 });
-
-            }
-            else if (this.topic == "Batteries") {
-                this.$dialog.open(BatteriesUpdate, {
+                }
+                else
+                {
+                    this.$dialog.open(RectifierDataUpdate, {
                     props: {
                         style: {
                             width: "90vw",
@@ -107,36 +157,19 @@ export default {
                     },
 
                     data: {
-                        rowData: this.dialogRef.data.rowData,
-                        id:this.id,
-                        topic: this.topic
+                      
+                        topic: this.topic,
+                        action:this.action,
+                        site_code:this.dialogRef.data.site_code
 
                     },
                 });
 
-            }
-            else if(this.topic=="Rectifier Data")
-            {
-                this.$dialog.open(RectifierDataUpdate, {
-                    props: {
-                        style: {
-                            width: "90vw",
-                        },
-
-                        modal: true,
-                    },
-
-                    data: {
-                        rowData: this.dialogRef.data.rowData,
-                        id:this.id,
-                        topic: this.topic
-
-                    },
-                });
+                }
+               
 
             }
-            else if(this.topic=="MW Data")
-            {
+            else if (this.topic == "MW Data") {
                 this.$dialog.open(MWDataUpdate, {
                     props: {
                         style: {
@@ -148,15 +181,14 @@ export default {
 
                     data: {
                         rowData: this.dialogRef.data.rowData,
-                        id:this.id,
+                        id: this.id,
                         topic: this.topic
 
                     },
                 });
 
             }
-            else if(this.topic=="BTS Data")
-            {
+            else if (this.topic == "BTS Data") {
                 this.$dialog.open(BTSDataUpdate, {
                     props: {
                         style: {
@@ -168,15 +200,14 @@ export default {
 
                     data: {
                         rowData: this.dialogRef.data.rowData,
-                        id:this.id,
+                        id: this.id,
                         topic: this.topic
 
                     },
                 });
 
             }
-            else if(this.topic=="Power Data")
-            {
+            else if (this.topic == "Power Data") {
                 this.$dialog.open(PowerDataUpdate, {
                     props: {
                         style: {
@@ -188,7 +219,7 @@ export default {
 
                     data: {
                         rowData: this.dialogRef.data.rowData,
-                        id:this.id,
+                        id: this.id,
                         topic: this.topic
 
                     },

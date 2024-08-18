@@ -106,6 +106,29 @@
               </div>
             </div>
           </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="power">Total Net.Cells:</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Total Net.Cells"
+                v-model="total_net_cells"
+              />
+              <div v-if="total_net_cellsErrors">
+                <ul>
+                  <li
+                    v-for="error in total_net_cellsErrors"
+                    style="color: red"
+                    :key="error"
+                  >
+                    {{ error }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
 
           <div class="col-12 mt-2">
             <spinner-button
@@ -169,9 +192,10 @@ export default {
       year: "",
       week: "",
       cells: "",
+      total_net_cells:'',
       Nur3GSheet: null,
       cellsErrors: null,
-
+      total_net_cellsErrors:null,
       sheetValidationErrors: null,
 
       yearErrors: null,
@@ -208,11 +232,13 @@ export default {
       this.yearErrors = null;
       this.sheetValidationErrors = null;
       this.cellsErrors = null;
+      this.total_net_cellsErrors-null;
       var data = {
         Nur3G_sheet: this.Nur3GSheet,
         week: this.week,
         year: this.year,
         cells: this.cells,
+        total_net_cells:this.total_net_cells
       };
       this.showSpinner = true;
       this.showSpinner = true;
@@ -249,6 +275,9 @@ export default {
                 }
                 if (errors.cells) {
                   this.cellsErrors = errors.cells;
+                }
+                if (errors.total_net_cells) {
+                  this.total_net_cells = errors.total_net_cells;
                 }
               } else if (error.response.data.sheet_errors) {
                 this.sheetValidationErrors = error.response.data.sheet_errors;

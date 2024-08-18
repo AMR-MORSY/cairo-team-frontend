@@ -237,7 +237,7 @@ export default {
      
       type: null,
     
-      typeOptions: ["Shelter", "Micro", "Outdoor"],
+      typeOptions: ["Macro", "Micro", "Indoor","Pico","Mobile Station"],
       category: null,
      
       categoryOptions: ["Normal", "BSC", "NDL", "LDN", "VIP+NDL", "VIP"],
@@ -254,7 +254,7 @@ export default {
       gestError:false,
       gestOptions: ["VF", "OG", "ET", "WE","ET+VF","ET+VF+WE","VF+WE","ET+WE"],
       oz: null,
-      ozOptions: ["Cairo South", "Cairo East", "Cairo North", "Giza"],
+      ozOptions: ["Cairo South", "Cairo East", "Cairo North", "Giza","North Upper","Red Sea","South Upper","Sinai","ALEX","NORTH COAST","Delta South","Delta North"],
       cells2G: null,
       cells3G: null,
       cells4G: null,

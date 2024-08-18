@@ -159,8 +159,9 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id=" network_type">Network Type</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.network_type.$error }"
-                            v-model="v$.form.network_type.$model" aria-describedby=" network_type" />
+                        <input type="text" class="form-control w-50"
+                            :class="{ 'is-invalid': v$.form.network_type.$error }" v-model="v$.form.network_type.$model"
+                            aria-describedby=" network_type" />
                         <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
                             v-for="error in v$.form.network_type.$errors">
                             {{ error.$message }}</div>
@@ -170,8 +171,10 @@
                 <div class="col-12 col-md-6 col-xl-4  ">
                     <div class="input-group">
                         <span class="input-group-text w-50" id=" need_access_permission">Access Permission</span>
-                        <select class="form-select w-50" :class="{ 'is-invalid': v$.form.need_access_permission.$error }"
-                            v-model.trim="v$.form.need_access_permission.$model" aria-describedby=" need_access_permission">
+                        <select class="form-select w-50"
+                            :class="{ 'is-invalid': v$.form.need_access_permission.$error }"
+                            v-model.trim="v$.form.need_access_permission.$model"
+                            aria-describedby=" need_access_permission">
 
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
@@ -193,12 +196,13 @@
                             {{ error.$message }}</div>
                     </div>
                 </div>
-                
+
 
 
                 <div class="col-6">
                     <div class="button-container">
-                        <Button label="Update" type="submit" icon="pi pi-external-link" severity="success" text raised />
+                        <Button label="Update" type="submit" icon="pi pi-external-link" severity="success" text
+                            raised />
 
                     </div>
                 </div>
@@ -243,6 +247,7 @@ export default {
 
             },
             topic: null,
+            action: null,
 
         };
     },
@@ -354,24 +359,30 @@ export default {
     },
     methods: {
         mountData() {
-            this.form.on_air_date = this.dialogRef.data.rowData.on_air_date;
-            this.form.topology = this.dialogRef.data.rowData.topology;
-            this.form.ntra_cluster = this.dialogRef.data.rowData.ntra_cluster;
-            this.form.care_ceo = this.dialogRef.data.rowData.care_ceo;
-            this.form.axsees = this.dialogRef.data.rowData.axsees;
-            this.form.serve_compound = this.dialogRef.data.rowData.serve_compound;
-            this.form.no_ldn_accounts = this.dialogRef.data.rowData.no_ldn_accounts;
-            this.form.no_tp_accounts = this.dialogRef.data.rowData.no_tp_accounts;
-            this.form.ac1_type = this.dialogRef.data.rowData.ac1_type;
-            this.form.ac2_type = this.dialogRef.data.rowData.ac2_type;
-            this.form.ac1_hp = this.dialogRef.data.rowData.ac1_hp;
-            this.form.ac2_hp = this.dialogRef.data.rowData.ac2_hp;
-            this.form.network_type = this.dialogRef.data.rowData.network_type;
-            this.form.last_pm_date = this.dialogRef.data.rowData.last_pm_date;
-            this.form.need_access_permission = this.dialogRef.data.rowData.need_access_permission;
-            this.form.permission_type = this.dialogRef.data.rowData.permission_type;
+            if (this.dialogRef.data.action == 'Update') {
+                this.form.on_air_date = this.dialogRef.data.rowData.on_air_date;
+                this.form.topology = this.dialogRef.data.rowData.topology;
+                this.form.ntra_cluster = this.dialogRef.data.rowData.ntra_cluster;
+                this.form.care_ceo = this.dialogRef.data.rowData.care_ceo;
+                this.form.axsees = this.dialogRef.data.rowData.axsees;
+                this.form.serve_compound = this.dialogRef.data.rowData.serve_compound;
+                this.form.no_ldn_accounts = this.dialogRef.data.rowData.no_ldn_accounts;
+                this.form.no_tp_accounts = this.dialogRef.data.rowData.no_tp_accounts;
+                this.form.ac1_type = this.dialogRef.data.rowData.ac1_type;
+                this.form.ac2_type = this.dialogRef.data.rowData.ac2_type;
+                this.form.ac1_hp = this.dialogRef.data.rowData.ac1_hp;
+                this.form.ac2_hp = this.dialogRef.data.rowData.ac2_hp;
+                this.form.network_type = this.dialogRef.data.rowData.network_type;
+                this.form.last_pm_date = this.dialogRef.data.rowData.last_pm_date;
+                this.form.need_access_permission = this.dialogRef.data.rowData.need_access_permission;
+                this.form.permission_type = this.dialogRef.data.rowData.permission_type;
+                this.form.id = this.dialogRef.data.id;
+
+            }
+
             this.topic = this.dialogRef.data.topic;
-            this.form.id = this.dialogRef.data.id;
+            this.action = this.dialogRef.data.action;
+
 
 
         },
@@ -379,30 +390,38 @@ export default {
 
             const isFormCorrect = await this.v$.$validate()
             if (!isFormCorrect) return
-            Sites.updatesiteDeepDetails(this.form).then((response) => {
-                if (response.data.message == "updated successfully") {
-                    this.$toast.add({
-                        severity: "success",
-                        summary: "Success Message",
-                        detail: "Updated Successfully",
-                        life: 3000,
-                    });
+            if (this.action == "Update") {
+                Sites.updatesiteDeepDetails(this.form).then((response) => {
+                    if (response.data.message == "updated successfully") {
+                        this.$toast.add({
+                            severity: "success",
+                            summary: "Success Message",
+                            detail: "Updated Successfully",
+                            life: 3000,
+                        });
 
-                }
+                    }
 
-            }).catch((error) => {
+                }).catch((error) => {
 
-                if (error.response.status == 204) {
-                    this.$toast.add({
-                        severity: "info",
-                        summary: "Success Message",
-                        detail: "site instrument not found",
-                        life: 3000,
-                    });
+                    if (error.response.status == 204) {
+                        this.$toast.add({
+                            severity: "info",
+                            summary: "Success Message",
+                            detail: "site instrument not found",
+                            life: 3000,
+                        });
 
-                }
+                    }
 
-            });
+                });
+
+            }
+            else{
+
+            }
+
+
 
 
 
