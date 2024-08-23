@@ -283,7 +283,7 @@ export default {
                   this.cellsErrors = errors.cells;
                 }
                 if (errors.total_net_cells) {
-                  this.total_net_cells = errors.total_net_cells;
+                  this.total_net_cellsErrors = errors.total_net_cells;
                 }
               } else if (error.response.data.sheet_errors) {
                 this.sheetValidationErrors = error.response.data.sheet_errors;

@@ -343,6 +343,7 @@ export default {
       NUR.getNur(data)
 
         .then((response) => {
+        console.log(response)
           if(response.data.errors)
           {
           
