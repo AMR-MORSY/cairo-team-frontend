@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-center align-items-center">
     <p class="w-100 text-center">
-      <span style="color:gray; font-weight=500;">NUR: </span><span style="color:red; font-weight=500;">{{ NUR }}</span>
+      <span style="color:gray; font-weight:500;">NUR: </span><span style="color:red; font-weight:500;">{{ NUR }}</span>
     </p>
   </div>
   <div class="container">

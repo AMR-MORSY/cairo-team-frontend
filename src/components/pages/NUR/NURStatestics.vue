@@ -13,7 +13,7 @@
       <div class="col-12 col-md-6 col-lg-4 mt-5">
         <Card>
           <template #title>
-            <p style="font-size: 16px; pading: 0; text-align: center">
+            <p style="font-size: 16px; padding: 0; text-align: center">
               2G NUR
             </p>
           </template>
@@ -28,7 +28,7 @@
       <div class="col-12 col-md-6 col-lg-4 mt-5">
         <Card>
           <template #title>
-            <p style="font-size: 16px; pading: 0; text-align: center">
+            <p style="font-size: 16px; padding: 0; text-align: center">
               3G NUR
             </p>
           </template>
@@ -43,7 +43,7 @@
       <div class="col-12 col-sm-12 col-md-6 col-lg-4 mt-5">
         <Card>
           <template #title>
-            <p style="font-size: 16px; pading: 0; text-align: center">
+            <p style="font-size: 16px; padding: 0; text-align: center">
               4G NUR
             </p>
           </template>
@@ -60,7 +60,7 @@
       <div class="col-12 col-md-6 col-lg-4 mt-5">
         <Card>
           <template #title>
-            <p style="font-size: 16px; pading: 0; text-align: center">
+            <p style="font-size: 16px; padding: 0; text-align: center">
               Combined NUR
             </p>
             <div class="row">
@@ -92,7 +92,7 @@
       <div class="col-12 col-md-6 col-lg-4 mt-5">
         <Card>
           <template #title>
-            <p style="font-size: 16px; pading: 0; text-align: center">
+            <p style="font-size: 16px; padding: 0; text-align: center">
               Response With Access
             </p>
           </template>
@@ -104,7 +104,7 @@
       <div class="col-12 col-md-6 col-lg-4 mt-5">
         <Card>
           <template #title>
-            <p style="font-size: 16px; pading: 0; text-align: center">
+            <p style="font-size: 16px; padding: 0; text-align: center">
               Response Without Access
             </p>
           </template>

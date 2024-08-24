@@ -2,7 +2,7 @@
   <div>
     <Card class="mt-5" >
       <template #title>
-        <p style="font-size: 16px; color: black; pading: 0; text-align: center">
+        <p style="font-size: 16px; color: black; padding: 0; text-align: center">
           Cairo East
         </p>
       </template>
@@ -11,7 +11,7 @@
           <div class="col-12 col-md-6 col-lg-4 mt-2">
             <Card>
               <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
+                <p style="font-size: 16px; padding: 0; text-align: center">
                   Subsystem
                 </p>
               </template>
@@ -35,11 +35,11 @@
           <div class="col-12 col-md-6 col-lg-4 mt-2">
             <Card>
               <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
+                <p style="font-size: 16px; padding: 0; text-align: center">
                   Generator Statestics
                 </p>
                 <div class="row">
-                  <div class="col-3">
+                  <div class="col-2">
                     <img
                       src="../../logos/Orange_logo.svg"
                       class="w-75"
@@ -69,7 +69,7 @@
                       @click="getVFGenTickets"
                     />
                   </div>
-                  <div class="col-3">
+                  <div class="col-2">
                     <img
                       src="../../logos/rent-sign-svgrepo-com.svg"
                       class="w-75"
@@ -77,6 +77,16 @@
                       v-tooltip.right="'Get Tickets'"
                       style="cursor: pointer"
                       @click="getRentedGenTickets"
+                    />
+                  </div>
+                  <div class="col-2">
+                    <img
+                      src="../../logos/We_logo.svg"
+                      class="w-75"
+                      alt=""
+                      v-tooltip.right="'Get Tickets'"
+                      style="cursor: pointer"
+                      @click="getWEGenTickets"
                     />
                   </div>
                 </div>
@@ -94,7 +104,7 @@
           <div class="col-12 col-md-6 col-lg-4 mt-2">
             <Card>
               <template #title>
-                <p style="font-size: 16px; pading: 0; text-align: center">
+                <p style="font-size: 16px; padding: 0; text-align: center">
                   Nodals & VIP
                 </p>
               </template>
@@ -297,6 +307,26 @@ export default {
         });
       }
     },
+    getWEGenTickets() {
+      if (this.cairoEastGen["WE"].tickets.length > 0) {
+        this.$dialog.open(NURTickets, {
+          props: {
+            style: {
+              width: "75vw",
+            },
+            breakpoints: {
+              "960px": "75vw",
+              "640px": "90vw",
+            },
+            modal: true,
+          },
+
+          data: {
+            allTickets: this.cairoEastGen["WE"].tickets,
+          },
+        });
+      }
+    },
     getRentedGenTickets() {
       if (this.cairoEastGen["Rented"].tickets.length > 0) {
         this.$dialog.open(NURTickets, {
@@ -442,13 +472,14 @@ export default {
       count.push(statestics.ORG.count);
       count.push(statestics.Rented.count);
       count.push(statestics.VF.count);
+      count.push(statestics.WE.count);
       NUR.push(statestics.ET.nur);
       NUR.push(statestics.ORG.nur);
       NUR.push(statestics.Rented.nur);
       NUR.push(statestics.VF.nur);
-
+      NUR.push(statestics.WE.nur);
       let chart = {
-        labels: ["ET", "ORG", "Rented", "VF"],
+        labels: ["ET", "ORG", "Rented", "VF","WE"],
         datasets: [
           {
             data: count,

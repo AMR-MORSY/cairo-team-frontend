@@ -2,7 +2,7 @@
   <div>
     <Card>
       <template #title>
-        <p style="font-size: 16px; pading: 0; text-align: center">
+        <p style="font-size: 16px; padding: 0; text-align: center">
           <slot name="header"></slot>
         </p>
       </template>
