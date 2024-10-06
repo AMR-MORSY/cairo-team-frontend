@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
     <div class="row mt-3">
       <div class="col-12 my-2 ">
         <Fieldset>
@@ -83,12 +83,15 @@
         </Fieldset>
       </div>
     </div>
-  </div>
+  </div> -->
 
+
+<ModificationCreationForm :siteCode="site_code" :siteName="site_name" needed_action="new" :modificationData="[]" :site_id="site_name" />
 </template>
 
 <script>
 import Modifications from "../../../apis/Modifications";
+import ModificationCreationForm from "../../helpers/Modification/ModificationCreationForm.vue";
 
 export default {
   data() {
@@ -166,21 +169,24 @@ export default {
   name: "NewModification",
   props: ["site_code", "site_name"],
   emits: ["displayNoneSpinner"],
-  watch: {
-    site_code() {
-      this.getSiteModifications();
-    },
-  },
+  // watch: {
+  //   site_code() {
+  //     this.getSiteModifications();
+  //   },
+  // },
   computed: {
 
+  },
+  components:{
+    ModificationCreationForm
   },
   mounted() { },
 
 
   methods: {
-    goBack() {
-      this.$router.go(-1);
-    },
+    // goBack() {
+    //   this.$router.go(-1);
+    // },
     insertNewModification() {
       this.subcontractorError = false;
       this.request_dateError = false;
@@ -375,166 +381,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep(.p-fieldset) {
-  position: relative;
- 
-
-  .p-fieldset-legend {
-    max-width: 200px;
-    color: white;
-    text-align: center;
-    position: absolute;
-    top: 0px;
-    left: 50px;
-    z-index: 2;
-    background-color: rgba($color: gray, $alpha: 1);
-  }
-
-
-
-  select:focus {
-    box-shadow: 0px 0px 3px 2px #79589f !important;
-    border: unset;
-
-  }
-
-
-  .dp__theme_light {
-    --dp-text-color: #79589f;
-
-    --dp-icon-color: #79589f;
-
-    --dp-border-color: #79589f;
-  }
-}
-
-.form {
-  margin-top: 10px;
-  width: 100%;
-  border: 1px solid black;
-  border-radius: 5px;
-}
-
-@media (min-width:320px) {
-
-  /* smartphones, iPhone, portrait 480x320 phones */
-  ::v-deep(.p-fieldset) {
-
-
-    .p-fieldset-legend {
-      font-size: 0.7rem;
-
-
-    }
-
-    .p-button {
-      font-size: 0.7rem;
-    }
-
-    select,input,label,textarea {
-      font-size: 0.7rem;
-    }
-    .dp__theme_light {
-      font-size: 0.7rem;
-  }
-
-
-  }
-
-}
-
-@media (min-width:481px) {
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  ::v-deep(.p-fieldset) {
-
-
-.p-fieldset-legend {
-  font-size: 0.7rem;
-
-
-}
-
-.p-button {
-  font-size: 0.7rem;
-}
-
-select,input,label,textarea {
-  font-size: 0.7rem;
-}
-
-
-}
-}
-
-@media (min-width:641px) {
-  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  ::v-deep(.p-fieldset) {
-
-
-.p-fieldset-legend {
-  font-size: 0.7rem;
-
-
-}
-
-.p-button {
-  font-size: 0.7rem;
-}
-
-select,input,label,textarea {
-  font-size: 0.7rem;
-}
-
-
-}
-}
-
-@media (min-width:961px) {
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-  ::v-deep(.p-fieldset) {
-
-
-.p-fieldset-legend {
-  font-size: 0.9rem;
-
-
-}
-
-.p-button {
-  font-size: 0.9rem;
-}
-
-select,input,label,textarea {
-  font-size: 0.9rem;
-}
-
-
-}
-}
-
-@media (min-width:1025px) {
-
-  /* big landscape tablets, laptops, and desktops */
-  ::v-deep(.p-fieldset) {
-
-
-    .p-fieldset-legend {
-      font-size: 0.9rem;
-
-
-    }
-
-    .p-button {
-      font-size: 0.9rem;
-    }
-
-    select,input {
-      font-size: 0.9rem;
-    }
-
-
-  }
-
-}
 
 </style>

@@ -8,7 +8,7 @@
       </template>
       <template #content>
         <div class="row">
-          <div class="col-12 col-md-6 col-lg-4 mt-2">
+          <div class="col-12 col-md-6 col-lg-5 mt-2">
             <Card>
               <template #title>
                 <p style="font-size: 16px; padding: 0; text-align: center">
@@ -26,7 +26,8 @@
                 >
                   <Column selectionMode="single"></Column>
                   <Column field="subsystem" header="Subsystem"></Column>
-                  <Column field="value" header="NUR_C" sortable></Column>
+                  <Column field="NUR" header="NUR_C" sortable></Column>
+                  <Column field="count" header="Count" sortable></Column>
                 </DataTable>
                 <!-- <Chart type="doughnut" :data="subsystem" :plugins="plugins"  :options="lightOptions" /> -->
               </template>
@@ -101,7 +102,7 @@
               </template>
             </Card>
           </div>
-          <div class="col-12 col-md-6 col-lg-4 mt-2">
+          <div class="col-12 col-md-6 col-lg-3 mt-2">
             <Card>
               <template #title>
                 <p style="font-size: 16px; padding: 0; text-align: center">
@@ -201,6 +202,7 @@ export default {
   },
   props: [
     "cairoEastSubsystem",
+    "cairoEastSubsystemCount",
     "cairoEastTopNUR",
     "cairoEastGen",
     "cairoEastRepeatedSites",
@@ -349,18 +351,22 @@ export default {
     },
     mountSubsystemTable() {
       if (this.cairoEastSubsystem) {
+        console.log(this.cairoEastSubsystem)
         let subssytems = Object.keys(this.cairoEastSubsystem);
-        let values = Object.values(this.cairoEastSubsystem);
+        let NURs = Object.values(this.cairoEastSubsystem);
+        let tickets = Object.values(this.cairoEastSubsystemCount);
         let subssytemsLength = subssytems.length;
         let tableData = [];
         for (var i = 0; i < subssytemsLength; i++) {
           var subsystemObj = {
             subsystem: subssytems[i],
-            value: values[i],
+            NUR: NURs[i],
+            count:tickets[i] 
           };
           tableData.push(subsystemObj);
         }
         this.subsystem = tableData;
+      
       }
     },
 

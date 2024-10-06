@@ -8,7 +8,7 @@
       </template>
       <template #content>
         <div class="row">
-          <div class="col-12 col-md-6 col-lg-4 mt-2">
+          <div class="col-12 col-md-6 col-lg-5 mt-2">
             <Card>
               <template #title>
                 <p style="font-size: 16px; padding: 0; text-align: center">
@@ -26,7 +26,8 @@
                 >
                   <Column selectionMode="single"></Column>
                   <Column field="subsystem" header="Subsystem"></Column>
-                  <Column field="value" header="NUR_C" sortable></Column>
+                  <Column field="NUR" header="NUR_C" sortable></Column>
+                  <Column field="count" header="Count" sortable></Column>
                 </DataTable>
                 <!-- <Chart type="doughnut" :data="subsystem" :plugins="plugins" :options="lightOptions"/> -->
               </template>
@@ -101,7 +102,7 @@
               </template>
             </Card>
           </div>
-          <div class="col-12 col-md-6 col-lg-4 mt-2">
+          <div class="col-12 col-md-6 col-lg-3 mt-2">
             <Card>
               <template #title>
                 <p style="font-size: 16px; padding: 0; text-align: center">
@@ -143,6 +144,7 @@
               <template #columns>
                 <Column field="siteName" header="Name"></Column>
                 <Column field="NUR" header="NUR" sortable></Column>
+                
               </template>
             </TopSites>
           </div>
@@ -202,6 +204,7 @@ export default {
   },
   props: [
     "gizaSubsystem",
+    "gizaSubsystemCount",
     "gizaTopNUR",
     "gizaGen",
     "gizaRepeatedSites",
@@ -351,13 +354,15 @@ export default {
     mountSubsystemTable() {
       if (this.gizaSubsystem) {
         let subssytems = Object.keys(this.gizaSubsystem);
-        let values = Object.values(this.gizaSubsystem);
+        let NURs = Object.values(this.gizaSubsystem);
+        let tickets = Object.values(this.gizaSubsystemCount);
         let subssytemsLength = subssytems.length;
         let tableData = [];
         for (var i = 0; i < subssytemsLength; i++) {
           var subsystemObj = {
             subsystem: subssytems[i],
-            value: values[i],
+           NUR: NURs[i],
+           count:tickets[i]
           };
           tableData.push(subsystemObj);
         }

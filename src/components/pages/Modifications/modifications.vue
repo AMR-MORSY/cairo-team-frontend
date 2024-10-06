@@ -2,53 +2,56 @@
   <div v-if="serverError">
     <p style="color: red">{{ serverError }}</p>
   </div>
-  <section id="analysis" v-if="status">
-    <div class="container">
-      <div class="card ">
+  <section id="analysis" class=" w-full px-10" v-if="status">
 
-        <div class="col-12 mb-1">
-          <h5>Select modifications:</h5>
+    <Card class=" bg-black max-w-screen-sm mx-auto mt-24 ">
+
+      <template #content>
+
+
+        <div class=" w-full">
+          <h5 class=" font-Signika font-bold text-font-main-color text-center text-lg">Select modifications</h5>
         </div>
         <form @submit.prevent="submitFilterForm">
-          <div class="row">
-            <div class="col-12 col-md-6">
-              <div class="form-group ">
-                <select class="form-select" @change="submitColumn" id="column">
-                  <option value="">Filter By:</option>
-                  <option v-for="column in columns" :key="column">
-                    {{ column }}
-                  </option>
-                </select>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="col-span-2 md:col-span-1">
+              <div class="flex-auto ">
+                <Select fluid @change="submitColumn" v-model="column" placeholder="Filter By..." :options="columns"
+                  id="column">
+               
+                </Select>
               </div>
             </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group ">
-                <select class="form-select" @change="submitColumnValue" id="columnValue">
-                  <option value=""></option>
-                  <option v-for="value in columnValues" :key="value">
-                    {{ value }}
-                  </option>
-                </select>
+            <div class="col-span-2 md:col-span-1">
+              <div class="flex-auto">
+                <Select fluid v-model="columnValue" :options='columnValues' id="columnValue">
+                
+                </Select>
               </div>
             </div>
 
-            <div class="col-12 mt-3">
-              <div class="button-container">
-                <button class="btn" :disabled="disabled" type="submit" style="background-color: #79589f; color: white">
-                  submit
-                </button>
-                <!-- <button class="btn btn-primary"[disabled]='!isDataFound'  (click)="downloadsites()">Excel Export</button> -->
-              </div>
-            </div>
+
+          </div>
+          <div class=" w-full flex justify-center mt-5">
+            <Button :disabled="disabled" class=" block" type="submit" label="Submit" severity="success" rounded
+              raised />
+
+
+
+
+
           </div>
         </form>
-      </div>
-    </div>
+      </template>
+    </Card>
+
   </section>
 </template>
 
 <script>
+import Button from "primevue/button";
 import Modifications from "../../../apis/Modifications";
+import Card from "primevue/card";
 
 
 export default {
@@ -85,7 +88,7 @@ export default {
 
   methods: {
     submitColumn(e) {
-      this.column = e.target.value;
+      // this.column = e.target.value;
 
       if (this.column == "status") {
         this.columnValues = this.status;
@@ -97,9 +100,9 @@ export default {
         this.columnValues = this.project;
       }
     },
-    submitColumnValue(e) {
-      this.columnValue = e.target.value;
-    },
+    // submitColumnValue(e) {
+    //   this.columnValue = e.target.value;
+    // },
     getModificationAnalysis() {
       Modifications.getModificationAnalysis()
 
@@ -117,7 +120,7 @@ export default {
         });
     },
     submitFilterForm() {
-     
+
       this.$router.push(
         `/modifications/index/${this.column}/${this.columnValue}`
       );
@@ -126,89 +129,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-#analysis {
-  margin-top: 5rem;
-
-  .card {
-    padding: 2rem 2rem;
-    width: 60%;
-    margin: auto;
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-  }
-}
-
-
-@media (min-width:320px) {
-
-  /* smartphones, iPhone, portrait 480x320 phones */
-  #analysis {
-
-    .card {
-
-      width: 95%;
-
-
-    }
-  }
-
-}
-
-@media (min-width:481px) {
-
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  #analysis {
-
-    .card {
-
-      width: 90%;
-
-
-    }
-  }
-}
-
-@media (min-width:641px) {
-
-  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  #analysis {
-
-    .card {
-
-      width: 80%;
-
-
-    }
-  }
-}
-
-@media (min-width:961px) {
-
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-  #analysis {
-
-    .card {
-
-      width: 80%;
-
-
-    }
-  }
-}
-
-@media (min-width:1025px) {
-
-  /* big landscape tablets, laptops, and desktops */
-  #analysis {
-
-    .card {
-
-      width: 75%;
-
-
-    }
-  }
-}</style>
+<style lang="scss" scoped></style>

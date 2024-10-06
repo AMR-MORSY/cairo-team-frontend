@@ -1,93 +1,69 @@
 <template>
-  <div class="container mt-5 mb-5">
-    <div class="row mt-5">
-    
-      <div class="col-12 ">
-        <div class="card mt-5">
-          <template v-if="thereIsMod">
-            <DataTable
-              :value="modifications"
-              :paginator="true"
-              :rows="5"
-              paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-              :rowsPerPageOptions="[5, 10, 15]"
-              responsiveLayout="scroll"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
-              class="p-datatable-sm"
-              stripedRows
-              @row-select="onRowSelect"
-              v-model:selection="selectedModification"
-            >
-              <Column selectionMode="single"></Column>
-              <Column field="site_code" header="Code"></Column>
-              <Column field="site_name" header="Name"></Column>
-              <Column field="subcontractor" header="Subcontractor"></Column>
-              <Column field="requester" header="Requester"></Column>
-              <Column field="action" header="Action"></Column>
-              <Column field="status" header="Status"></Column>
-              <Column field="project" header="Project"></Column>
-              <Column field="request_date" header="Request Date"></Column>
-              <Column field="finish_date" header="Finish Date"></Column>
-              <Column field="cost" header="Cost"></Column>
-              <template #footer>
-                <div class="d-flex justify-content-end align-items-center">
-                  Total Cost {{ totalCost }} LE.
-                </div>
-              </template>
-              <template #paginatorstart>
-                <Button
-                  type="button"
-                  icon="pi pi-refresh"
-                  class="p-button-text"
-                />
-              </template>
-              <template #paginatorend>
-                <Button
-                  type="button"
-                  icon="pi pi-cloud"
-                  class="p-button-text"
-                />
-              </template>
-            </DataTable>
-            <div class="buttons">
-              <div class="my-3">
-                <button
-                  class="btn btn-secondary"
-                  style="margin-left: 3rem"
-                  @click="downloadModfications"
-                >
-                  Download
-                </button>
-              </div>
-              <div class="my-3">
-                <Button
-                  label="Update"
-                  @click="gotToUpdateModification"
-                  class="p-button-raised p-button-warning"
-                  :disabled="!isRowSelected"
-                />
-              </div>
-              <div class="my-3">
-                <Button
-                  label="Delete"
-                  @click="deleteModification"
-                  class="p-button-raised p-button-danger"
-                  :disabled="!isRowSelected"
-                />
-              </div>
-            </div>
-         
-          </template>
+  <div class=" w-full px-8 my-5">
 
-          <template v-if=" noModifications">
-            <div class="no-modification">
-              <p>No Modifications Available</p>
+
+
+    <Card class=" max-w-screen-lg px-5 mx-auto">
+      <template #content>
+        <template v-if="thereIsMod">
+          <DataTable :value="modifications" scrollable :paginator="true" :rows="5"
+            paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+            :rowsPerPageOptions="[5, 10, 15]" responsiveLayout="scroll"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" class="text-xs" stripedRows
+            @row-select="onRowSelect" v-model:selection="selectedModification">
+            <Column selectionMode="single"></Column>
+            <Column field="site_code" header="Code"></Column>
+            <Column field="site_name" header="Name"></Column>
+            <Column field="subcontractor" header="Subcontractor"></Column>
+            <Column field="requester" header="Requester"></Column>
+            <Column field="action" header="Action"></Column>
+            <Column field="status" header="Status"></Column>
+            <Column field="project" header="Project"></Column>
+            <Column field="request_date" header="Request Date"></Column>
+            <Column field="finish_date" header="Finish Date"></Column>
+            <Column field="cost" header="Cost"></Column>
+            <template #footer>
+              <div class="d-flex justify-content-end align-items-center">
+                Total Cost {{ totalCost }} LE.
+              </div>
+            </template>
+            <template #paginatorstart>
+              <Button type="button" icon="pi pi-refresh" class="p-button-text" />
+            </template>
+            <template #paginatorend>
+              <Button type="button" icon="pi pi-cloud" class="p-button-text" />
+            </template>
+          </DataTable>
+          <div class="buttons">
+            <div class="my-3">
+              <Button label="Download" raised severity="info"  @click="downloadModfications">
+                Download
+              </Button>
             </div>
-          </template>
-        </div>
-      </div>
-     
-    </div>
+            <div class="my-3">
+              <Button label="Update" @click="gotToUpdateModification" class="p-button-raised p-button-warning"
+                :disabled="!isRowSelected" />
+            </div>
+            <div class="my-3">
+              <Button label="Delete" @click="deleteModification" class="p-button-raised p-button-danger"
+                :disabled="!isRowSelected" />
+            </div>
+          </div>
+
+        </template>
+
+        <template v-if="noModifications">
+          <div class="no-modification">
+            <p>No Modifications Available</p>
+          </div>
+        </template>
+
+      </template>
+
+    </Card>
+
+
+
   </div>
 </template>
 
@@ -100,11 +76,11 @@ export default {
       modifications: [],
       isRowSelected: false,
       selectedModification: null,
-      thereIsMod:false,
-      noModifications:false,
+      thereIsMod: false,
+      noModifications: false,
     };
   },
- 
+
   computed: {
     totalCost() {
       if (!this.modifications) {
@@ -118,7 +94,7 @@ export default {
     downloadModifications() {
       return this.modifications;
     },
-  
+
   },
   props: ["columnName", "columnValue"],
   created() {
@@ -134,21 +110,20 @@ export default {
         columnValue: this.columnValue,
       };
 
-       Modifications.getModificationIndex(data)
-   
+      Modifications.getModificationIndex(data)
+
         .then((response) => {
-         
+
           this.modifications = response.data.modifications;
-          if(this.modifications.length>0)
-          {
-            this.thereIsMod=true;
+          if (this.modifications.length > 0) {
+            this.thereIsMod = true;
           }
-          else{
-            this.noModifications=true;
+          else {
+            this.noModifications = true;
           }
         })
         .catch((error) => {
-         
+
           if (error.response.status == 422) {
             let errors = error.response.data.errors;
             if (errors.columnName) {
@@ -173,7 +148,7 @@ export default {
           }
         })
         .finally(() => {
-        
+
         });
     },
 
@@ -183,9 +158,9 @@ export default {
         column_value: this.columnValue,
       };
 
-    
 
-         Modifications.downloadModifications(data)
+
+      Modifications.downloadModifications(data)
         .then((response) => {
           console.log(response);
           var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
@@ -198,12 +173,12 @@ export default {
           document.body.appendChild(fileLink);
           fileLink.click();
         })
-        .catch((error) => {});
+        .catch((error) => { });
     },
     onRowSelect() {
- 
-        this.isRowSelected = true;
-      
+
+      this.isRowSelected = true;
+
     },
     gotToUpdateModification() {
       this.$router.push(
@@ -224,12 +199,12 @@ export default {
             id: this.selectedModification.id,
           };
 
-           Modifications.deleteModification(data)
-       
+          Modifications.deleteModification(data)
+
             .then((response) => {
               this.getModificationsIndex();
             })
-            .catch((error) => {});
+            .catch((error) => { });
         },
         reject: () => {
           this.$confirm.close();
@@ -248,10 +223,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  p {
+
+  
+}
+.no-modification p {
     color: red;
   }
-}
+
 .buttons {
   display: flex;
   align-items: center;

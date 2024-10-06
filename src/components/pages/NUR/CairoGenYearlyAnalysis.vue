@@ -65,7 +65,7 @@ export default {
           {
             data: this.dialogRef.data.NUR_Rented,
             label: "Rented",
-            borderColor: "#C3B1E1",
+            borderColor: "blue",
           },
           {
             data: this.dialogRef.data.NUR_VF,
@@ -81,6 +81,11 @@ export default {
             data: this.dialogRef.data.NUR_ET,
             label: "ET",
             borderColor: "green",
+          },
+          {
+            data: this.dialogRef.data.NUR_WE,
+            label: "WE",
+            borderColor: "purple",
           },
         ],
       };

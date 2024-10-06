@@ -76,7 +76,7 @@
                           align-items: center;
                           justify-content: center;
                         ">
-                    <img src="../../logos/week-icon.svg" @click="getCairoNUR_CYearlyAnalysis" style="cursor: pointer"
+                    <img src="../../logos/week-icon.aba4072e.svg" @click="getCairoNUR_CYearlyAnalysis" style="cursor: pointer"
                       alt="" class="w-25" v-tooltip.right="'Weekly Analysis'" />
                   </div>
                 </div>
@@ -153,16 +153,16 @@
       </div>
     </div>
     <CairoSouth :cairoSouthTopNUR="cairoSouthTopNUR" :cairoSouthRepeatedSites="cairoSouthRepeatedSites"
-      :cairoSouthGen="cairoSouthGen" :cairoSouthSubsystem="cairoSouthSubsystem"
+      :cairoSouthGen="cairoSouthGen" :cairoSouthSubsystem="cairoSouthSubsystem" :cairoSouthSubsystemCount="cairoSouthSubsystemCount"
       :cairoSouthAccessStatesitcs="cairoSouthAccessStatesitcs" :week="week" :year="year" />
     <CairoEast :cairoEastTopNUR="cairoEastTopNUR" :cairoEastRepeatedSites="cairoEastRepeatedSites"
-      :cairoEastGen="cairoEastGen" :cairoEastSubsystem="cairoEastSubsystem"
+      :cairoEastGen="cairoEastGen" :cairoEastSubsystem="cairoEastSubsystem" :cairoEastSubsystemCount="cairoEastSubsystemCount"
       :cairoEastAccessStatesitcs="cairoEastAccessStatesitcs" :week="week" :year="year" />
     <CairoNorth :cairoNorthTopNUR="cairoNorthTopNUR" :cairoNorthRepeatedSites="cairoNorthRepeatedSites"
-      :cairoNorthGen="cairoNorthGen" :cairoNorthSubsystem="cairoNorthSubsystem"
+      :cairoNorthGen="cairoNorthGen" :cairoNorthSubsystem="cairoNorthSubsystem" :cairoNorthSubsystemCount="cairoNorthSubsystemCount"
       :cairoNorthAccessStatesitcs="cairoNorthAccessStatesitcs" :week="week" :year="year" />
     <Giza :gizaTopNUR="gizaTopNUR" :gizaRepeatedSites="gizaRepeatedSites" :gizaGen="gizaGen"
-      :gizaSubsystem="gizaSubsystem" :gizaAccessStatesitcs="gizaAccessStatesitcs" :week="week" :year="year" />
+      :gizaSubsystem="gizaSubsystem"   :gizaSubsystemCount="gizaSubsystemCount" :gizaAccessStatesitcs="gizaAccessStatesitcs" :week="week" :year="year" />
   </div>
   <template v-else>
     <div class="container mt-5">
@@ -246,9 +246,13 @@ export default {
       cairo4GNUR: null,
       cairoCombinedNUR: null,
       cairoSouthSubsystem: null,
+      cairoSouthSubsystemCount: null,
       cairoEastSubsystem: null,
+      cairoEastSubsystemCount: null,
       cairoNorthSubsystem: null,
+      cairoNorthSubsystemCount: null,
       gizaSubsystem: null,
+      gizaSubsystemCount: null,
       zonesResponseWithAccess: null,
       zonesResponseWithoutAccess: null,
       lightOptions: {
@@ -487,9 +491,13 @@ export default {
           };
 
           this.cairoSouthSubsystem = NUR.zonesSubsystem["CAIRO SOUTH"];
+          this.cairoSouthSubsystemCount = NUR.zonesSubsystemCountTickts["CAIRO SOUTH"];
           this.cairoEastSubsystem = NUR.zonesSubsystem["CAIRO EAST"];
+          this.cairoEastSubsystemCount = NUR.zonesSubsystemCountTickts["CAIRO EAST"];
           this.cairoNorthSubsystem = NUR.zonesSubsystem["CAIRO NORTH"];
+          this.cairoNorthSubsystemCount = NUR.zonesSubsystemCountTickts["CAIRO NORTH"];
           this.gizaSubsystem = NUR.zonesSubsystem["GIZA"];
+          this.gizaSubsystemCount = NUR.zonesSubsystemCountTickts["GIZA"];
 
           this.cairoSouthGen = NUR.zonesGeneratorStatestics["CAIRO SOUTH"];
           this.cairoEastGen = NUR.zonesGeneratorStatestics["CAIRO EAST"];
@@ -570,9 +578,7 @@ export default {
     },
     getCairoMWWeeklyNUR() {
    
-      NUR.getCairoMWWeeklyNUR(this.week, this.year)
-        .then((response) => {
-      
+      NUR.getCairoMWWeeklyNUR(this.week, this.year) .then((response) => {
           let siteData = [];
           let sites = response.data.sites;
           sites.forEach((site) => {
@@ -606,7 +612,7 @@ export default {
       NUR.getCairoGenWeeklyNUR(this.week, this.year)
 
         .then((response) => {
-          console.log(response);
+         
           let siteData = [];
           let sites = response.data.sites;
           sites.forEach((site) => {
@@ -704,7 +710,7 @@ export default {
       NUR.getCairoNodeBWeeklyNUR(this.week, this.year)
 
         .then((response) => {
-          console.log(response);
+         
           let siteData = [];
           let sites = response.data.sites;
           sites.forEach((site) => {
@@ -737,7 +743,7 @@ export default {
       NUR.getCairoModificationsBWeeklyNUR(this.week, this.year)
 
         .then((response) => {
-          console.log(response);
+        
           let siteData = [];
           let sites = response.data.sites;
           sites.forEach((site) => {

@@ -1,66 +1,71 @@
 <template>
   <userNavBar></userNavBar>
-  <div class="container">
+  <div class="max-w-screen pt-40">
 
-    <Card class="form-container">
+    <Card class="max-w-xs mx-auto">
 
       <template #content>
 
 
-        <p class=" text-center" style="color:  #673EE6 ; font-size: 1.5rem; font-weight: 700;">
+        <p class=" text-center text-font-main-color font-Signika font-extrabold text-lg">
           Log in
         </p>
 
         <form @submit.prevent="submitLoginForm" novalidate>
 
-          <div class="my-3">
+          <div class="my-3 w-full">
 
-            <div class="input-group ">
-              <span class="input-group-text" id="email">
+            <FloatLabel class=" w-full">
 
-                Email
 
-              </span>
-
-              <input class="form-control " :class="{ 'is-invalid': v$.email.$error }" type="text"
+              <InputText class=" w-full" :invalid="v$.email.$error" type="text"
                 v-model.trim="v$.email.$model" aria-describedby="email" />
+              <label class=" text-xs">Email</label>
 
 
 
-            </div>
+            </FloatLabel>
             <div v-if="v$.email.$error">
-              <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                v-for="error in v$.email.$errors">
-                {{ error.$message }}</div>
+              <ValidationErrorMessage :errors="v$.email.$errors"/>
             </div>
           </div>
 
 
 
-          <div class="input-group ">
-            <span class="input-group-text" id="pass">
+          <div class=" w-full mt-8 ">
+            <FloatLabel class=" w-full">
+              <InputText class=" w-full" :invalid="v$.password.$error" type="password"
+                v-model.trim="v$.password.$model" aria-describedby="pass" />
+              <label class=" text-xs">Password</label>
+            </FloatLabel>
+            <div v-if="v$.password.$error">
+              
+                 <ValidationErrorMessage :errors="v$.password.$errors"/>
+            </div>
 
-              Password
 
-            </span>
-            <input class="form-control " :class="{ 'is-invalid': v$.password.$error }" type="password"
-              v-model.trim="v$.password.$model" aria-describedby="pass" />
-
-          </div>
-          <div v-if="v$.password.$error">
-            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-              v-for="error in v$.password.$errors">
-              {{ error.$message }}</div>
           </div>
 
 
 
-          <div class="d-flex w-100 align-items-center justify-content-between my-3 pl-1">
-            <router-link to="/user/resetPassword" class="links">Forgot Password?</router-link>
-            <router-link to="/user/register" class="links">Create new Account</router-link>
+
+          <div class="  flex flex-col justify-center  py-2 mt-5">
+          
+              <!-- <Button label="Login"  class="text-xs block w-full rounded-full" type="submit"/> -->
+             <button class=" block text-xs text-white rounded-xl py-2 bg-font-main-color">Login</button>
+
+            
+            <div class=" mt-5 flex justify-between items-center">
+              <router-link to="/user/resetPassword" class=" text-xs font-bold font-Signika text-font-main-color underline underline-offset-1">Forgot Password?</router-link>
+              <router-link to="/user/register" class=" text-xs font-bold font-Signika text-font-main-color underline underline-offset-1">Create new Account</router-link>
+
+            </div>
+           
+           
+           
           </div>
 
-          <button class="btn  w-100" type="submit">Log in</button>
+        
 
 
         </form>
@@ -87,13 +92,17 @@
     <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ message }} </p>
     </p>
     <template #footer>
-      <Button label="Activate Account" icon="pi pi-check" @click="$router.push({ name: 'ActivateUserAccount' })" autofocus />
-      <Button label="No" icon="pi pi-check" @click="hideDialog()" />
+
+
+      <button class="btn d-block btn-info" @click="$router.push({ name: 'ActivateUserAccount' })">Activate
+        Account</button>
+
+      <button @click="hideDialog()" class="d-block btn btn-danger">No</button>
     </template>
   </Dialog>
 </template>
 
-<script >
+<script>
 
 import User from "../../../apis/User";
 
@@ -101,6 +110,11 @@ import { email, required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import userNavBar from "../../helpers/User/userNavBar.vue";
+import ValidationErrorMessage from "../../helpers/validationErrorMessage.vue";
+
+
+
+
 
 
 
@@ -124,6 +138,7 @@ export default {
 
   components: {
     userNavBar,
+    ValidationErrorMessage
   },
 
   validations() {
@@ -164,7 +179,7 @@ export default {
       }
       User.login(form)
         .then((response) => {
-        
+
           if (response.data.message == "User loged in successfully") {
             sessionStorage.setItem(
               "User",
@@ -212,16 +227,16 @@ export default {
 
                 })
               }
-              else{
+              else {
                 this.$toast.add({
-                    severity: "error",
-                    summary: "Error Message",
-                    detail: "invalid credentials",
-                    life: 3000,
-                  });
+                  severity: "error",
+                  summary: "Error Message",
+                  detail: "invalid credentials",
+                  life: 3000,
+                });
 
               }
-            
+
 
             }
           }
@@ -238,27 +253,31 @@ export default {
 };
 </script>
 
-<style lang="scss"  scoped>
+<style scoped>
 .container {
   height: 100vh !important;
 
-  .form-container {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px !important;
-    max-width: 300px;
 
-    button {
-      background-color: #673EE6;
-      border: unset;
-      color: white;
-    }
 
-    .links {
-      font-size: clamp(13px, 2vw, 15px);
-    }
+}
 
-  }
+.form-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px !important;
+  max-width: 350px;
 
+
+
+}
+
+/* button {
+  background-color: #673EE6;
+  border: unset;
+  color: white;
+} */
+
+.links {
+  font-size: clamp(13px, 2vw, 15px);
 }
 </style>

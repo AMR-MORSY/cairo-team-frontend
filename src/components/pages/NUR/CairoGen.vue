@@ -25,7 +25,7 @@
     <div style="display: flex; align-items: center; justify-content: space-between">
       <h3>Sites</h3>
       <div  style=" display: flex; align-items: center; justify-content: flex-end">
-        <img src="../../logos/week-icon.svg"   @click="getCairoGenYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
+        <img src="../../logos/week-icon.aba4072e.svg"   @click="getCairoGenYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
         v-tooltip.right="'Weekly Analysis'" />
 
       </div>
@@ -116,6 +116,7 @@ export default {
         VF: this.dialogRef.data.statestics.NUR_VF_combined,
         OEG: this.dialogRef.data.statestics.NUR_Org_combined,
         Rented: this.dialogRef.data.statestics.NUR_Rented_combined,
+        WE:this.dialogRef.data.statestics.NUR_WE_combined
       };
       this.statestics = {
         labels: Object.keys(statestics),
@@ -123,7 +124,7 @@ export default {
           {
             data: Object.values(statestics),
 
-            backgroundColor: ["purple", "green", "blue", "yellow"],
+            backgroundColor: [ "green", "red", "orange",'blue',"purple"],
           },
         ],
       };
@@ -184,6 +185,7 @@ export default {
       NUR.cairoGenYearlyAnalysis(this.tickets[0].year)
      
         .then((response) => {
+          console.log(response);
      
           let data = Object.values(response.data.NUR_C_yearly);
           let keys = Object.keys(response.data.NUR_C_yearly);
@@ -192,12 +194,14 @@ export default {
           let NUR_OEG = [];
           let NUR_VF = [];
           let NUR_Rented = [];
+          let NUR_WE=[];
           for (var i = 0; i < keys.length; i++) {
             NUR_combined.push(data[i].NUR_combined);
             NUR_Rented.push(data[i].NUR_Rented_combined);
             NUR_VF.push(data[i].NUR_VF_combined);
             NUR_OEG.push(data[i].NUR_Org_combined);
             NUR_ET.push(data[i].NUR_ET_combined);
+            NUR_WE.push(data[i].NUR_WE_combined)
           }
          
           this.$dialog.open(CairoGenYearlyAnalysis, {
@@ -218,6 +222,7 @@ export default {
               NUR_VF: NUR_VF,
               NUR_OEG: NUR_OEG,
               NUR_ET: NUR_ET,
+              NUR_WE:NUR_WE,
               labels:keys
             },
           });

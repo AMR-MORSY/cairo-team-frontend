@@ -1,0 +1,35 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap'); */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family:"Signika" ;
+  src: url("./fonts/Signika-VariableFont_GRAD,wght.ttf");
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: #673ee6;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  background-color: var(--surface-100);
+}
+body {
+  position: relative;
+  
+}
+.confirmation {
+  font-size: clamp(18px, 5vw, 20px);
+  font-weight: 600;
+  padding-top: 10px;
+  display: block;
+}
+.dp__theme_light {
+  
+  --dp-success-color: #ddd;
+ 
+ 
+}

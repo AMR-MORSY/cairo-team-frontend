@@ -8,7 +8,7 @@
   <SpinnerPage :displayNone="displaySpinnerPage" style="z-index: 10000000000;"></SpinnerPage>
 
   <UnauthenticatedToast></UnauthenticatedToast>
-  <NetworkErrorToast></NetworkErrorToast>
+  <!-- <NetworkErrorToast></NetworkErrorToast> -->
 
 
   <Toast position="center" :breakpoints="{ '480px': { 'width': '80%', 'margin': 'auto' } }" />

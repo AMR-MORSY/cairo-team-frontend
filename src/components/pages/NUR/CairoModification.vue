@@ -25,7 +25,7 @@
     <div style="display: flex; align-items: center; justify-content: space-between">
       <h3>Sites</h3>
       <div  style=" display: flex; align-items: center; justify-content: flex-end">
-        <img src="../../logos/week-icon.svg"   @click="getCairoNodeBYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
+        <img src="../../logos/week-icon.aba4072e.svg"   @click="getCairoNodeBYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
         v-tooltip.right="'Weekly Analysis'" />
 
       </div>

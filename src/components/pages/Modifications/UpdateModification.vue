@@ -1,569 +1,509 @@
 <template>
-  <div class="container">
-    <div class="row mt-3">
-      <div class="col-12 my-2 ">
-        <Fieldset>
-          <template #legend>{{ site_code }}-{{ site_name }} </template>
-          <div class="form">
-            <form @submit.prevent="updateModification">
-              <div class="row  p-5">
-                <div class="col-12 col-sm-6 col-lg-3">
-                  <label for="Subcontrator">Subcontrator:</label>
-                  <select class="form-select" id="Subcontrator" v-model="subcontractor"
-                    :class="{ 'is-invalid': subcontractorError }">
-                    <option :value="subcontractor" v-for="subcontractor in subcontractors" :key="subcontractor">
-                      {{ subcontractor }}
-                    </option>
-                  </select>
-                
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                  <label for="status">Status:</label>
 
-                  <select class="form-select" id="status" v-model="status" :class="{ 'is-invalid': statusError }">
-                    <option :value="status" v-for="status in status_options" :key="status">
-                      {{ status }}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                  <label for="Requesters">Requesters:</label>
-                  <select v-model="requester" id="Requesters" class="form-select"
-                    :class="{ 'is-invalid': requesterError }">
-                    <option :value="requester" v-for="requester in requester_options" :key="requester">
-                      {{ requester }}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                  <label for="Projects">Projects:</label>
+  <!-- <div class=" w-full px-7">
+    <div class=" max-w-xs md:max-w-7xl mx-auto">
+      <Fieldset>
+        <template #legend>
+          <p class=" bg-slate-500 text-white font-Signika rounded font-semibold py-1 px-3">
+            {{ site_code }}-{{ site_name }}
+          </p>
+        </template>
+<div class="form">
+  <form @submit.prevent="updateModification">
+    <div class="grid grid-cols-4 gap-4 p-5">
+      <div class="col-span-4 md:col-span-2 lg:col-span-1">
 
-                  <select class="form-select" aria-label="Default select example" v-model="project" id="Projects"
-                    :class="{ 'is-invalid': projectError }">
-                    <option v-for="project in project_options" :value="project" :key="project">
-                      {{ project }}
-                    </option>
-                  </select>
-                </div>
+        <div class=" flex-auto">
 
-                <div class="col-12 col-sm-6 col-lg-3">
-                  <label for="request">Request Date:</label>
+          <label for="Subcontrator">Subcontrator:</label>
+          <Select fluid id="Subcontrator" v-model="subcontractor" :invalid="subcontractorError"
+            :options="subcontractors">
 
-                  <Datepicker v-model="request_date" placeholder="Request Date" required id="request" />
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                  <label for="finish">Finish Date:</label>
+          </Select>
+        </div>
 
-                  <Datepicker v-model="finish_date" placeholder="Finish Date:" id="finish" />
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-3">
-                  <label for="materials">Cost</label>
-                  <input type="number" v-model="cost" class="form-control" id="materials" />
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                  <label for="materials">Materials:</label>
-                  <textarea v-model="materials" class="form-control" id="materials" cols="3" rows="3"></textarea>
-                </div>
-                <div class="col-12 col-lg-6">
-                  <label id="Action">Action:</label>
-                  <textarea v-model="action" id="Action" rows="5" cols="60" class="form-control"
-                    :class="{ 'is-invalid': actionError }">
-                  </textarea>
-                </div>
-                <div class="col-6 col-lg-3 mt-5">
-                  <Button label="Back" type="submit" @click.prevent="goBack" class="p-button-raised p-button-warning"
-                    style="color: white" />
-                </div>
-                <div class="col-6 col-lg-3 mt-5">
-                  <Button label="Update" type="submit" class="p-button-raised p-button-help" style="color: white" />
-                </div>
-              </div>
-            </form>
-          </div>
-        </Fieldset>
       </div>
+      <div class="col-span-4 md:col-span-2 lg:col-span-1">
+        <div class=" flex-auto">
+          <label for="status">Status:</label>
+
+          <Select fluid id="status" :options="status_options" v-model="status" :invalid="statusError">
+
+          </Select>
+        </div>
+      </div>
+      <div class="col-span-4 md:col-span-2 lg:col-span-1">
+        <div class=" flex-auto">
+          <label for="Requesters">Requesters:</label>
+          <Select v-model="requester" id="Requesters" fluid :invalid="requesterError" :options="requester_options">
+
+          </Select>
+        </div>
+      </div>
+      <div class="col-span-4 md:col-span-2 lg:col-span-1">
+        <div class=" flex-auto">
+          <label for="Projects">Projects:</label>
+
+          <Select fluid aria-label="Default select example" :options="project_options" v-model="project" id="Projects"
+            :invalid="projectError">
+
+          </Select>
+        </div>
+      </div>
+
+      <div class="col-span-4 md:col-span-2 lg:col-span-1">
+        <label for="request">Request Date:</label>
+
+        <Datepicker v-model="request_date" placeholder="Request Date" required id="request" />
+      </div>
+      <div class="col-span-4 md:col-span-2 lg:col-span-1">
+        <label for="finish">Finish Date:</label>
+
+        <Datepicker v-model="finish_date" placeholder="Finish Date:" id="finish" />
+      </div>
+
+      <div class="col-span-4 md:col-span-2 lg:col-span-1">
+        <div class="flex-auto">
+          <label for="materials">Cost</label>
+          <InputNumber fluid v-model="cost" :min="0" id="materials" />
+        </div>
+      </div>
+      <div class="col-span-4 md:col-span-2">
+        <div class="flex flex-col justify-start">
+          <label for="materials">Materials</label>
+          <Textarea v-model="materials" id="materials" cols="32" rows="3"></Textarea>
+        </div>
+      </div>
+      <div class="col-span-4 md:col-span-2">
+        <div class=" flex flex-col justify-start">
+          <label id="Action">Action:</label>
+          <Textarea v-model="action" id="Action" rows="5" cols="40" :invalid="actionError"></Textarea>
+        </div>
+      </div>
+      <div class="col-span-4 md:col-span-2">
+        <div class=" flex justify-evenly">
+          <Button label="Back" type="button" severity="success" raised @click.prevent="goBack" class="block" />
+          <Button label="Update" type="submit" severity="help" raised class="block" />
+        </div>
+
+      </div>
+
     </div>
-  </div>
- 
+
+
+
+  </form>
+</div>
+</Fieldset>
+</div>
+</div> -->
+
+  <ModificationCreationForm needed_action="update" :modificationData="modificationDetails" :siteCode="site_code" :siteName="site_name" :site_id="id" />
+
+
 </template>
 
-<script>
+<script setup>
+
+import { reactive, watch,ref,onMounted } from "vue";
 import Modifications from "../../../apis/Modifications";
+import ModificationCreationForm from "../../helpers/Modification/ModificationCreationForm.vue";
 
-export default {
-  data() {
-    return {
-      site_name: null,
-      site_code: null,
-      subcontractor: null,
-      subcontractorError: false,
-      cost: null,
+const site_code=ref();
+const site_name=ref();
+const modificationDetails = reactive({
+  subcontractor: null,
+  request_date: null,
+  project: null,
+  requester: null,
+  finish_date: null,
+  action: null,
+  materials: null,
+  status: null,
+  cost: null,
+  site_name: '',
+  site_code: '',
 
-      subcontractors: [
-        "OT",
-        "Alandick",
-        "Tri-Tech",
-        "Siatnile",
-        "Merc",
-        "GP",
-        "MBV",
-        "Systel",
-        "TELE-TECH",
-        "SAG",
-        "LM",
-        "MERG",
-        "HAS",
-        "H-PLUS",
-        "STEPS",
-        "Red Tech",
-        "GTE",
-        "AFRO",
-        "Benaya",
-        "EEC",
-        "Egypt Gate",
-        "Huawei",
-        "INTEGRA",
-        "Unilink",
-        "Tele-Trust"
-
-      ],
-      request_date: null,
-      request_dateError: false,
-      requester: null,
-      requesterError: false,
-      requester_options: [
-        "Acquisition",
-        "Civil Team",
-        "Maintenance",
-        "Radio",
-        "Transmission",
-        "rollout",
-        "GA",
-        "Sharing team",
-      ],
-      project: null,
-      projectError: false,
-      project_options: [
-        "Normal Modification",
-        "LTE",
-        "Critical repair",
-        "Repair",
-        "LDN",
-        "Retrofitting",
-        "Adding sec",
-        "NTRA",
-        "Sharing",
-        "L2600",
-      ],
-      status: null,
-      statusError: false,
-      status_options: ["waiting D6", "done", "in progress"],
-      finish_date: null,
-
-      action: null,
-      actionError: false,
-      materials: null,
-    };
-  },
-  name: "UpdateModification",
-  props: ["id"],
-  emits: ["displayNoneSpinner"],
-  watch: {
-    id() {
-      this.getModificationDetails();
-    },
-  },
-  computed: {
-    isLogin() {
-      return this.$store.getters.isLogin;
-    },
-
-  },
-  mounted() {
-    this.getModificationDetails();
-  },
-
-  methods: {
-    goBack() {
-      this.$router.go(-1);
-    },
-
-    getModificationDetails() {
+});
+const props = defineProps(["id"])
+const emits = defineEmits(["displayNoneSpinner"])
 
 
-      Modifications.getModificationDetails(this.id)
 
-        .then((response) => {
-          console.log(response);
-          this.site_code = response.data.details.site_code;
-          this.subcontractor = response.data.details.subcontractor;
+onMounted(() => {
+  getModificationDetails();
 
-          this.site_name = response.data.details.site_name;
+})
 
-          this.request_date = response.data.details.request_date;
-          this.requester = response.data.details.requester;
-
-          this.project = response.data.details.project;
-
-          this.status = response.data.details.status;
-
-          this.finish_date = response.data.details.finish_date;
-          this.action = response.data.details.action;
-          this.cost = response.data.details.cost;
-          this.materials = response.data.details.materials;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-
-    },
-    updateModification() {
-      this.subcontractorError = false;
-      this.request_dateError = false;
-      this.requesterError = false;
-      this.statusError = false;
-      this.projectError = false;
-      this.actionError = false;
-      if (!this.subcontractor) {
-        this.subcontractorError = true;
-      }
-
-      if (!this.project) {
-        this.projectError = true;
-      }
-      if (!this.status) {
-        this.statusError = true;
-      }
-      if (!this.action) {
-        this.actionError = true;
-      }
-      if (!this.request_date) {
-        this.request_dateError = true;
-      }
-      if (!this.requester) {
-        this.requesterError = true;
-      }
-      if (
-        this.requester &&
-        this.subcontractor &&
-        this.action &&
-        this.request_date &&
-        this.project &&
-        this.status
-      ) {
-
-        let data = {
-          id: this.id,
-          site_code: this.site_code,
-          site_name: this.site_name,
-          subcontractor: this.subcontractor,
-          requester: this.requester,
-          request_date: this.request_date,
-          finish_date: this.finish_date,
-          cost: this.cost,
-          project: this.project,
-          status: this.status,
-          action: this.action,
-          materials: this.materials,
-        };
-
-        Modifications.updateModification(data)
-
-          .then((response) => {
+const getModificationDetails = () => {
 
 
-            this.$toast.add({
-              severity: "success",
-              summary: "Success Message",
-              detail: "Updated Successfully",
-              life: 3000,
-            });
-          })
-          .catch((error) => {
+  Modifications.getModificationDetails(props.id)
 
-            if (error.response.status == 422) {
-              let errors = error.response.data.errors;
+    .then((response) => {
 
-              if (errors.siteCode) {
-                errors.siteCode.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.siteName) {
-                errors.siteName.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.subcontractor) {
-                errors.subcontractor.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.project) {
-                errors.project.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.status) {
-                errors.status.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.requester) {
-                errors.requester.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.request_date) {
-                errors.request_date.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.finish_date) {
-                errors.finish_date.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.cost) {
-                errors.cost.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.materials) {
-                errors.materials.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.action) {
-                errors.action.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-            }
-          })
+     site_code.value = response.data.details.site_code;
 
-      }
-    },
-  },
-};
+     site_name.value = response.data.details.site_name;
+      modificationDetails.subcontractor = response.data.details.subcontractor;
+
+
+      modificationDetails.request_date = response.data.details.request_date;
+      modificationDetails.requester = response.data.details.requester;
+
+      modificationDetails.project = response.data.details.project;
+
+      modificationDetails.status = response.data.details.status;
+
+      modificationDetails.finish_date = response.data.details.finish_date;
+      modificationDetails.action = response.data.details.action;
+      modificationDetails.cost = response.data.details.cost;
+      modificationDetails.materials = response.data.details.materials;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+
+}
+
+// export default {
+//   data() {
+//     return {
+
+//       subcontractor: null,
+//       subcontractorError: false,
+
+//       cost: null,
+
+//       modificationDetails: {
+//         subcontractor: null,
+//         request_date: null,
+//         project: null,
+//         requester: null,
+//         finish_date: null,
+//         action: null,
+//         materials: null,
+//         status: null,
+//         cost: null,
+//         site_name: '',
+//         site_code: '',
+
+//       },
+
+//       subcontractors: [
+//         "OT",
+//         "Alandick",
+//         "Tri-Tech",
+//         "Siatnile",
+//         "Merc",
+//         "GP",
+//         "MBV",
+//         "Systel",
+//         "TELE-TECH",
+//         "SAG",
+//         "LM",
+//         "MERG",
+//         "HAS",
+//         "H-PLUS",
+//         "STEPS",
+//         "Red Tech",
+//         "GTE",
+//         "AFRO",
+//         "Benaya",
+//         "EEC",
+//         "Egypt Gate",
+//         "Huawei",
+//         "INTEGRA",
+//         "Unilink",
+//         "Tele-Trust"
+
+//       ],
+//       request_date: null,
+//       request_dateError: false,
+//       requester: null,
+//       requesterError: false,
+//       requester_options: [
+//         "Acquisition",
+//         "Civil Team",
+//         "Maintenance",
+//         "Radio",
+//         "Transmission",
+//         "rollout",
+//         "GA",
+//         "Sharing team",
+//       ],
+//       project: null,
+//       projectError: false,
+//       project_options: [
+//         "Normal Modification",
+//         "LTE",
+//         "Critical repair",
+//         "Repair",
+//         "LDN",
+//         "Retrofitting",
+//         "Adding sec",
+//         "NTRA",
+//         "Sharing",
+//         "L2600",
+//       ],
+//       status: null,
+//       statusError: false,
+//       status_options: ["waiting D6", "done", "in progress"],
+//       finish_date: null,
+
+//       action: null,
+//       actionError: false,
+//       materials: null,
+//     };
+//   },
+//   name: "UpdateModification",
+//   components: {
+//     ModificationCreationForm
+//   },
+
+//   props: ["id"],
+//   emits: ["displayNoneSpinner"],
+//   watch: {
+//     id() {
+//       this.getModificationDetails();
+//     },
+//   },
+//   computed: {
+//     isLogin() {
+//       return this.$store.getters.isLogin;
+//     },
+
+//   },
+//   mounted() {
+//     this.getModificationDetails();
+//   },
+
+//   methods: {
+//     goBack() {
+//       this.$router.go(-1);
+//     },
+
+//     getModificationDetails() {
+
+
+//       Modifications.getModificationDetails(this.id)
+
+//         .then((response) => {
+
+//           this.modificationDetails.site_code = response.data.details.site_code;
+
+//           this.modificationDetails.site_name = response.data.details.site_name;
+//           this.modificationDetails.subcontractor = response.data.details.subcontractor;
+
+
+//           this.modificationDetails.request_date = response.data.details.request_date;
+//           this.modificationDetails.requester = response.data.details.requester;
+
+//           this.modificationDetails.project = response.data.details.project;
+
+//           this.modificationDetails.status = response.data.details.status;
+
+//           this.modificationDetails.finish_date = response.data.details.finish_date;
+//           this.modificationDetails.action = response.data.details.action;
+//           this.modificationDetails.cost = response.data.details.cost;
+//           this.modificationDetails.materials = response.data.details.materials;
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//         })
+
+//     },
+//     updateModification() {
+//       this.subcontractorError = false;
+//       this.request_dateError = false;
+//       this.requesterError = false;
+//       this.statusError = false;
+//       this.projectError = false;
+//       this.actionError = false;
+//       if (!this.subcontractor) {
+//         this.subcontractorError = true;
+//       }
+
+//       if (!this.project) {
+//         this.projectError = true;
+//       }
+//       if (!this.status) {
+//         this.statusError = true;
+//       }
+//       if (!this.action) {
+//         this.actionError = true;
+//       }
+//       if (!this.request_date) {
+//         this.request_dateError = true;
+//       }
+//       if (!this.requester) {
+//         this.requesterError = true;
+//       }
+//       if (
+//         this.requester &&
+//         this.subcontractor &&
+//         this.action &&
+//         this.request_date &&
+//         this.project &&
+//         this.status
+//       ) {
+
+//         let data = {
+//           id: this.id,
+//           site_code: this.site_code,
+//           site_name: this.site_name,
+//           subcontractor: this.subcontractor,
+//           requester: this.requester,
+//           request_date: this.request_date,
+//           finish_date: this.finish_date,
+//           cost: this.cost,
+//           project: this.project,
+//           status: this.status,
+//           action: this.action,
+//           materials: this.materials,
+//         };
+
+//         Modifications.updateModification(data)
+
+//           .then((response) => {
+
+
+//             this.$toast.add({
+//               severity: "success",
+//               summary: "Success Message",
+//               detail: "Updated Successfully",
+//               life: 3000,
+//             });
+//           })
+//           .catch((error) => {
+
+//             if (error.response.status == 422) {
+//               let errors = error.response.data.errors;
+
+//               if (errors.siteCode) {
+//                 errors.siteCode.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.siteName) {
+//                 errors.siteName.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.subcontractor) {
+//                 errors.subcontractor.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.project) {
+//                 errors.project.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.status) {
+//                 errors.status.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.requester) {
+//                 errors.requester.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.request_date) {
+//                 errors.request_date.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.finish_date) {
+//                 errors.finish_date.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.cost) {
+//                 errors.cost.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.materials) {
+//                 errors.materials.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.action) {
+//                 errors.action.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//             }
+//           })
+
+//       }
+//     },
+//   },
+// };
 </script>
 
 <style lang="scss" scoped>
-::v-deep(.p-fieldset) {
-  position: relative;
- 
-
-  .p-fieldset-legend {
-    max-width: 200px;
-    color: white;
-    text-align: center;
-    position: absolute;
-    top: 0px;
-    left: 50px;
-    z-index: 2;
-    background-color: rgba($color: gray, $alpha: 1);
-  }
-
-
-
-  select:focus {
-    box-shadow: 0px 0px 3px 2px #79589f !important;
-    border: unset;
-
-  }
-
-
-  .dp__theme_light {
-    --dp-text-color: #79589f;
-
-    --dp-icon-color: #79589f;
-
-    --dp-border-color: #79589f;
-  }
-}
-
 .form {
   margin-top: 10px;
   width: 100%;
   border: 1px solid black;
   border-radius: 5px;
-}
-
-@media (min-width:320px) {
-
-  /* smartphones, iPhone, portrait 480x320 phones */
-  ::v-deep(.p-fieldset) {
-
-
-    .p-fieldset-legend {
-      font-size: 0.7rem;
-
-
-    }
-
-    .p-button {
-      font-size: 0.7rem;
-    }
-
-    select,input,label,textarea {
-      font-size: 0.7rem;
-    }
-    .dp__theme_light {
-      font-size: 0.7rem;
-  }
-
-
-  }
-
-}
-
-@media (min-width:481px) {
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  ::v-deep(.p-fieldset) {
-
-
-.p-fieldset-legend {
-  font-size: 0.7rem;
-
-
-}
-
-.p-button {
-  font-size: 0.7rem;
-}
-
-select,input,label,textarea {
-  font-size: 0.7rem;
-}
-
-
-}
-}
-
-@media (min-width:641px) {
-  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  ::v-deep(.p-fieldset) {
-
-
-.p-fieldset-legend {
-  font-size: 0.7rem;
-
-
-}
-
-.p-button {
-  font-size: 0.7rem;
-}
-
-select,input,label,textarea {
-  font-size: 0.7rem;
-}
-
-
-}
-}
-
-@media (min-width:961px) {
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-  ::v-deep(.p-fieldset) {
-
-
-.p-fieldset-legend {
-  font-size: 0.9rem;
-
-
-}
-
-.p-button {
-  font-size: 0.9rem;
-}
-
-select,input,label,textarea {
-  font-size: 0.9rem;
-}
-
-
-}
-}
-
-@media (min-width:1025px) {
-
-  /* big landscape tablets, laptops, and desktops */
-  ::v-deep(.p-fieldset) {
-
-
-    .p-fieldset-legend {
-      font-size: 0.9rem;
-
-
-    }
-
-    .p-button {
-      font-size: 0.9rem;
-    }
-
-    select,input {
-      font-size: 0.9rem;
-    }
-
-
-  }
-
 }
 </style>

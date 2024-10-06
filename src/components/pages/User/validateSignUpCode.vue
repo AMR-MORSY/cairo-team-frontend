@@ -5,7 +5,7 @@
 
     </div>
 
-    <div class="d-flex justify-content-center align-items-center" v-if="message">
+    <div class="flex justify-center items-center" v-if="message">
 
         <router-Link to="/user/login" class="links">Back to log in page</router-Link>
 
@@ -35,7 +35,7 @@ export default {
 
         validateSignUpCode() {
             User.validateSignUpCode(this.code).then((response) => {
-                console.log(response.data.message)
+              
                 this.message = response.data.message;
             }).catch((error) => {
                 if (error.response.status = 422) {

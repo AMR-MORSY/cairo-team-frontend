@@ -32,7 +32,7 @@
     <div style="display: flex; align-items: center; justify-content: space-between">
       <h3>Sites</h3>
       <div  style=" display: flex; align-items: center; justify-content: flex-end">
-        <img src="../../logos/week-icon.svg"      @click="getCairoMWYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
+        <img src="../../logos/week-icon.aba4072e.svg"      @click="getCairoMWYearlyNUR" style="cursor: pointer;width: 15%; margin-bottom: 20px;" 
         v-tooltip.right="'Weekly Analysis'" />
 
       </div>
@@ -71,6 +71,7 @@ import exportFromJSON from "export-from-json";
 
 import CairoTxYearlyAnalysis from "./CairoTxYearlyAnalysis.vue";
 
+
 export default {
   data() {
     return {
@@ -100,6 +101,7 @@ export default {
   components: {
     NURTickets,
     CairoTxYearlyAnalysis,
+   
   },
   computed: {
    
@@ -280,6 +282,7 @@ export default {
               labels: labels,
               cairo: cairo,
               zones: zones,
+              title:"Transmission"
             },
           });
         })

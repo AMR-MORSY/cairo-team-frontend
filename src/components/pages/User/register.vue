@@ -1,6 +1,6 @@
 <template>
   <userNavBar></userNavBar>
-  <div class="container">
+  <!-- <div class="container">
     <Card class="form-container">
       <template #title class="p-card-title">
         <p class="text-center" style="color: #673EE6 ">Register</p>
@@ -86,7 +86,8 @@
             </div>
             <div class="col-12">
               <div class="w-100 mt-4">
-                <button class="w-100 btn" type="submit" style="background-color:  #673EE6;color: white;">Sign Up</button>
+                <button class="w-100 btn" type="submit" style="background-color:  #673EE6;color: white;">Sign
+                  Up</button>
               </div>
             </div>
           </div>
@@ -94,7 +95,120 @@
         </form>
       </template>
     </Card>
+  </div> -->
+
+  <div class=" max-w-screen pt-40">
+
+    <Card class=" max-w-xs mx-auto ">
+
+      <template #content>
+
+
+        <p class=" text-center text-font-main-color font-Signika font-extrabold text-lg">
+          Register
+        </p>
+
+        <form @submit.prevent="submitRegisterForm" novalidate>
+         <div class="my-3 w-full">
+
+            <FloatLabel class=" w-full">
+
+
+              <InputText class=" w-full" :invalid="v$.email.$error" type="text" v-model.trim="v$.name.$model"
+                aria-describedby="name" />
+              <label class=" text-xs">name</label>
+
+
+
+            </FloatLabel>
+            <div v-if="v$.name.$error">
+              <ValidationErrorMessage :errors="v$.name.$errors" />
+            </div>
+          </div>
+          <div class="w-full mt-8">
+
+            <FloatLabel class=" w-full">
+
+
+              <InputText class=" w-full" :invalid="v$.email.$error" type="text" v-model.trim="v$.email.$model"
+                aria-describedby="email" />
+              <label class=" text-xs">Email</label>
+
+
+
+            </FloatLabel>
+            <div v-if="v$.email.$error">
+              <ValidationErrorMessage :errors="v$.email.$errors" />
+            </div>
+          </div>
+
+          <div class=" w-full mt-8 ">
+            <FloatLabel class=" w-full">
+              <InputText class=" w-full" :invalid="v$.password.$error" type="password" v-model.trim="v$.password.$model"
+                aria-describedby="pass" />
+              <label class=" text-xs">Password</label>
+            </FloatLabel>
+            <div v-if="v$.password.$error">
+
+              <ValidationErrorMessage :errors="v$.password.$errors" />
+            </div>
+
+
+          </div>
+           <div class=" w-full mt-8 ">
+            <FloatLabel class=" w-full">
+              <InputText class=" w-full" :invalid="v$.password_confirmation.$error" type="password_confirmation" v-model.trim="v$.password_confirmation.$model"
+                aria-describedby="pass" />
+              <label class=" text-xs">password_confirmation</label>
+            </FloatLabel>
+            <div v-if="v$.password_confirmation.$error">
+
+              <ValidationErrorMessage :errors="v$.password_confirmation.$errors" />
+            </div>
+
+
+          </div>
+
+
+
+
+
+          <div class="  flex flex-col justify-center  py-2 mt-5">
+
+            <!-- <Button label="Login"  class="text-xs block w-full rounded-full" type="submit"/> -->
+            <button class=" block text-xs text-white rounded-xl py-2 bg-font-main-color">Register</button>
+
+
+            <div class=" mt-5 flex justify-between items-center">
+              <router-link to="/user/login"
+                class=" text-sm font-bold font-Signika text-font-main-color underline underline-offset-1">have an account?</router-link>
+              
+            </div>
+
+
+
+          </div>
+
+
+
+
+        </form>
+
+
+
+
+
+
+
+      </template>
+
+
+
+    </Card>
+
+
   </div>
+
   <Dialog v-model:visible="visible" modal :showHeader="false" :style="{ width: '50vw' }"
     :breakpoints="{ '700px': '70vw' }">
 
@@ -115,12 +229,13 @@ import { email, required, maxLength, sameAs, alpha, minLength } from '@vuelidate
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators'
 import userNavBar from "../../helpers/User/userNavBar.vue";
+import ValidationErrorMessage from "../../helpers/validationErrorMessage.vue";
 
 export default {
   setup: () => ({ v$: useVuelidate() }),
   validations() {
     const passReg = helpers.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
-    const nameReg=helpers.regex(/^[a-zA-Z]{3,}[a-zA-Z ]*$/);
+    const nameReg = helpers.regex(/^[a-zA-Z]{3,}[a-zA-Z ]*$/);
     return {
       name: {
         required: helpers.withMessage('Name is required', required),
@@ -158,13 +273,14 @@ export default {
       email: "",
       password: "",
       password_confirmation: "",
-      visible:false,
-      message:"",
+      visible: false,
+      message: "",
 
     };
   },
   components: {
     userNavBar,
+    ValidationErrorMessage
   },
 
 
@@ -183,9 +299,9 @@ export default {
       }
       User.register(form)
         .then(() => {
-          this.visible=true;
-          this.message="Your account has been created Successfully.Please check your e-mail to verify your account "
-        
+          this.visible = true;
+          this.message = "Your account has been created Successfully.Please check your e-mail to verify your account "
+
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -229,8 +345,7 @@ export default {
 
 
     },
-    closeConfirmation()
-    {
+    closeConfirmation() {
       this.$router.push({ path: "/welcome" });
 
     }
@@ -238,80 +353,23 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
+
 .container {
   height: 100vh !important;
 
-  .form-container {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px !important;
-    max-width: 300px;
 
-    button {
-      background-color: #673EE6;
-      border: unset;
-      color: white;
-    }
-
-  }
-}
-
-::v-deep(.p-password input) {
-  width: 100%;
 
 }
 
+.form-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px !important;
+  max-width: 350px;
 
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+
+
 }
 
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
-}
-
-.b-example-divider {
-  height: 3rem;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: solid rgba(0, 0, 0, 0.15);
-  border-width: 1px 0;
-  box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
-    inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
-}
-
-.b-example-vr {
-  flex-shrink: 0;
-  width: 1.5rem;
-  height: 100vh;
-}
-
-.bi {
-  vertical-align: -0.125em;
-  fill: currentColor;
-}
-
-.nav-scroller {
-  position: relative;
-  z-index: 2;
-  height: 2.75rem;
-  overflow-y: hidden;
-}
-
-.nav-scroller .nav {
-  display: flex;
-  flex-wrap: nowrap;
-  padding-bottom: 1rem;
-  margin-top: -1px;
-  overflow-x: auto;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-}
 </style>

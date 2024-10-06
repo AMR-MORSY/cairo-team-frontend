@@ -2,45 +2,45 @@
   <section id="intro">
 
   </section>
-  <section>
-    <div id="breif">
-
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12 mb-xs-3 col-sm-6 col-lg-6">
-
-            <div class="breif-container">
-
-              <Transition name="NUR" appear>
-                <p>NUR Analysis</p>
-
-              </Transition>
-              <Transition name="Alarm" appear>
-                <p>Zone Site Alarms Analysis</p>
-
-              </Transition>
-              <Transition name="dataBase" appear>
-                <p>Sites Equipment Database</p>
-
-              </Transition>
+  <section class=" w-full overflow-y-hidden">
+    <div id="breif" class=" w-full overflow-y-hidden">
 
 
+      <div class="grid grid-cols-2 gap-4">
+        <div class=" col-span-2 md:col-span-1">
 
-            </div>
+          <div class="breif-container pl-16 pt-16">
+
+            <Transition name="NUR" appear>
+              <p class=" font-Signika text-font-main-color font-extrabold text-lg py-4 lg:py-8 lg:text-4xl">NUR Analysis</p>
+
+            </Transition>
+            <Transition name="Alarm" appear>
+              <p class=" font-Signika text-font-main-color font-extrabold text-lg py-4 lg:py-8 lg:text-4xl">Zone Site Alarms Analysis</p>
+
+            </Transition>
+            <Transition name="dataBase" appear>
+              <p class=" font-Signika text-font-main-color font-extrabold py-4 text-lg lg:py-8 lg:text-4xl">Sites Equipment Database</p>
+
+            </Transition>
 
 
-          </div>
-
-          <div class="col-12 col-sm-6 col-lg-6">
-            <div class="image-container ">
-              <img src="../../src/components/logos/04.png" alt="">
-            </div>
 
           </div>
 
 
         </div>
+
+        <div class="col-span-2 flex justify-center md:col-span-1">
+          <div class="image-container ">
+            <img src="../../src/components/logos/04.png" alt="">
+          </div>
+
+        </div>
+
+
       </div>
+
 
     </div>
 
@@ -50,7 +50,7 @@
 
 <script>
 
-import "bootstrap";
+
 
 
 export default {
@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .NUR-enter-active {
   animation: transformx 1s ease;
 }
@@ -110,199 +110,53 @@ export default {
 
 #breif {
 
- 
+
   overflow-y: hidden;
-  padding: 2rem 2rem;
+  /* padding: 2rem 2rem; */
   background-color: white;
 
-  .image-container {
-
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      width: 70%;
-      transform: translateY(0);
-      opacity: 0.5;
-      animation: animation-translate 1s linear infinite alternate;
-    }
-
-    @keyframes animation-translate {
-      0% {
-        transform: translateY(0);
-      }
-
-      100% {
-        transform: translateY(1%);
-      }
-    }
-  }
-
-  .breif-container {
-    opacity: 0.5;
-
-    p {
-      font-size: 2rem;
-      font-weight: 700;
-
-    }
-
-  }
-
-}
-
-@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ 
-
-  
-#breif {
-
-
-padding: 1rem 1rem;
-
-.image-container {
-
- 
-
-  img {
-    width: 100%;
-  
-  }
-
-  
-}
-
-.breif-container {
- 
-
-  p {
-    font-size: 1rem;
-   
-
-  }
-
-}
-
-}}
-@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
-
- 
-
-#breif {
-
-
-padding: 1rem 1rem;
-
-.image-container {
-
- 
-  img {
-    width: 100%;
-   
-  }
 
 }
 
 .breif-container {
- 
+  opacity: 0.5;
 
-  p {
-    font-size: 1rem;
-   
 
-  }
 
 }
 
-}}
-@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+/* 
+.breif-container p {
+  font-size: 2rem;
+  font-weight: 700;
 
-#breif {
+/* } */
 
- 
-  padding:0;
+.image-container {
 
-  .image-container {
+  width: 70%;
 
-  
-    img {
-      width: 100%;
-    
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-   
+
+}
+
+img {
+  width: 70%;
+  transform: translateY(0);
+  opacity: 0.5;
+  animation: animation-translate 1s linear infinite alternate;
+}
+
+@keyframes animation-translate {
+  0% {
+    transform: translateY(0);
   }
 
-  .breif-container {
-    
-
-    p {
-      font-size: 1.5rem;
-     
-
-    }
-
+  100% {
+    transform: translateY(1%);
   }
-
-}}
-@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */
-
-
-#breif {
-
- 
-
-  .image-container {
-
-
-    img {
-      width: 70%;
-   
-    }
-
-  }
-
-  .breif-container {
-
-    p {
-      font-size: 2rem;
-    
-
-    }
-
-  }
-
-}}
-@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
-
-
-#breif {
-
-
-  .image-container {
-
-  
-
-    img {
-      width: 70%;
-    
-    }
-
-  
-  }
-
-  .breif-container {
-    opacity: 0.5;
-
-    p {
-      font-size: 2rem;
-      font-weight: 700;
-
-    }
-
-  }
-
-}}
+}
 </style>

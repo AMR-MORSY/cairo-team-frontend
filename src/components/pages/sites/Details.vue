@@ -1,132 +1,141 @@
 <template>
-  <div class="container ">
-    <div class="row ">
-      <div class="col-1"></div>
-      <div class="col-12 col-md-10 mt-5 mb-3">
-        <div class="card">
-          <TabView class="myTabView" ref="tabview4">
-            <TabPanel>
-              <template #header>
-                <span class="header">{{ siteName }}</span>
+
+  <div class=" w-full flex justify-center ">
+
+
+    <Card class=" max-w-4xl">
+      <template #content>
+        <Tabs value="0" >
+          <TabList>
+            <Tab value="0"><span class=" text-sm text-font-main-color font-Signika font-semibold">{{ siteName }}</span>
+            </Tab>
+            <Tab value="1"> <span class=" text-sm text-font-main-color font-Signika font-semibold uppercase">Cascades</span>
+              <Badge :value="countCascades" v-if="countCascades"></Badge>
+            </Tab>
+            <Tab value="2"><span class=" text-sm text-font-main-color font-Signika font-semibold uppercase">Indirect Cascades</span>
+              <template v-if="countIndirectCascades">
+                <Badge :value="countIndirectCascades"></Badge>
               </template>
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel value="0">
+          
 
-              <div class="row site-details">
-                <div class="col-12 col-sm-6 col-lg-4 ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="siteCode">Site code</span>
-                    <input type="text" class="form-control" disabled v-model="siteCode" aria-describedby="siteCode" />
+              <div class="grid grid-cols-4 gap-4">
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="siteCode">Site code</span>
+                    <InputText type="text" disabled fluid v-model="siteCode" aria-describedby="siteCode" />
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-4  ">
-                  <div class="input-group" id="siteCode">
-                    <span class="input-group-text" id="siteName">Site Name</span>
-                    <input type="text" disabled class="form-control" v-model="siteName" aria-describedby="siteName" />
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto" id="siteCode">
+                    <span class="block text-sm font-Signika text-font-main-color" id="siteName">Site Name</span>
+                    <InputText type="text" disabled fluid v-model="siteName" aria-describedby="siteName" />
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-4  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="BSC">BSC</span>
-                    <input type="text" disabled class="form-control" v-model="BSC" aria-describedby="BSC" />
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="BSC">BSC</span>
+                    <InputText type="text" disabled fluid v-model="BSC" aria-describedby="BSC" />
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-4  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="RNC">RNC</span>
-                    <input type="text" disabled class="form-control" v-model="RNC" aria-describedby="RNC" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-4  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="oz">OZ</span>
-                    <input type="text" disabled class="form-control" v-model="operationZone" aria-describedby="oz" />
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="RNC">RNC</span>
+                    <InputText type="text" disabled fluid v-model="RNC" aria-describedby="RNC" />
                   </div>
                 </div>
 
-
-                <div class="col-12 col-sm-6 col-lg-4  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="severity">Severity</span>
-                    <input type="text" disabled class="form-control" v-model="severity" aria-describedby="severity" />
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="office">Office</span>
-                    <input type="text" disabled class="form-control" v-model="office" aria-describedby="office" />
-                  </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-4  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="nodalCode">Nodal Code</span>
-                    <input type="text" disabled class="form-control" v-model="nodalCode" aria-describedby="nodalCode" />
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6  col-lg-4 ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="nodal">Nodal Name</span>
-                    <input type="text" disabled class="form-control" v-model="nodalName" aria-describedby="nodal" />
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="oz">OZ</span>
+                    <InputText type="text" disabled fluid v-model="operationZone" aria-describedby="oz" />
                   </div>
                 </div>
 
 
-                <div class="col-11 m-auto my-5" style="height: 1px; border: 2px dashed #79589f;"></div>
-
-
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="2g">2G</span>
-                    <input type="text" disabled class="form-control" aria-describedby="2g" v-model="cell2G" />
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="severity">Severity</span>
+                    <InputText type="text" disabled fluid v-model="severity" aria-describedby="severity" />
                   </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="3g">3G</span>
-                    <input type="text" disabled class="form-control" v-model="cell3G" aria-describedby="3g" />
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="4g">4G</span>
-                    <input type="text" disabled class="form-control" v-model="cell4G" aria-describedby="4g" />
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="category">Category</span>
-                    <input type="text" disabled class="form-control" v-model="category" aria-describedby="category" />
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="sharing">Sharing</span>
-                    <input type="text" disabled class="form-control" v-model="sharing" aria-describedby="sharing" />
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="host">Host</span>
-                    <input type="text" disabled class="form-control" v-model="host" aria-describedby="host" />
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="guest">Gest</span>
-                    <input type="text" disabled class="form-control" v-model="gest" aria-describedby="guest" />
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="status">Status</span>
-                    <input type="text" disabled class="form-control" v-model="status" aria-describedby="status" />
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="office">Office</span>
+                    <InputText type="text" disabled fluid v-model="office" aria-describedby="office" />
                   </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-lg-3  ">
-                  <div class="input-group">
-                    <span class="input-group-text" id="type">Type</span>
-                    <input type="text" disabled class="form-control" v-model="type" aria-describedby="type" />
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="nodalCode">Nodal Code</span>
+                    <InputText type="text" disabled fluid v-model="nodalCode" aria-describedby="nodalCode" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="nodal">Nodal Name</span>
+                    <InputText type="text" disabled fluid v-model="nodalName" aria-describedby="nodal" />
+                  </div>
+                </div>
+
+
+                <div class="col-span-2 md:col-span-1  ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="2g">2G</span>
+                    <InputText type="text" disabled fluid aria-describedby="2g" v-model="cell2G" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="3g">3G</span>
+                    <InputText type="text" disabled fluid v-model="cell3G" aria-describedby="3g" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="4g">4G</span>
+                    <InputText type="text" disabled fluid v-model="cell4G" aria-describedby="4g" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="category">Category</span>
+                    <InputText type="text" disabled fluid v-model="category" aria-describedby="category" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="sharing">Sharing</span>
+                    <InputText type="text" disabled fluid v-model="sharing" aria-describedby="sharing" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="host">Host</span>
+                    <InputText type="text" disabled fluid v-model="host" aria-describedby="host" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="guest">Gest</span>
+                    <InputText type="text" disabled fluid v-model="gest" aria-describedby="guest" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="status">Status</span>
+                    <InputText type="text" disabled fluid v-model="status" aria-describedby="status" />
+                  </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block text-sm font-Signika text-font-main-color" id="type">Type</span>
+                    <InputText type="text" disabled fluid v-model="type" aria-describedby="type" />
                   </div>
                 </div>
 
@@ -136,55 +145,61 @@
 
               </div>
 
+              <div class=" w-full border border-spacing-2 border-font-main-color my-5"></div>
 
-              <div class="row mt-5 py-5 buttons">
-                <div class="col-6 col-md-3  my-3">
-                  <Button label="Modifications" @click="gotToSiteModifications"
-                    class="p-button-raised p-button-warning" />
+
+              <div class="grid grid-cols-6 gap-4">
+                <div class="col-span-2 md:col-span-1  my-3">
+                  <Button label="Modifications" @click="gotToSiteModifications" severity="secondary" raised
+                    class="block w-full" />
                 </div>
-                <div class="col-6 col-md-3  my-3">
-                  <Button label="NUR" @click="getSiteNUR" class="p-button-raised p-button-secondary" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="NUR" @click="getSiteNUR" severity="success" raised class=" block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="Batteries Health" @click="getSiteBatteriesHealth"
-                    class="p-button-raised p-button-secondary" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="Batteries Health" @click="getSiteBatteriesHealth" severity="info" raised
+                    class=" text-xs block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="Update" @click="goToSiteUpdate" class="p-button-raised p-button-help" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="Update" @click="goToSiteUpdate" severity="warn" raised class=" block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="Batteries Data" @click="getBatteriesData" class="p-button-raised p-button-help" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="Batteries Data" @click="getBatteriesData" severity="help" raised
+                    class=" text-xs block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="Rectifier Data" @click="getRectifierData" class="p-button-raised p-button-secondary" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="Rectifier Data" @click="getRectifierData" severity="danger" raised
+                    class=" text-xs block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="Site Data" @click="getSiteData" class="p-button-raised p-button-secondary" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="Site Data" @click="getSiteData" severity="contrast" raised class=" block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="MW Data" @click="getMWData" class="p-button-raised p-button-secondary" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="MW Data" @click="getMWData" severity="danger" raised class=" block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="BTS Data" @click="getBTSData" class="p-button-raised p-button-secondary" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="BTS Data" @click="getBTSData" severity="info" raised class=" block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="Power Data" @click="getPowerData" class="p-button-raised p-button-secondary" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="Power Data" @click="getPowerData" severity="contrast" raised class=" block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button label="Tx.issues" @click="getSiteWANSData" class="p-button-raised p-button-secondary" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button label="Tx.issues" @click="getSiteWANSData" severity="warn" raised class=" block w-full" />
                 </div>
-                <div class="col-6 col-md-3 my-3">
-                  <Button icon="pi pi-search" label="Tx issues" @click="SearchTxIssues()" v-if="$can('read_TX_data')" />
+                <div class="col-span-2 md:col-span-1 my-3">
+                  <Button icon="pi pi-search" label="Tx issues" severity="success" raised @click="SearchTxIssues()"
+                    v-if="$can('read_TX_data')" />
                 </div>
 
-                <div class="col-12   my-3 ">
-                  <div class="speed-dial">
-                    <SpeedDial :model="items" direction="right" :tooltipOptions="{ position: 'right' }"
-                      :transitionDelay="80" showIcon="pi pi-bell" hideIcon="pi pi-times"
-                      buttonClass="p-button-outlined">
+              </div>
 
-                    </SpeedDial>
-                  </div>
+
+              <div class="my-3 ">
+                <div class="speed-dial">
+                  <SpeedDial :model="items" direction="right" :tooltipOptions="{ position: 'right' }"
+                    :transitionDelay="80" showIcon="pi pi-bell" hideIcon="pi pi-times" buttonClass="p-button-outlined">
+
+                  </SpeedDial>
                 </div>
               </div>
 
@@ -192,18 +207,10 @@
 
 
             </TabPanel>
-            <TabPanel>
-              <template #header>
-                <div class="d-flex justify-content-center">
-                  <span class="header">Cascades</span>
-
-                  <Badge :value="countCascades" v-if="countCascades"></Badge>
-                </div>
-
-
-              </template>
+            <TabPanel value="1">
+            
               <template v-if="countCascades">
-                <DataTable :value="cascades" responsiveLayout="scroll" class="p-datatable-sm" :paginator="true"
+                <DataTable :value="cascades" scrollable class="text-xs" :paginator="true"
                   :rows="5" stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
                   @row-select="onRowSelect">
                   <Column selectionMode="single"></Column>
@@ -219,17 +226,12 @@
                 </div>
               </template>
 
-              <Button label="Update" @click="goToUpdateCascadesPage" class="p-button-rounded p-button-help" />
+              <Button label="Update" @click="goToUpdateCascadesPage" severity="success" raised  />
             </TabPanel>
-            <TabPanel>
-              <template #header>
-                <span class="header">Indirect Cascades</span>
-                <template v-if="countIndirectCascades">
-                  <Badge :value="countIndirectCascades"></Badge>
-                </template>
-              </template>
+            <TabPanel value="2">
+           
               <template v-if="countIndirectCascades">
-                <DataTable :value="indirectCascades" responsiveLayout="scroll" class="p-datatable-sm" :paginator="true"
+                <DataTable :value="indirectCascades" scrollable class="text-xs" :paginator="true"
                   :rows="5" stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
                   @row-select="onRowSelect">
                   <Column selectionMode="single"></Column>
@@ -244,12 +246,16 @@
                 </div>
               </template>
             </TabPanel>
-          </TabView>
-        </div>
-      </div>
-      <div class="col-1"></div>
-    </div>
+
+          </TabPanels>
+
+        </Tabs>
+      </template>
+    </Card>
+
+
   </div>
+
 
   <Dialog v-model:visible="dialogVisible" modal :showHeader="false" :style="{ width: '50vw' }"
     :breakpoints="{ '700px': '70vw' }">
@@ -283,6 +289,9 @@ import TransmissionDetails from "../../helpers/Transmission/TransmissionDetails.
 import SearchTxIssuesForm from "../../helpers/Transmission/SearchTxIssuesForm.vue";
 import SiteBatteriesTable from "../../helpers/Sites/SiteBatteriesTable.vue";
 import BatteriesUpdate from "../../helpers/Sites/BatteriesUpdate.vue";
+import Card from "primevue/card";
+import Tabs from "primevue/tabs";
+import TabPanels from "primevue/tabpanels";
 
 export default {
   data() {
@@ -448,7 +457,7 @@ export default {
 
       Sites.getSiteDetails(this.site_code)
         .then((response) => {
-        
+
           this.siteName = response.data.site.site_name;
           this.siteCode = response.data.site.site_code;
           this.type = response.data.site.type;
@@ -703,7 +712,7 @@ export default {
 
     getBatteriesData() {
       Sites.getBatteriesDetails(this.id).then((response) => {
-      
+
         if (response.data.success == true) {
           this.$dialog.open(SiteBatteriesTable, {
             props: {
@@ -730,7 +739,7 @@ export default {
 
           this.dialogMessage = "No batteries data, Insert new Data? ";
           this.dialogVisible = true;
-        
+
         }
 
 
@@ -740,74 +749,74 @@ export default {
     },
     getSiteData() {
       let siteData = [];
-     
-          let site = {
-            "On Air Date": null
-          }
-          siteData.push(site);
-          site = {
-            "Topology":null
-          };
-          siteData.push(site);
-          site = {
-            "NTRA Cluster": null
-          };
-          siteData.push(site);
-          site = {
-            "Care CEO": null
-          };
-          siteData.push(site);
-          site = {
-            "Axis": null
-          };
-          siteData.push(site);
-          site = {
-            "Serve Compound": null
-          };
-          siteData.push(site);
-          site = {
-            "No. LDN Accounts":null
-          };
-          siteData.push(site);
-          site = {
-            "No. Tp Accounts": null
-          };
-          siteData.push(site);
-          site = {
-            "AC1 Type": null
-          };
-          siteData.push(site);
-          site = {
-            "AC1 HP": null
-          };
-          siteData.push(site);
-          site = {
-            "AC2 Type": null
-          };
-          siteData.push(site);
-          site = {
-            "AC2 HP": null
-          };
-          siteData.push(site);
-          site = {
-            "Network Type": null
-          };
-          siteData.push(site);
-          site = {
-            "Last PM Date":null
-          };
-          siteData.push(site);
-          site = {
-            "Access Permission": null
-          };
-          siteData.push(site);
-          site = {
-            "Permission Type": null
-          };
-          siteData.push(site);
+
+      let site = {
+        "On Air Date": null
+      }
+      siteData.push(site);
+      site = {
+        "Topology": null
+      };
+      siteData.push(site);
+      site = {
+        "NTRA Cluster": null
+      };
+      siteData.push(site);
+      site = {
+        "Care CEO": null
+      };
+      siteData.push(site);
+      site = {
+        "Axis": null
+      };
+      siteData.push(site);
+      site = {
+        "Serve Compound": null
+      };
+      siteData.push(site);
+      site = {
+        "No. LDN Accounts": null
+      };
+      siteData.push(site);
+      site = {
+        "No. Tp Accounts": null
+      };
+      siteData.push(site);
+      site = {
+        "AC1 Type": null
+      };
+      siteData.push(site);
+      site = {
+        "AC1 HP": null
+      };
+      siteData.push(site);
+      site = {
+        "AC2 Type": null
+      };
+      siteData.push(site);
+      site = {
+        "AC2 HP": null
+      };
+      siteData.push(site);
+      site = {
+        "Network Type": null
+      };
+      siteData.push(site);
+      site = {
+        "Last PM Date": null
+      };
+      siteData.push(site);
+      site = {
+        "Access Permission": null
+      };
+      siteData.push(site);
+      site = {
+        "Permission Type": null
+      };
+      siteData.push(site);
       Sites.getSiteDeepDetails(this.data).then((response) => {
 
-       
+
         if (response.data.data == "found data") {
           let siteData = [];
           let site = {
@@ -889,7 +898,7 @@ export default {
               id: response.data.id,
               topic: "Site Data",
               rowData: response.data,
-              action:'Update',
+              action: 'Update',
 
             },
           });
@@ -909,49 +918,47 @@ export default {
 
             data: {
               statestics: siteData,
-              id:null,
+              id: null,
               topic: "Site Data",
-              action:'Insert',
-              site_code:this.siteCode,
+              action: 'Insert',
+              site_code: this.siteCode,
               rowData: null,
             },
           });
 
-       
-        
-        }
-      }).catch((error) => {
 
+
+        }
       })
 
     },
     getRectifierData() {
-      
+
       let rectifierData = []; ////////array of input field names
-        let rectifier = {
-            "Rectifier Brand": null
-          }
-          rectifierData.push(rectifier);
-          rectifier = {
-            "Module Capacity":null
-          };
-          rectifierData.push(rectifier);
-          rectifier = {
-            "No. Module": null
-          };
-          rectifierData.push(rectifier);
-          rectifier = {
-            "PLVD Value": null
-          };
-          rectifierData.push(rectifier);
-          rectifier = {
-            "Net ECO": null
-          };
-          rectifierData.push(rectifier);
-          rectifier = {
-            "Net ECO Activation": null
-          };
-          rectifierData.push(rectifier);
+      let rectifier = {
+        "Rectifier Brand": null
+      }
+      rectifierData.push(rectifier);
+      rectifier = {
+        "Module Capacity": null
+      };
+      rectifierData.push(rectifier);
+      rectifier = {
+        "No. Module": null
+      };
+      rectifierData.push(rectifier);
+      rectifier = {
+        "PLVD Value": null
+      };
+      rectifierData.push(rectifier);
+      rectifier = {
+        "Net ECO": null
+      };
+      rectifierData.push(rectifier);
+      rectifier = {
+        "Net ECO Activation": null
+      };
+      rectifierData.push(rectifier);
       Sites.getRectifierDetails(this.data).then((response) => {
 
         if (response.data.data == "found data") {
@@ -994,8 +1001,8 @@ export default {
               id: response.data.id,
               topic: "Rectifier Data",
               rowData: response.data,
-              action:"Update",
-              site_code:this.siteCode
+              action: "Update",
+              site_code: this.siteCode
 
             },
           });
@@ -1017,24 +1024,24 @@ export default {
               id: null,
               topic: "Rectifier Data",
               rowData: null,
-              action:'Insert',
-              site_code:this.siteCode
-             
+              action: 'Insert',
+              site_code: this.siteCode
+
 
             },
           });
-          
-          
-          
 
 
-      
+
+
+
+
         }
       }).catch((error) => {
 
       })
 
-    
+
 
     },
     getMWData() {
@@ -1245,9 +1252,9 @@ export default {
     insertNewData() {
       this.dailogMessage = "";
       this.dialogVisible = false;
-      
-    
-        this.$dialog.open(BatteriesUpdate, {
+
+
+      this.$dialog.open(BatteriesUpdate, {
         props: {
           style: {
             width: "75vw",
@@ -1267,11 +1274,11 @@ export default {
 
 
       });
-      
 
-      
-     
-    
+
+
+
+
 
 
     },
@@ -1284,235 +1291,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.p-tabview {
-  color: #79589f !important;
-
-  .p-tabview-panel {
-    color: #79589f !important;
-    text-decoration: none !important;
-
-
-  }
-
-  .p-tabview-selected {
-    color: #79589f !important;
-
-  }
-
-
-}
-
-Button {
-  min-width: 150px;
-  display: block;
-  margin: auto;
-}
-
-.btn {
-  min-width: 60px !important;
-}
-
-.site-details,
-.buttons {
-  border: 1px solid #79589f;
-  border-radius: 5px;
-  padding: 3rem 0;
-}
-
-
-
 .display-none {
   display: none;
-}
-
-.speed-dial {
-
-
-  .p-speeddial-direction-right {
-
-    .p-speeddial-button {
-
-      bottom: 5px;
-      width: 55px;
-      height: 55px;
-      left: 30px;
-    }
-
-  }
-}
-
-.input-group {
-
-  margin-bottom: 1rem;
-}
-
-@media screen and (min-width:320px) and (max-width: 480px) {
-
-  /* smartphones, iPhone, portrait 480x320 phones */
-  .input-group {
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-
-    input,
-    span {
-      font-size: 0.7rem;
-    }
-
-    span {
-      font-weight: 500;
-    }
-
-
-
-  }
-
-  Button {
-    font-size: 0.7rem;
-
-  }
-
-  .header {
-    font-size: 0.7rem;
-    min-width: 80px;
-
-
-  }
-}
-
-@media screen and (min-width:481px) and (max-width: 640px) {
-
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-  .input-group {
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-
-    input,
-    span {
-      font-size: 0.7rem;
-    }
-
-    span {
-      font-weight: 500;
-    }
-
-
-
-  }
-
-  Button {
-    font-size: 0.7rem;
-  }
-
-  .header {
-    font-size: 0.7rem;
-    min-width: 80px;
-
-
-  }
-
-}
-
-@media screen and (min-width:641px) and (max-width: 960) {
-
-  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  .input-group {
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-
-    input,
-    span {
-      font-size: 0.7rem;
-    }
-
-    span {
-      font-weight: 500;
-    }
-
-
-
-  }
-
-  Button {
-    font-size: 0.7rem;
-  }
-
-  .header {
-    font-size: 0.7rem;
-    min-width: 80px;
-
-
-  }
-}
-
-
-@media screen and (min-width:961px)and (max-width: 1024px) {
-  .input-group {
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-
-    input,
-    span {
-      font-size: 0.7rem;
-    }
-
-    span {
-      font-weight: 500;
-    }
-
-
-
-  }
-
-  Button {
-    font-size: 0.7rem;
-  }
-
-  .header {
-    font-size: 0.7rem;
-    min-width: 80px;
-
-
-  }
-
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-
-}
-
-@media (min-width:1025px) {
-
-  /* big landscape tablets, laptops, and desktops */
-  .input-group {
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-
-    input,
-    span {
-      font-size: 0.9rem;
-    }
-
-    span {
-      font-weight: 500;
-    }
-
-
-
-  }
-
-  Button {
-    font-size: 1rem;
-  }
-
-  .header {
-    font-size: 0.9rem;
-    min-width: 80px;
-
-
-  }
-
 }
 </style>

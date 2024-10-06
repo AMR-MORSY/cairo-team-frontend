@@ -1,8 +1,8 @@
 <template>
-  <div class="container overflow-hidden px-5 pb-3 mb-5">
-    <TransitionGroup class="row  gx-sm-2   mt-5" tag="div" name="cards" appear>
-      <div class="col-12 col-sm-6 col-md-4 mt-5" v-for="card in cards" :key="card.id">
-        <div class="card" @click.self="formatElement(card.id)">
+  <div class=" w-full flex justify-center overflow-hidden px-5 pb-3 mt-36 mb-5">
+    <TransitionGroup class="grid max-w-fit  mx-auto grid-cols-3 gap-4   mt-5" tag="div" name="cards" appear>
+      <div class="col-span-3 md:col-span-1 mt-5" v-for="card in cards" :key="card.id">
+        <div class="card px-7" @click.self="formatElement(card.id)">
           <span class="material-symbols-rounded"> {{ card.icon }} </span>
           <p>{{ card.path }}</p>
         </div>
@@ -30,32 +30,32 @@ export default {
     ];
   },
   name: "sites",
- 
+
   methods: {
     formatElement(id) {
       let card = this.cards.filter((element) => {
         return element.id == id;
       });
-    
+
       if (card[0].path == "New sites") {
         this.$router.push("/sites/storeSites");
       }
-    
-     else if (card[0].path == "New site") {
-      
-       
-        this.$router.push({path:"/sites/storeSite"});
+
+      else if (card[0].path == "New site") {
+
+
+        this.$router.push({ path: "/sites/storeSite" });
       }
-     
-     else if (card[0].path == "Cascades" ) {
+
+      else if (card[0].path == "Cascades") {
         this.$router.push("/sites/cascades");
       }
-      
-      else if (card[0].path == "Nodals" ) {
+
+      else if (card[0].path == "Nodals") {
         this.$router.push("/sites/nodals");
       }
-     
-     else if (card[0].path == "Cairo Sites" ) {
+
+      else if (card[0].path == "Cairo Sites") {
         Sites.downloadAll()
           .then((response) => {
 
@@ -69,8 +69,8 @@ export default {
           .catch();
 
       }
-    
-    else if (card[0].path == "Download Nodals") {
+
+      else if (card[0].path == "Download Nodals") {
         Sites.downloadNodals()
           .then((response) => {
             console.log(response);
@@ -87,13 +87,13 @@ export default {
           .catch((error) => { });
 
       }
-     
+
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .card {
   background-color: white;
   box-shadow: 1px 3px 5px rgba($color: white, $alpha: 0.1);
@@ -104,19 +104,23 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid gray ;
+  border-radius: 5px;
 
-  span {
-    text-align: center;
-    font-size: 5rem;
-    z-index: 1;
-    color: gray;
-  }
 
-  p {
-    text-align: center;
-    font-size: 2rem;
-    color: gray;
-  }
+}
+
+.card span {
+  text-align: center;
+  font-size: 5rem;
+  z-index: 1;
+  color: gray;
+}
+
+.card p {
+  text-align: center;
+  font-size: 2rem;
+  color: gray;
 }
 
 .card:hover {
