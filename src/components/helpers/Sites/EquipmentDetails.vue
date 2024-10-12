@@ -1,37 +1,38 @@
 <template>
-    <div class="container-fluid ">
-        <div class="row site-details gx-1">
-            <div class="col-6"></div>
-            <div class="col-6">
-                <div class="button-container">
-                    <Button :label="action" icon="pi pi-external-link" @click="openOverlayUpdate(event)"
-                        severity="success" text raised />
 
-                </div>
-            </div>
-            <div class="col-12">
-                <h3>{{ topic }}</h3>
-            </div>
+    <div class="flex justify-between items-center w-full">
 
-            <div class="col-12 col-md-6 col-xl-4  " v-for="statestic in statestics" :key="statestic">
-                <div class="input-group">
-                    <span class="input-group-text w-50" :id="Object.keys(statestic)[0]">{{ Object.keys(statestic)[0]
-                        }}</span>
-                    <input type="text" class="form-control w-50 " disabled :value="Object.values(statestic)[0]"
-                        :aria-describedby="Object.keys(statestic)[0]" />
-                </div>
-            </div>
+        <h3 class=" text-font-main-color text-lg font-bold">{{ topic }}</h3>
+        <Button :label="action" icon="pi pi-external-link" class="block" @click="openOverlayUpdate(event)"
+            severity="success" text raised />
 
 
-
-
-
-
-
-
-        </div>
 
     </div>
+
+    <div class="grid grid-cols-4 gap-4">
+
+
+
+        <div class="col-span-4 md:col-span-2 lg:col-span-1  " v-for="statestic in statestics" :key="statestic">
+            <div class="flex-auto">
+                <label class="font-bold" :id="Object.keys(statestic)[0]">{{ Object.keys(statestic)[0]
+                    }}</label>
+                <InputText fluid disabled :value="Object.values(statestic)[0]"
+                    :aria-describedby="Object.keys(statestic)[0]" />
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
 </template>
 
 <script>
@@ -41,6 +42,7 @@ import RectifierDataUpdate from "./RectifierDataUpdate.vue";
 import MWDataUpdate from './MWDataUpdate.vue';
 import BTSDataUpdate from "./BTSDataUpdate.vue";
 import PowerDataUpdate from './PowerDataUpdate.vue';
+import InputText from 'primevue/inputtext';
 export default {
     data() {
 
@@ -48,7 +50,7 @@ export default {
         return {
             statestics: null,
             topic: null,
-         
+
             action: null,
         };
     },
@@ -71,7 +73,7 @@ export default {
     },
     methods: {
         mountData() {
-          
+
             this.statestics = this.dialogRef.data.statestics;
             this.topic = this.dialogRef.data.topic;
             this.action = this.dialogRef.data.action;
@@ -83,97 +85,112 @@ export default {
             if (this.topic == "Site Data") {
                 if (this.action == 'Update') {
                     this.$dialog.open(SiteDataUpdate, {
-                    props: {
-                        style: {
-                            width: "90vw",
+                        props: {
+                            style: {
+                                width: "90vw",
+                            },
+
+                            modal: true,
                         },
 
-                        modal: true,
-                    },
+                        data: {
+                            rowData: this.dialogRef.data.rowData,///////row data and the id of the data will be available in case of updating
+                            id: this.dialogRef.data.id,
+                            topic: this.topic,
+                            action: this.action
 
-                    data: {
-                        rowData: this.dialogRef.data.rowData,///////row data and the id of the data will be available in case of updating
-                        id: this.dialogRef.data.id,
-                        topic: this.topic,
-                        action:this.action
-
-                    },
-                });
+                        },
+                    });
 
                 }
-                else{
+                else {
                     this.$dialog.open(SiteDataUpdate, {
-                    props: {
-                        style: {
-                            width: "90vw",
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
 
-                        modal: true,
-                    },
+                        data: {
 
-                    data: {
-                     
-                        topic: this.topic,
-                        action:this.action,
-                        site_code:this.dialogRef.data.site_code
+                            topic: this.topic,
+                            action: this.action,
+                            site_code: this.dialogRef.data.site_code
 
-                    },
-                })
-            }
-        
-             
+                        },
+                    })
+                }
+
+
 
             }
-           
+
             else if (this.topic == "Rectifier Data") {
                 if (this.action == 'Update') {
                     this.$dialog.open(RectifierDataUpdate, {
-                    props: {
-                        style: {
-                            width: "90vw",
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
 
-                        modal: true,
-                    },
+                        data: {
+                            rowData: this.dialogRef.data.rowData,
+                            id: this.id,
+                            topic: this.topic,
+                            action: this.action
 
-                    data: {
-                        rowData: this.dialogRef.data.rowData,
-                        id: this.id,
-                        topic: this.topic,
-                        action:this.action
-
-                    },
-                });
+                        },
+                    });
                 }
-                else
-                {
+                else {
                     this.$dialog.open(RectifierDataUpdate, {
-                    props: {
-                        style: {
-                            width: "90vw",
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
 
-                        modal: true,
-                    },
+                        data: {
 
-                    data: {
-                      
-                        topic: this.topic,
-                        action:this.action,
-                        site_code:this.dialogRef.data.site_code
+                            topic: this.topic,
+                            action: this.action,
+                            site_code: this.dialogRef.data.site_code
 
-                    },
-                });
+                        },
+                    });
 
                 }
-               
+
 
             }
             else if (this.topic == "MW Data") {
                 this.$dialog.open(MWDataUpdate, {
                     props: {
                         style: {
-                            width: "90vw",
+                            width: "75vw",
+                        },
+                        breakpoints: {
+                            "960px": "75vw",
+                            "640px": "90vw",
                         },
 
                         modal: true,
@@ -192,7 +209,11 @@ export default {
                 this.$dialog.open(BTSDataUpdate, {
                     props: {
                         style: {
-                            width: "90vw",
+                            width: "75vw",
+                        },
+                        breakpoints: {
+                            "960px": "75vw",
+                            "640px": "90vw",
                         },
 
                         modal: true,
@@ -211,7 +232,11 @@ export default {
                 this.$dialog.open(PowerDataUpdate, {
                     props: {
                         style: {
-                            width: "90vw",
+                            width: "75vw",
+                        },
+                        breakpoints: {
+                            "960px": "75vw",
+                            "640px": "90vw",
                         },
 
                         modal: true,

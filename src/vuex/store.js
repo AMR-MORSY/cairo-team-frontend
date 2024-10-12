@@ -1,11 +1,12 @@
 // import Vuex, { mapActions } from "vuex";
-import { toRaw } from "vue";
+import { toRaw,ref } from "vue";
 import { createStore } from "vuex";
 const store = createStore({
   state: {
     userData: JSON.parse(sessionStorage.getItem("User")),
     NUR: null,
     displaySpinnerPage: true,
+    showNetworkError:null,
     siteAlarms: null,
     displayDialog: false,
     dialogMessage: "",
@@ -27,74 +28,7 @@ const store = createStore({
         return userToken;
       }
     },
-    // isSuperAdmin(state) {
-      
-    //   if(state.userData)
-    //   {
-    //     let userRoles= state.userData.roles;
-    //     userRoles=toRaw(userRoles);
-    //     if (userRoles) {
-       
-    //       let userRole = null;
-    //       userRole=userRoles.filter((role) => {
-    //         return role.name == "super-admin";
-    //       });
-         
-    //       if (userRole.length>0) {
-          
-    //         return true;
-    //       } else {
-    //         return false;
-    //       }
-  
-    //     }
-    //     else {
-    //       return false;
-  
-    //     }
-
-    //   }
-    //   else
-    //   {
-    //     return false;
-    //   }
-     
-
-     
-    // },
-    // isAdmin(state) {
-     
-    //   if(state.userData)
-    //   {
-    //     let userRoles= state.userData.roles;
-    //     userRoles=toRaw(userRoles);
-    //     if (userRoles) {
-       
-    //       let userRole = null;
-    //       userRole=userRoles.filter((role) => {
-    //         return role.name == "admin";
-    //       });
-         
-    //       if (userRole.length>0) {
-    //         return true;
-    //       } else {
-    //         return false;
-    //       }
-  
-    //     }
-    //     else {
-    //       return false;
-  
-    //     }
-
-    //   }
-    //   else{
-    //     return false
-    //   }
-    
-
-     
-    // },
+   
     userName(state) { 
     if (state.userData) {
         let userName = state.userData.user.name;
@@ -109,6 +43,16 @@ const store = createStore({
     showUnauthenticatedToast(state)
     {
       return state.showUnauthenticatedToast;
+    },
+    showNetworkErrorToast(state)
+    {
+      if(state.showNetworkError)
+      {
+        setTimeout(()=>store.dispatch('showNetworkError',null),3000);
+        return state.showNetworkError;
+
+      }
+      return null;
     }
   },
   mutations: {
@@ -116,12 +60,7 @@ const store = createStore({
     USER_DATA(state, user) {
       state.userData = user;
     },
-    // USER_PERMISSIONS(state, permissions) {
-    //   state.userPermissions = permissions;
-    // },
-    // USER_Roles(state, Roles) {
-    //   state.userRoles = Roles;
-    // },
+    
     CHANGE_TIME_OUT(state, status) {
       state.sessionTimeOut = status;
     },
@@ -130,6 +69,11 @@ const store = createStore({
     },
     DISPLAY_SPINNER(state, status) {
       state.displaySpinnerPage = status;
+    },
+    DISPLAY_NETWORKERRORTOAST(state,status)
+    {
+      state.showNetworkError=status
+
     },
     SITE_ALARMS(state, alarms) {
       state.siteAlarms = alarms;
@@ -161,6 +105,9 @@ const store = createStore({
     },
     displaySpinnerPage({ commit }, status) {
       commit("DISPLAY_SPINNER", status);
+    },
+    showNetworkError({ commit }, status) {
+      commit("DISPLAY_NETWORKERRORTOAST", status);
     },
     siteAlarms({ commit }, alarms) {
       commit("SITE_ALARMS", alarms);

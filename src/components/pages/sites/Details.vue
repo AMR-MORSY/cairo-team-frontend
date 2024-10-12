@@ -1,18 +1,18 @@
 <template>
 
-  <div class=" w-full flex justify-center ">
+  <div class=" w-full flex justify-center py-5">
 
 
     <Card class=" max-w-4xl">
       <template #content>
         <Tabs value="0" >
           <TabList>
-            <Tab value="0"><span class=" text-sm text-font-main-color font-Signika font-semibold">{{ siteName }}</span>
+            <Tab value="0"><span class="  text-font-main-color font-Signika font-extrabold uppercase">{{ siteName }}</span>
             </Tab>
-            <Tab value="1"> <span class=" text-sm text-font-main-color font-Signika font-semibold uppercase">Cascades</span>
+            <Tab value="1"> <span class="  text-font-main-color font-Signika font-extrabold uppercase">Cascades</span>
               <Badge :value="countCascades" v-if="countCascades"></Badge>
             </Tab>
-            <Tab value="2"><span class=" text-sm text-font-main-color font-Signika font-semibold uppercase">Indirect Cascades</span>
+            <Tab value="2"><span class="  text-font-main-color font-Signika font-extrabold uppercase">Indirect Cascades</span>
               <template v-if="countIndirectCascades">
                 <Badge :value="countIndirectCascades"></Badge>
               </template>
@@ -22,120 +22,120 @@
             <TabPanel value="0">
           
 
-              <div class="grid grid-cols-4 gap-4">
+              <div class="grid grid-cols-4 px-4 py-4 gap-4 rounded-md border border-spacing-2 border-font-main-color">
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="siteCode">Site code</span>
-                    <InputText type="text" disabled fluid v-model="siteCode" aria-describedby="siteCode" />
+                    <span class="block  font-Signika text-font-main-color" id="siteCode">Site code</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="siteCode" aria-describedby="siteCode" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto" id="siteCode">
-                    <span class="block text-sm font-Signika text-font-main-color" id="siteName">Site Name</span>
-                    <InputText type="text" disabled fluid v-model="siteName" aria-describedby="siteName" />
+                    <span class="block  font-Signika text-font-main-color" id="siteName">Site Name</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="siteName" aria-describedby="siteName" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="BSC">BSC</span>
-                    <InputText type="text" disabled fluid v-model="BSC" aria-describedby="BSC" />
+                    <span class="block font-Signika text-font-main-color" id="BSC">BSC</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="BSC" aria-describedby="BSC" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="RNC">RNC</span>
-                    <InputText type="text" disabled fluid v-model="RNC" aria-describedby="RNC" />
-                  </div>
-                </div>
-
-                <div class="col-span-2 md:col-span-1 ">
-                  <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="oz">OZ</span>
-                    <InputText type="text" disabled fluid v-model="operationZone" aria-describedby="oz" />
-                  </div>
-                </div>
-
-
-                <div class="col-span-2 md:col-span-1 ">
-                  <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="severity">Severity</span>
-                    <InputText type="text" disabled fluid v-model="severity" aria-describedby="severity" />
-                  </div>
-                </div>
-                <div class="col-span-2 md:col-span-1 ">
-                  <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="office">Office</span>
-                    <InputText type="text" disabled fluid v-model="office" aria-describedby="office" />
+                    <span class="block  font-Signika text-font-main-color" id="RNC">RNC</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="RNC" aria-describedby="RNC" />
                   </div>
                 </div>
 
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="nodalCode">Nodal Code</span>
+                    <span class="block  font-Signika text-font-main-color" id="oz">OZ</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="operationZone" aria-describedby="oz" />
+                  </div>
+                </div>
+
+
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block  font-Signika text-font-main-color" id="severity">Severity</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="severity" aria-describedby="severity" />
+                  </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block  font-Signika text-font-main-color" id="office">Office</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="office" aria-describedby="office" />
+                  </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block  font-Signika text-font-main-color" id="nodalCode">Nodal Code</span>
                     <InputText type="text" disabled fluid v-model="nodalCode" aria-describedby="nodalCode" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="nodal">Nodal Name</span>
-                    <InputText type="text" disabled fluid v-model="nodalName" aria-describedby="nodal" />
+                    <span class="block  font-Signika text-font-main-color" id="nodal">Nodal Name</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="nodalName" aria-describedby="nodal" />
                   </div>
                 </div>
 
 
                 <div class="col-span-2 md:col-span-1  ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="2g">2G</span>
-                    <InputText type="text" disabled fluid aria-describedby="2g" v-model="cell2G" />
+                    <span class="block  font-Signika text-font-main-color" id="2g">2G</span>
+                    <InputText type="text" class=" text-sm" disabled fluid aria-describedby="2g" v-model="cell2G" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="3g">3G</span>
-                    <InputText type="text" disabled fluid v-model="cell3G" aria-describedby="3g" />
+                    <span class="block  font-Signika text-font-main-color" id="3g">3G</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="cell3G" aria-describedby="3g" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="4g">4G</span>
+                    <span class="block  font-Signika text-font-main-color" id="4g">4G</span>
                     <InputText type="text" disabled fluid v-model="cell4G" aria-describedby="4g" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="category">Category</span>
-                    <InputText type="text" disabled fluid v-model="category" aria-describedby="category" />
+                    <span class="block  font-Signika text-font-main-color" id="category">Category</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="category" aria-describedby="category" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="sharing">Sharing</span>
-                    <InputText type="text" disabled fluid v-model="sharing" aria-describedby="sharing" />
+                    <span class="block  font-Signika text-font-main-color" id="sharing">Sharing</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="sharing" aria-describedby="sharing" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="host">Host</span>
-                    <InputText type="text" disabled fluid v-model="host" aria-describedby="host" />
+                    <span class="block  font-Signika text-font-main-color" id="host">Host</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="host" aria-describedby="host" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="guest">Gest</span>
-                    <InputText type="text" disabled fluid v-model="gest" aria-describedby="guest" />
+                    <span class="block  font-Signika text-font-main-color" id="guest">Gest</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="gest" aria-describedby="guest" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="status">Status</span>
-                    <InputText type="text" disabled fluid v-model="status" aria-describedby="status" />
+                    <span class="block  font-Signika text-font-main-color" id="status">Status</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="status" aria-describedby="status" />
                   </div>
                 </div>
 
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
-                    <span class="block text-sm font-Signika text-font-main-color" id="type">Type</span>
-                    <InputText type="text" disabled fluid v-model="type" aria-describedby="type" />
+                    <span class="block  font-Signika text-font-main-color" id="type">Type</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="type" aria-describedby="type" />
                   </div>
                 </div>
 
@@ -148,7 +148,7 @@
               <div class=" w-full border border-spacing-2 border-font-main-color my-5"></div>
 
 
-              <div class="grid grid-cols-6 gap-4">
+              <div class="grid grid-cols-6 gap-4 px-4 py-4  rounded-md border border-spacing-2 border-font-main-color">
                 <div class="col-span-2 md:col-span-1  my-3">
                   <Button label="Modifications" @click="gotToSiteModifications" severity="secondary" raised
                     class="block w-full" />
@@ -231,7 +231,7 @@
             <TabPanel value="2">
            
               <template v-if="countIndirectCascades">
-                <DataTable :value="indirectCascades" scrollable class="text-xs" :paginator="true"
+                <DataTable :value="indirectCascades" scrollable class="text-sm" :paginator="true"
                   :rows="5" stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
                   @row-select="onRowSelect">
                   <Column selectionMode="single"></Column>
@@ -256,7 +256,7 @@
 
   </div>
 
-
+<!-- 
   <Dialog v-model:visible="dialogVisible" modal :showHeader="false" :style="{ width: '50vw' }"
     :breakpoints="{ '700px': '70vw' }">
 
@@ -273,7 +273,7 @@
 
 
     </template>
-  </Dialog>
+  </Dialog> -->
 </template>
 
 <script>
@@ -352,8 +352,8 @@ export default {
           },
         },
       ],
-      dialogVisible: false,
-      dialogMessage: "",
+      // dialogVisible: false,
+      // dialogMessage: "",
       insertionDataField: '',
     };
   },
@@ -414,13 +414,7 @@ export default {
             this.NUR3G.length == 0 &&
             this.NUR4G.length == 0
           ) {
-            this.$confirm.require({
-              message: "This site did not make NUR",
-              header: "Confirmation",
-              icon: "pi pi-exclamation-triangle",
-              position: "top",
-              rejectIcon: "",
-            });
+           this.$toast.add({ severity: 'success', summary: 'Success Message', detail: "This site didn't make NUR", life: 3000 });
           } else {
             this.$dialog.open(siteNURTable, {
               props: {
@@ -736,9 +730,33 @@ export default {
 
         }
         else {
+          this.$confirm.require({
+              message: "There is No Batteries data, insert new data?",
+              header: "Confirmation",
+              icon: "pi pi-exclamation-triangle",
+              rejectProps: {
 
-          this.dialogMessage = "No batteries data, Insert new Data? ";
-          this.dialogVisible = true;
+                icon: 'pi pi-times',
+                outlined: true,
+                size: 'small',
+                severity: 'danger'
+              },
+              acceptProps: {
+                severity: 'success',
+                icon: 'pi pi-check',
+                size: 'small'
+              },
+              accept: () => {
+                this.$confirm.close();
+
+                this.insertNewBatteiesData()
+              },
+              reject: () => {
+                this.$confirm.close();
+               
+              },
+             
+            });
 
         }
 
@@ -990,7 +1008,7 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "90vw",
+                width: "75vw",
               },
 
               modal: true,
@@ -1013,7 +1031,7 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "90vw",
+                width: "75vw",
               },
 
               modal: true,
@@ -1244,14 +1262,9 @@ export default {
       });
 
     },
-    closeConfirmation() {
-      this.dialogMessage = "";
-      this.dialogVisible = false;
-
-    },
-    insertNewData() {
-      this.dailogMessage = "";
-      this.dialogVisible = false;
+  
+    insertNewBatteiesData() {
+    
 
 
       this.$dialog.open(BatteriesUpdate, {

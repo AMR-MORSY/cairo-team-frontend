@@ -1,6 +1,8 @@
 import axios from "axios";
 import router from "../router/index";
 import store from "../vuex/store";
+import { toastStore } from "../ToastStore/toastStore";
+import { useToastStore } from "../ToastStore/toastStore";
 
 import * as bootstrap from "bootstrap";
 window.bootstrap = bootstrap;
@@ -9,7 +11,6 @@ let Api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
 
 function unauthorizedUnauthintecatedErrorResponse(error) {
   if (error.response.status == 419 || error.response.status == 403) {
@@ -21,27 +22,27 @@ function unauthorizedUnauthintecatedErrorResponse(error) {
     }
   } else if (error.response.status == 401) {
     showUnauthintecatedToast();
-  }else if(error.response.status == 404)
-  {
-    router.push({name:"notFound"});
+  } else if (error.response.status == 404) {
+    router.push({ name: "notFound" });
   }
 }
 function showNetworkToast() {
-  const NetworkToast = document.getElementById("NetworkErrorToast");
-  const NetworkToastBootstrap = new bootstrap.Toast(NetworkToast);
-  NetworkToastBootstrap.show();
+  
+
+ store.dispatch('showNetworkError','Network error......');
 }
 
 function showUnauthintecatedToast() {
-  const toastLiveExample = document.getElementById("liveToast");
-  const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+  // const toastLiveExample = document.getElementById("liveToast");
+  // const toastBootstrap = new bootstrap.Toast(toastLiveExample);
   sessionStorage.removeItem("User");
   store.dispatch("userData", null);
-  store.dispatch("showUnauthToast", true);
+  // store.dispatch("showUnauthToast", true);
 
-  toastBootstrap.show();
+  // toastBootstrap.show();
+  store.dispatch('showNetworkError','Unauthenticated');
+
 }
-
 
 Api.defaults.withCredentials = true;
 Api.defaults.baseURL = import.meta.env.VITE_BASE_URL;
@@ -60,17 +61,12 @@ Api.interceptors.response.use(
   },
   function (error) {
     store.dispatch("displaySpinnerPage", true);
-    if(!error.response)
-    {
-      
+    if (!error.response) {
       showNetworkToast();
-    }
-    else{
-     
+    } else {
       unauthorizedUnauthintecatedErrorResponse(error);
     }
 
-   
     return Promise.reject(error);
   }
 );
@@ -95,13 +91,10 @@ downloadApi.interceptors.response.use(
     return response;
   },
   function (error) {
-    
     store.dispatch("displaySpinnerPage", true);
-    if(!error.response)
-    {
+    if (!error.response) {
       showNetworkToast();
-    }
-    else{
+    } else {
       unauthorizedUnauthintecatedErrorResponse(error);
     }
     return Promise.reject(error);
@@ -128,12 +121,10 @@ uploadApi.interceptors.response.use(
   },
   function (error) {
     store.dispatch("displaySpinnerPage", true);
- 
-    if(!error.response)
-    {
+
+    if (!error.response) {
       showNetworkToast();
-    }
-    else{
+    } else {
       unauthorizedUnauthintecatedErrorResponse(error);
     }
 

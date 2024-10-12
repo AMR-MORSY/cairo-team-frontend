@@ -2,145 +2,80 @@
     <div class="container-fluid">
         <h3>{{ topic }}</h3>
         <form @submit.prevent="submitUpdateForm()" novalidate>
-            <div class="row gx-1">
+            <div class="grid grid-cols-4 gap-4">
 
 
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="rec_brand">Rec Brand</span>
-                        <input type="text" class="form-control w-50 "
-                            :class="{ 'is-invalid': v$.form.rec_brand.$error }" v-model.trim="v$.form.rec_brand.$model"
+                <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                    <div class="flex-auto">
+                        <label class="font-bold" id="rec_brand">Rec Brand</label>
+                        <InputText fluid :invalid="v$.form.rec_brand.$error" v-model.trim="v$.form.rec_brand.$model"
                             aria-describedby="rec_brand" />
-                        <div v-if="v$.form.rec_brand.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.rec_brand.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="ntra_cluster">NTRA</span>
-                        <select class="form-select w-50 " :class="{ 'is-invalid': v$.form.ntra_cluster.$error }" v-model.trim="v$.form.ntra_cluster.$model" aria-describedby="ntra_cluster">
-                            <option value=""></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                     
-                        <div v-if="v$.form.ntra_cluster.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.ntra_cluster.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id=" care_ceo">Care CEO</span>
-                        <select  class="form-select w-50 " :class="{ 'is-invalid': v$.form.care_ceo.$error }"
-                            v-model.trim="v$.form.care_ceo.$model" aria-describedby="care_ceo">
-                            <option value=""></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                    
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.care_ceo.$errors">
-                            {{ error.$message }}</div>
 
                     </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="axsees">Axis</span>
-                        <select  class="form-select w-50 " :class="{ 'is-invalid': v$.form.axsees.$error }"  v-model.trim="v$.form.axsees.$model" aria-describedby="axsees" >
-                            <option value=""></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.axsees.$errors">
-                            {{ error.$message }}</div>
+                    <div v-if="v$.form.rec_brand.$error">
+                        <validationErrorMessage :errors="v$.form.rec_brand.$errors" />
                     </div>
                 </div>
-               
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="no_ldn_accounts">LDN accounts</span>
-                        <input type="number" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.no_ldn_accounts.$error }"
-                            v-model.trim="v$.form.no_ldn_accounts.$model" aria-describedby="no_ldn_accounts" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.no_ldn_accounts.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="no_tp_accounts">Tp Accounts</span>
-                        <input type="number" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.no_tp_accounts.$error }"
-                            v-model.trim="v$.form.no_tp_accounts.$model" aria-describedby="no_tp_accounts" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.no_tp_accounts.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div> -->
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="module_capacity">Module Capacity</span>
-                        <input type="text" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.module_capacity.$error }"
+
+                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                    <div class="flex-auto">
+                        <label class="font-bold" id="module_capacity">Module Capacity</label>
+                        <InputText fluid :invalid="v$.form.module_capacity.$error"
                             v-model.trim="v$.form.module_capacity.$model" aria-describedby="module_capacity" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.module_capacity.$errors">
-                            {{ error.$message }}</div>
+
                     </div>
+                    <div v-if="v$.form.module_capacity.$error">
+                        <validationErrorMessage :errors="v$.form.module_capacity.$errors" />
+                    </div>
+                  
                 </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="no_module">No. Modules</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.no_module.$error }"
+                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                    <div class="flex-auto">
+                        <label class="font-bold" id="no_module">No. Modules</label>
+                        <InputText fluid :invalid="v$.form.no_module.$error"
                             v-model.trim="v$.form.no_module.$model" aria-describedby="no_module" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.no_module.$errors">
-                            {{ error.$message }}</div>
+                   
+                    </div>
+                    <div v-if="v$.form.no_module.$error">
+                        <validationErrorMessage :errors="v$.form.no_module.$errors" />
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="pld_value">PlVD value</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.pld_value.$error }"
+                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                    <div class="flex-auto">
+                        <label class="font-bold" id="pld_value">PlVD value</label>
+                        <InputText fluid :invalid="v$.form.pld_value.$error "
                             v-model.trim="v$.form.pld_value.$model" aria-describedby="pld_value" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.pld_value.$errors">
-                            {{ error.$message }}</div>
+                       
+                    </div>
+                    <div v-if="v$.form.pld_value.$error">
+                        <validationErrorMessage :errors="v$.form.pld_value.$errors" />
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="net_eco">Net Eco</span>
-                        <select class="form-select w-50" :class="{ 'is-invalid': v$.form.net_eco.$error }"
+                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                    <div class="flex-auto">
+                        <label class="font-bold" id="net_eco">Net Eco</label>
+                        <Select fluid :invalid="v$.form.net_eco.$error " :options="net_eco_options"
                             v-model.trim="v$.form.net_eco.$model" aria-describedby="net_eco">
-                            <option value=""></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.net_eco.$errors">
-                            {{ error.$message }}</div>
+                         
+                        </Select>
+                    
+                    </div>
+                    <div v-if="v$.form.net_eco.$error">
+                        <validationErrorMessage :errors="v$.form.net_eco.$errors" />
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="net_eco_activation">Net Eco Activation</span>
-                        <input type="text" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.net_eco_activation.$error }"
+                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                    <div class="flex-auto">
+                        <label class="font-bold" id="net_eco_activation">Net Eco Activation</label>
+                        <InputText fluid 
+                           :invalid="v$.form.net_eco_activation.$error "
                             v-model.trim="v$.form.net_eco_activation.$model" aria-describedby="net_eco_activation" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.net_eco_activation.$errors">
-                            {{ error.$message }}</div>
+                        
                     </div>
+                    <div v-if="v$.form.net_eco_activation.$error">
+                        <validationErrorMessage :errors="v$.form.net_eco_activation.$errors" />
+                    </div>
+
                 </div>
 
 
@@ -159,10 +94,12 @@
 </template>
 
 <script>
-import { maxLength, minLength, ipAddress,required } from '@vuelidate/validators'
+import { maxLength, minLength, ipAddress, required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
+import InputText from 'primevue/inputtext';
+import validationErrorMessage from '../validationErrorMessage.vue';
 export default {
     setup: () => ({ v$: useVuelidate() }),
     data() {
@@ -175,17 +112,18 @@ export default {
                 module_capacity: null,
                 pld_value: null,
                 no_module: null,
-                net_eco: null,
+                net_eco: 'No',
                 net_eco_activation: null,
                 id: null,
-                site_code:null,
+                site_code: null,
 
 
 
 
             },
             topic: null,
-            action:null
+            action: null,
+            net_eco_options:['Yes','No']
 
 
         };
@@ -253,6 +191,10 @@ export default {
     },
     name: "RectifierDataUpdate",
     inject: ["dialogRef"],
+    components:{
+        validationErrorMessage
+
+    },
 
     mounted() {
         this.mountData()
@@ -281,8 +223,8 @@ export default {
 
             }
             this.topic = this.dialogRef.data.topic;
-            this.action=this.dialogRef.data.action;
-            this.form.site_code=this.dialogRef.data.site_code;
+            this.action = this.dialogRef.data.action;
+            this.form.site_code = this.dialogRef.data.site_code;
 
 
 
@@ -294,61 +236,61 @@ export default {
             if (!isFormCorrect) return
             if (this.action == 'Update') {
                 Sites.updateRectifierDetails(this.form).then((response) => {
-                if (response.data.message == "updated successfully") {
-                    this.$toast.add({
-                        severity: "success",
-                        summary: "Success Message",
-                        detail: "Updated Successfully",
-                        life: 3000,
-                    });
+                    if (response.data.message == "updated successfully") {
+                        this.$toast.add({
+                            severity: "success",
+                            summary: "Success Message",
+                            detail: "Updated Successfully",
+                            life: 3000,
+                        });
 
-                }
+                    }
 
-            }).catch((error) => {
-                if (error.response.status == 204) {
-                    this.$toast.add({
-                        severity: "info",
-                        summary: "Success Message",
-                        detail: "site instrument not found",
-                        life: 3000,
-                    });
+                }).catch((error) => {
+                    if (error.response.status == 204) {
+                        this.$toast.add({
+                            severity: "info",
+                            summary: "Success Message",
+                            detail: "site instrument not found",
+                            life: 3000,
+                        });
 
-                }
+                    }
 
-            });
+                });
 
 
             }
-            else{
-                Sites.insertRectifierDetails(this.form).then((response)=>{
-                   
-                    if (response.data.message == "inserted successfully") {
-                    this.$toast.add({
-                        severity: "success",
-                        summary: "Success Message",
-                        detail: "Inserted Successfully",
-                        life: 3000,
-                    });
+            else {
+                Sites.insertRectifierDetails(this.form).then((response) => {
 
-                }
+                    if (response.data.message == "inserted successfully") {
+                        this.$toast.add({
+                            severity: "success",
+                            summary: "Success Message",
+                            detail: "Inserted Successfully",
+                            life: 3000,
+                        });
+
+                    }
 
 
                 }).catch((error) => {
-                if (error.response.status == 204) {
-                    this.$toast.add({
-                        severity: "info",
-                        summary: "Success Message",
-                        detail: "site instrument not found",
-                        life: 3000,
-                    });
+                    if (error.response.status == 204) {
+                        this.$toast.add({
+                            severity: "info",
+                            summary: "Success Message",
+                            detail: "site instrument not found",
+                            life: 3000,
+                        });
 
-                }
+                    }
 
-            });
+                });
 
             }
 
-         
+
 
 
 

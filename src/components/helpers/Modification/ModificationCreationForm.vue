@@ -32,7 +32,7 @@
                                     <label for="status">Status:</label>
 
                                     <Select fluid id="status" :options="status_options" v-model="status"
-                                        :invalid="v$.status.$errors.length>0">
+                                        :invalid="v$.status.$errors.length > 0">
 
                                     </Select>
                                 </div>
@@ -45,7 +45,7 @@
                                 <div class=" flex-auto">
                                     <label for="Requesters">Requesters:</label>
                                     <Select v-model="requester" id="Requesters" fluid
-                                        :invalid="v$.requester.$errors.length>0" :options="requester_options">
+                                        :invalid="v$.requester.$errors.length > 0" :options="requester_options">
 
                                     </Select>
                                 </div>
@@ -156,6 +156,7 @@ import { email, required, requiredIf } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import validationErrorMessage from '../../helpers/validationErrorMessage.vue';
+import Modifications from '../../../apis/Modifications';
 const toast = useToast();
 const router = useRouter();
 
@@ -326,190 +327,142 @@ const updateModification = async () => {
         action: action.value,
         materials: materials.value,
     };
-    console.log(data);
-    // subcontractorError.value = false;
-    // request_dateError.value = false;
-    // requesterError.value = false;
-    // statusError.value = false;
-    // projectError.value = false;
-    // actionError.value = false;
-    // if (!subcontractor.value) {
-    //     subcontractorError.value = true;
-    // }
-
-    // if (!project.value) {
-    //     projectError.value = true;
-    // }
-    // if (!status.value) {
-    //     statusError.value = true;
-    // }
-    // if (!action.value) {
-    //     actionError.value = true;
-    // }
-    // if (!request_date.value) {
-    //     request_dateError.value = true;
-    // }
-    // if (!requester.value) {
-    //     requesterError.value = true;
-    // }
-    // if (
-    //     requester.value &&
-    //     subcontractor.value &&
-    //     action.value &&
-    //     request_date.value &&
-    //     project.value &&
-    //     status.value
-    // ) {
-
-    //     let data = {
-    //         id: id,
-    //         site_code: site_code.value,
-    //         site_name: site_name.value,
-    //         subcontractor: subcontractor.value,
-    //         requester: requester.value,
-    //         request_date: request_date.value,
-    //         finish_date: finish_date.value,
-    //         cost: cost.value,
-    //         project: project.value,
-    //         status: status.value,
-    //         action: action.value,
-    //         materials: materials.value,
-    //     };
-
-    //     Modifications.updateModification(data)
-
-    //         .then((response) => {
 
 
-    //             toast.add({
-    //                 severity: "success",
-    //                 summary: "Success Message",
-    //                 detail: "Updated Successfully",
-    //                 life: 3000,
-    //             });
-    //         })
-    //         .catch((error) => {
+    Modifications.updateModification(data)
 
-    //             if (error.response.status == 422) {
-    //                 let errors = error.response.data.errors;
+        .then((response) => {
 
-    //                 if (errors.siteCode) {
-    //                     errors.siteCode.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.siteName) {
-    //                     errors.siteName.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.subcontractor) {
-    //                     errors.subcontractor.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.project) {
-    //                     errors.project.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.status) {
-    //                     errors.status.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.requester) {
-    //                     errors.requester.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.request_date) {
-    //                     errors.request_date.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.finish_date) {
-    //                     errors.finish_date.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.cost) {
-    //                     errors.cost.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.materials) {
-    //                     errors.materials.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //                 if (errors.action) {
-    //                     errors.action.forEach((element) => {
-    //                         toast.add({
-    //                             severity: "error",
-    //                             summary: "Failed",
-    //                             detail: element,
-    //                             life: 3000,
-    //                         });
-    //                     });
-    //                 }
-    //             }
-    //         })
 
-    // }
+            toast.add({
+                severity: "success",
+                summary: "Success Message",
+                detail: "Updated Successfully",
+                life: 3000,
+            });
+        })
+        .catch((error) => {
 
+            if (error.response.status == 422) {
+                let errors = error.response.data.errors;
+
+                if (errors.siteCode) {
+                    errors.siteCode.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.siteName) {
+                    errors.siteName.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.subcontractor) {
+                    errors.subcontractor.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.project) {
+                    errors.project.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.status) {
+                    errors.status.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.requester) {
+                    errors.requester.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.request_date) {
+                    errors.request_date.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.finish_date) {
+                    errors.finish_date.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.cost) {
+                    errors.cost.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.materials) {
+                    errors.materials.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.action) {
+                    errors.action.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+            }
+        })
 
 }
+
+
+
 
 const insertNewModification = async () => {
     const isFormCorrect = await v$.value.$validate()
@@ -518,191 +471,160 @@ const insertNewModification = async () => {
 
     }
 
-    //   this.subcontractorError = false;
-    //   this.request_dateError = false;
-    //   this.requesterError = false;
-    //   this.statusError = false;
-    //   this.projectError = false;
-    //   this.actionError = false;
-    //   if (!this.subcontractor) {
-    //     this.subcontractorError = true;
-    //   }
+    let data = {
+        site_code: props.siteCode,
+        site_name: props.siteName,
+        subcontractor: subcontractor.value,
+        requester: requester.value,
+        request_date: request_date.value,
+        finish_date: finish_date.value,
+        cost: cost.value,
+        project: project.value,
+        status: status.value,
+        action: action.value,
+        materials: materials.value,
+    };
 
-    //   if (!this.project) {
-    //     this.projectError = true;
-    //   }
-    //   if (!this.status) {
-    //     this.statusError = true;
-    //   }
-    //   if (!this.action) {
-    //     this.actionError = true;
-    //   }
-    //   if (!this.request_date) {
-    //     this.request_dateError = true;
-    //   }
-    //   if (!this.requester) {
-    //     this.requesterError = true;
-    //   }
-    //   if (
-    //     this.requester &&
-    //     this.subcontractor &&
-    //     this.action &&
-    //     this.request_date &&
-    //     this.project &&
-    //     this.status
-    //   ) {
+    Modifications.insertNewModification(data)
 
-    // let data = {
-    //     site_code: this.site_code,
-    //     site_name: this.site_name,
-    //     subcontractor: this.subcontractor,
-    //     requester: this.requester,
-    //     request_date: this.request_date,
-    //     finish_date: this.finish_date,
-    //     cost: this.cost,
-    //     project: this.project,
-    //     status: this.status,
-    //     action: this.action,
-    //     materials: this.materials,
-    // };
-    // console.log(data);
-    // Modifications.insertNewModification(data)
+        .then((response) => {
 
-    //     .then((response) => {
-    //         console.log(response);
-    //         this.subcontractor = null;
-    //         this.requester = null;
-    //         this.request_date = null;
-    //         this.finish_date = null;
-    //         this.cost = null;
-    //         this.project = null;
-    //         this.status = null;
-    //         this.action = null;
-    //         this.materials = null;
-    //         this.$toast.add({
-    //             severity: "success",
-    //             summary: "Success Message",
-    //             detail: "inserted Successfully",
-    //             life: 3000,
-    //         });
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //         if (error.response.status == 422) {
-    //             let errors = error.response.data.errors;
+            // subcontractor.value = null;
+            // requester.value = null;
+            // request_date.value = null;
+            // finish_date.value = null;
+            // cost.value = null;
+            // project.value = null;
+            // status.value = null;
+            // action.value = null;
+            // materials.value = null;
+            toast.add({
+                severity: "success",
+                summary: "Success Message",
+                detail: "inserted Successfully",
+                life: 3000,
+            });
+            router.push(
+                `/modifications/sitemodifications/${props.siteCode}/${props.siteName}`
+            );
+        })
+        .catch((error) => {
+            console.log(error);
+            if (error.response.status == 422) {
+                let errors = error.response.data.errors;
 
-    //             if (errors.siteCode) {
-    //                 errors.siteCode.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.siteName) {
-    //                 errors.siteName.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.subcontractor) {
-    //                 errors.subcontractor.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.project) {
-    //                 errors.project.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.status) {
-    //                 errors.status.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.requester) {
-    //                 errors.requester.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.request_date) {
-    //                 errors.request_date.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.finish_date) {
-    //                 errors.finish_date.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.cost) {
-    //                 errors.cost.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.materials) {
-    //                 errors.materials.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //             if (errors.action) {
-    //                 errors.action.forEach((element) => {
-    //                     this.$toast.add({
-    //                         severity: "error",
-    //                         summary: "Failed",
-    //                         detail: element,
-    //                         life: 3000,
-    //                     });
-    //                 });
-    //             }
-    //         }
-    //     })
+                if (errors.siteCode) {
+                    errors.siteCode.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.siteName) {
+                    errors.siteName.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.subcontractor) {
+                    errors.subcontractor.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.project) {
+                    errors.project.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.status) {
+                    errors.status.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.requester) {
+                    errors.requester.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.request_date) {
+                    errors.request_date.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.finish_date) {
+                    errors.finish_date.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.cost) {
+                    errors.cost.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.materials) {
+                    errors.materials.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+                if (errors.action) {
+                    errors.action.forEach((element) => {
+                        toast.add({
+                            severity: "error",
+                            summary: "Failed",
+                            detail: element,
+                            life: 3000,
+                        });
+                    });
+                }
+            }
+        })
 
 
 }

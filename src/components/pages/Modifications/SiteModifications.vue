@@ -27,7 +27,8 @@
           <div class=" mt-5 flex justify-center md:justify-evenly items-center">
             <Button label="Update" @click="gotToUpdateModification" severity="warning" raised class="block"
               :disabled="!isRowSelected" />
-            <Button label="New Modification" @click="insertNewModification" severity="secondary" raised class="block mx-4" />
+            <Button label="New Modification" @click="insertNewModification" severity="secondary" raised
+              class="block mx-4" />
             <Button label="Delete" @click="deleteModification" severity="danger" raised class=" block"
               :disabled="!isRowSelected" />
           </div>
@@ -43,7 +44,7 @@
 
   </div>
 
-  <section v-if="!isModificationNotFound">
+  <!-- <section v-if="!isModificationNotFound">
     <transition name="fade-bounce" appear>
       <div class="container">
         <div class="errors card">
@@ -57,7 +58,7 @@
         </div>
       </div>
     </transition>
-  </section>
+  </section> -->
 </template>
 
 <script>
@@ -70,7 +71,7 @@ export default {
       selectedModification: null,
       isRowSelected: false,
       isModificationsFound: false,
-      isModificationNotFound: true,
+
     };
   },
   name: "SiteModifications",
@@ -103,18 +104,50 @@ export default {
       this.$router.go(-1);
     },
     getSiteModifications() {
+      this.isModificationsFound = false;
 
       Modifications.getSiteModifications(this.site_code)
         .then((response) => {
-          console.log(response);
+
           this.modifications = response.data.modifications;
           if (this.modifications.length > 0) {
             this.isModificationsFound = true;
-            this.isModificationNotFound = true;
+
           }
           else {
-            this.isModificationsFound = false;
-            this.isModificationNotFound = false;
+            // this.isModificationsFound = false;
+            // this.isModificationNotFound = false;
+
+            this.$confirm.require({
+              message: "There is No modifications, insert new modification?",
+              header: "Confirmation",
+              icon: "pi pi-exclamation-triangle",
+              rejectProps: {
+
+                icon: 'pi pi-times',
+                outlined: true,
+                size: 'small',
+                severity: 'danger'
+              },
+              acceptProps: {
+                severity: 'success',
+                icon: 'pi pi-check',
+                size: 'small'
+              },
+              accept: () => {
+                this.$confirm.close();
+
+                this.insertNewModification()
+              },
+              reject: () => {
+                this.$confirm.close();
+                this.$router.push(`/sites/details/${this.site_code}`);
+                //callback to execute when user rejects the action
+              },
+              onHide: () => {
+                this.$router.push(`/sites/details/${this.site_code}`);
+              }
+            });
 
           }
         })

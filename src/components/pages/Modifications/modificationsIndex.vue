@@ -3,25 +3,25 @@
 
 
 
-    <Card class=" max-w-screen-lg px-5 mx-auto">
+    <Card class=" max-w-screen-xl px-5 mx-auto">
       <template #content>
         <template v-if="thereIsMod">
           <DataTable :value="modifications" scrollable :paginator="true" :rows="5"
             paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-            :rowsPerPageOptions="[5, 10, 15]" responsiveLayout="scroll"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" class="text-xs" stripedRows
+            :rowsPerPageOptions="[5, 10, 15]" 
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" class="text-sm" stripedRows tableStyle="min-width: 50rem"
             @row-select="onRowSelect" v-model:selection="selectedModification">
             <Column selectionMode="single"></Column>
-            <Column field="site_code" header="Code"></Column>
+            <Column field="site_code"  header="Code"></Column>
             <Column field="site_name" header="Name"></Column>
             <Column field="subcontractor" header="Subcontractor"></Column>
             <Column field="requester" header="Requester"></Column>
             <Column field="action" header="Action"></Column>
             <Column field="status" header="Status"></Column>
             <Column field="project" header="Project"></Column>
-            <Column field="request_date" header="Request Date"></Column>
-            <Column field="finish_date" header="Finish Date"></Column>
-            <Column field="cost" header="Cost"></Column>
+            <Column field="request_date" sortable header="Request Date"></Column>
+            <Column field="finish_date" sortable header="Finish Date"></Column>
+            <Column field="cost" header="Cost" sortable></Column>
             <template #footer>
               <div class="d-flex justify-content-end align-items-center">
                 Total Cost {{ totalCost }} LE.

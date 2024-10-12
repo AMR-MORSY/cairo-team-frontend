@@ -33,7 +33,7 @@ export default {
   inject: ["dialogRef"],
   methods: {
     onRowSelect() {
-        console.log(this.selectedSite);
+      
          this.dialogRef.close();
         this.$router.push(`/sites/details/${this.selectedSite.site_code}`);
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
     <div class="row mt-5">
       <div class="col-12 mt-5 mb-5">
         <Card>
@@ -221,342 +221,374 @@
               </form>
             </div>
           </template>
-        </Card>
-      </div>
-    </div>
-  </div>
+</Card>
+</div>
+</div>
+</div> -->
+  <SiteCreationForm action="update" :siteDetails="site_details" />
 
 </template>
 
-<script>
+<script setup>
 import Sites from "../../../apis/Sites";
 import allInstances from "../../../apis/Api";
-export default {
-  data() {
-    return {
-      site_code: null,
-      siteCodeError: false,
-      site_name: null,
-      siteNameError: false,
-      BSC: null,
+import SiteCreationForm from "../../helpers/Sites/SiteCreationForm.vue";
+import { watch,ref, onMounted } from "vue";
+import { reactive } from "vue";
+// export default {
+//   data() {
+//     return {
+//       // site_code: null,
+//       // siteCodeError: false,
+//       // site_name: null,
+//       // siteNameError: false,
+//       // BSC: null,
 
-      RNC: null,
+//       // RNC: null,
 
-      office: null,
+//       // office: null,
 
-      type: null,
+//       // type: null,
 
-      typeOptions: ["Macro", "Micro", "Indoor","Pico","Mobile Station"],
-      statusOptions:["On Air","Off Air"],
-      status:null,
-      category: null,
+//       // typeOptions: ["Macro", "Micro", "Indoor","Pico","Mobile Station"],
+//       // statusOptions:["On Air","Off Air"],
+//       // status:null,
+//       // category: null,
 
-      categoryOptions: ["Normal", "BSC", "NDL", "LDN", "VIP + NDL", "VIP"],
-      severity: null,
+//       // categoryOptions: ["Normal", "BSC", "NDL", "LDN", "VIP + NDL", "VIP"],
+//       // severity: null,
 
-      severityOptions: ["Bronze", "Silver", "Golden"],
-      sharing: null,
-      sharingError: false,
-      sharingOptions: ["Yes", "No"],
-      host: null,
-      hostError: false,
-      hostOptions: ["VF", "OG", "ET", "WE"],
-      gest: null,
-      gestError: false,
-      gestOptions: ["VF", "OG", "ET", "WE","ET+VF","ET+VF+WE","VF+WE","ET+WE"],
-      oz: null,
-      ozOptions: ["Cairo South", "Cairo East", "Cairo North", "Giza","North Upper","Red Sea","South Upper","Sinai","ALEX","NORTH COAST","Delta South","Delta North"],
-      cells2G: null,
-      cells3G: null,
-      cells4G: null,
-    };
-  },
-  name: "siteUpdate",
-  props: ["siteCode"],
-  emits: ["displayNoneSpinner"],
-  watch: {
-    siteCode() {
-      this.getSiteDetails();
-    },
-  },
+//       // severityOptions: ["Bronze", "Silver", "Golden"],
+//       // sharing: null,
+//       // sharingError: false,
+//       // sharingOptions: ["Yes", "No"],
+//       // host: null,
+//       // hostError: false,
+//       // hostOptions: ["VF", "OG", "ET", "WE"],
+//       // gest: null,
+//       // gestError: false,
+//       // gestOptions: ["VF", "OG", "ET", "WE","ET+VF","ET+VF+WE","VF+WE","ET+WE"],
+//       // oz: null,
+//       // ozOptions: ["Cairo South", "Cairo East", "Cairo North", "Giza","North Upper","Red Sea","South Upper","Sinai","ALEX","NORTH COAST","Delta South","Delta North"],
+//       // cells2G: null,
+//       // cells3G: null,
+//       // cells4G: null,
 
-  mounted() {
-    this.getSiteDetails();
-  },
-   computed: {
-    token() {
-      return this.$store.getters.token;
-    },
-  },
+//       site_details:null
+//     };
+//   },
+//   name: "siteUpdate",
+//   props: ["siteCode"],
+//   emits: ["displayNoneSpinner"],
+//   components:{
+//     SiteCreationForm
 
-  methods: {
-    goBack() {
-      this.$router.go(-1);
-    },
-    getSiteDetails() {
-      
-    
-       Sites.getSiteDetails(this.siteCode)
-        .then((response) => {
-          console.log(response);
-          this.site_name = response.data.site.site_name;
-          this.site_code = response.data.site.site_code;
-          this.type = response.data.site.type;
-          this.severity = response.data.site.severity;
-          this.sharing = response.data.site.sharing;
-          this.status=response.data.site.status;
-          this.host = response.data.site.host;
-          this.gest = response.data.site.gest;
-          this.cells2G = response.data.site["2G_cells"];
-          this.cells3G = response.data.site["3G_cells"];
-          this.cells4G = response.data.site["4G_cells"];
-          this.BSC = response.data.site.BSC;
-          this.RNC = response.data.site.RNC;
-          this.office = response.data.site.office;
-          this.oz = response.data.site.oz;
-          this.category = response.data.site.category;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-      
-    },
+//   },
+//   watch: {
+//     siteCode() {
+//       this.getSiteDetails();
+//     },
+//   },
 
-    updateSite() {
-      this.siteCodeError = false;
-      this.siteNameError = false;
-      this.sharingError = false;
-      this.hostError = false;
-      this.gestError = false;
+//   mounted() {
+//     this.getSiteDetails();
+//   },
+//    computed: {
+//     token() {
+//       return this.$store.getters.token;
+//     },
+//   },
 
-      if (!this.site_code) {
-        this.siteCodeError = true;
-      }
+//   methods: {
+//     // goBack() {
+//     //   this.$router.go(-1);
+//     // },
+//     getSiteDetails() {
 
-      if (!this.site_name) {
-        this.siteNameError = true;
-      }
 
-      if (this.sharing == "Yes" && !this.host) {
-        this.hostError = true;
-        this.sharingError = true;
-      }
-      if (this.sharing == "Yes" && !this.gest) {
-        this.gestError = true;
-        this.sharingError = true;
-      }
+//        Sites.getSiteDetails(this.siteCode)
+//         .then((response) => {
 
-      if (this.site_code && this.site_name && !this.sharingError) {
- 
-        let data = {
-          site_code: this.site_code,
-          site_name: this.site_name,
-          BSC: this.BSC,
-          RNC: this.RNC,
-          office: this.office,
-          severity: this.severity,
-          category: this.category,
-          type: this.type,
-          sharing: this.sharing,
-          oz: this.oz,
-          host: this.host,
-          gest: this.gest,
-          "2G_cells": this.cells2G,
-          "3G_cells": this.cells3G,
-          "4G_cells": this.cells4G,
-          status:this.status
-        };
-   
-    
-         Sites.updateSite(data)
-          .then((response) => {
-            console.log(response);
+//           this.site_details=response.data.site
+//           console.log(this.site_details);
+//           // this.site_name = response.data.site.site_name;
+//           // this.site_code = response.data.site.site_code;
+//           // this.type = response.data.site.type;
+//           // this.severity = response.data.site.severity;
+//           // this.sharing = response.data.site.sharing;
+//           // this.status=response.data.site.status;
+//           // this.host = response.data.site.host;
+//           // this.gest = response.data.site.gest;
+//           // this.cells2G = response.data.site["2G_cells"];
+//           // this.cells3G = response.data.site["3G_cells"];
+//           // this.cells4G = response.data.site["4G_cells"];
+//           // this.BSC = response.data.site.BSC;
+//           // this.RNC = response.data.site.RNC;
+//           // this.office = response.data.site.office;
+//           // this.oz = response.data.site.oz;
+//           // this.category = response.data.site.category;
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//         })
 
-            this.$toast.add({
-              severity: "success",
-              summary: "Success Message",
-              detail: "Updated Successfully",
-              life: 3000,
-            });
-            this.site_name = response.data.site.site_name;
-            this.site_code = response.data.site.site_code;
-            this.type = response.data.site.type;
-            this.severity = response.data.site.severity;
-            this.sharing = response.data.site.sharing;
-            this.host = response.data.site.host;
-            this.gest = response.data.site.gest;
-            this.cells2G = response.data.site["2G_cells"];
-            this.cells3G = response.data.site["3G_cells"];
-            this.cells4G = response.data.site["4G_cells"];
-            this.BSC = response.data.site.BSC;
-            this.RNC = response.data.site.RNC;
-            this.office = response.data.site.office;
-            this.oz = response.data.site.oz;
-            this.category = response.data.site.category;
-            this.status=response.data.site.status;
-          })
-          .catch((error) => {
-            console.log(error);
-            if (error.response.status == 422) {
-              let errors = error.response.data.errors;
+//     },
 
-              if (errors.site_code) {
-                errors.site_code.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.site_name) {
-                errors.site_name.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.BSC) {
-                errors.BSC.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.RNC) {
-                errors.RNC.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.office) {
-                errors.office.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.type) {
-                errors.type.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.category) {
-                errors.category.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.host) {
-                errors.host.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.gest) {
-                errors.gest.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.sharing) {
-                errors.sharing.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.severity) {
-                errors.severity.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors.oz) {
-                errors.oz.forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors["2G_cells"]) {
-                errors["2G_cells"].forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors["3G_cells"]) {
-                errors["3G_cells"].forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-              if (errors["4G_cells"]) {
-                errors["4G_cells"].forEach((element) => {
-                  this.$toast.add({
-                    severity: "error",
-                    summary: "Failed",
-                    detail: element,
-                    life: 3000,
-                  });
-                });
-              }
-            }
-          })
-        
-      }
-    },
-  },
-};
+//     updateSite() {
+//       this.siteCodeError = false;
+//       this.siteNameError = false;
+//       this.sharingError = false;
+//       this.hostError = false;
+//       this.gestError = false;
+
+//       if (!this.site_code) {
+//         this.siteCodeError = true;
+//       }
+
+//       if (!this.site_name) {
+//         this.siteNameError = true;
+//       }
+
+//       if (this.sharing == "Yes" && !this.host) {
+//         this.hostError = true;
+//         this.sharingError = true;
+//       }
+//       if (this.sharing == "Yes" && !this.gest) {
+//         this.gestError = true;
+//         this.sharingError = true;
+//       }
+
+//       if (this.site_code && this.site_name && !this.sharingError) {
+
+//         let data = {
+//           site_code: this.site_code,
+//           site_name: this.site_name,
+//           BSC: this.BSC,
+//           RNC: this.RNC,
+//           office: this.office,
+//           severity: this.severity,
+//           category: this.category,
+//           type: this.type,
+//           sharing: this.sharing,
+//           oz: this.oz,
+//           host: this.host,
+//           gest: this.gest,
+//           "2G_cells": this.cells2G,
+//           "3G_cells": this.cells3G,
+//           "4G_cells": this.cells4G,
+//           status:this.status
+//         };
+
+
+//          Sites.updateSite(data)
+//           .then((response) => {
+//             console.log(response);
+
+//             this.$toast.add({
+//               severity: "success",
+//               summary: "Success Message",
+//               detail: "Updated Successfully",
+//               life: 3000,
+//             });
+//             this.site_name = response.data.site.site_name;
+//             this.site_code = response.data.site.site_code;
+//             this.type = response.data.site.type;
+//             this.severity = response.data.site.severity;
+//             this.sharing = response.data.site.sharing;
+//             this.host = response.data.site.host;
+//             this.gest = response.data.site.gest;
+//             this.cells2G = response.data.site["2G_cells"];
+//             this.cells3G = response.data.site["3G_cells"];
+//             this.cells4G = response.data.site["4G_cells"];
+//             this.BSC = response.data.site.BSC;
+//             this.RNC = response.data.site.RNC;
+//             this.office = response.data.site.office;
+//             this.oz = response.data.site.oz;
+//             this.category = response.data.site.category;
+//             this.status=response.data.site.status;
+//           })
+//           .catch((error) => {
+//             console.log(error);
+//             if (error.response.status == 422) {
+//               let errors = error.response.data.errors;
+
+//               if (errors.site_code) {
+//                 errors.site_code.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.site_name) {
+//                 errors.site_name.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.BSC) {
+//                 errors.BSC.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.RNC) {
+//                 errors.RNC.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.office) {
+//                 errors.office.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.type) {
+//                 errors.type.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.category) {
+//                 errors.category.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.host) {
+//                 errors.host.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.gest) {
+//                 errors.gest.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.sharing) {
+//                 errors.sharing.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.severity) {
+//                 errors.severity.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors.oz) {
+//                 errors.oz.forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors["2G_cells"]) {
+//                 errors["2G_cells"].forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors["3G_cells"]) {
+//                 errors["3G_cells"].forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//               if (errors["4G_cells"]) {
+//                 errors["4G_cells"].forEach((element) => {
+//                   this.$toast.add({
+//                     severity: "error",
+//                     summary: "Failed",
+//                     detail: element,
+//                     life: 3000,
+//                   });
+//                 });
+//               }
+//             }
+//           })
+
+//       }
+//     },
+//   },
+// };
+const site_details = reactive({});
+const props = defineProps(['siteCode'])
+const getSiteDetails = () => {
+
+
+  Sites.getSiteDetails(props.siteCode)
+    .then((response) => {
+
+      site_details.value = response.data.site
+     
+    })
+}
+// watch(props.siteCode, () => {
+//   getSiteDetails()
+
+// })
+
+onMounted(()=>{
+  getSiteDetails()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -565,6 +597,7 @@ export default {
   background-color: var(--pink-500);
   border-color: var(--pink-500);
 }
+
 .p-button.insert,
 .p-button.insert:hover {
   background-color: var(--teal-400);
@@ -574,6 +607,7 @@ export default {
 .p-inputtext {
   border-color: #79589f;
 }
+
 .p-inputtext:focus {
   box-shadow: 0px 0px 3px 2px #79589f !important;
 }
@@ -588,6 +622,7 @@ export default {
 .form-select option:hover {
   background-color: #79589f !important;
 }
+
 .dp__theme_light {
   --dp-text-color: red;
 
@@ -601,6 +636,6 @@ export default {
   border: 1px solid black;
   border-radius: 5px;
 }
-@media screen and (max-width: 576px) {
-}
+
+@media screen and (max-width: 576px) {}
 </style>

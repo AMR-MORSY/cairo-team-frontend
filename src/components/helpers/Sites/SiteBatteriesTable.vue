@@ -1,7 +1,7 @@
 <template>
-  <div class="table-container" v-tooltip.right="'Get Tickets'" v-if="batteries">
-    <DataTable :value="batteries" responsiveLayout="scroll" class="p-datatable-sm" stripedRows selectionMode="single"
-      dataKey="id" @row-select="onRowSelect" v-model:selection="selectedBattery">
+  <div class="table-container text-sm" v-if="batteries">
+    <DataTable :value="batteries" scrollable class="p-datatable-sm" stripedRows selectionMode="single" dataKey="id"
+      @row-select="onRowSelect" v-model:selection="selectedBattery">
       <Column selectionMode="single"></Column>
       <Column field="batteries_brand" header="Batteries Brand"></Column>
       <Column field="battery_amp_hr" header="Battery Amp Hr"></Column>
@@ -15,37 +15,23 @@
       <Column field="comment" header="Comment"></Column>
     </DataTable>
   </div>
-  <div class="d-flex justify-content-between align-items-center px-5 py-3 " style="border-top: 1px solid gray;">
-    <button class="btn btn-success" :disabled="disableButton"  @click="updateBattery()" v-if="$can('update_Batteries_data')">Update</button>
-    <button class="btn btn-danger" :disabled="disableButton" @click="openDeleteBattRecordConfirmation()" v-if="$can('delete_Batteries_data')">Delete</button>
-    <button class="btn btn-info" @click="insertNewBatteryData" v-if="$can('create_Batteries_data')">Add</button>
+  <div class="flex justify-evenly items-center px-5 py-3 " style="border-top: 1px solid gray;">
+    <Button class="block" severity="success" :disabled="disableButton" @click="updateBattery()"
+      v-if="$can('update_Batteries_data')" label="Update" />
+    <Button class="block" severity="danger" :disabled="disableButton" @click="openDeleteBattRecordConfirmation()"
+      v-if="$can('delete_Batteries_data')" label="Delete" />
+    <Button class="block" severity="info" @click="insertNewBatteryData" v-if="$can('create_Batteries_data')"
+      label="Add" />
 
   </div>
-
-  <Dialog v-model:visible="visible" modal :showHeader="false" :style="{ width: '50vw' }"
-    :breakpoints="{ '700px': '70vw' }">
-
-    <p class="m-0">
-      <span class="confirmation">Confirmation</span>
-    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ message }} </p>
-    </p>
-    <template #footer>
-      <div class="d-flex justify-content-around align-items-center">
-        <Button label="No" class="btn btn-info" icon="pi " @click="closeConfirmation()" />
-        <Button label="Yes" icon="pi pi-check" class=" btn btn-danger" @click="delteBatteryRecord()"  />
-
-      </div>
-
-
-    </template>
-  </Dialog>
-
+  
 </template>
 
 <script>
 
 import BatteriesUpdate from './BatteriesUpdate.vue';
 import Sites from "../../../apis/Sites";
+
 export default {
   data() {
     return {
@@ -54,8 +40,7 @@ export default {
       selectedBattery: null,
       disableButton: true,
       site_code: null,
-      visible: false,
-      message: "",
+    
     };
   },
   inject: ["dialogRef"],
@@ -184,8 +169,7 @@ export default {
 
     },
     delteBatteryRecord() {
-      this.message = '';
-      this.visible = false;
+     
       Sites.deleteBatteryRecord(this.selectedBattery.id).then((response) => {
         if (response.data.message == 'success') {
           this.$toast.add({
@@ -202,13 +186,39 @@ export default {
       })
 
     },
-    closeConfirmation() {
-      this.message = '';
-      this.visible = false;
-    },
+    
     openDeleteBattRecordConfirmation() {
-      this.message = "This will delete this battery record, Are you Sure?";
-      this.visible = true;
+     
+      this.$confirm.require({
+        message: "This will delete the Battery record",
+        header: "Delete Record",
+        icon: "pi pi-info-circle",
+        rejectProps: {
+
+          icon: 'pi pi-times',
+          outlined: true,
+          size: 'small',
+          severity: 'success',
+
+        },
+        acceptProps: {
+          severity: 'danger',
+
+          icon: 'pi pi-check',
+          size: 'small'
+        },
+        accept: () => {
+          this.$confirm.close();
+
+          this.delteBatteryRecord()
+        },
+        reject: () => {
+          this.$confirm.close();
+
+        },
+
+      });
+
     }
   },
 };

@@ -1,78 +1,46 @@
 <template>
-    <!-- <div class="toast-container  position-fixed bottom-0 end-0 p-3" >
-        <div id="NetworkErrorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" >
-           
-            <div class="toast-body" style="background-color: red; border-radius: 5px;">
-               <strong style="color: white;">Network Error......!</strong> 
-                
+   
+    <template v-if="show">
+        <div id="toast-danger"
+            class="flex items-center fixed bottom-5 left-5 w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+            role="alert">
+            <div
+                class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                </svg>
+                <span class="sr-only">Error icon</span>
             </div>
+            <div class="ms-3 text-sm font-normal text-font-main-color">{{ show }}</div>
           
         </div>
-    </div> -->
-    <button id="triggerElement" ref="triggerElement" type="button" @click="hideToast"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Hide
-        alert</button>
 
-    <div id="targetElement"
-        class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-blue-200 dark:text-blue-800" role="alert">
-        <span class="font-medium">Info alert!</span> Change a few things up and try submitting again.
-    </div>
+    </template>
+
 </template>
 
-<!-- <script>
 
-import { Dismiss } from 'flowbite';
-export default {
-    data() {
-
-
-        return {}
-    },
-    name: "NetwwokErrorToast",
-
-
-}
-</script> -->
 
 
 <script setup>
-import { Dismiss } from 'flowbite';
-import { onMounted} from 'vue';
- let $targetEl = document.querySelector('#targetElement');
-// let $targetEl = this.$refs.targetElement
 
-// optional trigger element
-let $triggerEl = document.getElementById('triggerElement');
+import { computed } from 'vue';
 
-// options object
-const options = {
-    transition: 'transition-opacity',
-    duration: 1000,
-    timing: 'ease-out',
+import { useStore } from 'vuex'
 
-    // callback functions
-    // onHide: (context, targetEl) => {
-    //     console.log('element has been dismissed')
-    //     console.log(targetEl)
-    // }
-};
+const store = useStore();
 
-// instance options object
-const instanceOptions = {
-    id: 'targetElement',
-    override: true
-};
-let dismiss = new Dismiss($targetEl, $triggerEl, options, instanceOptions);
-onMounted(()=>{
-     $targetEl = document.querySelector('#targetElement');
-    $triggerEl = document.getElementById('triggerElement');
-    dismiss = new Dismiss($targetEl, $triggerEl, options, instanceOptions);
+
+
+const show = computed(() => {
+   
+    return store.getters.showNetworkErrorToast;
+
 
 })
-const hideToast = () => {
-    // console.log($targetEl)
-    dismiss.hide();
-}
+
 
 </script>
 

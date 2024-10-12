@@ -2,7 +2,7 @@
   <userNavBar></userNavBar>
   <div class="max-w-screen pt-40">
 
-    <Card class="max-w-xs mx-auto">
+    <Card class="max-w-sm mx-auto">
 
       <template #content>
 
@@ -20,7 +20,7 @@
 
               <InputText class=" w-full" :invalid="v$.email.$error" type="text"
                 v-model.trim="v$.email.$model" aria-describedby="email" />
-              <label class=" text-xs">Email</label>
+              <label>Email</label>
 
 
 
@@ -36,7 +36,7 @@
             <FloatLabel class=" w-full">
               <InputText class=" w-full" :invalid="v$.password.$error" type="password"
                 v-model.trim="v$.password.$model" aria-describedby="pass" />
-              <label class=" text-xs">Password</label>
+              <label >Password</label>
             </FloatLabel>
             <div v-if="v$.password.$error">
               
@@ -52,12 +52,12 @@
           <div class="  flex flex-col justify-center  py-2 mt-5">
           
               <!-- <Button label="Login"  class="text-xs block w-full rounded-full" type="submit"/> -->
-             <button class=" block text-xs text-white rounded-xl py-2 bg-font-main-color">Login</button>
+             <button class=" block  text-white rounded-xl py-2 bg-font-main-color">Login</button>
 
             
             <div class=" mt-5 flex justify-between items-center">
-              <router-link to="/user/resetPassword" class=" text-xs font-bold font-Signika text-font-main-color underline underline-offset-1">Forgot Password?</router-link>
-              <router-link to="/user/register" class=" text-xs font-bold font-Signika text-font-main-color underline underline-offset-1">Create new Account</router-link>
+              <router-link to="/user/resetPassword" class="  font-bold font-Signika text-font-main-color underline underline-offset-1">Forgot Password?</router-link>
+              <router-link to="/user/register" class="  font-bold font-Signika text-font-main-color underline underline-offset-1">Create new Account</router-link>
 
             </div>
            

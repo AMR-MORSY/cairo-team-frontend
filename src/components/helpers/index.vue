@@ -1,5 +1,5 @@
 <template>
-  <div class="container my-5">
+  <!-- <div class="container my-5">
     <div class="card index">
       <div class="header w-100">
         <h5 class="text-center">{{ alarms }}</h5>
@@ -17,8 +17,8 @@
             <div class="form-group">
               <label for="week">Week:</label>
               <select v-model="v$.week.$model" :class="{ 'is-invalid': v$.week.$error }" id="week" class="form-select">
-                <option> </option> 
-              
+                <option> </option>
+
                 <option v-for="period in periods" :key="period">
                   {{ period }}
                 </option>
@@ -36,10 +36,10 @@
           <div class="col-12 ">
             <div class="form-group">
               <label for="year">Year:</label>
-              <select name="" id="year" v-model="v$.year.$model"  :class="{ 'is-invalid': v$.year.$error }"
-               class="form-select">
+              <select name="" id="year" v-model="v$.year.$model" :class="{ 'is-invalid': v$.year.$error }"
+                class="form-select">
                 <option> </option>
-             
+
                 <option v-for="year in years" :key="year">
                   {{ year }}
                 </option>
@@ -60,94 +60,244 @@
         </div>
       </form>
     </div>
+  </div> -->
+  <div class="max-w-screen pt-40">
+
+    <Card class="max-w-xs mx-auto">
+
+      <template #content>
+
+
+        <p class=" text-center text-font-main-color font-Signika font-extrabold text-lg">
+          {{ alarms }}
+        </p>
+
+        <form @submit.prevent="getNur" novalidate>
+
+          <ul v-if="notFoundErrors">
+            <li style="color: red" v-for="error in notFoundErrors" :key="error">
+              {{ error }}
+            </li>
+          </ul>
+
+          <div class="my-3 w-full">
+
+            <div class=" flex-auto">
+              <label for="status">Week</label>
+
+              <Select fluid id="status" :options="periods" v-model="v$.week.$model"
+                :invalid="v$.week.$errors.length > 0">
+
+              </Select>
+            </div>
+            <div v-if="v$.week.$error">
+
+              <validationErrorMessage :errors="v$.week.$errors" />
+            </div>
+
+          </div>
+
+
+
+          <div class=" w-full mt-8 ">
+            <div class=" flex-auto">
+              <label for="status">Year</label>
+
+              <Select fluid id="status" :options="years" v-model="year" :invalid="v$.year.$errors.length > 0">
+
+              </Select>
+            </div>
+            <div v-if="v$.year.$error">
+
+              <validationErrorMessage :errors="v$.year.$errors" />
+            </div>
+
+          </div>
+
+          <div class="w-full flex justify-center items-center mt-5">
+            <Button type="submit" label="Submit" severity="success" raised class="block"/>
+            
+          </div>
+
+
+
+
+
+
+
+
+        </form>
+
+
+
+
+
+
+
+      </template>
+
+
+
+    </Card>
+
+
   </div>
 </template>
 
-<script>
+<script setup>
 
 import { required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
-export default {
-  setup: () => ({ v$: useVuelidate() }),
-  data() {
-    return {
-      showSpinner: false,
-      years: [],
-      year:null,
-   
-      periods: [],
+import { useRouter } from 'vue-router';
+import { onMounted, ref,computed } from 'vue';
+import validationErrorMessage from "../../components/helpers/validationErrorMessage.vue"
 
-    
-      week: null,
+const year = ref(null);
+const showSpinner = ref(false);
+const years = ref([]);
+const periods = ref([]);
+const week = ref(null)
+const notFoundErrors = ref(null)
+const NUR2G = ref(null);
+const router = useRouter();
 
+const props = defineProps([
+  "alarms"
 
-      notFoundErrors: null,
-      NUR2G: null,
-    };
+])
+
+const rules = computed(() => ({
+  week: {
+    required: helpers.withMessage('week is required', required),
   },
-  name: "index",
-  props: ["alarms"],
-  validations() {
+  year: {
+    required: helpers.withMessage('year date is required', required),
 
-    return {
-
-
-      week: {
-        required: helpers.withMessage('Please select a week', required),
-
-      },
-
-      year: {
-        required: helpers.withMessage('Please select a year', required),
-
-      }
-
-    }
-  },
+  }
 
 
-  methods: {
-    getNur() {
-     
+
+}))
 
 
-      if (!this.v$.$invalid) {
+const v$ = useVuelidate(rules, { week, year });
+
+const getNur = async () => {
+
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) {
+    return
+
+  }
+  if (props.alarms == "NUR") {
+    showSpinner.value = false;
+    router.push(
+      `/nur/statestics/${week.value}/${year.value}`
+    );
+  } else {
+    showSpinner.value = false;
+    router.push(
+      `/energy/statestics/${week.value}/${year.value}`
+    );
+  }
+}
+
+const mountFormData = () => {
+  for (var i = 1; i <= 52; i++) {
+    periods.value.push(i);
+  }
+  for (var i = 2022; i <= 2050; i++) {
+    years.value.push(i);
+  }
+}
+
+onMounted(()=>{
+  mountFormData()
+})
+
+// export default {
+//   setup: () => ({ v$: useVuelidate() }),
+//   data() {
+//     return {
+//       showSpinner: false,
+//       years: [],
+//       year: null,
+
+//       periods: [],
 
 
-        if (this.alarms == "NUR") {
-          this.showSpinner = false;
-          this.$router.push(
-            `/nur/statestics/${this.week}/${this.year}`
-          );
-        } else {
-          this.showSpinner = false;
-          this.$router.push(
-            `/energy/statestics/${this.week}/${this.year}`
-          );
-
-          
-        }
-
-      }
+//       week: null,
 
 
-      
-    },
-    mountFormData() {
-      for (var i = 1; i <= 52; i++) {
-        this.periods.push(i);
-      }
-      for (var i = 2022; i <= 2050; i++) {
-        this.years.push(i);
-      }
-    },
+//       notFoundErrors: null,
+//       NUR2G: null,
+//     };
+//   },
+//   name: "index",
+//   props: ["alarms"],
+//   validations() {
 
-  },
-  mounted() {
-    this.mountFormData();
-  },
-};
+//     return {
+
+
+//       week: {
+//         required: helpers.withMessage('Please select a week', required),
+
+//       },
+
+//       year: {
+//         required: helpers.withMessage('Please select a year', required),
+
+//       }
+
+//     }
+//   },
+
+
+//   methods: {
+//     getNur() {
+
+
+
+//       if (!this.v$.$invalid) {
+
+
+//         if (this.alarms == "NUR") {
+//           this.showSpinner = false;
+//           this.$router.push(
+//             `/nur/statestics/${this.week}/${this.year}`
+//           );
+//         } else {
+//           this.showSpinner = false;
+//           this.$router.push(
+//             `/energy/statestics/${this.week}/${this.year}`
+//           );
+
+
+//         }
+
+//       }
+
+
+
+//     },
+//     mountFormData() {
+//       for (var i = 1; i <= 52; i++) {
+//         this.periods.push(i);
+//       }
+//       for (var i = 2022; i <= 2050; i++) {
+//         this.years.push(i);
+//       }
+//     },
+
+//   },
+//   mounted() {
+//     this.mountFormData();
+//   },
+// };
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -171,5 +321,4 @@ export default {
 //   //     color: darkmagenta;
 //   //   }
 //   // }
-// }
-</style>
+// }</style>

@@ -1,14 +1,18 @@
 <template>
-  <div class="container overflow-hidden px-5 pb-3 mb-5">
-    <TransitionGroup class="row  gx-sm-2   mt-5" tag="div" name="cards" appear>
-      <div class="col-12 col-sm-6 col-md-4 mt-5" v-for="card in cards" :key="card.id">
-        <div class="card" @click.self="formatElement(card.id)">
-          <span class="material-symbols-rounded"> {{ card.icon }} </span>
-          <p>{{ card.path }}</p>
+  <div class=" w-full  ">
+    <div class="max-w-sm lg:max-w-screen-2xl mx-auto ">
+      <TransitionGroup class="grid grid-cols-4 gap-4 px-5 mt-20" tag="div" name="cards" appear>
+        <div class="col-span-4 lg:col-span-1 mt-5" v-for="card in cards" :key="card.id">
+          <div class="card" @click.self="formatElement(card.id)">
+            <span class="material-symbols-rounded"> {{ card.icon }} </span>
+            <p>{{ card.path }}</p>
+          </div>
         </div>
-      </div>
-    </TransitionGroup>
+      </TransitionGroup>
+    </div>
+
   </div>
+
 </template>
 
 <script>
@@ -47,10 +51,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.card span {
+  text-align: center;
+  font-size: 5rem;
+  z-index: 1;
+  color: gray;
+}
+
 .card {
   background-color: white;
-  box-shadow: 1px 3px 5px rgba($color: white, $alpha: 0.1);
+
   height: 250px;
   width: 100%;
   transition: all 0.5s ease;
@@ -58,17 +69,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  span {
-    text-align: center;
-    font-size: 5rem;
-    z-index: 1;
-    color: gray;
-  }
-  p {
-    text-align: center;
-    font-size: 2rem;
-    color: gray;
-  }
+  
+  border-radius: 15px;
+
+
+}
+
+.card p {
+  text-align: center;
+  font-size: 2rem;
+  color: gray;
 }
 
 .card:hover {
@@ -81,6 +91,7 @@ export default {
 
   transform: scale(0.7);
 }
+
 .cards-enter-active {
   transition: all 1s ease;
 }
