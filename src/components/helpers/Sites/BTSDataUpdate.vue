@@ -1,85 +1,81 @@
 <template>
-    <div class="container-fluid">
-        <h3>{{ topic }}</h3>
-        <form @submit.prevent="submitUpdateForm()" novalidate>
-            <div class="row gx-1">
 
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="Battery-Brand">No. BTS</span>
-                        <input type="number" min="0" class="form-control w-50 "
-                            :class="{ 'is-invalid': v$.form.no_bts.$error }" v-model.trim="v$.form.no_bts.$model"
-                            aria-describedby="Battery-Brand" />
-                        <div v-if="v$.form.no_bts.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.no_bts.$errors">
-                                {{ error.$message }}</div>
-                        </div>
+    <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-8">Battery {{ action }}</h3>
 
-                    </div>
+    <form @submit.prevent="submitUpdateForm()" novalidate>
+        <div class="grid grid-cols-4 gap-4 ">
+
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="Battery-Brand">No.BTS</label>
+                    <InputNumber :min="0" :max="100" fluid showButtons :invalid="v$.form.no_bts.$error"
+                        v-model.trim="v$.form.no_bts.$model" aria-describedby="Battery-Brand" />
+
 
                 </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="mrfu_2G">MRFU 2G</span>
-                        <input type="number" min="0" class="form-control w-50 "
-                            :class="{ 'is-invalid': v$.form.mrfu_2G.$error }" v-model.trim="v$.form.mrfu_2G.$model"
-                            aria-describedby="mrfu_2G" />
-                        <div v-if="v$.form.mrfu_2G.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.mrfu_2G.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
+                <div v-if="v$.form.no_bts.$error">
+                    <validationErrorMessage :errors="v$.form.no_bts.$errors" />
                 </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="Battery-Volt">MRFU 3G</span>
-                        <input type="number" min="0" class="form-control w-50 "
-                            :class="{ 'is-invalid': v$.form.mrfu_3G.$error }" v-model.trim="v$.form.mrfu_3G.$model"
-                            aria-describedby="Battery-Volt" />
-                        <div v-if="v$.form.mrfu_3G.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.mrfu_3G.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="Battery-Volt">MRFU 4G</span>
-                        <input type="number" min="0" class="form-control w-50 "
-                            :class="{ 'is-invalid': v$.form.mrfu_4G.$error }" v-model.trim="v$.form.mrfu_4G.$model"
-                            aria-describedby="Battery-Volt" />
-                        <div v-if="v$.form.mrfu_2G.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.mrfu_4G.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="tdd">TDD</span>
-                        <select class="form-select w-50" :class="{ 'is-invalid': v$.form.tdd.$error }"
-                            v-model.trim="v$.form.tdd.$model" aria-describedby="tdd">
 
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.tdd.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="button-container">
-                        <Button label="Update" type="submit" icon="pi pi-external-link" severity="success" text raised />
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="mrfu_2G">MRFU 2G</label>
+                    <InputNumber :min="0" :max="100" fluid showButtons :invalid="v$.form.mrfu_2G.$error"
+                        v-model.trim="v$.form.mrfu_2G.$model" aria-describedby="mrfu_2G" />
 
-                    </div>
+                </div>
+                <div v-if="v$.form.mrfu_2G.$error">
+                    <validationErrorMessage :errors="v$.form.mrfu_2G.$errors" />
                 </div>
             </div>
-        </form>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="Battery-Volt">MRFU 3G</label>
+                    <InputNumber :min="0" :max="100" fluid showButtons :invalid="v$.form.mrfu_3G.$error"
+                        v-model.trim="v$.form.mrfu_3G.$model" aria-describedby="Battery-Volt" />
+
+                </div>
+                <div v-if="v$.form.mrfu_3G.$error">
+                    <validationErrorMessage :errors="v$.form.mrfu_3G.$errors" />
+
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="Battery-Volt">MRFU 4G</label>
+                    <InputNumber :min="0" :max="100" fluid showButtons :invalid="v$.form.mrfu_4G.$error"
+                        v-model.trim="v$.form.mrfu_4G.$model" aria-describedby="Battery-Volt" />
+
+                </div>
+                <div v-if="v$.form.mrfu_4G.$error">
+                    <validationErrorMessage :errors="v$.form.mrfu_4G.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="tdd">TDD</label>
+                    <Select :invalid="v$.form.tdd.$error" fluid v-model.trim="v$.form.tdd.$model" :options="tdd_options"
+                        aria-describedby="tdd">
+
+
+                    </Select>
+
+                </div>
+                <div v-if="v$.form.tdd.$error">
+                    <validationErrorMessage :errors="v$.form.tdd.$errors" />
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="w-full flex justify-center mt-10">
+            <Button label="Update" class="block" type="submit" icon="pi pi-external-link" severity="success" text
+                raised />
+
+        </div>
+    </form>
 
 
 
@@ -91,7 +87,7 @@
 
 
 
-    </div>
+
 </template>
 
 <script>
@@ -99,6 +95,8 @@ import { maxLength, minLength, minValue, maxValue, required } from '@vuelidate/v
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
+import InputNumber from 'primevue/inputnumber';
+import validationErrorMessage from '../validationErrorMessage.vue';
 export default {
     setup: () => ({ v$: useVuelidate() }),
     data() {
@@ -110,7 +108,7 @@ export default {
                 mrfu_2G: 0,
                 mrfu_3G: 0,
                 mrfu_4G: 0,
-                tdd: null,
+                tdd: 'No',
                 id: null,
 
 
@@ -118,7 +116,8 @@ export default {
 
             },
             topic: null,
-            action:null,
+            action: null,
+            tdd_options: ['Yes', 'No']
 
 
         };
@@ -187,6 +186,10 @@ export default {
     },
     name: "BTSDataUpdate",
     inject: ["dialogRef"],
+    components: {
+        validationErrorMessage
+
+    },
 
     mounted() {
         this.mountData()
@@ -226,7 +229,7 @@ export default {
                         detail: "site instrument not found",
                         life: 3000,
                     });
-                  
+
                 }
 
             });

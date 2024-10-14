@@ -1,94 +1,92 @@
 <template>
-    <div class="container-fluid">
-        <h3>{{ topic }}</h3>
-        <form @submit.prevent="submitUpdateForm()" novalidate>
-            <div class="row gx-1">
 
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="power_source">Power Source</span>
-                        <input type="text" class="form-control w-50 "
-                            :class="{ 'is-invalid': v$.form.power_source.$error }"
-                            v-model.trim="v$.form.power_source.$model" aria-describedby="power_source" />
-                        <div v-if="v$.form.power_source.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.power_source.$errors">
-                                {{ error.$message }}</div>
-                        </div>
+    <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-8">{{ topic }}</h3>
 
-                    </div>
+    <form @submit.prevent="submitUpdateForm()" novalidate>
+        <div class="grid grid-cols-3 gap-4">
+
+            <div class="col-span-3 md:col-span-2 lg:col-span-1">
+                <div class="flex-auto">
+                    <label class="font-bold" id="power_source">Power Source</label>
+                    <InputText fluid :invalid="v$.form.power_source.$error" v-model.trim="v$.form.power_source.$model"
+                        aria-describedby="power_source" />
+
 
                 </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="power_meter_type">PM type</span>
-                        <input type="text" class="form-control w-50 " :class="{ 'is-invalid': v$.form.power_meter_type.$error }"
-                            v-model.trim="v$.form.power_meter_type.$model" aria-describedby="power_meter_type" />
-                        <div v-if="v$.form.power_meter_type.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.power_meter_type.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
+                <div v-if="v$.form.power_source.$error">
+                    <validationErrorMessage :errors="v$.form.power_source.$errors" />
                 </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="power_cable_cross_sec">power cable cross sec</span>
-                        <input type="text" class="form-control w-50 " :class="{ 'is-invalid': v$.form.power_cable_cross_sec.$error }"
-                            v-model.trim="v$.form.power_cable_cross_sec.$model" aria-describedby="power_cable_cross_sec" />
-                        <div v-if="v$.form.power_cable_cross_sec.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.power_cable_cross_sec.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="power_cable_length">power cable length</span>
-                        <input type="number" class="form-control w-50 " :class="{ 'is-invalid': v$.form.power_cable_length.$error }"
-                            v-model.trim="v$.form.power_cable_length.$model" aria-describedby="power_cable_length" />
-                        <div v-if="v$.form.power_cable_length.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.power_cable_length.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="gen_capacity">Gen Capacity</span>
-                        <input type="text" class="form-control w-50 " :class="{ 'is-invalid': v$.form.gen_capacity.$error }"
-                            v-model.trim="v$.form.gen_capacity.$model" aria-describedby="gen_capacity" />
-                        <div v-if="v$.form.gen_capacity.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.gen_capacity.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="Battery-Volt">MRFU 4G</span>
-                        <input type="number" class="form-control w-50 " :class="{ 'is-invalid': v$.form. overhaul_power_consumption.$error }"
-                            v-model.trim="v$.form. overhaul_power_consumption.$model" aria-describedby="Battery-Volt" />
-                        <div v-if="v$.form. overhaul_power_consumption.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form. overhaul_power_consumption.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-           
-             
-                <div class="col-6">
-                    <div class="button-container">
-                        <Button label="Update" type="submit" icon="pi pi-external-link" severity="success" text raised />
 
-                    </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-4  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="power_meter_type">PM type</label>
+                    <InputText fluid :invalid="v$.form.power_meter_type.$error"
+                        v-model.trim="v$.form.power_meter_type.$model" aria-describedby="power_meter_type" />
+
+                </div>
+                <div v-if="v$.form.power_meter_type.$error">
+                    <validationErrorMessage :errors="v$.form.power_meter_type.$errors" />
                 </div>
             </div>
-        </form>
+            <div class="col-12 col-md-6 col-xl-4  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="power_cable_cross_sec">power cable cross sec</label>
+                    <InputText fluid :invalid="v$.form.power_cable_cross_sec.$error"
+                        v-model.trim="v$.form.power_cable_cross_sec.$model" aria-describedby="power_cable_cross_sec" />
+
+                </div>
+                <div v-if="v$.form.power_cable_cross_sec.$error">
+                    <validationErrorMessage :errors="v$.form.power_cable_cross_sec.$errors" />
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-4  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="power_cable_length">power cable length</label>
+                    <InputText fluid :invalid="v$.form.power_cable_length.$error"
+                        v-model.trim="v$.form.power_cable_length.$model" aria-describedby="power_cable_length" />
+
+                </div>
+                <div v-if="v$.form.power_cable_length.$error">
+                    <validationErrorMessage :errors="v$.form.power_cable_length.$errors" />
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-4  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="gen_capacity">Gen Capacity</label>
+                    <InputText fluid :invalid="v$.form.gen_capacity.$error" v-model.trim="v$.form.gen_capacity.$model"
+                        aria-describedby="gen_capacity" />
+
+                </div>
+                <div v-if="v$.form.gen_capacity.$error">
+                    <validationErrorMessage :errors="v$.form.gen_capacity.$errors" />
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-4  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="Battery-Volt">MRFU 4G</label>
+                    <InputNumber fluid showButtons :invalid="v$.form.overhaul_power_consumption.$error"
+                        v-model.trim="v$.form.overhaul_power_consumption.$model" aria-describedby="Battery-Volt" />
+                    <div v-if="v$.form.overhaul_power_consumption.$error">
+                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                            v-for="error in v$.form.overhaul_power_consumption.$errors">
+                            {{ error.$message }}</div>
+                    </div>
+                </div>
+                <div v-if="v$.form.overhaul_power_consumption.$error">
+                    <validationErrorMessage :errors="v$.form.overhaul_power_consumption.$errors" />
+                </div>
+            </div>
+
+
+
+            <div class=" w-full flex justify-center">
+                <Button label="Update" type="submit" class="block" icon="pi pi-external-link" severity="success" text raised />
+
+            </div>
+
+        </div>
+    </form>
 
 
 
@@ -100,14 +98,15 @@
 
 
 
-    </div>
+
 </template>
 
 <script>
-import { maxLength, minLength,minValue,maxValue } from '@vuelidate/validators'
+import { maxLength, minLength, minValue, maxValue } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
+import InputNumber from 'primevue/inputnumber';
 export default {
     setup: () => ({ v$: useVuelidate() }),
     data() {
@@ -120,21 +119,21 @@ export default {
                 power_cable_cross_sec: null,
                 power_cable_length: null,
                 gen_capacity: null,
-                overhaul_power_consumption:null,
-                id:null,
-           
+                overhaul_power_consumption: null,
+                id: null,
+
 
 
 
             },
             topic: null,
-            action:null,
+            action: null,
 
         };
     },
     validations() {
         const stringReg = helpers.regex(/^[a-zA-Z0-9 \/]+$/);
-      
+
 
         return {
 
@@ -142,58 +141,58 @@ export default {
             form: {
                 power_source: {
 
-                  
-                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
 
-                    
+                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+
+
 
                 },
 
                 power_meter_type: {
-                  
-                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
 
-                    
+                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+
+
 
 
                 },
                 power_cable_cross_sec: {
-                 
-                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
 
-                    
-                    
+                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+
+
+
 
 
                 },
                 power_cable_length: {
-                 
-                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
 
-                    
+                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+
+
 
                 },
-                gen_capacity:{
-                   
-                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
+                gen_capacity: {
 
-                    
+                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+
+
 
                 },
-                overhaul_power_consumption:{
+                overhaul_power_consumption: {
                     minValue: helpers.withMessage("incorrect min value", minValue(0)),
                     maxValue: helpers.withMessage("incorrect max value", maxValue(100000)),
-                   
+
 
 
                 }
-               
-        
+
+
 
 
             },
@@ -207,11 +206,9 @@ export default {
         this.mountData()
 
     },
-    watch:{
-        $route(to,from)
-        {
-            if(to.path=="/user/login")
-            {
+    watch: {
+        $route(to, from) {
+            if (to.path == "/user/login") {
                 this.dialogRef.close();
             }
 
@@ -225,13 +222,13 @@ export default {
             this.form.power_cable_cross_sec = this.dialogRef.data.rowData.power_cable_cross_sec;
             this.form.gen_capacity = this.dialogRef.data.rowData.gen_capacity;
             this.form.power_cable_length = this.dialogRef.data.rowData.power_cable_length;
-            this.form.overhaul_power_consumption=this.dialogRef.data.rowData.overhaul_power_consumption;
+            this.form.overhaul_power_consumption = this.dialogRef.data.rowData.overhaul_power_consumption;
             this.topic = this.dialogRef.data.topic;
             this.form.id = this.dialogRef.data.id;
 
 
         },
-       async submitUpdateForm() {
+        async submitUpdateForm() {
             const isFormCorrect = await this.v$.$validate()
             if (!isFormCorrect) return
             Sites.updateSitePowerDetails(this.form).then((response) => {
@@ -253,12 +250,12 @@ export default {
                         detail: "site instrument not found",
                         life: 3000,
                     });
-                  
+
                 }
 
             });
 
-        
+
 
 
 

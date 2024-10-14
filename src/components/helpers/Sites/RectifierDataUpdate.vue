@@ -1,96 +1,94 @@
 <template>
-    <div class="container-fluid">
-        <h3>{{ topic }}</h3>
-        <form @submit.prevent="submitUpdateForm()" novalidate>
-            <div class="grid grid-cols-4 gap-4">
+
+    <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-8">{{ topic }}</h3>
+    <form @submit.prevent="submitUpdateForm()" novalidate>
+        <div class="grid grid-cols-4 gap-4">
 
 
-                <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
-                    <div class="flex-auto">
-                        <label class="font-bold" id="rec_brand">Rec Brand</label>
-                        <InputText fluid :invalid="v$.form.rec_brand.$error" v-model.trim="v$.form.rec_brand.$model"
-                            aria-describedby="rec_brand" />
-
-                    </div>
-                    <div v-if="v$.form.rec_brand.$error">
-                        <validationErrorMessage :errors="v$.form.rec_brand.$errors" />
-                    </div>
-                </div>
-
-                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
-                    <div class="flex-auto">
-                        <label class="font-bold" id="module_capacity">Module Capacity</label>
-                        <InputText fluid :invalid="v$.form.module_capacity.$error"
-                            v-model.trim="v$.form.module_capacity.$model" aria-describedby="module_capacity" />
-
-                    </div>
-                    <div v-if="v$.form.module_capacity.$error">
-                        <validationErrorMessage :errors="v$.form.module_capacity.$errors" />
-                    </div>
-                  
-                </div>
-                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
-                    <div class="flex-auto">
-                        <label class="font-bold" id="no_module">No. Modules</label>
-                        <InputText fluid :invalid="v$.form.no_module.$error"
-                            v-model.trim="v$.form.no_module.$model" aria-describedby="no_module" />
-                   
-                    </div>
-                    <div v-if="v$.form.no_module.$error">
-                        <validationErrorMessage :errors="v$.form.no_module.$errors" />
-                    </div>
-                </div>
-                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
-                    <div class="flex-auto">
-                        <label class="font-bold" id="pld_value">PlVD value</label>
-                        <InputText fluid :invalid="v$.form.pld_value.$error "
-                            v-model.trim="v$.form.pld_value.$model" aria-describedby="pld_value" />
-                       
-                    </div>
-                    <div v-if="v$.form.pld_value.$error">
-                        <validationErrorMessage :errors="v$.form.pld_value.$errors" />
-                    </div>
-                </div>
-                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
-                    <div class="flex-auto">
-                        <label class="font-bold" id="net_eco">Net Eco</label>
-                        <Select fluid :invalid="v$.form.net_eco.$error " :options="net_eco_options"
-                            v-model.trim="v$.form.net_eco.$model" aria-describedby="net_eco">
-                         
-                        </Select>
-                    
-                    </div>
-                    <div v-if="v$.form.net_eco.$error">
-                        <validationErrorMessage :errors="v$.form.net_eco.$errors" />
-                    </div>
-                </div>
-                <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
-                    <div class="flex-auto">
-                        <label class="font-bold" id="net_eco_activation">Net Eco Activation</label>
-                        <InputText fluid 
-                           :invalid="v$.form.net_eco_activation.$error "
-                            v-model.trim="v$.form.net_eco_activation.$model" aria-describedby="net_eco_activation" />
-                        
-                    </div>
-                    <div v-if="v$.form.net_eco_activation.$error">
-                        <validationErrorMessage :errors="v$.form.net_eco_activation.$errors" />
-                    </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="rec_brand">Rec Brand</label>
+                    <InputText fluid :invalid="v$.form.rec_brand.$error" v-model.trim="v$.form.rec_brand.$model"
+                        aria-describedby="rec_brand" />
 
                 </div>
-
-
-                <div class="col-6">
-                    <div class="button-container">
-                        <Button :label="action" type="submit" icon="pi pi-external-link" severity="success" text
-                            raised />
-
-                    </div>
+                <div v-if="v$.form.rec_brand.$error">
+                    <validationErrorMessage :errors="v$.form.rec_brand.$errors" />
                 </div>
             </div>
-        </form>
+
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="module_capacity">Module Capacity</label>
+                    <InputText fluid :invalid="v$.form.module_capacity.$error"
+                        v-model.trim="v$.form.module_capacity.$model" aria-describedby="module_capacity" />
+
+                </div>
+                <div v-if="v$.form.module_capacity.$error">
+                    <validationErrorMessage :errors="v$.form.module_capacity.$errors" />
+                </div>
+
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="no_module">No. Modules</label>
+                    <InputText fluid :invalid="v$.form.no_module.$error" v-model.trim="v$.form.no_module.$model"
+                        aria-describedby="no_module" />
+
+                </div>
+                <div v-if="v$.form.no_module.$error">
+                    <validationErrorMessage :errors="v$.form.no_module.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="pld_value">PlVD value</label>
+                    <InputText fluid :invalid="v$.form.pld_value.$error" v-model.trim="v$.form.pld_value.$model"
+                        aria-describedby="pld_value" />
+
+                </div>
+                <div v-if="v$.form.pld_value.$error">
+                    <validationErrorMessage :errors="v$.form.pld_value.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="net_eco">Net Eco</label>
+                    <Select fluid :invalid="v$.form.net_eco.$error" :options="net_eco_options"
+                        v-model.trim="v$.form.net_eco.$model" aria-describedby="net_eco">
+
+                    </Select>
+
+                </div>
+                <div v-if="v$.form.net_eco.$error">
+                    <validationErrorMessage :errors="v$.form.net_eco.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="net_eco_activation">Net Eco Activation</label>
+                    <InputText fluid :invalid="v$.form.net_eco_activation.$error"
+                        v-model.trim="v$.form.net_eco_activation.$model" aria-describedby="net_eco_activation" />
+
+                </div>
+                <div v-if="v$.form.net_eco_activation.$error">
+                    <validationErrorMessage :errors="v$.form.net_eco_activation.$errors" />
+                </div>
+
+            </div>
 
 
-    </div>
+            <div class="col-6">
+                <div class="button-container">
+                    <Button :label="action" type="submit" icon="pi pi-external-link" severity="success" text raised />
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
 </template>
 
 <script>
@@ -123,7 +121,7 @@ export default {
             },
             topic: null,
             action: null,
-            net_eco_options:['Yes','No']
+            net_eco_options: ['Yes', 'No']
 
 
         };
@@ -191,7 +189,7 @@ export default {
     },
     name: "RectifierDataUpdate",
     inject: ["dialogRef"],
-    components:{
+    components: {
         validationErrorMessage
 
     },
@@ -230,6 +228,51 @@ export default {
 
 
         },
+        showToast(errorArray) {
+            errorArray.forEach((element) => {
+              this.$toast.add({
+                    severity: "error",
+                    summary: "Failed",
+                    detail: element,
+                    life: 4000,
+                });
+            });
+
+        },
+        showErrors(errors) {
+            if (errors.site_code) {
+                this.showToast(errors.site_code)
+
+            }
+            if (errors.rec_brand) {
+                this.showToast(errors.rec_brand)
+            }
+            if (errors.module_capacity) {
+                this.showToast(errors.module_capacity)
+            }
+            if (errors.pld_value) {
+                this.showToast(errors.pld_value)
+            }
+            if (errors.no_module) {
+                this.showToast(errors.no_module)
+            }
+            if (errors.net_eco) {
+                this.showToast(errors.net_eco)
+            }
+            if (errors.net_eco_activation) {
+                this.showToast(errors.net_eco_activation)
+            }
+            if (errors.id) {
+                this.showToast(errors.id)
+            }
+
+
+
+
+
+
+
+        },
         async submitUpdateForm() {
 
             const isFormCorrect = await this.v$.$validate()
@@ -256,12 +299,20 @@ export default {
                         });
 
                     }
+                    if (error.response.status == 422) {
+                        let errors = error.response.data;
+                        this.showErrors(errors)
+
+
+
+                    }
 
                 });
 
 
             }
             else {
+
                 Sites.insertRectifierDetails(this.form).then((response) => {
 
                     if (response.data.message == "inserted successfully") {
@@ -276,6 +327,7 @@ export default {
 
 
                 }).catch((error) => {
+                    console.log(error)
                     if (error.response.status == 204) {
                         this.$toast.add({
                             severity: "info",
@@ -285,8 +337,15 @@ export default {
                         });
 
                     }
+                    if (error.response.status == 422) {
+                        let errors = error.response.data;
+                        console.log(errors)
+                        this.showErrors(errors)
 
-                });
+
+
+                    }
+                })
 
             }
 
@@ -296,6 +355,7 @@ export default {
 
 
         }
+
 
 
     },

@@ -1,72 +1,75 @@
 <template>
-    <div class="container-fluid">
-        <h3>{{ topic }}</h3>
-        <form @submit.prevent="submitUpdateForm()" novalidate>
-            <div class="row gx-1">
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="no_mw">No. MW</span>
-                        <input type="number" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.no_mw.$error }"
-                            v-model.trim="v$.form.no_mw.$model" aria-describedby="no_mw" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.no_mw.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
 
-             
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="mw_type">MW Type</span>
-                        <input type="text" class="form-control w-50 " :class="{ 'is-invalid': v$.form.mw_type.$error }"
-                            v-model.trim="v$.form.mw_type.$model" aria-describedby="mw_type" />
-                        <div v-if="v$.form.mw_type.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.mw_type.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-             
-          
-             
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="eband">E Band</span>
-                        <select class="form-select w-50"
-                            :class="{ 'is-invalid': v$.form.eband.$error }"
-                            v-model.trim="v$.form.eband.$model" aria-describedby="eband">
-                            <option value=""></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.eband.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-            
-             
+    <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-8">{{ topic }}</h3>
 
-                <div class="col-6">
-                    <div class="button-container">
-                        <Button label="Update" type="submit" icon="pi pi-external-link" severity="success" text raised />
 
-                    </div>
+    <form @submit.prevent="submitUpdateForm()" novalidate>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="col-span-3 md:col-span-2 lg:col-span-1">
+                <div class="flex-auto">
+                    <label class="font-bold" id="no_mw">No.MW</label>
+                    <InputNumber :min="0" :max="100" fluid showButtons :invalid="v$.form.no_mw.$error"
+                        v-model.trim="v$.form.no_mw.$model" aria-describedby="no_mw" />
+
+                </div>
+                <div v-if="v$.form.no_mw.$error">
+                    <validationErrorMessage :errors="v$.form.no_mw.$errors" />
                 </div>
             </div>
-        </form>
 
 
-    </div>
+            <div class="col-span-3 md:col-span-2 lg:col-span-1">
+                <div class="flex-auto">
+                    <label class="font-bold" id="mw_type">MW Type</label>
+                    <InputText fluid :invalid="v$.form.mw_type.$error" v-model.trim="v$.form.mw_type.$model"
+                        aria-describedby="mw_type" />
+
+                </div>
+                <div v-if="v$.form.mw_type.$error">
+                    <validationErrorMessage :errors="v$.form.mw_type.$errors" />
+                </div>
+            </div>
+
+
+
+            <div class="col-span-3 md:col-span-2 lg:col-span-1 ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="eband">E Band</label>
+                    <Select fluid :class="v$.form.eband.$error" :options="eband_options"
+                        v-model.trim="v$.form.eband.$model" aria-describedby="eband">
+
+                    </Select>
+
+                </div>
+                <div v-if="v$.form.eband.$error">
+                    <validationErrorMessage :errors="v$.form.eband.$errors" />
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+        <div class=" w-full flex justify-center">
+            <Button label="Update" class="block" type="submit" icon="pi pi-external-link" severity="success" text
+                raised />
+
+        </div>
+    </form>
+
+
+
 </template>
 
 <script>
-import { maxLength, minLength, minValue,maxValue,required } from '@vuelidate/validators'
+import { maxLength, minLength, minValue, maxValue, required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
+import InputText from 'primevue/inputtext';
+import validationErrorMessage from '../validationErrorMessage.vue';
 export default {
     setup: () => ({ v$: useVuelidate() }),
     data() {
@@ -74,19 +77,20 @@ export default {
 
         return {
             form: {
-                
+
                 no_mw: 0,
                 mw_type: null,
-                eband: null,
-                id:null,
-               
-             
-             
+                eband: "No",
+                id: null,
+
+
+
 
 
             },
             topic: null,
-            action:null,
+            action: null,
+            eband_options: ['Yes', "No"]
 
         };
     },
@@ -98,35 +102,35 @@ export default {
 
 
             form: {
-              
+
 
                 no_mw: {
-                    required:helpers.withMessage("zero or Max 50 MW",required),
+                    required: helpers.withMessage("zero or Max 50 MW", required),
 
                     minValue: helpers.withMessage("min 1 MW link", minValue(1)),
                     maxValue: helpers.withMessage("max 50 MW link", maxValue(50)),
-                   
+
 
 
 
                 },
                 mw_type: {
-                    minLength:helpers.withMessage("min 3 characters",minLength(3)),
+                    minLength: helpers.withMessage("min 3 characters", minLength(3)),
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only",stringReg),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
 
                 },
-             
-              
-             
+
+
+
                 eband: {
-                    required:helpers.withMessage("Yes or No",required),
+                    required: helpers.withMessage("Yes or No", required),
                     booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
 
                 },
-            
+
 
 
 
@@ -138,16 +142,18 @@ export default {
     },
     name: "MWDataUpdate",
     inject: ["dialogRef"],
+    components: {
+        validationErrorMessage
+
+    },
 
     mounted() {
         this.mountData()
 
     },
-    watch:{
-        $route(to,from)
-        {
-            if(to.path=="/user/login")
-            {
+    watch: {
+        $route(to, from) {
+            if (to.path == "/user/login") {
                 this.dialogRef.close();
             }
 
@@ -156,45 +162,45 @@ export default {
     },
     methods: {
         mountData() {
-           
+
             this.form.no_mw = this.dialogRef.data.rowData.no_mw;
             this.form.mw_type = this.dialogRef.data.rowData.mw_type;
             this.form.eband = this.dialogRef.data.rowData.eband;
-           this.form.id=this.dialogRef.data.id;
+            this.form.id = this.dialogRef.data.id;
             this.topic = this.dialogRef.data.topic;
 
         },
-      async  submitUpdateForm() {
+        async submitUpdateForm() {
 
             const isFormCorrect = await this.v$.$validate()
             if (!isFormCorrect) return
-             
-            
-                Sites.updateSiteMWDetails(this.form).then((response) => {
-                    if (response.data.message == "updated successfully") {
-                        this.$toast.add({
-                            severity: "success",
-                            summary: "Success Message",
-                            detail: "Updated Successfully",
-                            life: 3000,
-                        });
 
-                    }
 
-                }).catch((error) => {
-                    if (error.response.status == 204) {
+            Sites.updateSiteMWDetails(this.form).then((response) => {
+                if (response.data.message == "updated successfully") {
+                    this.$toast.add({
+                        severity: "success",
+                        summary: "Success Message",
+                        detail: "Updated Successfully",
+                        life: 3000,
+                    });
+
+                }
+
+            }).catch((error) => {
+                if (error.response.status == 204) {
                     this.$toast.add({
                         severity: "info",
                         summary: "Success Message",
                         detail: "site instrument not found",
                         life: 3000,
                     });
-                  
-                }
-                });
 
-            
-          
+                }
+            });
+
+
+
 
 
         }

@@ -1,175 +1,172 @@
 <template>
-   
-   
-            <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-8">Battery {{ action }}</h3>
-  
-      
-            <form @submit.prevent="submitUpdateForm()" novalidate>
-                <div class="grid grid-cols-4 gap-4">
-                    <input type="hidden" v-model.trim="form.site_code">
-
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" id="Battery-Brand">Battery Brand</label>
-                            <InputText :invalid="v$.form.batteries_brand.$error" fluid
-                                v-model.trim="v$.form.batteries_brand.$model" aria-describedby="Battery-Brand" />
 
 
-                        </div>
-                        <div v-if="v$.form.batteries_brand.$error">
-
-                            <validationErrorMessage :errors="v$.form.batteries_brand.$errors" />
-                        </div>
-
-                    </div>
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" id="Battery-Volt">Battery Volt</label>
-                            <InputText class="form-control w-50 " :invalid="v$.form.battery_volt.$error"
-                                v-model.trim="v$.form.battery_volt.$model" fluid aria-describedby="Battery-Volt" />
-
-                        </div>
-                        <div v-if="v$.form.battery_volt.$error">
-                            <validationErrorMessage :errors="v$.form.battery_volt.$errors" />
-                        </div>
-                    </div>
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" id="Battery-amp">Battery Amp</label>
-                            <InputText class="form-control w-50 " fluid
-                                :class="{ 'is-invalid': v$.form.battery_amp_hr.$error }"
-                                v-model.trim="v$.form.battery_amp_hr.$model" aria-describedby="Battery-amp" />
-
-                        </div>
-                        <div v-if="v$.form.battery_amp_hr.$error">
-                            <validationErrorMessage :errors="v$.form.battery_amp_hr.$errors" />
-                        </div>
-                    </div>
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" id=" No.Strings">No.Strings</label>
-                            <InputNumber class="form-control w-50 " fluid :invalid="v$.form.no_strings.$error"
-                                v-model.trim="v$.form.no_strings.$model" aria-describedby="No.Strings" />
-
-                        </div>
-                        <div v-if="v$.form.no_strings.$error">
-                            <validationErrorMessage :errors="v$.form.no_strings.$errors" />
-                        </div>
-                    </div>
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" id="no_batteries">Category</label>
-                            <Select fluid :invalid="v$.form.category.$error"
-                                v-model="v$.form.category.$model" :options="categoryOptions"
-                                aria-describedby="no_batteries">
-
-                            </Select>
-
-                        </div>
-                        <div v-if="v$.form.category.$error">
-                            <validationErrorMessage :errors="v$.form.category.$errors" />
-                        </div>
-                    </div>
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" id="Battery-Brand">Stock</label>
-                            <InputText fluid :invalid=" v$.form.stock.$error "
-                                v-model.trim="v$.form.stock.$model" aria-describedby="Battery-Brand" />
+    <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-8">Battery {{ action }}</h3>
 
 
-                        </div>
-                        <div v-if="v$.form.stock.$error">
-                            <validationErrorMessage :errors="v$.form.stock.$errors" />
-                        </div>
-                    </div>
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" id="batteries_status">Batteries Status</label>
-                            <InputText fluid
-                                :invalid=" v$.form.batteries_status.$error "
-                                v-model.trim="v$.form.batteries_status.$model" aria-describedby="batteries_status" />
-                          
-                        </div>
-                        <div v-if="v$.form.batteries_status.$error">
-                            <validationErrorMessage :errors="v$.form.batteries_status.$errors" />
-                        </div>
-                    </div>
+    <form @submit.prevent="submitUpdateForm()" novalidate>
+        <div class="grid grid-cols-4 gap-4">
+            <input type="hidden" v-model.trim="form.site_code">
 
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1 ">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" >Comment:</label>
-                            <Textarea  fluid  rows="1" cols="10"
-                                :invalid="v$.form.comment.$error" v-model.trim="v$.form.comment.$model"
-                                aria-describedby="comment"></Textarea>
-                         
-                        </div>
-                        <div v-if="v$.form.comment.$error">
-                            <validationErrorMessage :errors="v$.form.comment.$errors" />
-                        </div>
-                    </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class=" flex-auto">
+                    <label class=" block font-bold" id="Battery-Brand">Battery Brand</label>
+                    <InputText :invalid="v$.form.batteries_brand.$error" fluid
+                        v-model.trim="v$.form.batteries_brand.$model" aria-describedby="Battery-Brand" />
 
 
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1">
-                        <div class=" flex-auto">
-                            <label class=" block font-bold" for="theft_case" >Theft Case:</label>
+                </div>
+                <div v-if="v$.form.batteries_brand.$error">
 
-                            <Datepicker v-model.trim="form.theft_case" :state="!v$.form.theft_case.$error" id="theft_case" />
-                           
+                    <validationErrorMessage :errors="v$.form.batteries_brand.$errors" />
+                </div>
+
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class=" flex-auto">
+                    <label class=" block font-bold" id="Battery-Volt">Battery Volt</label>
+                    <InputText class="form-control w-50 " :invalid="v$.form.battery_volt.$error"
+                        v-model.trim="v$.form.battery_volt.$model" fluid aria-describedby="Battery-Volt" />
+
+                </div>
+                <div v-if="v$.form.battery_volt.$error">
+                    <validationErrorMessage :errors="v$.form.battery_volt.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class=" flex-auto">
+                    <label class=" block font-bold" id="Battery-amp">Battery Amp</label>
+                    <InputText class="form-control w-50 " fluid :class="{ 'is-invalid': v$.form.battery_amp_hr.$error }"
+                        v-model.trim="v$.form.battery_amp_hr.$model" aria-describedby="Battery-amp" />
+
+                </div>
+                <div v-if="v$.form.battery_amp_hr.$error">
+                    <validationErrorMessage :errors="v$.form.battery_amp_hr.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class=" flex-auto">
+                    <label class=" block font-bold" id=" No.Strings">No.Strings</label>
+                    <InputNumber class="form-control w-50 " :min="0" :max="100" showButtons fluid
+                        :invalid="v$.form.no_strings.$error" v-model.trim="v$.form.no_strings.$model"
+                        aria-describedby="No.Strings" />
+
+                </div>
+                <div v-if="v$.form.no_strings.$error">
+                    <validationErrorMessage :errors="v$.form.no_strings.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class=" flex-auto">
+                    <label class=" block font-bold" id="no_batteries">Category</label>
+                    <Select fluid :invalid="v$.form.category.$error" v-model="v$.form.category.$model"
+                        :options="categoryOptions" aria-describedby="no_batteries">
+
+                    </Select>
+
+                </div>
+                <div v-if="v$.form.category.$error">
+                    <validationErrorMessage :errors="v$.form.category.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class=" flex-auto">
+                    <label class=" block font-bold" id="Battery-Brand">Stock</label>
+                    <InputText fluid :invalid="v$.form.stock.$error" v-model.trim="v$.form.stock.$model"
+                        aria-describedby="Battery-Brand" />
 
 
-                        </div>
-                        <div v-if="v$.form.theft_case.$error">
-                            <validationErrorMessage :errors="v$.form.theft_case.$errors" />
-                        </div>
+                </div>
+                <div v-if="v$.form.stock.$error">
+                    <validationErrorMessage :errors="v$.form.stock.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1  ">
+                <div class=" flex-auto">
+                    <label class=" block font-bold" id="batteries_status">Batteries Status</label>
+                    <InputText fluid :invalid="v$.form.batteries_status.$error"
+                        v-model.trim="v$.form.batteries_status.$model" aria-describedby="batteries_status" />
 
-                    </div>
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1 ">
-                        <div  class=" flex-auto">
-                            <label for="on_air_date" class=" block font-bold">Installation Date:</label>
+                </div>
+                <div v-if="v$.form.batteries_status.$error">
+                    <validationErrorMessage :errors="v$.form.batteries_status.$errors" />
+                </div>
+            </div>
 
-                            <Datepicker v-model.trim="form.installation_date" :state="!v$.form.installation_date.$error" id="on_air_date" />
-                          
+            <div class="col-span-4 md:col-span-2 lg:col-span-1 ">
+                <div class=" flex-auto">
+                    <label class=" block font-bold">Comment:</label>
+                    <Textarea fluid rows="1" cols="10" :invalid="v$.form.comment.$error"
+                        v-model.trim="v$.form.comment.$model" aria-describedby="comment"></Textarea>
 
-                        </div>
-                        <div v-if="v$.form.installation_date.$error">
-                            <validationErrorMessage :errors="v$.form.installation_date.$errors" />
-                        </div>
-
-                    </div>
-                    <div class="col-span-4 md:col-span-2 lg:col-span-1">
-                        <div class="button-container">
-                            <Button :label="action" type="submit" icon="pi pi-external-link" severity="success" text
-                                raised />
-
-                        </div>
-                    </div>
+                </div>
+                <div v-if="v$.form.comment.$error">
+                    <validationErrorMessage :errors="v$.form.comment.$errors" />
+                </div>
+            </div>
 
 
+            <div class="col-span-4 md:col-span-2 lg:col-span-1">
+                <div class=" flex-auto">
+                    <label class=" block font-bold" for="theft_case">Theft Case:</label>
+
+                    <Datepicker v-model.trim="form.theft_case" :state="!v$.form.theft_case.$error" id="theft_case" />
 
 
 
                 </div>
-            </form>
+                <div v-if="v$.form.theft_case.$error">
+                    <validationErrorMessage :errors="v$.form.theft_case.$errors" />
+                </div>
 
-     
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1 ">
+                <div class=" flex-auto">
+                    <label for="on_air_date" class=" block font-bold">Installation Date:</label>
 
-
-
-
-
-
-
-
-
-
+                    <Datepicker v-model.trim="form.installation_date" :state="!v$.form.installation_date.$error"
+                        id="on_air_date" />
 
 
+                </div>
+                <div v-if="v$.form.installation_date.$error">
+                    <validationErrorMessage :errors="v$.form.installation_date.$errors" />
+                </div>
 
- 
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1">
+                <div class="button-container">
+                    <Button :label="action" type="submit" icon="pi pi-external-link" severity="success" text raised />
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </template>
 
 <script>
-import { maxLength, minLength, integer, required,requiredIf } from '@vuelidate/validators'
+import { maxLength, minLength, integer, required, requiredIf } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
@@ -220,8 +217,8 @@ export default {
                     minLength: helpers.withMessage("min 3 characters", minLength(3)),
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
-                    required:  helpers.withMessage("batteries brand is required", required),
-                  
+                    required: helpers.withMessage("batteries brand is required", required),
+
 
                 },
 
@@ -242,7 +239,7 @@ export default {
                 no_strings: {
 
                     integer: helpers.withMessage("max 50 strings", integer),
-                    required:  helpers.withMessage("number of strings is required", required),
+                    required: helpers.withMessage("number of strings is required", required),
 
                 },
                 stock: {
@@ -270,12 +267,12 @@ export default {
                     stringReg: helpers.withMessage("alphanumeric only", stringReg),
 
                 },
-                theft_case:{
-                    requiredIf: helpers.withMessage("theft case date is required", requiredIf(this.form.installation_date==null)),
+                theft_case: {
+                    requiredIf: helpers.withMessage("theft case date is required", requiredIf(this.form.installation_date == null)),
 
                 },
-                installation_date:{
-                    requiredIf: helpers.withMessage("installation date is required", requiredIf(this.form.theft_case==null)),
+                installation_date: {
+                    requiredIf: helpers.withMessage("installation date is required", requiredIf(this.form.theft_case == null)),
                 }
 
 
@@ -284,7 +281,7 @@ export default {
         }
     },
     name: "BatteriesUpdate",
-    components:{
+    components: {
         validationErrorMessage
 
     },
@@ -387,7 +384,7 @@ export default {
 
         },
         async submitUpdateForm() {
-          
+
             const isFormCorrect = await this.v$.$validate()
 
             if (!isFormCorrect) return

@@ -489,15 +489,7 @@ const insertNewModification = async () => {
 
         .then((response) => {
 
-            // subcontractor.value = null;
-            // requester.value = null;
-            // request_date.value = null;
-            // finish_date.value = null;
-            // cost.value = null;
-            // project.value = null;
-            // status.value = null;
-            // action.value = null;
-            // materials.value = null;
+          
             toast.add({
                 severity: "success",
                 summary: "Success Message",

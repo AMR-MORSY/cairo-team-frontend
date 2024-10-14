@@ -148,7 +148,7 @@ export default {
 
                         data: {
                             rowData: this.dialogRef.data.rowData,
-                            id: this.id,
+                            id: this.dialogRef.data.id,
                             topic: this.topic,
                             action: this.action
 
