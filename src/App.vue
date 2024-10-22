@@ -3,7 +3,44 @@
   <router-view></router-view>
 
   <DynamicDialog />
-  <ConfirmDialog></ConfirmDialog>
+  <ConfirmDialog group="yesNo">
+    <template #container="{ message, acceptCallback, rejectCallback }">
+      <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+        <div
+          class="rounded-full bg-white text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+          <i class="pi pi-question text-5xl font-extrabold"></i>
+        </div>
+        <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+        <p class="mb-0 font-semibold text-xl">{{ message.message }}</p>
+        <div class="flex items-center gap-2 mt-6">
+         
+          <Button :severity="message.rejectProps.severity" :label="message.rejectProps.label" raised  @click="rejectCallback"></Button>
+          <Button :severity="message.acceptProps.severity" :label="message.acceptProps.label" raised  @click="acceptCallback"></Button>
+        </div>
+      </div>
+    </template>
+  </ConfirmDialog>
+
+  <ConfirmDialog group="info">
+    <template #container="{ message, acceptCallback, rejectCallback }">
+      <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+     
+          <div
+          class="rounded-full bg-white text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+          <i :class="message.icon" class="!text-6xl text-primary-500"></i>
+        </div>
+      
+       
+        <span class=" font-extrabold text-2xl text-red-700 font-Signika block mb-2 mt-6">{{ message.header }}</span>
+      
+        <p class="mb-0 text-xl text-font-main-color font-Signika font-semibold">{{ message.message }}</p>
+        <div class="flex items-center gap-2 mt-6">
+          <Button :severity="message.acceptProps.severity" :label="message.acceptProps.label"  raised  @click="acceptCallback" />
+          
+        </div>
+      </div>
+    </template>
+  </ConfirmDialog>
 
   <SpinnerPage :displayNone="displaySpinnerPage" style="z-index: 10000000000;"></SpinnerPage>
 
@@ -55,6 +92,7 @@ export default {
           }
         
           this.$ability.update(rules)
+         
        
         })
 

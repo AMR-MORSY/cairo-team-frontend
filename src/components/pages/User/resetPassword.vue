@@ -1,43 +1,63 @@
 <template>
   <userNavBar></userNavBar>
-  <div class="container">
-    <div class="reset-password my-5">
-      <div class="alert alert-primary">
-        <form @submit.prevent="sendToken">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email"
-              v-bind:class="[errorEmail || v$.emailForm.email.$error ? 'is-invalid' : '', infoEmail ? 'is-valid' : '']"
-              @keyup="clearData()" class="form-control" placeholder="Email...." v-model.trim="v$.emailForm.email.$model"
-              id="email" />
+
+  <div class="w-full my-5">
+    <Card class=" max-w-xs mx-auto">
+      <template #title>
+
+        <p class=" text-center text-font-main-color font-Signika font-extrabold text-lg">
+          Reset Password
+        </p>
+
+      </template>
+      <template #content>
+        <form @submit.prevent="sendToken" novalidate>
+
+
+          <div class="w-full mt-8">
+
+            <FloatLabel class=" w-full">
+
+
+              <InputText fluid :invalid="v$.emailForm.email.$error" type="text" v-model.trim="v$.emailForm.email.$model"
+                aria-describedby="email" />
+              <label class=" text-xs">Email</label>
+
+
+
+            </FloatLabel>
             <div v-if="v$.emailForm.email.$error">
-              <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                v-for="error in v$.emailForm.email.$errors">
-                {{ error.$message }}</div>
-            </div>
-            <div class="invalid-feedback mt-2" v-if="errorEmail">
-              {{ errorEmail }}
-            </div>
-            <div class="valid-feedback mt-2" v-if="infoEmail">
-              {{ infoEmail }}
+              <validationErrorMessage :errors="v$.emailForm.email.$errors" />
             </div>
           </div>
-          <button class="btn btn-primary mt-2" type="submit">
-            Send Token To Email Address
-          </button>
+
+          <Button class="block mt-2" severity="success" raised label="Send Token To Email Address" type="submit" />
+
+
         </form>
-      </div>
+        <div class="flex justify-end mt-5">
+          <router-Link to="/user/login"
+            class=" block text-font-main-color font-Signika font-semibold underline decoration-2"> Back to log in
+            page</router-Link>
+
+        </div>
+
+      </template>
+
+    </Card>
 
 
 
 
-    </div>
   </div>
+
+ 
 </template>
 
 <script>
 import User from "../../../apis/User.js";
 import userNavBar from "../../helpers/User/userNavBar.vue";
+import validationErrorMessage from "../../helpers/validationErrorMessage.vue";
 
 import { email, required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
@@ -48,13 +68,9 @@ export default {
       emailForm: {
         email: "",
       },
-      tokenForm: {
-        token: "",
-      },
 
 
-      errorEmail: null,
-      infoEmail: null,
+
 
     };
   },
@@ -78,14 +94,11 @@ export default {
 
   name: "resetPassword",
   components: {
-    userNavBar
+    userNavBar,
+    validationErrorMessage
   },
   methods: {
-    clearData() {
-      this.errorEmail = null;
-      this.infoEmail = null
 
-    },
     async sendToken() {
       const isFormCorrect = await this.v$.$validate()
 
@@ -95,13 +108,28 @@ export default {
 
 
       User.sendToken(this.emailForm)
-        .then(() => {
-          this.infoEmail = "Email Sent, please check your mail";
+        .then((response) => {
+          console.log(response)
+
+          this.$toast.add({
+            severity: "success",
+            summary: "Success Message",
+            detail: "Password reset token has been Sent to this email, please check",
+            life: 8000,
+          });
+
 
         })
         .catch((error) => {
+          console.log(error)
           if (error.response.status == 422) {
-            this.errorEmail = error.response.data.errors.email;
+            this.$toast.add({
+              severity: "error",
+              summary: "Error Message",
+              detail: error.response.data.errors.email,
+              life: 3000,
+            });
+
           }
         })
     }

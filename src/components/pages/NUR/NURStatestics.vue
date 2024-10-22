@@ -15,13 +15,10 @@
         <div class="grid grid-cols-3 gap-4">
           <div class="col-span-3 lg:col-span-1 mt-5">
             <Card>
-              <template #title>
-                <p style="font-size: 16px; padding: 0; text-align: center">
-                  2G NUR
-                </p>
-              </template>
+             
               <template #content>
-                <Chart type="bar" :data="zones2GNUR" :options="lightOptions" :plugins="plugins" />
+                <!-- <Chart type="bar" :data="zones2GNUR" :options="lightOptions" :plugins="plugins" /> -->
+                 <BarChart :chartDataSets="zones2GNUR" chartTitle="Zone 2G NUR"/>
               </template>
               <template #footer>
                 <p>Cairo 2G NUR={{ cairo2GNUR }}</p>
@@ -30,13 +27,10 @@
           </div>
           <div class="col-span-3 lg:col-span-1 mt-5">
             <Card>
-              <template #title>
-                <p style="font-size: 16px; padding: 0; text-align: center">
-                  3G NUR
-                </p>
-              </template>
+             
               <template #content>
-                <Chart type="bar" :data="zones3GNUR" :options="lightOptions" :plugins="plugins" />
+                <BarChart :chartDataSets="zones3GNUR" chartTitle="Zone 3G NUR"/>
+            
               </template>
               <template #footer>
                 <p>Cairo 3G NUR={{ cairo3GNUR }}</p>
@@ -45,13 +39,9 @@
           </div>
           <div class="col-span-3 lg:col-span-1 mt-5">
             <Card>
-              <template #title>
-                <p style="font-size: 16px; padding: 0; text-align: center">
-                  4G NUR
-                </p>
-              </template>
+           
               <template #content>
-                <Chart type="bar" :data="zones4GNUR" :options="lightOptions" :plugins="plugins" />
+                <BarChart :chartDataSets="zones4GNUR" chartTitle="Zone 4G NUR"/>
               </template>
               <template #footer>
                 <p>Cairo 4G NUR={{ cairo4GNUR }}</p>
@@ -72,56 +62,39 @@
           <div class="col-span-3  lg:col-span-1 mt-5">
             <Card>
               <template #title>
-                <p style="font-size: 16px; padding: 0; text-align: center">
-                  Combined NUR
-                </p>
-                <div class="row">
-
-                  <div class="col-10">
-                    <div style="
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                      ">
-                      <div class="w-50" style="
+                
+                <div style="display: flex;align-items: center;justify-content: center;">
+                  <div class="w-1/2" style="
                           display: flex;
                           align-items: center;
                           justify-content: center;
                         ">
-                        <img src="../../logos/week-icon.aba3072e.svg" @click="getCairoNUR_CYearlyAnalysis"
-                          style="cursor: pointer" alt="" class="w-25" v-tooltip.right="'Weekly Analysis'" />
-                      </div>
-                    </div>
+                    <img src="../../logos/week-icon.aba4072e.svg" @click="getCairoNUR_CYearlyAnalysis"
+                      style="cursor: pointer" alt="" class="w-1/4" v-tooltip.right="'Weekly Analysis'" />
                   </div>
-
                 </div>
               </template>
               <template #content>
-                <Chart type="bar" :data="zonesCombinedNUR" :options="lightOptions" :plugins="plugins" />
+                <BarChart :chartDataSets="zonesCombinedNUR" chartTitle="Cairo Combined NUR"/>
+             
               </template>
             </Card>
           </div>
           <div class="col-span-3  lg:col-span-1 mt-5">
             <Card>
-              <template #title>
-                <p style="font-size: 16px; padding: 0; text-align: center">
-                  Response With Access
-                </p>
-              </template>
+              
               <template #content>
-                <Chart type="bar" :data="zonesResponseWithAccess" :options="lightOptions" :plugins="plugins" />
+                <BarChart :chartDataSets="zonesResponseWithAccess" chartTitle="Response with Access"/>
+              
               </template>
             </Card>
           </div>
           <div class="col-span-3  lg:col-span-1 mt-5">
             <Card>
-              <template #title>
-                <p style="font-size: 16px; padding: 0; text-align: center">
-                  Response Without Access
-                </p>
-              </template>
+             
               <template #content>
-                <Chart type="bar" :data="zonesResponseWithoutAccess" :options="lightOptions" :plugins="plugins" />
+                <BarChart :chartDataSets="zonesResponseWithoutAccess" chartTitle="Response W.O Access"/>
+            
               </template>
             </Card>
           </div>
@@ -134,29 +107,29 @@
                 <div class="transmission w-100" style="cursor: pointer" @click="getCairoMWWeeklyNUR">
                   <img
                     src="../../logos/favpng_falesia-systems-sp-o-o-microwave-transmission-mini-link-rectifier-xpic.png"
-                    alt="" class="w-50 m-auto d-block" />
+                    alt="" class="w-1/2 mx-auto block" />
                 </div>
               </div>
               <div class="col-span-5 md:col-span-1">
                 <div class="gen w-100" style="cursor: pointer" @click="getCairoGenWeeklyNUR">
                   <img src="../../logos/33kva-cat-silent-diesel-generator-cat-de33gc.jpg" alt=""
-                    class="w-50 m-auto d-block" />
+                    class="w-1/2 mx-auto block" />
                 </div>
               </div>
               <div class="col-span-5 md:col-span-1">
                 <div class="BTS w-100" style="cursor: pointer" @click="getCairoNodeBWeeklyNUR">
-                  <img src="../../logos/Nortel-GSM-800012000.jpg" alt="" class="w-50 m-auto d-block" />
+                  <img src="../../logos/Nortel-GSM-800012000.jpg" alt="" class="w-1/2 mx-auto block" />
                 </div>
               </div>
 
               <div class="col-span-5 md:col-span-1">
                 <div class="power w-100" style="cursor: pointer" @click="getCairoPowerWeeklyNUR">
-                  <img src="../../logos/power-plant-icon.svg" alt="" class="w-50 m-auto d-block" />
+                  <img src="../../logos/power-plant-icon.svg" alt="" class="w-1/2 mx-auto block" />
                 </div>
               </div>
               <div class="col-span-5 md:col-span-1">
                 <div class="modifications w-75" style="cursor: pointer" @click="getCairoModificationWeeklyNUR">
-                  <img src="../../logos/clipart3239793.png" alt="" class="w-50 m-auto d-block" />
+                  <img src="../../logos/clipart3239793.png" alt="" class="w-1/2 mx-auto block" />
                 </div>
               </div>
             </div>
@@ -228,7 +201,7 @@
 </template>
 
 <script>
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import NodePowerModification from "../../helpers/Nur/NodePowerModification.vue";
 import NUR from "../../../apis/NUR";
 import TopSites from "./TopSites.vue";
 import siteNURTable from "./siteNURTable.vue";
@@ -240,11 +213,9 @@ import CairoTX from "./CairoTX.vue";
 import CairoYearlyAnalysis from "./CairoYearlyAnalysis.vue";
 import CairoGen from "../NUR/CairoGen.vue";
 
-import CairoMainPower from "./CairoMainPower.vue";
 
-import CairoNodeB from './CairoNodeB.vue';
-
-import CairoModification from './CairoModification.vue';
+;
+import BarChart from "../../helpers/BarChart.vue";
 
 export default {
   data() {
@@ -273,20 +244,7 @@ export default {
       gizaSubsystemCount: null,
       zonesResponseWithAccess: null,
       zonesResponseWithoutAccess: null,
-      lightOptions: {
-        plugins: {
-          legend: {
-            labels: {
-              color: "red",
-            },
-          },
-          datalabels: {
-            anchor: "end",
-            color: "red",
-          },
-        },
-      },
-      plugins: [ChartDataLabels],
+     
       cairoSouthGen: null,
       cairoEastGen: null,
       cairoNorthGen: null,
@@ -332,9 +290,9 @@ export default {
     CairoTX,
     CairoYearlyAnalysis,
     CairoGen,
-    CairoMainPower,
-    CairoNodeB,
-    CairoModification,
+ 
+    BarChart,
+    NodePowerModification
   },
 
   methods: {
@@ -355,7 +313,7 @@ export default {
       return response;
     },
     getNUR() {
-
+      const documentStyle = getComputedStyle(document.documentElement);
       let data = {
         week: this.week,
 
@@ -365,7 +323,7 @@ export default {
       NUR.getNur(data)
 
         .then((response) => {
-          console.log(response)
+       
           if (response.data.errors) {
 
             this.notFoundErrors = response.data.errors;
@@ -379,15 +337,19 @@ export default {
               datasets: [
                 {
                   label: "2G NUR",
-                  backgroundColor: "#7F00FF",
+                 
                   data: Object.values(NUR.NUR2G.zonesNUR2G),
-                  borderWidth: 1,
+                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+               
                 },
                 {
                   label: "No.tickets",
-                  backgroundColor: "#C3B1E1",
+                
                   data: Object.values(NUR.NUR2G.zonesTotalNumTickets),
-                  borderWidth: 1,
+                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+              
                 },
               ],
             };
@@ -397,15 +359,18 @@ export default {
               datasets: [
                 {
                   label: "3G NUR",
-                  backgroundColor: "#7F00FF",
                   data: Object.values(NUR.NUR3G.zonesNUR3G),
-                  borderWidth: 1,
+                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+               
+                
                 },
                 {
                   label: "No.tickets",
-                  backgroundColor: "#C3B1E1",
                   data: Object.values(NUR.NUR3G.zonesTotalNumTickets),
-                  borderWidth: 1,
+                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+                 
                 },
               ],
             };
@@ -416,15 +381,17 @@ export default {
               datasets: [
                 {
                   label: "4G NUR",
-                  backgroundColor: "#7F00FF",
                   data: Object.values(NUR.NUR4G.zonesNUR4G),
-                  borderWidth: 1,
+                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                 
                 },
                 {
                   label: "No.tickets",
-                  backgroundColor: "#C3B1E1",
                   data: Object.values(NUR.NUR4G.zonesTotalNumTickets),
-                  borderWidth: 1,
+                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+                
                 },
               ],
             };
@@ -435,9 +402,10 @@ export default {
               datasets: [
                 {
                   label: "Combined NUR",
-                  backgroundColor: "#C3B1E1",
+                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                   data: Object.values(NUR.combined),
-                  borderWidth: 1,
+                  
                 },
               ],
             };
@@ -465,12 +433,17 @@ export default {
                 {
                   data: resp.exceed,
                   label: "exceed SLA",
-                  backgroundColor: "#7F00FF",
+                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                
                 },
                 {
                   data: resp.withinSLA,
                   label: "within SLA",
-                  backgroundColor: "#C3B1E1",
+                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+                
+                
                 },
               ],
             };
@@ -497,12 +470,16 @@ export default {
                 {
                   data: resp.exceed,
                   label: "exceed SLA",
-                  backgroundColor: "#7F00FF",
+                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                 
                 },
                 {
                   data: resp.withinSLA,
                   label: "within SLA",
-                  backgroundColor: "#C3B1E1",
+                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+                
                 },
               ],
             };
@@ -617,6 +594,7 @@ export default {
             sites: siteData,
             tickets: response.data.tickets,
             statestics: response.data.statestics,
+            title:"Cairo Tx"
           },
         });
       })
@@ -700,7 +678,7 @@ export default {
           sites.forEach((site) => {
             siteData.push(site.site_data);
           });
-          this.$dialog.open(CairoMainPower, {
+          this.$dialog.open( NodePowerModification, {
             props: {
               style: {
                 width: "75vw",
@@ -716,6 +694,7 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
+              title:"Cairo Main Power"
             },
           });
         })
@@ -733,7 +712,7 @@ export default {
           sites.forEach((site) => {
             siteData.push(site.site_data);
           });
-          this.$dialog.open(CairoNodeB, {
+          this.$dialog.open(NodePowerModification, {
             props: {
               style: {
                 width: "75vw",
@@ -749,6 +728,7 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
+              title:"Cairo NodeB"
             },
           });
         })
@@ -766,7 +746,7 @@ export default {
           sites.forEach((site) => {
             siteData.push(site.site_data);
           });
-          this.$dialog.open(CairoModification, {
+          this.$dialog.open(NodePowerModification, {
             props: {
               style: {
                 width: "75vw",
@@ -782,6 +762,7 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
+              title:"Cairo Modifications"
             },
           });
         })

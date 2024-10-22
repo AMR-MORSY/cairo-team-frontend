@@ -1,8 +1,5 @@
 <template>
-  <p class=" text-center text-lg font-Signika font-bold text-font-main-color mb-2">NUR-C</p>
-  <div class="card">
-    <Chart type="line" :data="chartData" :options="chartOptions" class="h-[30rem]" />
-  </div>
+   <LineChart chartTitle="Cairo NUR_C"  :chartDataSets="chartData"/>
 </template>
 
 <script setup>
@@ -10,22 +7,27 @@
 
 
 import { ref, onMounted, inject } from "vue";
+import LineChart from "../../helpers/LineChart.vue";
 
 const dialogRef = inject('dialogRef');
+const chartData=ref();
 
 onMounted(() => {
-  chartData.value = setChartData();
-  chartOptions.value = setChartOptions();
+  setChartData();
+ 
 });
 
-const chartData = ref();
-const chartOptions = ref();
+
+
+
+
+
 
 const setChartData = () => {
   const documentStyle = getComputedStyle(document.documentElement);
 
-  if (this.dialogRef.data.cairo && this.dialogRef.data.zones) {
-    return {
+  if (dialogRef.value.data.cairo && dialogRef.value.data.zones) {
+    chartData.value= {
 
       labels: Object.keys(dialogRef.value.data.cairo),
       datasets: [
@@ -77,42 +79,7 @@ const setChartData = () => {
 
 
 };
-const setChartOptions = () => {
-  const documentStyle = getComputedStyle(document.documentElement);
-  const textColor = documentStyle.getPropertyValue('--p-text-color');
-  const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-  const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
-  return {
-    maintainAspectRatio: false,
-    aspectRatio: 0.6,
-    plugins: {
-      legend: {
-        labels: {
-          color: textColor
-        }
-      }
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: textColorSecondary
-        },
-        grid: {
-          color: surfaceBorder
-        }
-      },
-      y: {
-        ticks: {
-          color: textColorSecondary
-        },
-        grid: {
-          color: surfaceBorder
-        }
-      }
-    }
-  };
-}
 
 
 </script>

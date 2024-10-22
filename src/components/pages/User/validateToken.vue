@@ -1,46 +1,102 @@
 <template>
     <userNavBar></userNavBar>
-    <div class="mt-5 d-flex aligin-items-center justify-content-center">
+    <div class=" w-full mt-10">
 
-        <div class="alert alert-success" v-if="tokenValid">
-            <form @submit.prevent="changePassword">
-                <div class="form-group">
-                    <label for="newpassword">Change Password</label>
-                    <input type="password" class="form-control"
-                        v-bind:class="[v$.newPassword.$error || passwordBackendError ? 'is-invalid' : '']" id="newpassword"
-                        v-model.trim="v$.newPassword.$model" autocomplete="off" />
-                        <p>*At least 8 characters <br>*includes a special char.<br>*includes uppercase letter<br>*includes a number</p>
+        <Card class=" max-w-sm mx-auto" v-if="tokenValid">
+            <template #title>
 
-                    <div v-if="v$.newPassword.$error">
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.newPassword.$errors">
-                            {{ error.$message }}</div>
+                <p class=" text-center text-font-main-color font-Signika font-extrabold text-lg">
+                    Change Password
+                </p>
+
+            </template>
+            <template #content>
+
+                <form @submit.prevent="changePassword">
+                    <div class=" w-full mt-8 ">
+                        <FloatLabel class=" w-full">
+                            <Password fluid :invalid="v$.newPassword.$error|| passwordBackendError" v-model.trim="v$.newPassword.$model"
+                                aria-describedby="pass" toggleMask>
+                                <template #header>
+                                    <div class="font-semibold text-xm mb-4">Pick a password</div>
+                                </template>
+                                <template #footer>
+                                    <Divider />
+                                    <ul class="pl-2 ml-2 my-0 leading-normal">
+                                        <li>At least one lowercase</li>
+                                        <li>At least one uppercase</li>
+                                        <li>At least one numeric</li>
+                                        <li>Minimum 8 characters</li>
+                                    </ul>
+                                </template>
+                            </Password>
+                            <label class=" text-xs">Password</label>
+                        </FloatLabel>
+                        <div v-if="v$.newPassword.$error">
+
+                            <validationErrorMessage :errors="v$.newPassword.$errors" />
+                        </div>
+
+
                     </div>
+                    <!-- <div class="form-group">
+                        <label for="newpassword">Change Password</label>
+                        <input type="password" class="form-control"
+                            v-bind:class="[v$.newPassword.$error || passwordBackendError ? 'is-invalid' : '']"
+                            id="newpassword" v-model.trim="v$.newPassword.$model" autocomplete="off" />
+                        <p>*At least 8 characters <br>*includes a special char.<br>*includes uppercase
+                            letter<br>*includes a
+                            number</p>
+
+                        <div v-if="v$.newPassword.$error">
+                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                                v-for="error in v$.newPassword.$errors">
+                                {{ error.$message }}</div>
+                        </div>
 
 
-                </div>
-                <div class="form-group">
+                    </div> -->
+                    <div class=" w-full mt-8 ">
+                        <FloatLabel class=" w-full">
+                            <Password fluid :feedback="false"
+                                :invalid="v$.passwordConfirmation.$error || passwordBackendError"
+                                v-model.trim="v$.passwordConfirmation.$model" aria-describedby="pass" toggleMask />
+                            <label class=" text-xs">Confirmation Password</label>
+                        </FloatLabel>
+                        <div v-if="v$.passwordConfirmation.$error">
+
+                            <validationErrorMessage :errors="v$.passwordConfirmation.$errors" />
+                        </div>
+
+
+                    </div>
+                    <!-- <div class="form-group">
                     <label for="password-confirmation">Password Confirmation</label>
                     <input type="password" class="form-control"
                         v-bind:class="[v$.passwordConfirmation.$error || passwordBackendError ? 'is-invalid' : '']"
                         id="password-confirmation" v-model.trim="v$.passwordConfirmation.$model" autocomplete="off" />
 
 
-                </div>
-                <div v-if="v$.passwordConfirmation.$error">
-                    <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                        v-for="error in v$.passwordConfirmation.$errors">
-                        {{ error.$message }}</div>
-                </div>
-                <div v-if="passwordBackendError">
-                    <p v-for="error in passwordBackendError" :key="error">{{ error }}</p>
-                </div>
-                <button type="submit" class="btn btn-success mt-2">
-                    Change Password
-                </button>
-            </form>
-        </div>
-        <h1 class="alert alert-primary" v-if="invalidToken">{{ errorToken }}</h1>
+                    <div v-if="v$.passwordConfirmation.$error">
+                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
+                            v-for="error in v$.passwordConfirmation.$errors">
+                            {{ error.$message }}</div>
+                    </div>
+                </div> -->
+
+                    <div v-if="passwordBackendError">
+                        <p v-for="error in passwordBackendError" :key="error">{{ error }}</p>
+                    </div>
+                    <Button type="submit" class="block mx-auto mt-9" severity="danger" label="  Change Password" />
+
+
+                </form>
+            </template>
+
+        </Card>
+        <h1 class="text-5xl text-center w-full my-12 font-Signika text-font-main-color" v-if="invalidToken">{{
+            errorToken }}
+        </h1>
 
     </div>
 </template>
@@ -52,6 +108,8 @@ import { required, sameAs } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators'
 import userNavBar from "../../helpers/User/userNavBar.vue";
+import Card from "primevue/card";
+import validationErrorMessage from "../../helpers/validationErrorMessage.vue";
 export default {
     data() {
         return {
@@ -70,8 +128,9 @@ export default {
     },
     name: "validateToken",
     components: {
-    userNavBar,
-  },
+        userNavBar,
+        validationErrorMessage
+    },
     props: ["token"],
     setup: () => ({ v$: useVuelidate() }),
     validations() {
@@ -116,9 +175,8 @@ export default {
                         this.tokenValid = true;
 
                     }
-                    else if(response.data.error)
-                    {
-                        this.errorToken =response.data.error;
+                    else if (response.data.error) {
+                        this.errorToken = response.data.error;
                         this.invalidToken = true;
 
                     }
@@ -164,7 +222,7 @@ export default {
                         path: "/home",
                     });
 
-                  
+
                 })
                 .catch(error => {
                     if (error.response.status == 422) {

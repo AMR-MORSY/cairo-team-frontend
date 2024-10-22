@@ -18,15 +18,15 @@
             <FloatLabel class=" w-full">
 
 
-              <InputText class=" w-full" :invalid="v$.email.$error" type="text"
-                v-model.trim="v$.email.$model" aria-describedby="email" />
+              <InputText class=" w-full" :invalid="v$.email.$error" v-model.trim="v$.email.$model"
+                aria-describedby="email" />
               <label>Email</label>
 
 
 
             </FloatLabel>
             <div v-if="v$.email.$error">
-              <ValidationErrorMessage :errors="v$.email.$errors"/>
+              <ValidationErrorMessage :errors="v$.email.$errors" />
             </div>
           </div>
 
@@ -34,13 +34,13 @@
 
           <div class=" w-full mt-8 ">
             <FloatLabel class=" w-full">
-              <InputText class=" w-full" :invalid="v$.password.$error" type="password"
-                v-model.trim="v$.password.$model" aria-describedby="pass" />
-              <label >Password</label>
+              <Password fluid :feedback="false" :invalid="v$.password.$error" v-model.trim="v$.password.$model"
+                aria-describedby="pass" toggleMask />
+              <label>Password</label>
             </FloatLabel>
             <div v-if="v$.password.$error">
-              
-                 <ValidationErrorMessage :errors="v$.password.$errors"/>
+
+              <ValidationErrorMessage :errors="v$.password.$errors" />
             </div>
 
 
@@ -50,22 +50,26 @@
 
 
           <div class="  flex flex-col justify-center  py-2 mt-5">
-          
-              <!-- <Button label="Login"  class="text-xs block w-full rounded-full" type="submit"/> -->
-             <button class=" block  text-white rounded-xl py-2 bg-font-main-color">Login</button>
 
-            
+            <!-- <Button label="Login"  class="text-xs block w-full rounded-full" type="submit"/> -->
+            <button class=" block  text-white rounded-xl py-2 bg-font-main-color">Login</button>
+
+
             <div class=" mt-5 flex justify-between items-center">
-              <router-link to="/user/resetPassword" class="  font-bold font-Signika text-font-main-color underline underline-offset-1">Forgot Password?</router-link>
-              <router-link to="/user/register" class="  font-bold font-Signika text-font-main-color underline underline-offset-1">Create new Account</router-link>
+              <router-link to="/user/resetPassword"
+                class="  font-bold font-Signika text-font-main-color underline underline-offset-1">Forgot
+                Password?</router-link>
+              <router-link to="/user/register"
+                class="  font-bold font-Signika text-font-main-color underline underline-offset-1">Create new
+                Account</router-link>
 
             </div>
-           
-           
-           
+
+
+
           </div>
 
-        
+
 
 
         </form>
@@ -84,22 +88,7 @@
 
 
   </div>
-  <Dialog v-model:visible="visible" modal :showHeader="false" :style="{ width: '50vw' }"
-    :breakpoints="{ '700px': '70vw' }">
-
-    <p class="m-0">
-      <span class="confirmation">Error</span>
-    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ message }} </p>
-    </p>
-    <template #footer>
-
-
-      <button class="btn d-block btn-info" @click="$router.push({ name: 'ActivateUserAccount' })">Activate
-        Account</button>
-
-      <button @click="hideDialog()" class="d-block btn btn-danger">No</button>
-    </template>
-  </Dialog>
+  
 </template>
 
 <script>
@@ -193,8 +182,31 @@ export default {
 
           }
           else if (response.data.message == "Account is not verified yet") {
-            this.visible = true;
-            this.message = response.data.message
+            this.$confirm.require({
+              group: "yesNo",
+              message: response.data.message,
+              header: 'Activation',
+              icon: 'pi pi-exclamation-triangle',
+              position: 'center',
+              rejectProps: {
+                label: 'No',
+                severity: 'danger',
+
+              },
+              acceptProps: {
+                label: 'Verify',
+                severity: 'success',
+               
+              },
+              accept: () => {
+                this.$router.push({ name: 'ActivateUserAccount' })
+              },
+              reject: () => {
+                this.$router.push({ name: 'welcome' })
+                this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 4000 });
+              }
+            });
+         
 
           }
           else {

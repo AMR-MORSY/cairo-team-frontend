@@ -1,13 +1,13 @@
 <template>
     <div>
 
-        <h1 style="text-align: center;margin-top: 30px;">{{ message }}</h1>
+        <h1 class=" text-5xl text-center w-full my-12 font-Signika text-font-main-color">{{ message }}</h1>
 
     </div>
 
     <div class="flex justify-center items-center" v-if="message">
 
-        <router-Link to="/user/login" class="links">Back to log in page</router-Link>
+        <router-Link to="/user/login" class="text-2xl text-center w-full my-12 font-Signika text-font-main-color underline underline-offset-2">Back to log in page</router-Link>
 
     </div>
 

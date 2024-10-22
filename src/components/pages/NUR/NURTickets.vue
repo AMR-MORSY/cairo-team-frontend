@@ -1,102 +1,32 @@
 <template>
   <div >
     <div class="table-container" v-if="NUR_2G_tickets.length">
-      <h3>2G Tickets</h3>
-      <DataTable
-        :value="NUR_2G_tickets"
-        responsiveLayout="scroll"
-        class="p-datatable-sm"
-        stripedRows
-        :rows="5"
-      >
-        <Column field="begin" header="begin"></Column>
-        <Column field="end" header="End"></Column>
-        <Column field="Dur_Hr" header="Dur_Hr"></Column>
-        <Column field="cells" header="Cells"></Column>
-        <Column field="impacted_sites" header="impacted Sites"></Column>
-        <Column field="nur" header="NUR"></Column>
-        <Column field="sub_system" header="Sub System"></Column>
-        <Column field="solution" header="solution"></Column>
-        <Column field="week" header="Week"></Column>
-        <Column field="year" header="Year"></Column>
-      </DataTable>
+     
+      <NURTicketTableColumns tableHeader="2G Tickets" :tableValue="NUR_2G_tickets"/>
     </div>
     <div class="table-container" v-if="NUR_3G_tickets.length">
-      <h3>3G Tickets</h3>
-      <DataTable
-        :value="NUR_3G_tickets"
-        responsiveLayout="scroll"
-        class="p-datatable-sm"
-        stripedRows
-        :rows="5"
-      >
-        <Column field="begin" header="begin"></Column>
-        <Column field="end" header="End"></Column>
-        <Column field="Dur_Hr" header="Dur_Hr"></Column>
-        <Column field="cells" header="Cells"></Column>
-        <Column field="impacted_sites" header="impacted Sites"></Column>
-        <Column field="nur" header="NUR"></Column>
-        <Column field="sub_system" header="Sub System"></Column>
-
-        <Column field="solution" header="solution"></Column>
-        <Column field="week" header="Week"></Column>
-        <Column field="year" header="Year"></Column>
-      </DataTable>
+    
+        <NURTicketTableColumns tableHeader="3G Tickets" :tableValue="NUR_3G_tickets"/>
+     
     </div>
     <div class="table-container" v-if="NUR_4G_tickets.length">
-      <h3>4G Tickets</h3>
-      <DataTable
-        :value="NUR_4G_tickets"
-        responsiveLayout="scroll"
-        class="p-datatable-sm"
-        stripedRows
-        :rows="5"
-      >
-      
-
-        <Column field="begin" header="begin"></Column>
-        <Column field="end" header="End"></Column>
-        <Column field="Dur_Hr" header="Dur_Hr"></Column>
-        <Column field="cells" header="Cells"></Column>
-        <Column field="impacted_sites" header="impacted Sites"></Column>
-        <Column field="nur" header="NUR"></Column>
-        <Column field="sub_system" header="Sub System"></Column>
-        <Column field="solution" header="solution"></Column>
-        <Column field="week" header="Week"></Column>
-        <Column field="year" header="Year"></Column>
-      </DataTable>
+     
+      <NURTicketTableColumns tableHeader="4G Tickets" :tableValue="NUR_4G_tickets"/>
     </div>
     <div class="table-container" v-if="allTickets.length">
-      <h3>All Tickets</h3>
-      <DataTable
-        :value="allTickets"
-        responsiveLayout="scroll"
-        class="p-datatable-sm"
-        stripedRows
-        :rows="5"
-      >
-        <Column field="begin" header="begin"></Column>
-        <Column field="end" header="End"></Column>
-        <Column field="Dur_Hr" header="Dur_Hr"></Column>
-        <Column field="cells" header="Cells"></Column>
-        <Column field="impacted_sites" header="impacted Sites"></Column>
-        <Column field="nur" header="NUR"></Column>
-        <Column field="sub_system" header="Sub System"></Column>
-        <Column field="solution" header="solution"></Column>
-        <Column field="technology" header="Technology"></Column>
-        <Column field="week" header="Week"></Column>
-        <Column field="year" header="Year"></Column>
-      </DataTable>
+      
+      <NURTicketTableColumns tableHeader="All Tickets" :tableValue="allTickets"/>
     </div>
 
-    <button class="btn btn-danger mt-5" @click="download2GTickets">
-      Download
-    </button>
+    <Button class="block mt-5" raised label="Download" severity="danger" @click="download2GTickets" />
+     
+   
   </div>
 </template>
 
 <script>
 import exportFromJSON from "export-from-json";
+import NURTicketTableColumns from "../../helpers/Nur/NURTicketTableColumns.vue";
 
 export default {
   data() {
@@ -109,6 +39,9 @@ export default {
   },
   inject: ["dialogRef"],
   name: "VIPsORNodalsNURTickets",
+  components:{
+    NURTicketTableColumns
+  },
   mounted() {
     this.mountTablesData();
   },

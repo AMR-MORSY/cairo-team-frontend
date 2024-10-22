@@ -256,24 +256,6 @@
 
   </div>
 
-<!-- 
-  <Dialog v-model:visible="dialogVisible" modal :showHeader="false" :style="{ width: '50vw' }"
-    :breakpoints="{ '700px': '70vw' }">
-
-    <p class="m-0">
-      <span class="confirmation">Confirmation</span>
-    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ dialogMessage }} </p>
-    </p>
-    <template #footer>
-      <div class=" d-flex align-items-center justify-content-around  w-100">
-        <button @click="closeConfirmation()" class="d-block btn btn-danger">No</button>
-        <button @click="insertNewData()" class="btn d-block btn-info">Yes</button>
-
-      </div>
-
-
-    </template>
-  </Dialog> -->
 </template>
 
 <script>
@@ -397,7 +379,7 @@ export default {
   },
   methods: {
     getSiteNUR() {
-      this.$store.dispatch("displaySpinnerPage", false);
+    
       let data = {
         site_code: this.site_code,
       };
@@ -731,20 +713,22 @@ export default {
         }
         else {
           this.$confirm.require({
+            group:"yesNo",
               message: "There is No Batteries data, insert new data?",
               header: "Confirmation",
               icon: "pi pi-exclamation-triangle",
               rejectProps: {
 
                 icon: 'pi pi-times',
-                outlined: true,
+               label:'No',
                 size: 'small',
-                severity: 'danger'
+                severity: 'danger',
               },
               acceptProps: {
                 severity: 'success',
                 icon: 'pi pi-check',
-                size: 'small'
+                size: 'small',
+                label:'Yes'
               },
               accept: () => {
                 this.$confirm.close();

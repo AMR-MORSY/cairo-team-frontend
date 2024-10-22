@@ -1,103 +1,8 @@
 <template>
   <userNavBar></userNavBar>
-  <!-- <div class="container">
-    <Card class="form-container">
-      <template #title class="p-card-title">
-        <p class="text-center" style="color: #673EE6 ">Register</p>
-      </template>
-      <template #content>
-        <form @submit.prevent="submitRegisterForm" novalidate>
+  
 
-          <div class="row">
-            <div class="col-12">
-              <div class="field w-100">
-                <span class="p-float-label">
-                  <InputText id="inputtext" class="w-100" type="text" v-model.trim="v$.name.$model"
-                    :class="{ 'p-invalid': v$.name.$error }" />
-                  <label for="inputtext">Name</label>
-                </span>
-              </div>
-              <div v-if="v$.name.$error">
-                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                  v-for="error in v$.name.$errors">
-                  {{ error.$message }}</div>
-              </div>
-            </div>
-
-            <div class="col-12">
-              <div class="field w-100 mt-4">
-                <span class="p-float-label">
-                  <InputText id="inputtext" class="w-100" type="text" v-model.trim="v$.email.$model"
-                    :class="{ 'p-invalid': v$.email.$error }" />
-                  <label for="inputtext">Email</label>
-                </span>
-              </div>
-              <div v-if="v$.email.$error">
-                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                  v-for="error in v$.email.$errors">
-                  {{ error.$message }}</div>
-              </div>
-            </div>
-
-            <div class="col-12">
-              <div class="field w-100 mt-4">
-                <span class="p-float-label">
-                  <Password toggleMask v-model.trim="v$.password.$model" id="password" class="w-100" required
-                    :feedback="true" :class="{ 'p-invalid': v$.password.$error }">
-                    <template #header>
-                      <h6>Pick a password</h6>
-                    </template>
-                    <template #footer="sp">
-                      {{ sp.level }}
-                      <Divider />
-                      <p class="mt-2">Suggestions</p>
-                      <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                        <li>At least one lowercase</li>
-                        <li>At least one uppercase</li>
-                        <li>At least one from [@$!%*?&]</li>
-                        <li>Minimum 8 characters</li>
-                      </ul>
-                    </template>
-                  </Password>
-                  <label for="password">Password</label>
-                </span>
-              </div>
-              <div v-if="v$.password.$error">
-                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                  v-for="error in v$.password.$errors">
-                  {{ error.$message }}</div>
-              </div>
-            </div>
-
-            <div class="col-12">
-              <div class="w-100 mt-4">
-                <span class="p-float-label">
-                  <Password toggleMask v-model.trim="v$.password_confirmation.$model" id="password" class="w-100"
-                    :feedback="false" required :class="{ 'p-invalid': v$.password_confirmation.$error }">
-                  </Password>
-                  <label for="password">Confirm Password</label>
-                </span>
-              </div>
-              <div v-if="v$.password_confirmation.$error">
-                <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                  v-for="error in v$.password_confirmation.$errors">
-                  {{ error.$message }}</div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="w-100 mt-4">
-                <button class="w-100 btn" type="submit" style="background-color:  #673EE6;color: white;">Sign
-                  Up</button>
-              </div>
-            </div>
-          </div>
-
-        </form>
-      </template>
-    </Card>
-  </div> -->
-
-  <div class=" max-w-screen pt-40">
+  <div class=" max-w-screen pt-30">
 
     <Card class=" max-w-xs mx-auto ">
 
@@ -109,14 +14,14 @@
         </p>
 
         <form @submit.prevent="submitRegisterForm" novalidate>
-         <div class="my-3 w-full">
+          <div class="my-3 w-full">
 
             <FloatLabel class=" w-full">
 
 
               <InputText class=" w-full" :invalid="v$.email.$error" type="text" v-model.trim="v$.name.$model"
                 aria-describedby="name" />
-              <label class=" text-xs">name</label>
+              <label class=" text-xs">Name</label>
 
 
 
@@ -144,8 +49,21 @@
 
           <div class=" w-full mt-8 ">
             <FloatLabel class=" w-full">
-              <InputText class=" w-full" :invalid="v$.password.$error" type="password" v-model.trim="v$.password.$model"
-                aria-describedby="pass" />
+              <Password fluid :invalid="v$.password.$error" v-model.trim="v$.password.$model" aria-describedby="pass"
+                toggleMask>
+                <template #header>
+                  <div class="font-semibold text-xm mb-4">Pick a password</div>
+                </template>
+                <template #footer>
+                  <Divider />
+                  <ul class="pl-2 ml-2 my-0 leading-normal">
+                    <li>At least one lowercase</li>
+                    <li>At least one uppercase</li>
+                    <li>At least one numeric</li>
+                    <li>Minimum 8 characters</li>
+                  </ul>
+                </template>
+              </Password>
               <label class=" text-xs">Password</label>
             </FloatLabel>
             <div v-if="v$.password.$error">
@@ -155,11 +73,11 @@
 
 
           </div>
-           <div class=" w-full mt-8 ">
+          <div class=" w-full mt-8 ">
             <FloatLabel class=" w-full">
-              <InputText class=" w-full" :invalid="v$.password_confirmation.$error" type="password_confirmation" v-model.trim="v$.password_confirmation.$model"
-                aria-describedby="pass" />
-              <label class=" text-xs">password_confirmation</label>
+              <Password fluid :feedback="false" :invalid="v$.password_confirmation.$error"
+                v-model.trim="v$.password_confirmation.$model" aria-describedby="pass" toggleMask />
+              <label class=" text-xs">Confirmation Password</label>
             </FloatLabel>
             <div v-if="v$.password_confirmation.$error">
 
@@ -181,8 +99,9 @@
 
             <div class=" mt-5 flex justify-between items-center">
               <router-link to="/user/login"
-                class=" text-sm font-bold font-Signika text-font-main-color underline underline-offset-1">have an account?</router-link>
-              
+                class=" text-sm font-bold font-Signika text-font-main-color underline underline-offset-1">have an
+                account?</router-link>
+
             </div>
 
 
@@ -209,17 +128,6 @@
 
   </div>
 
-  <Dialog v-model:visible="visible" modal :showHeader="false" :style="{ width: '50vw' }"
-    :breakpoints="{ '700px': '70vw' }">
-
-    <p class="m-0">
-      <span class="confirmation">Confirmation</span>
-    <p style="margin-top: 20px; font-size: clamp(14px,2vw,18px); ">{{ message }} </p>
-    </p>
-    <template #footer>
-      <Button label="Ok" icon="pi pi-check" @click="closeConfirmation()" autofocus />
-    </template>
-  </Dialog>
 </template>
 
 <script>
@@ -230,6 +138,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators'
 import userNavBar from "../../helpers/User/userNavBar.vue";
 import ValidationErrorMessage from "../../helpers/validationErrorMessage.vue";
+import Password from "primevue/password";
 
 export default {
   setup: () => ({ v$: useVuelidate() }),
@@ -273,8 +182,7 @@ export default {
       email: "",
       password: "",
       password_confirmation: "",
-      visible: false,
-      message: "",
+     
 
     };
   },
@@ -298,9 +206,28 @@ export default {
         password_confirmation: this.password_confirmation
       }
       User.register(form)
-        .then(() => {
-          this.visible = true;
-          this.message = "Your account has been created Successfully.Please check your e-mail to verify your account "
+        .then((response) => {
+
+          this.$confirm.require({
+            group: 'info',
+            header: 'Info',
+            message: 'Your account has been created Successfully.Please check your e-mail to verify your account',
+            icon: 'pi pi-info-circle',
+            acceptProps: {
+              label: 'OK',
+              icon: 'pi pi-check',
+              size: 'small',
+              severity:"danger"
+              },
+            accept: () => {
+              this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+              this.$router.replace({name:"welcome"});
+            },
+
+
+          });
+
+        
 
         })
         .catch((error) => {
@@ -345,16 +272,12 @@ export default {
 
 
     },
-    closeConfirmation() {
-      this.$router.push({ path: "/welcome" });
 
-    }
   },
 };
 </script>
 
-<style  scoped>
-
+<style scoped>
 .container {
   height: 100vh !important;
 
@@ -371,5 +294,4 @@ export default {
 
 
 }
-
 </style>

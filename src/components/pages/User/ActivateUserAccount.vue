@@ -1,47 +1,54 @@
 <template>
     <userNavBar></userNavBar>
-    <Card class="form-container">
-
-        <template #content>
+    <div class="max-w-screen pt-40">
 
 
-            <p class=" text-center" style="color:  #673EE6 ; font-size: 1.1rem; font-weight: 700;">
-                Activate your account
-            </p>
+        <Card class="max-w-sm mx-auto">
+            <template #title>
 
-            <form @submit.prevent="activateUserAccount" novalidate>
+                <p class=" text-center w-full text-lg text-font-main-color font-Signika font-bold">
+                    Activate your account
+                </p>
 
-                <div class="my-3">
+            </template>
 
-                    <div class="input-group ">
-                        <span class="input-group-text" id="email">
-
-                            Email
-
-                        </span>
-
-                        <input class="form-control " :class="{ 'is-invalid': v$.email.$error }" type="text"
-                            v-model.trim="v$.email.$model" aria-describedby="email" />
+            <template #content>
 
 
 
+
+                <form @submit.prevent="activateUserAccount" novalidate>
+                    <div class="my-3 w-full">
+
+                        <FloatLabel class=" w-full">
+
+
+                            <InputText class=" w-full" :invalid="v$.email.$error" v-model.trim="v$.email.$model"
+                                aria-describedby="email" />
+                            <label>Email</label>
+
+
+
+                        </FloatLabel>
+                        <div v-if="v$.email.$error">
+                            <ValidationErrorMessage :errors="v$.email.$errors" />
+                        </div>
                     </div>
-                    <div v-if="v$.email.$error">
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.email.$errors">
-                            {{ error.$message }}</div>
-                    </div>
+
+                   
+
+
+
+                    <Button label="Activate" class="block" type="submit" raised severity="success"/>
+
+
+                </form>
+                <div class="flex justify-end" >
+                    <router-Link to="/user/login" class=" block text-font-main-color font-Signika font-semibold underline decoration-2"> Back to log in page</router-Link>
+
                 </div>
 
-
-
-
-                <button class="btn  w-100" type="submit">Activate</button>
-
-
-            </form>
-
-            <router-Link to="/user/login" class="links">Back to log in page</router-Link>
+               
 
 
 
@@ -49,11 +56,12 @@
 
 
 
-        </template>
+            </template>
 
 
 
-    </Card>
+        </Card>
+    </div>
 </template>
 
 <script>
@@ -108,11 +116,11 @@ export default {
             User.activateUserAccount(form).then((response) => {
                 console.log(response)
                 this.$toast.add({
-                        severity: "success",
-                        summary: "success Message",
-                        detail: "Activation code has been sent to your email.Please check your email",
-                        life: 6000,
-                    });
+                    severity: "success",
+                    summary: "success Message",
+                    detail: "Activation code has been sent to your email.Please check your email",
+                    life: 8000,
+                });
 
             }).catch((error) => {
                 if (error.response.status == 422) {
@@ -120,7 +128,7 @@ export default {
                         severity: "error",
                         summary: "Error Message",
                         detail: "Email does not exist",
-                        life: 6000,
+                        life: 3000,
                     });
 
                 }
@@ -146,11 +154,12 @@ export default {
         border: unset;
         color: white;
     }
-    .links{
-      font-size: clamp(13px,2vw,15px);
-      padding-top: 16px;
-      display: block;
-      font-weight: 500;
+
+    .links {
+        font-size: clamp(13px, 2vw, 15px);
+        padding-top: 16px;
+        display: block;
+        font-weight: 500;
     }
 
 }

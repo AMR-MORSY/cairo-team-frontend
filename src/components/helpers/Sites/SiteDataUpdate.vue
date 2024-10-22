@@ -1,216 +1,215 @@
 <template>
-    <div class="container-fluid">
-        <h3>{{ topic }}</h3>
-        <form @submit.prevent="submitUpdateForm()" novalidate>
-            <div class="row gx-1">
 
-                <div class="col-12 col-md-6  ">
-                    <div class="input-group">
-                        <label class="input-group-text w-25" for="on_air_date">On air date</label>
+    <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-8">{{ topic }}</h3>
+    <form @submit.prevent="submitUpdateForm()" novalidate>
+        <div class="grid  grid-cols-4 gap-4">
 
-                        <Datepicker class="form-control w-75 " v-model.trim="form.on_air_date" id="on_air_date" />
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" for="on_air_date">On air date</label>
 
+                    <Datepicker class="form-control w-75 " v-model.trim="form.on_air_date" id="on_air_date" />
 
-                    </div>
 
                 </div>
-                <div class="col-12 col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-text w-25" id=" last_pm_date">Last PM date</span>
-                        <Datepicker class="form-control w-75" v-model.trim="form.last_pm_date" />
 
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="topology">Topology</span>
-                        <input type="text" class="form-control w-50 " :class="{ 'is-invalid': v$.form.topology.$error }"
-                            v-model="v$.form.topology.$model" aria-describedby="topology" />
-                        <div v-if="v$.form.topology.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.topology.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="ntra_cluster">NTRA</span>
-                        <select class="form-select w-50 " :class="{ 'is-invalid': v$.form.ntra_cluster.$error }"
-                            v-model.trim="v$.form.ntra_cluster.$model" aria-describedby="ntra_cluster">
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1 ">
+                <div class="flex-auto">
+                    <label class="font-bold" id=" last_pm_date">Last PM date</label>
+                    <Datepicker class="form-control w-75" v-model.trim="form.last_pm_date" />
 
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-
-                        <div v-if="v$.form.ntra_cluster.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.form.ntra_cluster.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id=" care_ceo">Care CEO</span>
-                        <select class="form-select w-50 " :class="{ 'is-invalid': v$.form.care_ceo.$error }"
-                            v-model.trim="v$.form.care_ceo.$model" aria-describedby="care_ceo">
-
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.care_ceo.$errors">
-                            {{ error.$message }}</div>
-
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="axsees">Axis</span>
-                        <select class="form-select w-50 " :class="{ 'is-invalid': v$.form.axsees.$error }"
-                            v-model.trim="v$.form.axsees.$model" aria-describedby="axsees">
-
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.axsees.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="serve_compound">Serve Compound</span>
-                        <select class="form-select w-50" :class="{ 'is-invalid': v$.form.serve_compound.$error }"
-                            v-model.trim="v$.form.serve_compound.$model" aria-describedby="serve_compound">
-
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.serve_compound.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="no_ldn_accounts">LDN accounts</span>
-                        <input type="number" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.no_ldn_accounts.$error }"
-                            v-model.number="v$.form.no_ldn_accounts.$model" aria-describedby="no_ldn_accounts" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.no_ldn_accounts.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="no_tp_accounts">Tp Accounts</span>
-                        <input type="number" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.no_tp_accounts.$error }"
-                            v-model.number="v$.form.no_tp_accounts.$model" aria-describedby="no_tp_accounts" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.no_tp_accounts.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="ac1_type">AC1 type</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.ac1_type.$error }"
-                            v-model="v$.form.ac1_type.$model" aria-describedby="ac1_type" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.ac1_type.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="ac1_hp">AC1 HP</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.ac1_hp.$error }"
-                            v-model="v$.form.ac1_hp.$model" aria-describedby="ac1_hp" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.ac1_hp.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="ac2_type">AC2 type</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.ac2_type.$error }"
-                            v-model="v$.form.ac2_type.$model" aria-describedby="ac2_type" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.ac2_type.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id="ac2_hp">AC2 HP</span>
-                        <input type="text" class="form-control w-50" :class="{ 'is-invalid': v$.form.ac2_hp.$error }"
-                            v-model="v$.form.ac2_hp.$model" aria-describedby="ac2_hp" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.ac2_hp.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id=" network_type">Network Type</span>
-                        <input type="text" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.network_type.$error }" v-model="v$.form.network_type.$model"
-                            aria-describedby=" network_type" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.network_type.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id=" need_access_permission">Access Permission</span>
-                        <select class="form-select w-50"
-                            :class="{ 'is-invalid': v$.form.need_access_permission.$error }"
-                            v-model.trim="v$.form.need_access_permission.$model"
-                            aria-describedby=" need_access_permission">
-
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.need_access_permission.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4  ">
-                    <div class="input-group">
-                        <span class="input-group-text w-50" id=" permission_type">Permission Type</span>
-                        <input type="text" class="form-control w-50"
-                            :class="{ 'is-invalid': v$.form.permission_type.$error }"
-                            v-model="v$.form.permission_type.$model" aria-describedby=" permission_type" />
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.form.permission_type.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-6">
-                    <div class="button-container">
-                        <Button label="Update" type="submit" icon="pi pi-external-link" severity="success" text
-                            raised />
-
-                    </div>
                 </div>
             </div>
-        </form>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="topology">Topology</label>
+                    <InputText fluid :invalid="v$.form.topology.$error" v-model="v$.form.topology.$model"
+                        aria-describedby="topology" />
+
+                </div>
+                <div v-if="v$.form.topology.$error">
+                    <validationErrorMessage :errors="v$.form.topology.$errors" />
+
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="ntra_cluster">NTRA</label>
+                    <Select fluid :invalid="v$.form.ntra_cluster.$error" :options="serve_comp_options"
+                        v-model.trim="v$.form.ntra_cluster.$model" aria-describedby="ntra_cluster">
 
 
-    </div>
+                    </Select>
+
+
+                </div>
+                <div v-if="v$.form.ntra_cluster.$error">
+                    <validationErrorMessage :errors="v$.form.ntra_cluster.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id=" care_ceo">Care CEO</label>
+                    <Select fluid :invalid="v$.form.care_ceo.$error" :options="serve_comp_options"
+                        v-model.trim="v$.form.care_ceo.$model" aria-describedby="care_ceo">
+
+                    </Select>
+
+
+
+                </div>
+                <div v-if="v$.form.care_ceo.$error">
+                    <validationErrorMessage :errors="v$.form.care_ceo.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="axsees">Axis</label>
+                    <Select fluid :invalid="v$.form.axsees.$error" :options="serve_comp_options"
+                        v-model.trim="v$.form.axsees.$model" aria-describedby="axsees">
+
+
+                    </Select>
+
+                </div>
+                <div v-if="v$.form.axsees.$error">
+                    <validationErrorMessage :errors="v$.form.axsees.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="serve_compound">Serve Compound</label>
+                    <Select fluid :invalid="v$.form.serve_compound.$error" :options="serve_comp_options"
+                        v-model.trim="v$.form.serve_compound.$model" aria-describedby="serve_compound">
+
+
+                    </Select>
+
+                </div>
+                <div v-if="v$.form.serve_compound.$error">
+                    <validationErrorMessage :errors="v$.form.serve_compound.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="no_ldn_accounts">LDN accounts</label>
+                    <InputNumber fluid showButtons :class="v$.form.no_ldn_accounts.$error"
+                        v-model.number="v$.form.no_ldn_accounts.$model" aria-describedby="no_ldn_accounts" />
+
+                </div>
+                <div v-if="v$.form.no_ldn_accounts.$error">
+                    <validationErrorMessage :errors="v$.form.no_ldn_accounts.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="no_tp_accounts">Tp Accounts</label>
+                    <InputText fluid :invalid="v$.form.no_tp_accounts.$error"
+                        v-model.number="v$.form.no_tp_accounts.$model" aria-describedby="no_tp_accounts" />
+
+                </div>
+                <div v-if="v$.form.no_tp_accounts.$error">
+                    <validationErrorMessage :errors="v$.form.no_tp_accounts.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="ac1_type">AC1 type</label>
+                    <InputText fluid :invalid="v$.form.ac1_type.$error" v-model="v$.form.ac1_type.$model"
+                        aria-describedby="ac1_type" />
+
+                </div>
+                <div v-if="v$.form.ac1_type.$error">
+                    <validationErrorMessage :errors="v$.form.ac1_type.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="ac1_hp">AC1 HP</label>
+                    <InputText fluid :invalid="v$.form.ac1_hp.$error" v-model="v$.form.ac1_hp.$model"
+                        aria-describedby="ac1_hp" />
+
+                </div>
+                <div v-if="v$.form.ac1_hp.$error">
+                    <validationErrorMessage :errors="v$.form.ac1_hp.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="ac2_type">AC2 type</label>
+                    <InputText fluid :invalid="v$.form.ac2_type.$error" v-model="v$.form.ac2_type.$model"
+                        aria-describedby="ac2_type" />
+
+                </div>
+                <div v-if="v$.form.ac2_type.$error">
+                    <validationErrorMessage :errors="v$.form.ac2_type.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="ac2_hp">AC2 HP</label>
+                    <InputText fluid :invalid="v$.form.ac2_hp.$error" v-model="v$.form.ac2_hp.$model"
+                        aria-describedby="ac2_hp" />
+
+                </div>
+                <div v-if="v$.form.ac2_hp.$error">
+                    <validationErrorMessage :errors="v$.form.ac2_hp.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id=" network_type">Network Type</label>
+                    <InputText fluid :invalid="v$.form.network_type.$error" v-model="v$.form.network_type.$model"
+                        aria-describedby=" network_type" />
+
+                </div>
+                <div v-if="v$.form.network_type.$error">
+                    <validationErrorMessage :errors="v$.form.network_type.$errors" />
+                </div>
+            </div>
+
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <span class="font-bold" id=" need_access_permission">Access Permission</span>
+                    <Select fluid :invalid="v$.form.need_access_permission.$error"
+                        v-model.trim="v$.form.need_access_permission.$model" :options="access_perm_options"
+                        aria-describedby=" need_access_permission">
+
+
+                    </Select>
+
+
+                </div>
+                <div v-if="v$.form.need_access_permission.$error">
+                    <validationErrorMessage :errors="v$.form.need_access_permission.$errors" />
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id=" permission_type">Permission Type</label>
+                    <InputText fluid :invalid="v$.form.permission_type.$error" v-model="v$.form.permission_type.$model"
+                        aria-describedby=" permission_type" />
+
+                </div>
+                <div v-if="v$.form.permission_type.$error">
+                    <validationErrorMessage :errors="v$.form.permission_type.$errors" />
+                </div>
+            </div>
+
+
+
+            <div class=" w-full flex justify-center">
+                <Button label="Update" type="submit" icon="pi pi-external-link" class=" block" severity="success" text
+                    raised />
+
+            </div>
+
+        </div>
+    </form>
+
+
+
 </template>
 
 <script>
@@ -218,6 +217,9 @@ import { maxLength, minLength, minValue, maxValue } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
+import InputText from 'primevue/inputtext';
+import InputNumber from 'primevue/inputnumber';
+import validationErrorMessage from '../validationErrorMessage.vue';
 export default {
     setup: () => ({ v$: useVuelidate() }),
     data() {
@@ -248,6 +250,8 @@ export default {
             },
             topic: null,
             action: null,
+            access_perm_options: ['Yes', 'No'],
+            serve_comp_options: ['Yes', 'No'],
 
         };
     },
@@ -357,6 +361,9 @@ export default {
         }
 
     },
+    components: {
+        validationErrorMessage
+    },
     methods: {
         mountData() {
             if (this.dialogRef.data.action == 'Update') {
@@ -417,7 +424,7 @@ export default {
                 });
 
             }
-            else{
+            else {
 
             }
 
@@ -450,22 +457,4 @@ export default {
 
 }
 
-@media screen and (min-width:320px) and (max-width: 480px) {
-
-    /* smartphones, iPhone, portrait 480x320 phones */
-
-}
-
-@media screen and (min-width:481px) and (max-width: 640px) {
-
-    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-
-
-}
-
-@media screen and (min-width:641px) and (max-width: 960) {
-
-    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-
-}
 </style>

@@ -166,7 +166,7 @@ const routes = [
    
   },
   { path: "/", redirect: "/welcome" },
-  { path: "/welcome", component: TheWelcome, meta: { hideNavbar: true } },
+  { path: "/welcome", component: TheWelcome, meta: { hideNavbar: true },name:"welcome" },
   {
     path: "/home",
     component: home,

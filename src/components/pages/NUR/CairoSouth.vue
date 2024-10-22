@@ -7,108 +7,13 @@
       </p>
     </template>
     <template #content>
-      <div class="grid grid-cols-3 gap-4">
-        <div class="col-span-3 lg:col-span-1 mt-2">
-          <Card>
-            <template #title>
-              <p style="font-size: 16px; padding: 0; text-align: center">
-                Subsystem
-              </p>
-            </template>
-            <template #content>
-              <DataTable :value="subsystem" responsiveLayout="scroll" class="p-datatable-sm" stripedRows
-                :paginator="true" :rows="5">
-                <Column selectionMode="single"></Column>
-                <Column field="subsystem" header="Subsystem"></Column>
-                <Column field="NUR" header="NUR_C" sortable></Column>
-                <Column field="count" header="Count" sortable></Column>
-              </DataTable>
-              <!-- <Chart type="doughnut" :data="subsystem" :plugins="plugins" :options="lightOptions" /> -->
-            </template>
-          </Card>
-        </div>
-        <div class="col-span-3 lg:col-span-1 mt-2">
-          <Card>
-            <template #title>
-              <p style="font-size: 16px; padding: 0; text-align: center">
-                Generator Statestics
-              </p>
 
-            </template>
-            <template #content>
-              <div class="grid grid-cols-7 gap-2">
-                <div class="col-span-1">
-                  <img src="../../logos/Orange_logo.svg" class="w-75" alt="" v-tooltip.right="'Get Tickets'"
-                    style="cursor: pointer" @click="getORGGenTickets" />
-                </div>
-                <div class="col-span-2">
-                  <img src="../../logos/Etisalat_eand_Logo_AR.svg" class="w-100" alt="" v-tooltip.right="'Get Tickets'"
-                    style="cursor: pointer" @click="getETGenTickets" />
-                </div>
-                <div class="col-span-2">
-                  <img src="../../logos/Vodafone_2017_logo.svg" class="w-100" alt="" v-tooltip.right="'Get Tickets'"
-                    style="cursor: pointer" @click="getVFGenTickets" />
-                </div>
-                <div class="col-span-1">
-                  <img src="../../logos/rent-sign-svgrepo-com.svg" class="w-75" alt="" v-tooltip.right="'Get Tickets'"
-                    style="cursor: pointer" @click="getRentedGenTickets" />
-                </div>
-                <div class="col-span-1">
-                  <img src="../../logos/We_logo.svg" class="w-75" alt="" v-tooltip.right="'Get Tickets'"
-                    style="cursor: pointer" @click="getWEGenTickets" />
-                </div>
-              </div>
-              <Chart type="bar" :data="generatorStatestics" :plugins="plugins" :options="lightOptions" />
-            </template>
-          </Card>
-        </div>
-        <div class="col-span-3 lg:col-span-1 mt-2">
-          <Card>
-            <template #title>
-              <p style="font-size: 16px; padding: 0; text-align: center">
-                Nodals & VIP
-              </p>
-            </template>
-            <template #content>
-              <div class="grid grid-cols-2">
-                <div class="col-span-1">
-                  <div class="w-full">
-                    <img
-                      src="../../logos/kisspng-radio-vip-fm-romania-service-sales-vip-fm-98-spons-超市vip-5af1f24b2cd0c2.8140047415258056431836.png"
-                      @click="getVipSitesNUR" class="w-100" style="cursor: pointer" alt="" />
-                  </div>
-                </div>
-                
-                <div class="col-span-1">
-                  <div class=" w-full nodal" @click="getNodalSitesNUR">
-                    <img src="../../logos/c67d66dd354d921a8c6652ebaf82d8bc.svg" class="w-75" alt="" />
-                  </div>
-                </div>
-              </div>
-            </template>
-          </Card>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-6 mt-2">
-          <TopSites :zoneNUR="cairoSouthTopNUR" @siteNUR="getSiteNUR">
-            <template #header> Top Sites NUR </template>
-            <template #columns>
-              <Column field="siteName" header="Name"></Column>
-              <Column field="NUR" header="NUR" sortable></Column>
-            </template>
-          </TopSites>
-        </div>
-        <div class="col-12 col-md-6 mt-2">
-          <TopSites :zoneNUR="cairoSouthRepeatedSites" @siteNUR="getSiteNUR">
-            <template #header> Repeated Sites </template>
-            <template #columns>
-              <Column field="siteName" header="Name"></Column>
-              <Column field="count" header="Count" sortable></Column>
-            </template>
-          </TopSites>
-        </div>
-      </div>
+
+      <ZoneSubSysytemGenVIPNDL :zoneWeek="week" :zoneYear="year" :zoneRepeatedSites="cairoSouthRepeatedSites"
+        :zoneTopNUR="cairoSouthTopNUR" zone="Cairo South" :zoneSub="subsystem" :zoneGen="cairoSouthGen"
+        :zoneGenStatestics="generatorStatestics" />
+
+
     </template>
   </Card>
 
@@ -120,8 +25,10 @@ import TopSites from "./TopSites.vue";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import siteNURTable from "./siteNURTable.vue";
 import NURTickets from "./NURTickets.vue";
-import NUR from "../../../apis/NUR";
+
 import VipsOrNodals from "../NUR/VipsOrNodals.vue";
+import ZoneSubSysytemGenVIPNDL from "../../helpers/Nur/ZoneSubSysytem-Gen-VIP-NDL.vue";
+
 
 export default {
   data() {
@@ -130,20 +37,7 @@ export default {
 
       accessStatesitcs: null,
       generatorStatestics: null,
-      lightOptions: {
-        plugins: {
-          legend: {
-            labels: {
-              color: "red",
-            },
-          },
-          datalabels: {
-            anchor: "end",
-            color: "red",
-          },
-        },
-      },
-      plugins: [ChartDataLabels],
+   
     };
   },
   components: {
@@ -151,6 +45,7 @@ export default {
     siteNURTable,
     VipsOrNodals,
     NURTickets,
+    ZoneSubSysytemGenVIPNDL
   },
   props: [
     "cairoSouthSubsystem",
@@ -201,107 +96,7 @@ export default {
     }
   },
   methods: {
-    getORGGenTickets() {
-      if (this.cairoSouthGen["ORG"].tickets.length > 0) {
-        this.$dialog.open(NURTickets, {
-          props: {
-            style: {
-              width: "75vw",
-            },
-            breakpoints: {
-              "960px": "75vw",
-              "640px": "90vw",
-            },
-            modal: true,
-          },
 
-          data: {
-            allTickets: this.cairoSouthGen["ORG"].tickets,
-          },
-        });
-      }
-    },
-    getWEGenTickets() {
-      if (this.cairoSouthGen["WE"].tickets.length > 0) {
-        this.$dialog.open(NURTickets, {
-          props: {
-            style: {
-              width: "75vw",
-            },
-            breakpoints: {
-              "960px": "75vw",
-              "640px": "90vw",
-            },
-            modal: true,
-          },
-
-          data: {
-            allTickets: this.cairoSouthGen["WE"].tickets,
-          },
-        });
-      }
-    },
-
-    getETGenTickets() {
-      if (this.cairoSouthGen["ET"].tickets.length > 0) {
-        this.$dialog.open(NURTickets, {
-          props: {
-            style: {
-              width: "75vw",
-            },
-            breakpoints: {
-              "960px": "75vw",
-              "640px": "90vw",
-            },
-            modal: true,
-          },
-
-          data: {
-            allTickets: this.cairoSouthGen["ET"].tickets,
-          },
-        });
-      }
-    },
-    getVFGenTickets() {
-      if (this.cairoSouthGen["VF"].tickets.length > 0) {
-        this.$dialog.open(NURTickets, {
-          props: {
-            style: {
-              width: "75vw",
-            },
-            breakpoints: {
-              "960px": "75vw",
-              "640px": "90vw",
-            },
-            modal: true,
-          },
-
-          data: {
-            allTickets: this.cairoSouthGen["VF"].tickets,
-          },
-        });
-      }
-    },
-    getRentedGenTickets() {
-      if (this.cairoSouthGen["Rented"].tickets.length > 0) {
-        this.$dialog.open(NURTickets, {
-          props: {
-            style: {
-              width: "75vw",
-            },
-            breakpoints: {
-              "960px": "75vw",
-              "640px": "90vw",
-            },
-            modal: true,
-          },
-
-          data: {
-            allTickets: this.cairoSouthGen["Rented"].tickets,
-          },
-        });
-      }
-    },
     mountSubsystemTable() {
       if (this.cairoSouthSubsystem) {
         let subssytems = Object.keys(this.cairoSouthSubsystem);
@@ -321,107 +116,7 @@ export default {
       }
     },
 
-    getSiteNUR(event) {
-      console.log(event.NUR3G);
-      this.$dialog.open(siteNURTable, {
-        props: {
-          header: event.NUR3G[0].problem_site_name,
-          style: {
-            width: "75vw",
-          },
-          breakpoints: {
-            "960px": "75vw",
-            "640px": "90vw",
-          },
-        },
-
-        data: {
-          NUR3G: event.NUR3G,
-          NUR2G: event.NUR2G,
-          NUR4G: event.NUR4G,
-        },
-      });
-    },
-    getVipSitesNUR() {
-      this.$store.dispatch("displaySpinnerPage", false);
-      let sites = [];
-
-
-      NUR.getVipSitesWeeklyNUR("Cairo South", this.week, this.year)
-        .then((response) => {
-          if (response.data.sites.length > 0) {
-            sites = response.data.sites;
-            this.$dialog.open(VipsOrNodals, {
-              props: {
-                style: {
-                  width: "75vw",
-                },
-                breakpoints: {
-                  "960px": "75vw",
-                  "640px": "90vw",
-                },
-                modal: true,
-              },
-
-              data: {
-                sites: sites,
-              },
-            });
-          } else {
-            this.$store.dispatch(
-              "dialogMessage",
-              "Great !!! VIP sites did not make NUR this Week"
-            );
-            this.$store.dispatch("displayDialog", true);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
-    },
-    getNodalSitesNUR() {
-      this.$store.dispatch("displaySpinnerPage", false);
-      let sites = [];
-
-      NUR.getNodalSitesWeeklyNUR("Cairo South", this.week, this.year)
-        .then((response) => {
-          if (response.data.sites.length > 0) {
-            sites = response.data.sites;
-            this.$dialog.open(VipsOrNodals, {
-              props: {
-                style: {
-                  width: "75vw",
-                },
-                breakpoints: {
-                  "960px": "75vw",
-                  "640px": "90vw",
-                },
-                modal: true,
-              },
-
-              data: {
-                sites: sites,
-              },
-            });
-          } else {
-            this.$store.dispatch(
-              "dialogMessage",
-              "Great !!! Nodal sites did not make NUR this Week"
-            );
-            this.$store.dispatch("displayDialog", true);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
-    },
-
+    
     genStatestics(statestics) {
       let count = [];
       let NUR = [];

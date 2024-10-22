@@ -1,18 +1,16 @@
 <template>
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-12 ">
-        <PickList
-          v-model="pickListData"
-          listStyle="height:342px"
-          dataKey="cascade_code"
-          @move-to-target="getPickListDataDeleted"
-          @move-to-source="getPickListDataDeleted"
-        >
+
+  <div class=" w-full py-28 px-8 ">
+    <Card class=" max-w-screen-xl mx-auto  ">
+      <template #content>
+
+        <PickList v-model="pickListData" listStyle="height:342px" dataKey="cascade_code"
+          @move-to-target="getPickListDataDeleted" @move-to-source="getPickListDataDeleted">
           <template #sourceheader>
             <div class="header">
-              <p>Cascades List</p>
-              <div class="header-details">
+              <p class=" text-xl text-font-main-color font-bold font-Signika underline underline-offset-2">Cascades List
+              </p>
+              <div class="header-details  text-font-main-color font-bold font-Signika underline underline-offset-2">
                 <p>Site Code</p>
                 <p>site Name</p>
                 <p>Cascades</p>
@@ -21,8 +19,9 @@
           </template>
           <template #targetheader>
             <div class="header">
-              <p>Deleted List</p>
-              <div class="header-details">
+              <p class=" text-xl text-font-main-color font-bold font-Signika underline underline-offset-2">Deleted List
+              </p>
+              <div class="header-details  text-font-main-color font-bold font-Signika underline underline-offset-2">
                 <p>Site Code</p>
                 <p>site Name</p>
                 <p>Cascades</p>
@@ -38,33 +37,44 @@
             </div>
           </template>
         </PickList>
-      </div>
-      <div class="col-6 mt-4">
-        <div class="p-inputgroup w-100">
-          <InputText v-model="search" placeholder="Site Code......." />
-          <Button icon="pi pi-search" @click.prevent="submitSearch" type="button" class="p-button-warning" />
+
+
+
+        <div class=" w-full flex justify-evenly mt-5">
+          <form @submit.prevent="submitSearch">
+          <div class=" flex ">
+
+            <InputText v-model="search" class=" block " fluid type="text" placeholder="Site Code......." />
+            <Button icon="pi pi-search" type="submit"  severity="info" class="block " />
+
+          </div>
+          </form>
+
+          <Button label="Save" class="block" :disabled="isDisabled" raised severity="success" @click="updateCascades" />
+
         </div>
-      </div>
-    
-      <div class="col-6 mt-4 mb-4">
-        <Button
-          label="Save"
-          :disabled="isDisabled"
-          icon="pi pi-check"
-          iconPos="right"
-          @click="updateCascades"
-        />
-      </div>
-    </div>
+      </template>
+
+
+
+
+
+    </Card>
+
+
+
+
   </div>
- 
- 
+
+
+
 </template>
 
 <script>
 import Sites from "../../../apis/Sites";
 import UpdateSitesTable from "./UpdateSitesTable.vue";
-import allInstances from "../../../apis/Api";
+
+
 
 export default {
   data() {
@@ -88,19 +98,19 @@ export default {
   },
   name: "CascadesUpdate",
   props: ["site_code"],
-  
+
 
   watch: {
     site_code() {
       this.getSiteDetails();
     },
   },
-    computed: {
+  computed: {
     token() {
       return this.$store.getters.token;
     },
   },
-  emits:["displayNoneSpinner"],
+  emits: ["displayNoneSpinner"],
   mounted() {
     this.getSiteDetails();
   },
@@ -145,9 +155,9 @@ export default {
       }
 
       console.log(data);
-    
-       Sites.updateCascades(data)
-    
+
+      Sites.updateCascades(data)
+
         .then((response) => {
           console.log(response);
           if ((response.status = 200)) {
@@ -206,8 +216,8 @@ export default {
     },
     submitSearch() {
       this.$store.dispatch("displaySpinnerPage", false);
-            
-    
+
+
       Sites.getSiteDetails(this.search)
         .then((response) => {
           console.log(response);
@@ -301,18 +311,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:deep(.p-picklist) {
-  .p-picklist-buttons button {
-    background-color: var(--purple-500);
-    border-color: var(--purple-500);
-  }
-}
 .header {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .header-details {
     width: 100%;
     align-items: center;
@@ -320,23 +325,20 @@ export default {
     justify-content: space-around;
   }
 }
-.p-button {
-  background-color: var(--purple-500);
-  border-color: var(--purple-500);
-}
+
+
 .product-item {
   display: flex;
   align-items: center;
   justify-content: space-around;
   // padding: 0.5rem;
   width: 100%;
+
   p {
     text-align: start;
   }
 }
-.p-button-warning{
-  color: white !important;
-}
+
 
 @media screen and (max-width: 576px) {
   .product-item {
