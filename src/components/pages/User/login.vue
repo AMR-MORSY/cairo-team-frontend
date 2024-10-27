@@ -1,6 +1,6 @@
 <template>
   <userNavBar></userNavBar>
-  <div class="max-w-screen pt-40">
+  <div class=" w-screen-2xl px-5 mt-20 py-10">
 
     <Card class="max-w-sm mx-auto">
 
@@ -57,10 +57,10 @@
 
             <div class=" mt-5 flex justify-between items-center">
               <router-link to="/user/resetPassword"
-                class="  font-bold font-Signika text-font-main-color underline underline-offset-1">Forgot
+                class="  text-xs md:text-base font-bold font-Signika text-font-main-color underline underline-offset-1">Forgot
                 Password?</router-link>
               <router-link to="/user/register"
-                class="  font-bold font-Signika text-font-main-color underline underline-offset-1">Create new
+                class="text-xs md:text-base  font-bold font-Signika text-font-main-color underline underline-offset-1">Create new
                 Account</router-link>
 
             </div>
@@ -88,7 +88,7 @@
 
 
   </div>
-  
+
 </template>
 
 <script>
@@ -196,7 +196,7 @@ export default {
               acceptProps: {
                 label: 'Verify',
                 severity: 'success',
-               
+
               },
               accept: () => {
                 this.$router.push({ name: 'ActivateUserAccount' })
@@ -206,7 +206,7 @@ export default {
                 this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 4000 });
               }
             });
-         
+
 
           }
           else {

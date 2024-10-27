@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import modal from "./components/helpers/modal.vue"; ////declared globally
-
+import Ripple from 'primevue/ripple';
 import spinnerButton from "./components/helpers/spinnerButton.vue";
 import helperTable from "./components/helpers/helperTable.vue";
 import store from "./vuex/store";
@@ -53,11 +53,13 @@ import FloatLabel from "primevue/floatlabel";
 import { definePreset } from "@primevue/themes";
 import InputNumber from 'primevue/inputnumber';
 import Select from 'primevue/select';
-
+import InputGroup from 'primevue/inputgroup';
 import Tabs from 'primevue/tabs';
 import TabList from 'primevue/tablist';
 import Tab from 'primevue/tab';
 import TabPanels from 'primevue/tabpanels';
+import Menubar from 'primevue/menubar';
+
 
 
 
@@ -67,6 +69,8 @@ import JsonExcel from "vue-json-excel3";
 
 import "./assets/style.css";
 import "../node_modules/flowbite/dist/flowbite.min";
+
+// PrimeVue.config.ripple = true;
 
 
 const myPresets = definePreset(Aura, {
@@ -87,7 +91,9 @@ const myPresets = definePreset(Aura, {
   components: {
     inputtext:{
       focusBorderColor:'#673EE6',
-      disabledBackground:'white'
+      disabledBackground:'white',
+      // paddingY:"0.25rem",
+
       
     },
     button:{
@@ -100,6 +106,23 @@ const myPresets = definePreset(Aura, {
 
       
     
+    },
+    menubar:{
+      background:'transparent',
+      border:{
+        color:"transparent"
+
+      },
+      base:{
+        item:{
+         
+          // padding:"2rem"
+
+        }
+
+      },
+      
+      
     }
 
   },
@@ -123,6 +146,7 @@ app
     useGlobalProperties: true,
   })
   .directive("tooltip", Tooltip)
+  .directive("ripple", Ripple)
   .component("Datepicker", Datepicker)
   .component("ConfirmDialog", ConfirmDialog)
   .component("Toast", Toast)
@@ -130,6 +154,7 @@ app
   .component("Fieldset", Fieldset)
   .component("DynamicDialog", DynamicDialog)
   .component("modal", modal)
+  .component("Menubar", Menubar)
   .component("Dropdown", Dropdown)
   .component("Divider", Divider)
   .component("Calendar", Calendar)
@@ -151,6 +176,7 @@ app
   .component("Password", Password)
   .component("InputText", InputText)
   .component("InputNumber", InputNumber)
+  .component("InputGroup", InputGroup)
   .component("Select", Select)
   .component("DataTable", DataTable)
   .component("Column", Column)

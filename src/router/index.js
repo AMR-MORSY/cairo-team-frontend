@@ -37,6 +37,7 @@ import siteTxIssues from "../components/pages/Transmission/siteTxIssues.vue";
 import SearchTxIssues from "../components/pages/Transmission/SearchTxIssues.vue";
 import validateSignUpCode from "../components/pages/User/validateSignUpCode.vue";
 import ActivateUserAccount from "../components/pages/User/ActivateUserAccount.vue";
+import FMStatestics from "../components/pages/NUR/FMStatestics.vue";
 
 const routes = [
   {
@@ -144,6 +145,12 @@ const routes = [
   {
     path: "/nur/statestics/:week/:year",
     component: NURStatestics,
+    props: true,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/FM/statestics/:week/:year",
+    component:FMStatestics,
     props: true,
     meta: { requiresAuth: true },
   },

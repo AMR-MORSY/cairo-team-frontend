@@ -1,6 +1,6 @@
 <template>
     <userNavBar></userNavBar>
-    <div class=" w-full mt-10">
+    <div class="  w-screen-2xl px-5 mt-10">
 
         <Card class=" max-w-sm mx-auto" v-if="tokenValid">
             <template #title>
@@ -39,23 +39,7 @@
 
 
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="newpassword">Change Password</label>
-                        <input type="password" class="form-control"
-                            v-bind:class="[v$.newPassword.$error || passwordBackendError ? 'is-invalid' : '']"
-                            id="newpassword" v-model.trim="v$.newPassword.$model" autocomplete="off" />
-                        <p>*At least 8 characters <br>*includes a special char.<br>*includes uppercase
-                            letter<br>*includes a
-                            number</p>
-
-                        <div v-if="v$.newPassword.$error">
-                            <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                                v-for="error in v$.newPassword.$errors">
-                                {{ error.$message }}</div>
-                        </div>
-
-
-                    </div> -->
+                 
                     <div class=" w-full mt-8 ">
                         <FloatLabel class=" w-full">
                             <Password fluid :feedback="false"
@@ -70,19 +54,7 @@
 
 
                     </div>
-                    <!-- <div class="form-group">
-                    <label for="password-confirmation">Password Confirmation</label>
-                    <input type="password" class="form-control"
-                        v-bind:class="[v$.passwordConfirmation.$error || passwordBackendError ? 'is-invalid' : '']"
-                        id="password-confirmation" v-model.trim="v$.passwordConfirmation.$model" autocomplete="off" />
-
-
-                    <div v-if="v$.passwordConfirmation.$error">
-                        <div style="color: red; font-size: 0.7rem; padding-left: 3px; padding-top: 3px;"
-                            v-for="error in v$.passwordConfirmation.$errors">
-                            {{ error.$message }}</div>
-                    </div>
-                </div> -->
+                  
 
                     <div v-if="passwordBackendError">
                         <p v-for="error in passwordBackendError" :key="error">{{ error }}</p>

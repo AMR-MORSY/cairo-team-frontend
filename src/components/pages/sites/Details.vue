@@ -1,18 +1,20 @@
 <template>
 
-  <div class=" w-full flex justify-center py-5">
+  <div class=" w-screen-2xl px-5 py-10">
 
 
-    <Card class=" max-w-4xl">
+    <Card class=" max-w-4xl mx-auto">
       <template #content>
-        <Tabs value="0" >
+        <Tabs value="0">
           <TabList>
-            <Tab value="0"><span class="  text-font-main-color font-Signika font-extrabold uppercase">{{ siteName }}</span>
+            <Tab value="0"><span class="  text-font-main-color font-Signika font-extrabold uppercase">{{ siteName
+                }}</span>
             </Tab>
             <Tab value="1"> <span class="  text-font-main-color font-Signika font-extrabold uppercase">Cascades</span>
               <Badge :value="countCascades" v-if="countCascades"></Badge>
             </Tab>
-            <Tab value="2"><span class="  text-font-main-color font-Signika font-extrabold uppercase">Indirect Cascades</span>
+            <Tab value="2"><span class="  text-font-main-color font-Signika font-extrabold uppercase">Indirect
+                Cascades</span>
               <template v-if="countIndirectCascades">
                 <Badge :value="countIndirectCascades"></Badge>
               </template>
@@ -20,19 +22,21 @@
           </TabList>
           <TabPanels>
             <TabPanel value="0">
-          
+
 
               <div class="grid grid-cols-4 px-4 py-4 gap-4 rounded-md border border-spacing-2 border-font-main-color">
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="siteCode">Site code</span>
-                    <InputText type="text" class=" text-sm" disabled fluid v-model="siteCode" aria-describedby="siteCode" />
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="siteCode"
+                      aria-describedby="siteCode" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto" id="siteCode">
                     <span class="block  font-Signika text-font-main-color" id="siteName">Site Name</span>
-                    <InputText type="text" class=" text-sm" disabled fluid v-model="siteName" aria-describedby="siteName" />
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="siteName"
+                      aria-describedby="siteName" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
@@ -51,7 +55,8 @@
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="oz">OZ</span>
-                    <InputText type="text" class=" text-sm" disabled fluid v-model="operationZone" aria-describedby="oz" />
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="operationZone"
+                      aria-describedby="oz" />
                   </div>
                 </div>
 
@@ -59,7 +64,8 @@
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="severity">Severity</span>
-                    <InputText type="text" class=" text-sm" disabled fluid v-model="severity" aria-describedby="severity" />
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="severity"
+                      aria-describedby="severity" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
@@ -78,7 +84,8 @@
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="nodal">Nodal Name</span>
-                    <InputText type="text" class=" text-sm" disabled fluid v-model="nodalName" aria-describedby="nodal" />
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="nodalName"
+                      aria-describedby="nodal" />
                   </div>
                 </div>
 
@@ -104,13 +111,15 @@
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="category">Category</span>
-                    <InputText type="text" class=" text-sm" disabled fluid v-model="category" aria-describedby="category" />
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="category"
+                      aria-describedby="category" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="sharing">Sharing</span>
-                    <InputText type="text" class=" text-sm" disabled fluid v-model="sharing" aria-describedby="sharing" />
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="sharing"
+                      aria-describedby="sharing" />
                   </div>
                 </div>
                 <div class="col-span-2 md:col-span-1 ">
@@ -208,10 +217,10 @@
 
             </TabPanel>
             <TabPanel value="1">
-            
+
               <template v-if="countCascades">
-                <DataTable :value="cascades" scrollable class="text-xs" :paginator="true"
-                  :rows="5" stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
+                <DataTable :value="cascades" scrollable class="text-xs" :paginator="true" :rows="5" stripedRows
+                  v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
                   @row-select="onRowSelect">
                   <Column selectionMode="single"></Column>
                   <Column field="cascade_code" header="Site Code"></Column>
@@ -226,13 +235,13 @@
                 </div>
               </template>
 
-              <Button label="Update" @click="goToUpdateCascadesPage" severity="success" raised  />
+              <Button label="Update" @click="goToUpdateCascadesPage" severity="success" raised />
             </TabPanel>
             <TabPanel value="2">
-           
+
               <template v-if="countIndirectCascades">
-                <DataTable :value="indirectCascades" scrollable class="text-sm" :paginator="true"
-                  :rows="5" stripedRows v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
+                <DataTable :value="indirectCascades" scrollable class="text-sm" :paginator="true" :rows="5" stripedRows
+                  v-model:selection="selectedSite" selectionMode="single" dataKey="cascade_code"
                   @row-select="onRowSelect">
                   <Column selectionMode="single"></Column>
                   <Column field="cascade_code" header="Site Code"></Column>
@@ -379,7 +388,7 @@ export default {
   },
   methods: {
     getSiteNUR() {
-    
+
       let data = {
         site_code: this.site_code,
       };
@@ -396,7 +405,7 @@ export default {
             this.NUR3G.length == 0 &&
             this.NUR4G.length == 0
           ) {
-           this.$toast.add({ severity: 'success', summary: 'Success Message', detail: "This site didn't make NUR", life: 3000 });
+            this.$toast.add({ severity: 'success', summary: 'Success Message', detail: "This site didn't make NUR", life: 3000 });
           } else {
             this.$dialog.open(siteNURTable, {
               props: {
@@ -713,34 +722,34 @@ export default {
         }
         else {
           this.$confirm.require({
-            group:"yesNo",
-              message: "There is No Batteries data, insert new data?",
-              header: "Confirmation",
-              icon: "pi pi-exclamation-triangle",
-              rejectProps: {
+            group: "yesNo",
+            message: "There is No Batteries data, insert new data?",
+            header: "Confirmation",
+            icon: "pi pi-exclamation-triangle",
+            rejectProps: {
 
-                icon: 'pi pi-times',
-               label:'No',
-                size: 'small',
-                severity: 'danger',
-              },
-              acceptProps: {
-                severity: 'success',
-                icon: 'pi pi-check',
-                size: 'small',
-                label:'Yes'
-              },
-              accept: () => {
-                this.$confirm.close();
+              icon: 'pi pi-times',
+              label: 'No',
+              size: 'small',
+              severity: 'danger',
+            },
+            acceptProps: {
+              severity: 'success',
+              icon: 'pi pi-check',
+              size: 'small',
+              label: 'Yes'
+            },
+            accept: () => {
+              this.$confirm.close();
 
-                this.insertNewBatteiesData()
-              },
-              reject: () => {
-                this.$confirm.close();
-               
-              },
-             
-            });
+              this.insertNewBatteiesData()
+            },
+            reject: () => {
+              this.$confirm.close();
+
+            },
+
+          });
 
         }
 
@@ -912,7 +921,11 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "90vw",
+                width: "50vw",
+              },
+              breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
               },
 
               modal: true,
@@ -992,11 +1005,17 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "75vw",
+                width: "50vw",
               },
+              breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
+              },
+
 
               modal: true,
             },
+
 
             data: {
               statestics: rectifierData,
@@ -1012,26 +1031,76 @@ export default {
 
         }
         else {
-          this.$dialog.open(EquipmentDetails, {
-            props: {
-              style: {
-                width: "75vw",
-              },
+          this.$confirm.require({
+            group: 'yesNo',
+            header: 'Confirmation',
+            message: 'There is no Rectifier data. Add new Data?',
+            icon: 'pi pi-exclamation-triangle',
+            rejectProps: {
+              label: 'No',
 
-              modal: true,
+              size: 'small',
+              severity: "danger"
+            },
+            acceptProps: {
+              label: 'Yes',
+              icon: 'pi pi-check',
+              size: 'small',
+              severity: "success"
             },
 
-            data: {
-              statestics: rectifierData,
-              id: null,
-              topic: "Rectifier Data",
-              rowData: null,
-              action: 'Insert',
-              site_code: this.siteCode
+            accept: () => {
+              this.$confirm.close();
+              this.$dialog.open(EquipmentDetails, {
+                props: {
+                  style: {
+                    width: "75vw",
+                  },
 
+                  modal: true,
+                },
+
+                data: {
+                  statestics: rectifierData,
+                  id: null,
+                  topic: "Rectifier Data",
+                  rowData: null,
+                  action: 'Insert',
+                  site_code: this.siteCode
+
+                },
+              });
 
             },
+            reject: () => {
+              this.$confirm.close();
+
+              this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have rejected', life: 3000 });
+
+            },
+
+
           });
+          // this.$dialog.open(EquipmentDetails, {
+          //   props: {
+          //     style: {
+          //       width: "75vw",
+          //     },
+
+          //     modal: true,
+          //   },
+
+          //   data: {
+          //     statestics: rectifierData,
+          //     id: null,
+          //     topic: "Rectifier Data",
+          //     rowData: null,
+          //     action: 'Insert',
+          //     site_code: this.siteCode
+
+
+          //   },
+          // });
 
 
 
@@ -1067,7 +1136,11 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "90vw",
+                width: "50vw",
+              },
+              breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
               },
 
               modal: true,
@@ -1078,6 +1151,7 @@ export default {
               id: response.data.id,
               topic: "MW Data",
               rowData: response.data,
+              action: "Update",
 
             },
           });
@@ -1128,7 +1202,11 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "90vw",
+                width: "50vw",
+              },
+              breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
               },
 
               modal: true,
@@ -1139,6 +1217,7 @@ export default {
               id: response.data.id,
               topic: "BTS Data",
               rowData: response.data,
+              action: "Update",
 
             },
           });
@@ -1195,7 +1274,11 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "90vw",
+                width: "50vw",
+              },
+              breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
               },
 
               modal: true,
@@ -1205,7 +1288,8 @@ export default {
               statestics: powerData,
               id: response.data.id,
               topic: "Power Data",
-              rowData: response.data
+              rowData: response.data,
+              action:"Update"
 
             },
           });
@@ -1236,8 +1320,12 @@ export default {
       this.$dialog.open(SearchTxIssuesForm, {
         props: {
           style: {
-            width: "90vw",
+            width: "50vw",
           },
+          breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
+              },
 
           modal: true,
         },
@@ -1246,15 +1334,15 @@ export default {
       });
 
     },
-  
+
     insertNewBatteiesData() {
-    
+
 
 
       this.$dialog.open(BatteriesUpdate, {
         props: {
           style: {
-            width: "75vw",
+            width: "50vw",
           },
           breakpoints: {
             "960px": "75vw",

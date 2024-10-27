@@ -1,5 +1,5 @@
 <template>
-    <div class=" w-full px-5 mt-5">
+    <div class="w-screen px-5 my-10">
 
         <Card class=" max-w-screen-md mx-auto">
             <template #header>
@@ -113,10 +113,10 @@
                                 <td class="text-left align-middle">
                                     <ul>
                                         <li>
-                                            Site Code:{{ error.values["Problem source site code"] }}
+                                            Site Code:{{ error.values["problem source site code"] }}
                                         </li>
                                         <li>
-                                            Site Name:{{ error.values["Problem source site name"] }}
+                                            Site Name:{{ error.values["problem source site name"] }}
                                         </li>
                                     </ul>
                                 </td>

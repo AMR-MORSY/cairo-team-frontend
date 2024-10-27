@@ -1,18 +1,6 @@
 <template>
   <div class="container">
-    <!-- <div
-      class="flex flex-col items-center justify-center p-2"
-    >
-      <div class="flex items-center justify-start p-1">
-        <Button
-          icon="pi pi-bell"
-          class="p-button-rounded p-button-danger"
-          @click="getSiteAlarms"
-        />
-      </div>
-
-      <p style="color: red; font-weight: 600">Alarms</p>
-    </div> -->
+   
     <div v-if="count2G" class="mb-2">
       <DataTable
         :value="siteNUR2G"

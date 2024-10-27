@@ -1,7 +1,7 @@
 <template>
 
-  <div class=" w-full py-28 px-8 ">
-    <Card class=" max-w-screen-xl mx-auto  ">
+  <div class=" w-screen-2xl py-20 px-8 ">
+    <Card class=" max-w-6xl mx-auto  ">
       <template #content>
 
         <PickList v-model="pickListData" listStyle="height:342px" dataKey="cascade_code"

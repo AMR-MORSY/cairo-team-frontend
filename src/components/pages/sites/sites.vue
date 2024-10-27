@@ -1,5 +1,5 @@
 <template>
-  <div class=" w-full ">
+  <div class=" w-screen-2xl px-5 py-10 ">
     <div class="max-w-sm lg:max-w-screen-2xl mx-auto ">
       <TransitionGroup class="grid grid-cols-3 gap-4 px-5 mt-20" tag="div" name="cards" appear>
         <div class="col-span-3 lg:col-span-1  mt-5" v-for="card in cards" :key="card.id">

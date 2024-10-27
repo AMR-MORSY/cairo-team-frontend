@@ -14,8 +14,8 @@
         <p class="mb-0 font-semibold text-xl">{{ message.message }}</p>
         <div class="flex items-center gap-2 mt-6">
          
-          <Button :severity="message.rejectProps.severity" :label="message.rejectProps.label" raised  @click="rejectCallback"></Button>
-          <Button :severity="message.acceptProps.severity" :label="message.acceptProps.label" raised  @click="acceptCallback"></Button>
+          <Button :severity="message.rejectProps.severity" :label="message.rejectProps.label" :icon="message.rejectProps.icon" raised  @click="rejectCallback"></Button>
+          <Button :severity="message.acceptProps.severity" :label="message.acceptProps.label" :icon="message.acceptProps.icon" raised  @click="acceptCallback"></Button>
         </div>
       </div>
     </template>

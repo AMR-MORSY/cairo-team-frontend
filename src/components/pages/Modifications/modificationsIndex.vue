@@ -1,5 +1,5 @@
 <template>
-  <div class=" w-full px-8 my-5">
+  <div class=" w-screen-2xl px-8 py-10">
 
 
 

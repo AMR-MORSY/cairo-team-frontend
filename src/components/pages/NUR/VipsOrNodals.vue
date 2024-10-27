@@ -22,11 +22,7 @@
         <Column field="site_name" header="Site Name"></Column>
         <Column field="site_code" header="site_code"></Column>
         <Column field="NUR_c" header="NUR_C"></Column>
-        <!-- <Column field="NUR_2G_sum_nur" header="2G NUR"></Column>
-        <Column field="NUR_3G_count_tickets" header="3G tickets"></Column>
-        <Column field="NUR_3G_sum_nur" header="3G NUR"></Column>
-        <Column field="NUR_4G_count_tickets" header="4G tickets"></Column>
-        <Column field="NUR_4G_sum_nur" header="4G NUR"></Column> -->
+     
       </DataTable>
     </div>
   </div>

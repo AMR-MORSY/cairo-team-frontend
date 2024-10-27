@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full px-3 py-5 flex justify-center">
+    <div class=" w-screen-2xl px-5 py-10 ">
 
         <div class="max-w-3xl   mx-auto">
             <Fieldset>

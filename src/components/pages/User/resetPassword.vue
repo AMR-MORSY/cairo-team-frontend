@@ -1,7 +1,7 @@
 <template>
   <userNavBar></userNavBar>
 
-  <div class="w-full my-5">
+  <div class=" w-screen-2xl px-10 py-10">
     <Card class=" max-w-xs mx-auto">
       <template #title>
 

@@ -2,7 +2,7 @@
   <userNavBar></userNavBar>
   
 
-  <div class=" max-w-screen pt-30">
+  <div class="  w-screen-2xl px-10 py-20">
 
     <Card class=" max-w-xs mx-auto ">
 

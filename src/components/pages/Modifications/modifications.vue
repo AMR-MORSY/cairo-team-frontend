@@ -2,15 +2,15 @@
   <div v-if="serverError">
     <p style="color: red">{{ serverError }}</p>
   </div>
-  <section id="analysis" class=" w-full px-10" v-if="status">
+  <section id="analysis" class=" max-w-screen py-10 px-10" v-if="status">
 
-    <Card class=" bg-black max-w-screen-sm mx-auto mt-24 ">
+    <Card class=" max-w-sm md:max-w-screen-sm mx-auto mt-24 ">
 
       <template #content>
 
 
         <div class=" w-full">
-          <h5 class=" font-Signika font-bold text-font-main-color text-center text-lg">Select modifications</h5>
+          <h5 class=" font-Signika font-bold text-font-main-color text-center text-lg mb-5">Select modifications</h5>
         </div>
         <form @submit.prevent="submitFilterForm">
           <div class="grid grid-cols-2 gap-4">

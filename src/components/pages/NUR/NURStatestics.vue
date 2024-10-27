@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full px-5 mt-5" v-if="isNURAvailable">
+  <div class=" w-screen-2xl px-10 my-10" v-if="isNURAvailable">
 
 
     <Card class=" max-w-screen-xl mx-auto">
@@ -10,6 +10,9 @@
         </div>
       </template>
       <template #content>
+        <div class="flex items-center" >
+          <Button label="FM" severity="danger" @click="goToFM()" class=" block text-lg font-Signika text-white rounded"/>
+        </div> 
 
 
         <div class="grid grid-cols-3 gap-4">
@@ -155,49 +158,7 @@
       :gizaSubsystem="gizaSubsystem" :gizaSubsystemCount="gizaSubsystemCount"
       :gizaAccessStatesitcs="gizaAccessStatesitcs" :week="week" :year="year" />
   </div>
-  <template v-else>
-    <div class="container mt-5">
-      <div class="row mt-5">
-        <div class="col-12 col-md-4"></div>
-        <div class="col-12 col-md-4 mt-5">
-          <transition-group name="fade-bounce" appear>
-            <template v-if="weekErrors">
-              <div class="errors card">
-                <p v-for="error in weekErrors" :key="error">
-                  {{ error }}
-                </p>
-              </div>
-            </template>
-            <template v-if="yearErrors">
-              <div class="errors card">
-                <p v-for="error in yearErrors" :key="error">
-                  {{ error }}
-                </p>
-              </div>
-            </template>
-            <template v-if="monthErrors">
-              <div class="errors card">
-                <p v-for="error in monthErrors" :key="error">
-                  {{ error }}
-                </p>
-              </div>
-            </template>
-            <template v-if="notFoundErrors.length">
-              <div class="errors card">
-                <p v-for="error in notFoundErrors" :key="error">
-                  {{ error }}
-                </p>
-                <div>
-                  <Button label="Back" class="p-button-danger" @click="this.$router.go(-1)" />
-                </div>
-              </div>
-            </template>
-          </transition-group>
-        </div>
-        <div class="col-12 col-md-4"></div>
-      </div>
-    </div>
-  </template>
+ 
 </template>
 
 <script>
@@ -212,18 +173,12 @@ import Giza from "./Giza.vue";
 import CairoTX from "./CairoTX.vue";
 import CairoYearlyAnalysis from "./CairoYearlyAnalysis.vue";
 import CairoGen from "../NUR/CairoGen.vue";
-
-
-;
 import BarChart from "../../helpers/BarChart.vue";
 
 export default {
   data() {
     return {
-      weekErrors: null,
-
-      monthErrors: null,
-      yearErrors: null,
+      
       notFoundErrors: [],
       isNURAvailable: false,
       zones2GNUR: null,
@@ -312,6 +267,10 @@ export default {
       };
       return response;
     },
+    goToFM(){
+      this.$router.push({path:`/FM/statestics/${this.week}/${this.year}`})
+
+    },
     getNUR() {
       const documentStyle = getComputedStyle(document.documentElement);
       let data = {
@@ -323,10 +282,32 @@ export default {
       NUR.getNur(data)
 
         .then((response) => {
-       
+     
           if (response.data.errors) {
-
             this.notFoundErrors = response.data.errors;
+            this.$confirm.require({
+
+              group:'info',
+              message:this.notFoundErrors.toString(),
+              header: "Confirmation",
+              icon: "pi pi-exclamation-triangle",
+             
+              acceptProps: {
+                severity: 'danger',
+                icon: 'pi pi-check',
+                size: 'small',
+                label:"OK"
+              },
+              accept: () => {
+                this.$router.go(-1);
+
+              
+              },
+
+
+            })
+
+            
           }
           else {
             let NUR = response.data.NUR;
@@ -549,21 +530,36 @@ export default {
           if (error.response.status == 422) {
             let errors = error.response.data.errors;
             if (errors.week) {
-              this.weekErrors = [];
+            
               errors.week.forEach((element) => {
-                this.weekErrors.push(element);
+               this.$toast.add({
+                severity:"error",
+                summary:"Error",
+                detail:element,
+                life:3000
+               })
               });
             }
             if (errors.month) {
-              this.monthErrors = [];
+           
               errors.month.forEach((element) => {
-                this.monthErrors.push(element);
+                this.$toast.add({
+                severity:"error",
+                summary:"Error",
+                detail:element,
+                life:3000
+               })
               });
             }
             if (errors.year) {
-              this.yearErrors = [];
+           
               errors.year.forEach((element) => {
-                this.yearErrors.push(element);
+                this.$toast.add({
+                severity:"error",
+                summary:"Error",
+                detail:element,
+                life:3000
+               })
               });
             }
           }

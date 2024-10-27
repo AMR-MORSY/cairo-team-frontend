@@ -1,6 +1,6 @@
 <template>
     <userNavBar></userNavBar>
-    <div class="max-w-screen pt-40">
+    <div class=" w-screen-2xl px-10  py-10">
 
 
         <Card class="max-w-sm mx-auto">

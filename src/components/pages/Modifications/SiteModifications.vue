@@ -119,20 +119,22 @@ export default {
             // this.isModificationNotFound = false;
 
             this.$confirm.require({
+            group:'yesNo',
               message: "There is No modifications, insert new modification?",
               header: "Confirmation",
               icon: "pi pi-exclamation-triangle",
               rejectProps: {
 
                 icon: 'pi pi-times',
-                outlined: true,
+                label:"No",
                 size: 'small',
                 severity: 'danger'
               },
               acceptProps: {
                 severity: 'success',
                 icon: 'pi pi-check',
-                size: 'small'
+                size: 'small',
+                label:"Yes"
               },
               accept: () => {
                 this.$confirm.close();
@@ -143,10 +145,8 @@ export default {
                 this.$confirm.close();
                 this.$router.push(`/sites/details/${this.site_code}`);
                 //callback to execute when user rejects the action
-              },
-              onHide: () => {
-                this.$router.push(`/sites/details/${this.site_code}`);
               }
+              
             });
 
           }

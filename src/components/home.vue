@@ -2,14 +2,14 @@
   <section id="intro">
 
   </section>
-  <section class=" w-full overflow-y-hidden">
+  <section class=" w-full  overflow-y-hidden">
     <div id="breif" class=" w-full overflow-y-hidden">
 
 
-      <div class="grid grid-cols-2 gap-4">
-        <div class=" col-span-2 md:col-span-1">
+      <div class="grid grid-cols-2 gap-4 ">
+        <div class=" col-span-2 md:col-span-1 pl-16 md:py-16">
 
-          <div class="breif-container pl-16 pt-16">
+          <div class="breif-container ">
 
             <Transition name="NUR" appear>
               <p class=" font-Signika text-font-main-color font-extrabold text-lg py-4 lg:py-8 lg:text-4xl">NUR Analysis</p>
@@ -31,7 +31,7 @@
 
         </div>
 
-        <div class="col-span-2 flex justify-center md:col-span-1">
+        <div class="col-span-2 flex justify-center md:col-span-1 pr-16 md:py-16">
           <div class="image-container ">
             <img src="../../src/components/logos/04.png" alt="">
           </div>
@@ -114,6 +114,7 @@ export default {
   overflow-y: hidden;
   /* padding: 2rem 2rem; */
   background-color: white;
+  height: 50vh;
 
 
 }
@@ -139,6 +140,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 3rem;
 
 
 }
