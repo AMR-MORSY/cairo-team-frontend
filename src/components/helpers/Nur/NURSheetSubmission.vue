@@ -1,5 +1,5 @@
 <template>
-    <div class="w-screen px-5 my-10">
+    <div class=" w-screen-2xl px-10 py-20">
 
         <Card class=" max-w-screen-md mx-auto">
             <template #header>
@@ -194,7 +194,7 @@ const tech = ref(props.technology)
 // const cellsErrors = ref(null)
 // const total_net_cellsErrors = ref(null)
 
-const sheetValidationErrors = ref()
+const sheetValidationErrors = ref(null)
 
 // const yearErrors = ref(null)
 
@@ -300,6 +300,7 @@ const showErrors = (errors, error) => {
 
 }
 const submitNurSheet = async () => {
+    sheetValidationErrors.value=(null);
 
     const isFormCorrect = await v$.value.$validate()
     if (!isFormCorrect) {

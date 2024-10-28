@@ -1,6 +1,6 @@
 <template>
 
-  <div class=" w-screen-2xl px-5 py-10">
+  <div class=" w-screen-2xl px-10 py-20">
 
 
     <Card class=" max-w-4xl mx-auto">

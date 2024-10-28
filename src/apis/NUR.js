@@ -21,7 +21,7 @@ export default {
     },
     getNur(data)
     {
-        return allInstances.Api.get(`/Nur/show/${data.week}/${data.year}`);
+        return allInstances.Api.get(`/Nur/show/${data.week}/${data.year}/${data.NUR_Type}`);
 
     },
     getSiteNUR(siteCode)

@@ -1,5 +1,5 @@
 <template>
-  <div class=" w-screen-2xl px-10 my-10" v-if="isNURAvailable">
+  <div class=" w-screen-2xl px-10 py-20" v-if="isNURAvailable">
 
 
     <Card class=" max-w-screen-xl mx-auto">
@@ -10,18 +10,19 @@
         </div>
       </template>
       <template #content>
-        <div class="flex items-center" >
-          <Button label="FM" severity="danger" @click="goToFM()" class=" block text-lg font-Signika text-white rounded"/>
-        </div> 
+        <div class="flex items-center">
+          <Button label="FM" severity="danger" @click="goToFM()"
+            class=" block text-lg font-Signika text-white rounded" />
+        </div>
 
 
         <div class="grid grid-cols-3 gap-4">
           <div class="col-span-3 lg:col-span-1 mt-5">
             <Card>
-             
+
               <template #content>
                 <!-- <Chart type="bar" :data="zones2GNUR" :options="lightOptions" :plugins="plugins" /> -->
-                 <BarChart :chartDataSets="zones2GNUR" chartTitle="Zone 2G NUR"/>
+                <BarChart :chartDataSets="zones2GNUR" chartTitle="Zone 2G NUR" />
               </template>
               <template #footer>
                 <p>Cairo 2G NUR={{ cairo2GNUR }}</p>
@@ -30,10 +31,10 @@
           </div>
           <div class="col-span-3 lg:col-span-1 mt-5">
             <Card>
-             
+
               <template #content>
-                <BarChart :chartDataSets="zones3GNUR" chartTitle="Zone 3G NUR"/>
-            
+                <BarChart :chartDataSets="zones3GNUR" chartTitle="Zone 3G NUR" />
+
               </template>
               <template #footer>
                 <p>Cairo 3G NUR={{ cairo3GNUR }}</p>
@@ -42,9 +43,9 @@
           </div>
           <div class="col-span-3 lg:col-span-1 mt-5">
             <Card>
-           
+
               <template #content>
-                <BarChart :chartDataSets="zones4GNUR" chartTitle="Zone 4G NUR"/>
+                <BarChart :chartDataSets="zones4GNUR" chartTitle="Zone 4G NUR" />
               </template>
               <template #footer>
                 <p>Cairo 4G NUR={{ cairo4GNUR }}</p>
@@ -65,7 +66,7 @@
           <div class="col-span-3  lg:col-span-1 mt-5">
             <Card>
               <template #title>
-                
+
                 <div style="display: flex;align-items: center;justify-content: center;">
                   <div class="w-1/2" style="
                           display: flex;
@@ -78,12 +79,30 @@
                 </div>
               </template>
               <template #content>
-                <BarChart :chartDataSets="zonesCombinedNUR" chartTitle="Cairo Combined NUR"/>
-             
+                <BarChart :chartDataSets="zonesCombinedNUR" chartTitle="Cairo Combined NUR" />
+
               </template>
             </Card>
           </div>
-          <div class="col-span-3  lg:col-span-1 mt-5">
+          <div class="col-span-3  lg:col-span-2 mt-5">
+            <Card>
+
+              <template #content>
+                <BarChart :chartDataSets="cairoSubsystem" chartTitle="Cairo Subsystem" />
+
+              </template>
+            </Card>
+          </div>
+          <div class="col-span-3   mt-5">
+            <Card>
+
+              <template #content>
+                <BarChart :chartDataSets="cairoTopRepeated" chartTitle="Cairo Top Repeated Sites" />
+
+              </template>
+            </Card>
+          </div>
+          <!-- <div class="col-span-3  lg:col-span-1 mt-5">
             <Card>
               
               <template #content>
@@ -100,7 +119,7 @@
             
               </template>
             </Card>
-          </div>
+          </div>  -->
 
         </div>
         <Card class="mt-5">
@@ -158,7 +177,7 @@
       :gizaSubsystem="gizaSubsystem" :gizaSubsystemCount="gizaSubsystemCount"
       :gizaAccessStatesitcs="gizaAccessStatesitcs" :week="week" :year="year" />
   </div>
- 
+
 </template>
 
 <script>
@@ -178,7 +197,7 @@ import BarChart from "../../helpers/BarChart.vue";
 export default {
   data() {
     return {
-      
+
       notFoundErrors: [],
       isNURAvailable: false,
       zones2GNUR: null,
@@ -189,6 +208,8 @@ export default {
       cairo2GNUR: null,
       cairo4GNUR: null,
       cairoCombinedNUR: null,
+      cairoSubsystem: null,
+      cairoTopRepeated:null,
       cairoSouthSubsystem: null,
       cairoSouthSubsystemCount: null,
       cairoEastSubsystem: null,
@@ -199,7 +220,7 @@ export default {
       gizaSubsystemCount: null,
       zonesResponseWithAccess: null,
       zonesResponseWithoutAccess: null,
-     
+
       cairoSouthGen: null,
       cairoEastGen: null,
       cairoNorthGen: null,
@@ -245,7 +266,7 @@ export default {
     CairoTX,
     CairoYearlyAnalysis,
     CairoGen,
- 
+
     BarChart,
     NodePowerModification
   },
@@ -267,8 +288,117 @@ export default {
       };
       return response;
     },
-    goToFM(){
-      this.$router.push({path:`/FM/statestics/${this.week}/${this.year}`})
+    setCairoTopRepeatedChart(cairoSubsystems) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      let NUR_tickets = Object.values(cairoSubsystems)
+      let currentWeek = [];
+      let pastWeek = [];
+      let currentWeekLabel="";
+      let pastWeekLabel="";
+
+      NUR_tickets.forEach((element) => {
+
+        currentWeekLabel=Object.keys(element)[1];
+        pastWeekLabel=Object.keys(element)[0];
+        
+
+        currentWeek.push(Object.values(element)[1])
+        pastWeek.push(Object.values(element)[0])
+
+
+      })
+      return {
+        labels: Object.keys(cairoSubsystems),
+
+        datasets: [
+          {
+            label: currentWeekLabel,
+            backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+            borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+            data: currentWeek,
+
+          },
+          {
+            label: pastWeekLabel,
+
+            data: pastWeek,
+            backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+
+          },
+        ],
+
+      }
+
+
+
+    },
+    setCairoSubsystemChart(cairoSubsystems) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      let NUR_tickets = Object.values(cairoSubsystems)
+      let NUR = [];
+      let tickets = [];
+      NUR_tickets.forEach((element) => {
+
+        NUR.push(element.NUR)
+        tickets.push(element.countTick)
+
+
+      })
+      return {
+        labels: Object.keys(cairoSubsystems),
+
+        datasets: [
+          {
+            label: "NUR",
+            backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+            borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+            data: NUR,
+
+          },
+          {
+            label: "Tickets",
+
+            data: tickets,
+            backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+
+          },
+        ],
+
+      }
+
+
+
+    },
+    setZoneNURChart(zoneNUR, zoneTickets) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      return {
+        labels: Object.keys(zoneNUR),
+
+        datasets: [
+          {
+            label: "2G NUR",
+
+            data: Object.values(zoneNUR),
+            backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+            borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+
+          },
+          {
+            label: "No.tickets",
+
+            data: Object.values(zoneTickets),
+            backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+            borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+
+          },
+        ],
+      };
+
+    },
+    goToFM() {
+      this.$router.push({ path: `/FM/statestics/${this.week}/${this.year}` })
 
     },
     getNUR() {
@@ -277,105 +407,52 @@ export default {
         week: this.week,
 
         year: this.year,
+        NUR_Type: "NUR"
       };
 
       NUR.getNur(data)
 
         .then((response) => {
-     
+          console.log(response)
+
           if (response.data.errors) {
             this.notFoundErrors = response.data.errors;
             this.$confirm.require({
 
-              group:'info',
-              message:this.notFoundErrors.toString(),
+              group: 'info',
+              message: this.notFoundErrors.toString(),
               header: "Confirmation",
               icon: "pi pi-exclamation-triangle",
-             
+
               acceptProps: {
                 severity: 'danger',
                 icon: 'pi pi-check',
                 size: 'small',
-                label:"OK"
+                label: "OK"
               },
               accept: () => {
                 this.$router.go(-1);
 
-              
+
               },
 
 
             })
 
-            
+
           }
           else {
             let NUR = response.data.NUR;
             this.isNURAvailable = true;
-            this.zones2GNUR = {
-              labels: Object.keys(NUR.NUR2G.zonesNUR2G),
-
-              datasets: [
-                {
-                  label: "2G NUR",
-                 
-                  data: Object.values(NUR.NUR2G.zonesNUR2G),
-                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-               
-                },
-                {
-                  label: "No.tickets",
-                
-                  data: Object.values(NUR.NUR2G.zonesTotalNumTickets),
-                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-              
-                },
-              ],
-            };
+            this.zones2GNUR = this.setZoneNURChart(NUR.NUR2G.zonesNUR2G,NUR.NUR2G.zonesTotalNumTickets)
+           
             this.cairo2GNUR = NUR.NUR2G.cairoNUR2G;
-            this.zones3GNUR = {
-              labels: Object.keys(NUR.NUR3G.zonesNUR3G),
-              datasets: [
-                {
-                  label: "3G NUR",
-                  data: Object.values(NUR.NUR3G.zonesNUR3G),
-                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-               
-                
-                },
-                {
-                  label: "No.tickets",
-                  data: Object.values(NUR.NUR3G.zonesTotalNumTickets),
-                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                 
-                },
-              ],
-            };
+            this.zones3GNUR = this.setZoneNURChart(NUR.NUR3G.zonesNUR3G,NUR.NUR3G.zonesTotalNumTickets)
+           
             this.cairo3GNUR = NUR.NUR3G.cairoNUR3G;
 
-            this.zones4GNUR = {
-              labels: Object.keys(NUR.NUR4G.zonesNUR4G),
-              datasets: [
-                {
-                  label: "4G NUR",
-                  data: Object.values(NUR.NUR4G.zonesNUR4G),
-                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                 
-                },
-                {
-                  label: "No.tickets",
-                  data: Object.values(NUR.NUR4G.zonesTotalNumTickets),
-                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                
-                },
-              ],
-            };
+            this.zones4GNUR =this.setZoneNURChart(NUR.NUR4G.zonesNUR4G,NUR.NUR4G.zonesTotalNumTickets)
+            
             this.cairo4GNUR = NUR.NUR4G.cairoNUR4G;
             this.zonesCombinedNUR = {
               labels: Object.keys(NUR.combined),
@@ -386,84 +463,86 @@ export default {
                   backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
                   borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                   data: Object.values(NUR.combined),
-                  
+
                 },
               ],
             };
             this.cairoCombinedNUR = NUR.combined.cairo;
+            this.cairoSubsystem = this.setCairoSubsystemChart(NUR.cairoSubsystem)
+            this.cairoTopRepeated=this.setCairoTopRepeatedChart(NUR.cairoTopRepeated)
 
-            let zoneExceed = [
-              NUR.zonesResponseWithAccess["CAIRO EAST"].exceedSLA,
-              NUR.zonesResponseWithAccess["CAIRO SOUTH"].exceedSLA,
-              NUR.zonesResponseWithAccess["CAIRO NORTH"].exceedSLA,
-              NUR.zonesResponseWithAccess["GIZA"].exceedSLA,
-            ];
-            let zoneWith = [
-              NUR.zonesResponseWithAccess["CAIRO EAST"].withinSLA,
-              NUR.zonesResponseWithAccess["CAIRO SOUTH"].withinSLA,
+            // let zoneExceed = [
+            //   NUR.zonesResponseWithAccess["CAIRO EAST"].exceedSLA,
+            //   NUR.zonesResponseWithAccess["CAIRO SOUTH"].exceedSLA,
+            //   NUR.zonesResponseWithAccess["CAIRO NORTH"].exceedSLA,
+            //   NUR.zonesResponseWithAccess["GIZA"].exceedSLA,
+            // ];
+            // let zoneWith = [
+            //   NUR.zonesResponseWithAccess["CAIRO EAST"].withinSLA,
+            //   NUR.zonesResponseWithAccess["CAIRO SOUTH"].withinSLA,
 
-              NUR.zonesResponseWithAccess["CAIRO NORTH"].withinSLA,
+            //   NUR.zonesResponseWithAccess["CAIRO NORTH"].withinSLA,
 
-              NUR.zonesResponseWithAccess["GIZA"].withinSLA,
-            ];
-            let resp = this.Responses(zoneExceed, zoneWith);
+            //   NUR.zonesResponseWithAccess["GIZA"].withinSLA,
+            // ];
+            // let resp = this.Responses(zoneExceed, zoneWith);
 
-            this.zonesResponseWithAccess = {
-              labels: Object.keys(NUR.zonesResponseWithoutAccess),
-              datasets: [
-                {
-                  data: resp.exceed,
-                  label: "exceed SLA",
-                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                
-                },
-                {
-                  data: resp.withinSLA,
-                  label: "within SLA",
-                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                
-                
-                },
-              ],
-            };
+            // this.zonesResponseWithAccess = {
+            //   labels: Object.keys(NUR.zonesResponseWithoutAccess),
+            //   datasets: [
+            //     {
+            //       data: resp.exceed,
+            //       label: "exceed SLA",
+            //       backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+            //       borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
 
-            zoneExceed = [
-              NUR.zonesResponseWithoutAccess["CAIRO EAST"].exceedSLA,
-              NUR.zonesResponseWithoutAccess["CAIRO SOUTH"].exceedSLA,
-              NUR.zonesResponseWithoutAccess["CAIRO NORTH"].exceedSLA,
-              NUR.zonesResponseWithoutAccess["GIZA"].exceedSLA,
-            ];
-            zoneWith = [
-              NUR.zonesResponseWithoutAccess["CAIRO EAST"].withinSLA,
-              NUR.zonesResponseWithoutAccess["CAIRO SOUTH"].withinSLA,
+            //     },
+            //     {
+            //       data: resp.withinSLA,
+            //       label: "within SLA",
+            //       backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+            //       borderColor: documentStyle.getPropertyValue('--p-gray-500'),
 
-              NUR.zonesResponseWithoutAccess["CAIRO NORTH"].withinSLA,
 
-              NUR.zonesResponseWithoutAccess["GIZA"].withinSLA,
-            ];
-            resp = this.Responses(zoneExceed, zoneWith);
+            //     },
+            //   ],
+            // };
 
-            this.zonesResponseWithoutAccess = {
-              labels: Object.keys(NUR.zonesResponseWithAccess),
-              datasets: [
-                {
-                  data: resp.exceed,
-                  label: "exceed SLA",
-                  backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                 
-                },
-                {
-                  data: resp.withinSLA,
-                  label: "within SLA",
-                  backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
-                  borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-                
-                },
-              ],
-            };
+            // zoneExceed = [
+            //   NUR.zonesResponseWithoutAccess["CAIRO EAST"].exceedSLA,
+            //   NUR.zonesResponseWithoutAccess["CAIRO SOUTH"].exceedSLA,
+            //   NUR.zonesResponseWithoutAccess["CAIRO NORTH"].exceedSLA,
+            //   NUR.zonesResponseWithoutAccess["GIZA"].exceedSLA,
+            // ];
+            // zoneWith = [
+            //   NUR.zonesResponseWithoutAccess["CAIRO EAST"].withinSLA,
+            //   NUR.zonesResponseWithoutAccess["CAIRO SOUTH"].withinSLA,
+
+            //   NUR.zonesResponseWithoutAccess["CAIRO NORTH"].withinSLA,
+
+            //   NUR.zonesResponseWithoutAccess["GIZA"].withinSLA,
+            // ];
+            // resp = this.Responses(zoneExceed, zoneWith);
+
+            // this.zonesResponseWithoutAccess = {
+            //   labels: Object.keys(NUR.zonesResponseWithAccess),
+            //   datasets: [
+            //     {
+            //       data: resp.exceed,
+            //       label: "exceed SLA",
+            //       backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+            //       borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+
+            //     },
+            //     {
+            //       data: resp.withinSLA,
+            //       label: "within SLA",
+            //       backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+            //       borderColor: documentStyle.getPropertyValue('--p-gray-500'),
+
+            //     },
+            //   ],
+            // };
 
             this.cairoSouthSubsystem = NUR.zonesSubsystem["CAIRO SOUTH"];
             this.cairoSouthSubsystemCount = NUR.zonesSubsystemCountTickts["CAIRO SOUTH"];
@@ -530,36 +609,36 @@ export default {
           if (error.response.status == 422) {
             let errors = error.response.data.errors;
             if (errors.week) {
-            
+
               errors.week.forEach((element) => {
-               this.$toast.add({
-                severity:"error",
-                summary:"Error",
-                detail:element,
-                life:3000
-               })
+                this.$toast.add({
+                  severity: "error",
+                  summary: "Error",
+                  detail: element,
+                  life: 3000
+                })
               });
             }
             if (errors.month) {
-           
+
               errors.month.forEach((element) => {
                 this.$toast.add({
-                severity:"error",
-                summary:"Error",
-                detail:element,
-                life:3000
-               })
+                  severity: "error",
+                  summary: "Error",
+                  detail: element,
+                  life: 3000
+                })
               });
             }
             if (errors.year) {
-           
+
               errors.year.forEach((element) => {
                 this.$toast.add({
-                severity:"error",
-                summary:"Error",
-                detail:element,
-                life:3000
-               })
+                  severity: "error",
+                  summary: "Error",
+                  detail: element,
+                  life: 3000
+                })
               });
             }
           }
@@ -590,7 +669,7 @@ export default {
             sites: siteData,
             tickets: response.data.tickets,
             statestics: response.data.statestics,
-            title:"Cairo Tx"
+            title: "Cairo Tx"
           },
         });
       })
@@ -674,7 +753,7 @@ export default {
           sites.forEach((site) => {
             siteData.push(site.site_data);
           });
-          this.$dialog.open( NodePowerModification, {
+          this.$dialog.open(NodePowerModification, {
             props: {
               style: {
                 width: "75vw",
@@ -690,7 +769,7 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
-              title:"Cairo Main Power"
+              title: "Cairo Main Power"
             },
           });
         })
@@ -724,7 +803,7 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
-              title:"Cairo NodeB"
+              title: "Cairo NodeB"
             },
           });
         })
@@ -758,7 +837,7 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
-              title:"Cairo Modifications"
+              title: "Cairo Modifications"
             },
           });
         })

@@ -1,7 +1,7 @@
 <template>
 
 
-    <div class="card fixed top-0 left-0 right-0 xl:px-20 z-50" v-if="!$route.meta.hideNavbar">
+    <div class="card fixed top-0 left-0 right-0 xl:px-20 z-50" :class="whiteBackground?'bg-black':''" v-if="!$route.meta.hideNavbar">
       <Menubar :model="items">
         <template #start>
          
@@ -109,6 +109,12 @@ const dialog = useDialog();
 const router = useRouter();
 const userName = computed(() => store.getters.userName)
 const isLogin = computed(() => store.getters.isLogin)
+
+const props=defineProps([
+  "backgroundWhite"
+
+])
+const whiteBackground=computed(()=>props.backgroundWhite)
 
 // onMounted(() => {
 //   initFlowbite();
