@@ -1,5 +1,5 @@
 <template>
-  <div id="site-modification" class=" w-full" v-if="isModificationsFound">
+  <div id="site-modification" class="  w-screen-2xl  px-10 py-20" v-if="isModificationsFound">
 
     <div class=" max-w-fit mx-auto">
       <Fieldset>

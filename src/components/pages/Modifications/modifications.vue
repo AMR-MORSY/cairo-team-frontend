@@ -2,9 +2,9 @@
   <div v-if="serverError">
     <p style="color: red">{{ serverError }}</p>
   </div>
-  <section id="analysis" class=" max-w-screen py-10 px-10" v-if="status">
+  <section id="analysis" class="  w-screen-2xl  px-10 py-20" v-if="status">
 
-    <Card class=" max-w-sm md:max-w-screen-sm mx-auto mt-24 ">
+    <Card class=" max-w-sm md:max-w-screen-sm mx-auto  ">
 
       <template #content>
 

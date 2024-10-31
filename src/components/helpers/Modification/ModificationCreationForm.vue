@@ -1,5 +1,5 @@
 <template>
-    <div class=" w-screen-2xl px-7 py-10">
+    <div class=" w-screen-2xl  px-10 py-20">
         <div class=" max-w-xs md:max-w-7xl mx-auto">
             <Fieldset>
                 <template #legend>
