@@ -4,15 +4,15 @@
   <div class="grid grid-cols-3 gap-4 mt-5 ">
     <div class=" col-span-3 lg:col-span-1">
       <!-- <Chart type="doughnut" :data="ticketsType" :options="lightOptions" :plugins="plugins" /> -->
-      <DoughnutChart :chartDataSets="ticketsType" :chartTitle="title" />
+      <DoughnutChart :chartDataSets="ticketsType" chartId="txTicketsType" :chartTitle="title" />
     </div>
     <div class=" col-span-3 lg:col-span-1">
       <!-- <Chart type="doughnut" :data="accessStatus" :options="lightOptions" :plugins="plugins" /> -->
-      <DoughnutChart :chartDataSets="accessStatus" :chartTitle="title" />
+      <DoughnutChart :chartDataSets="accessStatus" chartId="txAccessStatus" :chartTitle="title" />
     </div>
     <div class=" col-span-3 lg:col-span-1">
       <div class=" w-full">
-        <DoughnutChart :chartDataSets="TxType" :chartTitle="title" />
+        <DoughnutChart :chartDataSets="TxType" chartId="txType" :chartTitle="title" />
       </div>
       <!-- <Chart type="doughnut" :data="TxType" :options="lightOptions" :plugins="plugins" /> -->
     
@@ -148,7 +148,7 @@ const mountTxTypeChartData = () => {
 
 const getCairoMWYearlyNUR = () => {
 
-  NUR.cairoTXYearlyAnalysis(this.tickets[0].year)
+  NUR.cairoTXYearlyAnalysis(tickets.value[0].year)
 
 
     .then((response) => {

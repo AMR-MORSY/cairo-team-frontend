@@ -5,7 +5,7 @@
 
     <div class=" w-full flex justify-center items-center">
 
-        <DoughnutChart :chartDataSets="chartData" :chartTitle="title" />
+        <DoughnutChart :chartDataSets="chartData" :chartTitle="title" :chartId="chrId" />
 
 
     </div>
@@ -44,6 +44,7 @@ import DoughnutChart from "../../helpers/DoughnutChart.vue";
 
 const chartData = ref();
 const title = ref(dialogRef.value.data.title)
+const chrId=ref(dialogRef.value.data.chartID)
 
 const NuR = ref();
 const sites = ref();
@@ -154,11 +155,11 @@ const getCairoYearlyNUR = () => {
         NUR.cairoModificationYearlyAnalysis(tickets.value[0].year)
    
         .then((response) => {
-          console.log(response);
+          
           let labels = Object.keys(response.data.NUR_C_yearly.cairo);
           let cairo = response.data.NUR_C_yearly.cairo;
           let zones = response.data.NUR_C_yearly.zones;
-          this.$dialog.open(CairoTxYearlyAnalysis, {
+          dialog.open(CairoTxYearlyAnalysis, {
             props: {
               style: {
                 width: "75vw",

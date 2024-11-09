@@ -22,7 +22,7 @@
 
               <template #content>
                 <!-- <Chart type="bar" :data="zones2GNUR" :options="lightOptions" :plugins="plugins" /> -->
-                <BarChart :chartDataSets="zones2GNUR" chartTitle="Zone 2G NUR" />
+                <BarChart :chartDataSets="zones2GNUR" chartTitle="Zone 2G NUR" chartId="NUR2G" />
               </template>
               <template #footer>
                 <p>Cairo 2G NUR={{ cairo2GNUR }}</p>
@@ -33,7 +33,7 @@
             <Card>
 
               <template #content>
-                <BarChart :chartDataSets="zones3GNUR" chartTitle="Zone 3G NUR" />
+                <BarChart :chartDataSets="zones3GNUR" chartTitle="Zone 3G NUR"  chartId="NUR3G"/>
 
               </template>
               <template #footer>
@@ -45,7 +45,7 @@
             <Card>
 
               <template #content>
-                <BarChart :chartDataSets="zones4GNUR" chartTitle="Zone 4G NUR" />
+                <BarChart :chartDataSets="zones4GNUR" chartTitle="Zone 4G NUR"  chartId="NUR4G"/>
               </template>
               <template #footer>
                 <p>Cairo 4G NUR={{ cairo4GNUR }}</p>
@@ -79,7 +79,7 @@
                 </div>
               </template>
               <template #content>
-                <BarChart :chartDataSets="zonesCombinedNUR" chartTitle="Cairo Combined NUR" />
+                <BarChart :chartDataSets="zonesCombinedNUR" chartTitle="Cairo Combined NUR"  chartId="NURcombined" />
 
               </template>
             </Card>
@@ -88,7 +88,7 @@
             <Card>
 
               <template #content>
-                <BarChart :chartDataSets="cairoSubsystem" chartTitle="Cairo Subsystem" />
+                <BarChart :chartDataSets="cairoSubsystem" chartTitle="Cairo Subsystem"  chartId="cairoSubsys"/>
 
               </template>
             </Card>
@@ -97,7 +97,7 @@
             <Card>
 
               <template #content>
-                <BarChart :chartDataSets="cairoTopRepeated" chartTitle="Cairo Top Repeated Sites" />
+                <BarChart :chartDataSets="cairoTopRepeated" chartTitle="Cairo Top Repeated Sites"  chartId="cairoTopRepeated" />
 
               </template>
             </Card>
@@ -648,6 +648,7 @@ export default {
     getCairoMWWeeklyNUR() {
 
       NUR.getCairoMWWeeklyNUR(this.week, this.year).then((response) => {
+        
         let siteData = [];
         let sites = response.data.sites;
         sites.forEach((site) => {
@@ -769,7 +770,8 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
-              title: "Cairo Main Power"
+              title: "Cairo Main Power",
+              chartID:"cairoMainPower"
             },
           });
         })
@@ -803,7 +805,8 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
-              title: "Cairo NodeB"
+              title: "Cairo NodeB",
+               chartID:"cairoNodeB"
             },
           });
         })
@@ -837,7 +840,8 @@ export default {
               sites: siteData,
               tickets: response.data.tickets,
               statestics: response.data.statestics,
-              title: "Cairo Modifications"
+              title: "Cairo Modifications",
+               chartID:"cairoModifications"
             },
           });
         })

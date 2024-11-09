@@ -86,6 +86,7 @@ export default {
           let rules = [];
 
           if (response.data.permissions.length > 0) {
+            console.log(response.data.permissions)
             response.data.permissions.forEach((element) => {
               let rule = {
                 action: element
@@ -94,6 +95,8 @@ export default {
             })
 
           }
+
+          console.log(rules)
 
           this.$ability.update(rules)
 

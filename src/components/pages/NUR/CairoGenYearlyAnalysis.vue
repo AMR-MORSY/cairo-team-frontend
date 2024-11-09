@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LineChart chartTitle="Generator NUR_C" :chartDataSets="chartData" />
+    <LineChart chartTitle="Generator NUR_C" chartId="generatorNUR_C" :chartDataSets="chartData" />
   </div>
 </template>
 

@@ -61,11 +61,13 @@ import TabPanels from 'primevue/tabpanels';
 import Menubar from 'primevue/menubar';
 
 
+import "../node_modules/bootstrap/dist/js/bootstrap.min";
 
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
 
 
 import JsonExcel from "vue-json-excel3";
-
 
 import "./assets/style.css";
 import "../node_modules/flowbite/dist/flowbite.min";

@@ -1,7 +1,7 @@
 <template>
     <div class="card">
 
-        <Chart type="line" id="chart" :data="yearlyData" :plugins='plugins' :options="chartOptions" class="h-[30rem]" />
+        <Chart type="line" :id="chartId" :data="yearlyData" :plugins='plugins' :options="chartOptions" class="h-[30rem]" />
         <Button label="Download Image" class=" block" raised severity="success" @click="downloadImage()" />
     </div>
 </template>
@@ -16,7 +16,7 @@ import { computed } from 'vue';
 const plugins = [ChartDataLabels]
 
 const props = defineProps([
-    "chartDataSets", "chartTitle"
+    "chartDataSets", "chartTitle","chartId"
 ])
 
 
@@ -54,7 +54,11 @@ const setChartOptions = () => {
                 labels: {
                     color: textColor
                 }
-            }
+            },
+            datalabels: {
+                anchor: "end",
+                color: "red",
+            },
         },
         scales: {
             x: {
@@ -82,7 +86,7 @@ const setChartOptions = () => {
 
 const downloadImage = () => {
     const imageLinlk = document.createElement('a');
-    var chart = document.getElementById('chart').children[0];
+    var chart = document.getElementById(`${props.chartId}`).children[0];
     imageLinlk.href = chart.toDataURL('image/png', 1);
     imageLinlk.download = `${props.chartTitle}.png`
     imageLinlk.click()

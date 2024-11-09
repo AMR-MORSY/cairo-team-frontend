@@ -33,14 +33,14 @@ function showNetworkToast() {
 }
 
 function showUnauthintecatedToast() {
-  // const toastLiveExample = document.getElementById("liveToast");
-  // const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+  const toastLiveExample = document.getElementById("liveToast");
+  const toastBootstrap = new bootstrap.Toast(toastLiveExample);
   sessionStorage.removeItem("User");
   store.dispatch("userData", null);
   // store.dispatch("showUnauthToast", true);
 
-  // toastBootstrap.show();
-  store.dispatch('showNetworkError','Unauthenticated');
+  toastBootstrap.show();
+  // store.dispatch('showNetworkError','Unauthenticated');
 
 }
 

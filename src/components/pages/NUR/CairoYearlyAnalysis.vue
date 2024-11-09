@@ -1,5 +1,5 @@
 <template>
-   <LineChart chartTitle="Cairo NUR_C"  :chartDataSets="chartData"/>
+   <LineChart chartTitle="Cairo NUR_C" chartId="cairoNUR_c"  :chartDataSets="chartData"/>
 </template>
 
 <script setup>

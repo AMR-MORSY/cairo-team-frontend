@@ -5,7 +5,7 @@
 
   <div class=" w-full flex justify-center items-center">
 
-    <DoughnutChart :chartDataSets="chartData" chartTitle="Cairo Generator" />
+    <DoughnutChart :chartDataSets="chartData" chartTitle="Cairo Generator" chartId="cairoGenerators" />
 
 
   </div>

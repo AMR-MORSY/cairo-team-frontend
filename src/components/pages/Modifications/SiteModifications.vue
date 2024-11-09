@@ -119,14 +119,14 @@ export default {
             // this.isModificationNotFound = false;
 
             this.$confirm.require({
-            group:'yesNo',
+              group: 'yesNo',
               message: "There is No modifications, insert new modification?",
               header: "Confirmation",
               icon: "pi pi-exclamation-triangle",
               rejectProps: {
 
                 icon: 'pi pi-times',
-                label:"No",
+                label: "No",
                 size: 'small',
                 severity: 'danger'
               },
@@ -134,7 +134,7 @@ export default {
                 severity: 'success',
                 icon: 'pi pi-check',
                 size: 'small',
-                label:"Yes"
+                label: "Yes"
               },
               accept: () => {
                 this.$confirm.close();
@@ -146,7 +146,7 @@ export default {
                 this.$router.push(`/sites/details/${this.site_code}`);
                 //callback to execute when user rejects the action
               }
-              
+
             });
 
           }
@@ -173,9 +173,21 @@ export default {
     },
     deleteModification() {
       this.$confirm.require({
+        group: "yesNo",
         message: "Are you sure you want to proceed?",
         header: "Confirmation",
         icon: "pi pi-exclamation-triangle",
+        position:"center",
+        rejectProps: {
+          label: 'No',
+          severity: 'danger',
+
+        },
+        acceptProps: {
+          label: 'Yes',
+          severity: 'success',
+
+        },
         accept: () => {
           this.$confirm.close();
           this.$store.dispatch("displaySpinnerPage", false);
@@ -191,7 +203,7 @@ export default {
         },
         reject: () => {
           this.$confirm.close();
-          //callback to execute when user rejects the action
+         
         },
       });
     },

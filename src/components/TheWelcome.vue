@@ -1,6 +1,6 @@
 <template>
 
-<nav class=" bg-purple-300 border-gray-200 dark:bg-gray-900">
+<nav class=" bg-purple-300 md:px-10 border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4">
     <a  class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="./logos/icons8-cairo-85.png" class="h-8" alt="Flowbite Logo" />

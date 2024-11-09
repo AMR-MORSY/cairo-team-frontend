@@ -40,11 +40,11 @@
                 Download
               </Button>
             </div>
-            <div class="my-3">
+            <div class="my-3" v-if="$can('create_Modification_data')">
               <Button label="Update" @click="gotToUpdateModification" class="p-button-raised p-button-warning"
                 :disabled="!isRowSelected" />
             </div>
-            <div class="my-3">
+            <div class="my-3" v-if="$can('create_Modification_data')">
               <Button label="Delete" @click="deleteModification" class="p-button-raised p-button-danger"
                 :disabled="!isRowSelected" />
             </div>

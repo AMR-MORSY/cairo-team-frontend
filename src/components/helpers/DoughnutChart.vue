@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <Chart type="doughnut" id="doughnutchart" :data="yearlyData" :plugins='plugins' :options="chartOptions" class="w-full md:w-[20rem] lg:w-[25rem]" />
+        <Chart type="doughnut" :id="chartId" :data="yearlyData" :plugins='plugins' :options="chartOptions" class="w-full md:w-[20rem] lg:w-[25rem]" />
         <Button label="Download Image" class=" block" raised severity="success" @click="downloadImage()" />
     </div>
 </template>
@@ -16,7 +16,7 @@ import { computed } from 'vue';
 const plugins = [ChartDataLabels]
 
 const props = defineProps([
-    "chartDataSets", "chartTitle"
+    "chartDataSets", "chartTitle","chartId"
 ])
 
 
@@ -58,7 +58,7 @@ const setChartOptions = () => {
 
 const downloadImage = () => {
     const imageLinlk = document.createElement('a');
-    var chart = document.getElementById('doughnutchart').children[0];
+    var chart = document.getElementById(`${props.chartId}`).children[0];
     imageLinlk.href = chart.toDataURL('image/png', 1);
     imageLinlk.download = `${props.chartTitle}.png`
     imageLinlk.click()

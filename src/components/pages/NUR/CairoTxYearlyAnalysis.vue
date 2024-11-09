@@ -1,7 +1,7 @@
 <template>
 
  
-  <LineChart :chartTitle="title"  :chartDataSets="chartData"/>
+  <LineChart :chartTitle="title"  :chartDataSets="chartData" chartId="cairoTxYearlyAnalysis"/>
 </template>
 
 <script setup>
