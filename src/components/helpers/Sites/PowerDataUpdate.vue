@@ -107,6 +107,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators';
 import Sites from '../../../apis/Sites';
 import InputNumber from 'primevue/inputnumber';
+import validationErrorMessage from '../validationErrorMessage.vue';
 export default {
     setup: () => ({ v$: useVuelidate() }),
     data() {
@@ -201,6 +202,7 @@ export default {
     },
     name: "PowerDataUpdate",
     inject: ["dialogRef"],
+    components:{validationErrorMessage},
 
     mounted() {
         this.mountData()

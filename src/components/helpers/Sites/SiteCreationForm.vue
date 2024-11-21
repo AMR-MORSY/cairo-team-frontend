@@ -280,7 +280,7 @@ const office = ref(null)
 
 const type = ref(null)
 
-const typeOptions = ["Macro", "Micro", "Indoor", "Pico", "Mobile Station"]
+const typeOptions = ["Macro", "Micro", "Indoor", "Pico", "Mobile Station","LDN"]
 const category = ref(null)
 
 const categoryOptions = ["Normal", "BSC", "NDL", "LDN", "VIP + NDL", "VIP"]

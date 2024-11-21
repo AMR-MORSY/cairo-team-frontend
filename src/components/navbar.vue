@@ -1,87 +1,85 @@
 <template>
 
 
-    <div class="card fixed top-0 left-0 right-0 xl:px-20 z-50" :class="whiteBackground?'bg-black':''" v-if="!$route.meta.hideNavbar">
-      <Menubar :model="items">
-        <template #start>
-         
-
-            <a href="#" class="flex items-center mr-10  rtl:space-x-reverse">
-              <img src="../assets/icons8-cairo-85.png" class="h-8" alt="Flowbite Logo" />
-              <span
-                class="self-center text-xl  md:text-2xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white text-font-main-color font-Signika">Cairo
-                Team</span>
-            </a>
+  <div class="card fixed top-0 left-0 right-0 xl:px-20 z-50" :class="whiteBackground ? 'bg-black' : ''"
+    v-if="!$route.meta.hideNavbar">
+    <Menubar :model="items">
+      <template #start>
 
 
-        
-
-        </template>
-        <template #item="{ item, props, hasSubmenu, root }" class=" md:ml-32">
-          <a v-ripple class="flex items-center" v-bind="props.action">
-
-            <template v-if="item.to">
-
-              <template v-if="item.isAuthorized">
-                <router-link class=" text-font-main-color font-Signika" :to="item.to">{{
-                  item.label
-                }}</router-link>
-              </template>
-              <template v-if="item.isLogin">
-                <router-link class=" text-font-main-color font-Signika"   :to="item.to">{{
-                  item.label
-                }}</router-link>
-              </template>
+        <a href="#" class="flex items-center mr-10  rtl:space-x-reverse">
+          <img src="../assets/icons8-cairo-85.png" class="h-8" alt="Flowbite Logo" />
+          <span
+            class="self-center text-xl  md:text-2xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white text-font-main-color font-Signika">Cairo
+            Team</span>
+        </a>
 
 
 
 
+      </template>
+      <template #item="{ item, props, hasSubmenu, root }" class=" md:ml-32">
+        <a v-ripple class="flex items-center" v-bind="props.action">
 
-            </template>
-
-            <template v-if="!item.to">
-
-              <template v-if="item.isAuthorized">
-                <span class=" text-font-main-color font-Signika">{{ item.label }}</span>
-              </template>
-              <template v-if="item.isLogin">
-                <span class=" text-font-main-color font-Signika">{{ item.label
-                  }}</span>
-              </template>
-
-            </template>
+          <template v-if="item.to">
 
 
-
-            <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge" />
+            <router-link class=" text-font-main-color font-Signika" :to="item.to">{{
+              item.label
+            }}</router-link>
 
             <span v-if="item.icon"
               class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1" :class="item.icon">
 
             </span>
-            <i v-if="hasSubmenu"
-              :class="['pi pi-angle-down ml-auto', { 'pi-angle-down': root, 'pi-angle-right': !root }]"></i>
 
-          </a>
 
-        </template>
-        <template #end>
-         
-            <form @submit.prevent="submitSearch">
-              <div >
-                <InputGroup>
-                <InputText placeholder="Search" type="text" fluid  v-model="v$.search.$model" />
-                <Button label="Search" severity="info" size='small' type="submit" />
-              </InputGroup>
-              </div>
-            
-            </form>
-            <!-- <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /> -->
-         
-        </template>
-      </Menubar>
-    </div>
- 
+
+
+
+
+          </template>
+
+          <template v-if="!item.to">
+
+
+            <span class=" text-font-main-color font-Signika">{{ item.label }}</span>
+
+            <span v-if="item.icon"
+              class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1" :class="item.icon">
+
+            </span>
+
+
+          </template>
+
+
+
+          <Badge v-if="item.badge" :class="{ 'ml-auto': !root, 'ml-2': root }" :value="item.badge" />
+
+          <i v-if="hasSubmenu"
+            :class="['pi pi-angle-down ml-auto', { 'pi-angle-down': root, 'pi-angle-right': !root }]"></i>
+
+        </a>
+
+      </template>
+      <template #end>
+
+        <form @submit.prevent="submitSearch">
+          <div>
+            <InputGroup>
+              <InputText placeholder="Search" type="text" fluid v-model="v$.search.$model" />
+              <Button label="Search" severity="info" size='small' type="submit" />
+            </InputGroup>
+          </div>
+
+        </form>
+        <!-- <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /> -->
+
+      </template>
+    </Menubar>
+  </div>
+
 </template>
 
 <script setup>
@@ -95,111 +93,307 @@ import SearchTxIssuesForm from "../components/helpers/Transmission/SearchTxIssue
 import { Dropdown } from 'flowbite';
 import { initFlowbite } from 'flowbite'
 import { initDropdowns } from "flowbite";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, inject } from "vue";
 import store from "../vuex/store";
 import { useDialog } from "primevue/usedialog";
 import { useToast } from "primevue/usetoast";
 import { useRouter } from "vue-router";
 import { useAbility } from "@casl/vue";
+import { useRoute } from "vue-router";
+import { ABILITY_TOKEN } from '@casl/vue';
 const { can } = useAbility();
+
 
 const search = ref();
 const toast = useToast()
 const dialog = useDialog();
 const router = useRouter();
+const route = useRoute();
 const userName = computed(() => store.getters.userName)
 const isLogin = computed(() => store.getters.isLogin)
 
-const props=defineProps([
+const props = defineProps([
   "backgroundWhite"
 
 ])
-const whiteBackground=computed(()=>props.backgroundWhite)
+const whiteBackground = computed(() => props.backgroundWhite)
+const items = ref();
 
-// onMounted(() => {
-//   initFlowbite();
-//   // initDropdowns()
+const $ability = inject(ABILITY_TOKEN)
+
+onMounted(() => {
+  initFlowbite();
+  // initDropdowns()
+   updateUserAbility()
+  // mountNavItems();
 
 
-// })
-const items = ref([
-  {
-    label: 'Home',
+  // items.value = [
 
-    isAuthorized: false,
-    isLogin: true,
-    to:"/home"
-  },
-  {
-    label: computed(() => store.getters.userName),
+  //   ...computed(() => store.getters.isLogin) ? [
+  //     {
+  //       label: 'Home',
+  //       to: "/home"
 
-    isLogin: computed(() => store.getters.isLogin),
-    isAuthorized: false,
+  //     }
+  //     ,
+  //     {
+  //       label: computed(() => store.getters.userName),
 
-  },
-  {
-    label: 'Dashboard',
+  //     },
+  //     {
+  //       label: 'Dashboard',
+  //       items: [
+  //         ...can('read_NUR_data') ? [
+  //           {
+  //             label: 'NUR',
+  //             icon: 'pi pi-server',
+  //             shortcut: '⌘+B',
+  //             to: "/nur",
 
-    isLogin: computed(() => store.getters.isLogin),
-    isAuthorized: false,
-    items: [
-      {
-        label: 'Sites',
-        icon: 'pi pi-shop',
-        shortcut: '⌘+S',
-        to: "/sites",
-        isLogin: computed(() => store.getters.isLogin),
-        isAuthorized: false
+  //           }
+  //         ] : [],
+  //         ...can('read_TX_data') ? [
+  //           {
+  //             label: "Tx issues",
+  //             icon: 'pi pi-search',
+  //             command: () => {
+  //               SearchTxIssues()
+  //             },
+  //           }
+  //         ] : [],
+  //         ...computed(() => store.getters.isLogin) ? [
+  //           {
+  //             label: 'Sites',
+  //             icon: 'pi pi-server',
+  //             shortcut: '⌘+S',
+  //             to: "/sites",
 
-      },
-      {
-        label: 'Energy',
-        icon: 'pi pi-bolt',
-        shortcut: '⌘+S',
-        to: "/energy",
-        isLogin: computed(() => store.getters.isLogin),
-        isAuthorized: false
+  //           },
+  //           {
+  //             label: 'Energy',
+  //             icon: 'pi pi-bolt',
+  //             shortcut: '⌘+S',
+  //             to: "/energy",
+  //           },
+  //           {
+  //             label: 'Modifications',
+  //             icon: 'pi pi-pencil',
+  //             shortcut: '⌘+U',
+  //             to: "/modifications",
+  //           }
 
-      },
-      {
-        label: 'NUR',
-        icon: 'pi pi-server',
-        shortcut: '⌘+B',
-        to: "/nur",
-        isLogin: false,
-        isAuthorized: computed(() => { if (can('read_NUR_data') && computed(() => store.getters.isLogin)) { return true } return false })
-      },
+  //         ] : []
 
-      {
-        label: 'Modifications',
-        icon: 'pi pi-pencil',
-        shortcut: '⌘+U',
-        to: "/modifications",
-        isLogin: computed(() => store.getters.isLogin),
-        isAuthorized: false
-      },
-      {
-        label: "Tx issues",
-        icon: 'pi pi-search',
-        command: () => {
-          SearchTxIssues()
-        },
-        // isLogin: computed(() => store.getters.isLogin),
-        isAuthorized: computed(() => { if (can('read_TX_data') && computed(() => store.getters.isLogin)) { return true } return false }),
-        isLogin: false
+
+
+  //       ],
+
+  //     },
+  //     {
+  //       label: "Logout",
+  //       command: () => {
+  //         logout()
+  //       }
+
+  //     }
+  //   ] : []
+
+
+  // ]
+
+
+})
+const updateUserAbility = () => {
+
+  if (store.getters.isLogin) {
+    User.userAbilities().then((response) => {
+
+      let rules = [];
+      if (response.data.permissions) {
+        if (response.data.permissions.length > 0) {
+          
+          response.data.permissions.forEach((element) => {
+            let rule = {
+              action: element
+            };
+            rules.push(rule)
+          })
+
+        }
+
+
+
+
+
+        $ability.update(rules)
+     
+        items.value = [
+
+          ...computed(() => store.getters.isLogin) ? [
+            {
+              label: 'Home',
+              to: "/home"
+
+            }
+            ,
+            {
+              label: computed(() => store.getters.userName),
+
+            },
+            {
+              label: 'Dashboard',
+              items: [
+                ...can('read_NUR_data') ? [
+                  {
+                    label: 'NUR',
+                    icon: 'pi pi-server',
+                    shortcut: '⌘+B',
+                    to: "/nur",
+
+                  }
+                ] : [],
+                ...can('read_TX_data') ? [
+                  {
+                    label: "Tx issues",
+                    icon: 'pi pi-search',
+                    command: () => {
+                      SearchTxIssues()
+                    },
+                  }
+                ] : [],
+                ...computed(() => store.getters.isLogin) ? [
+                  {
+                    label: 'Sites',
+                    icon: 'pi pi-server',
+                    shortcut: '⌘+S',
+                    to: "/sites",
+
+                  },
+                  {
+                    label: 'Energy',
+                    icon: 'pi pi-bolt',
+                    shortcut: '⌘+S',
+                    to: "/energy",
+                  },
+                  {
+                    label: 'Modifications',
+                    icon: 'pi pi-pencil',
+                    shortcut: '⌘+U',
+                    to: "/modifications",
+                  }
+
+                ] : []
+
+
+
+              ],
+
+            },
+            {
+              label: "Logout",
+              command: () => {
+                logout()
+              }
+
+            }
+          ] : []
+
+
+        ]
+
       }
-    ]
-  },
-  {
-    label: "Logout",
-    isLogin: computed(() => store.getters.isLogin),
-    isAuthorized: false,
-    command: () => {
-      logout()
-    }
+
+
+
+
+    })
+
+   
 
   }
-]);
+
+}
+// const mountNavItems = () => {
+
+//   console.log(can('read_NUR_data'))
+
+
+//   items.value = [
+
+//     ...computed(() => store.getters.isLogin) ? [
+//       {
+//         label: 'Home',
+//         to: "/home"
+
+//       }
+//       ,
+//       {
+//         label: computed(() => store.getters.userName),
+
+//       },
+//       {
+//         label: 'Dashboard',
+//         items: [
+//           ...can('read_NUR_data') ? [
+//             {
+//               label: 'NUR',
+//               icon: 'pi pi-server',
+//               shortcut: '⌘+B',
+//               to: "/nur",
+
+//             }
+//           ] : [],
+//           ...can('read_TX_data') ? [
+//             {
+//               label: "Tx issues",
+//               icon: 'pi pi-search',
+//               command: () => {
+//                 SearchTxIssues()
+//               },
+//             }
+//           ] : [],
+//           ...computed(() => store.getters.isLogin) ? [
+//             {
+//               label: 'Sites',
+//               icon: 'pi pi-server',
+//               shortcut: '⌘+S',
+//               to: "/sites",
+
+//             },
+//             {
+//               label: 'Energy',
+//               icon: 'pi pi-bolt',
+//               shortcut: '⌘+S',
+//               to: "/energy",
+//             },
+//             {
+//               label: 'Modifications',
+//               icon: 'pi pi-pencil',
+//               shortcut: '⌘+U',
+//               to: "/modifications",
+//             }
+
+//           ] : []
+
+
+
+//         ],
+
+//       },
+//       {
+//         label: "Logout",
+//         command: () => {
+//           logout()
+//         }
+
+//       }
+//     ] : []
+
+
+//   ]
+// }
+
 const nameReg = helpers.regex(/^[a-zA-Z0-9 _-]{3,}$/);
 const rules = computed(() => ({
   search: {
@@ -323,10 +517,9 @@ const closeMenu = () => {
   display: block;
 }
 
-.p-inputtext{
+.p-inputtext {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 
 }
-
 </style>

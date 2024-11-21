@@ -1,19 +1,22 @@
 <template>
 
-  <div class=" w-screen-2xl px-10 py-20">
+  <div class=" max-w-screen-2xl px-5 py-20">
 
 
-    <Card class=" max-w-4xl mx-auto">
+    <Card class=" max-w-4xl mx-auto  ">
       <template #content>
         <Tabs value="0">
           <TabList>
-            <Tab value="0"><span class="  text-font-main-color font-Signika font-extrabold uppercase">{{ siteName
+            <Tab value="0"><span
+                class="  text-font-main-color font-Signika font-extrabold uppercase">{{ siteName
                 }}</span>
             </Tab>
-            <Tab value="1"> <span class="  text-font-main-color font-Signika font-extrabold uppercase">Cascades</span>
+            <Tab value="1"> <span
+                class="  text-font-main-color font-Signika font-extrabold uppercase">Cascades</span>
               <Badge :value="countCascades" v-if="countCascades"></Badge>
             </Tab>
-            <Tab value="2"><span class="  text-font-main-color font-Signika font-extrabold uppercase">Indirect
+            <Tab value="2"><span
+                class="  text-font-main-color font-Signika font-extrabold uppercase">Indirect
                 Cascades</span>
               <template v-if="countIndirectCascades">
                 <Badge :value="countIndirectCascades"></Badge>
@@ -25,34 +28,34 @@
 
 
               <div class="grid grid-cols-4 px-4 py-4 gap-4 rounded-md border border-spacing-2 border-font-main-color">
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="siteCode">Site code</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="siteCode"
                       aria-describedby="siteCode" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto" id="siteCode">
                     <span class="block  font-Signika text-font-main-color" id="siteName">Site Name</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="siteName"
                       aria-describedby="siteName" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block font-Signika text-font-main-color" id="BSC">BSC</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="BSC" aria-describedby="BSC" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="RNC">RNC</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="RNC" aria-describedby="RNC" />
                   </div>
                 </div>
 
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="oz">OZ</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="operationZone"
@@ -61,27 +64,27 @@
                 </div>
 
 
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="severity">Severity</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="severity"
                       aria-describedby="severity" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="office">Office</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="office" aria-describedby="office" />
                   </div>
                 </div>
 
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="nodalCode">Nodal Code</span>
                     <InputText type="text" disabled fluid v-model="nodalCode" aria-describedby="nodalCode" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="nodal">Nodal Name</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="nodalName"
@@ -90,58 +93,58 @@
                 </div>
 
 
-                <div class="col-span-2 md:col-span-1  ">
+                <div class="col-span-4 sm:col-span-1  ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="2g">2G</span>
                     <InputText type="text" class=" text-sm" disabled fluid aria-describedby="2g" v-model="cell2G" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="3g">3G</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="cell3G" aria-describedby="3g" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="4g">4G</span>
                     <InputText type="text" disabled fluid v-model="cell4G" aria-describedby="4g" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="category">Category</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="category"
                       aria-describedby="category" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="sharing">Sharing</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="sharing"
                       aria-describedby="sharing" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="host">Host</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="host" aria-describedby="host" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="guest">Gest</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="gest" aria-describedby="guest" />
                   </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="status">Status</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="status" aria-describedby="status" />
                   </div>
                 </div>
 
-                <div class="col-span-2 md:col-span-1 ">
+                <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="type">Type</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="type" aria-describedby="type" />
@@ -158,54 +161,54 @@
 
 
               <div class="grid grid-cols-6 gap-4 px-4 py-4  rounded-md border border-spacing-2 border-font-main-color">
-                <div class="col-span-2 md:col-span-1  my-3">
+                <div class="col-span-6  md:col-span-1  my-3">
                   <Button label="Modifications" @click="gotToSiteModifications" severity="secondary" raised
                     class="block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
-                  <Button label="NUR" @click="getSiteNUR" severity="success" raised class=" block w-full" />
+                <div class="col-span-6  md:col-span-1 my-3">
+                  <Button label="NUR" @click="getSiteNUR" severity="success" raised class=" block w-full " />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="Batteries Health" @click="getSiteBatteriesHealth" severity="info" raised
-                    class=" text-xs block w-full" />
+                    class=" text-xs block w-full " />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="Update" @click="goToSiteUpdate" severity="warn" raised class=" block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="Batteries Data" @click="getBatteriesData" severity="help" raised
                     class=" text-xs block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="Rectifier Data" @click="getRectifierData" severity="danger" raised
                     class=" text-xs block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="Site Data" @click="getSiteData" severity="contrast" raised class=" block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="MW Data" @click="getMWData" severity="danger" raised class=" block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="BTS Data" @click="getBTSData" severity="info" raised class=" block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="Power Data" @click="getPowerData" severity="contrast" raised class=" block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
+                <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="Tx.issues" @click="getSiteWANSData" severity="warn" raised class=" block w-full" />
                 </div>
-                <div class="col-span-2 md:col-span-1 my-3">
-                  <Button icon="pi pi-search" label="Tx issues" severity="success" raised @click="SearchTxIssues()"
+                <div class="col-span-6 md:col-span-1 my-3">
+                  <Button icon="pi pi-search" label="Tx issues" severity="success" class=" block w-full text-xs" raised @click="SearchTxIssues()"
                     v-if="$can('read_TX_data')" />
                 </div>
 
               </div>
 
 
-              <div class="my-3 ">
-                <div class="speed-dial">
-                  <SpeedDial :model="items" direction="right" :tooltipOptions="{ position: 'right' }"
+              <div class="my-10 ">
+                <div class=" relative" >
+                  <SpeedDial :model="items" direction="right" style="position: absolute; top: calc(50% - 2rem); left: 0"
                     :transitionDelay="80" showIcon="pi pi-bell" hideIcon="pi pi-times" buttonClass="p-button-outlined">
 
                   </SpeedDial>
@@ -768,13 +771,22 @@ export default {
       site = {
         "Topology": null
       };
+        siteData.push(site);
+      site={
+        "Structure":null
+
+      }
+      siteData.push(site);
+      site={
+        "Equip-Room":null
+      }
       siteData.push(site);
       site = {
         "NTRA Cluster": null
       };
       siteData.push(site);
       site = {
-        "Care CEO": null
+        "CXO": null
       };
       siteData.push(site);
       site = {
@@ -786,11 +798,11 @@ export default {
       };
       siteData.push(site);
       site = {
-        "No. LDN Accounts": null
+        "Universities": null
       };
       siteData.push(site);
       site = {
-        "No. Tp Accounts": null
+        "Hot Spot": null
       };
       siteData.push(site);
       site = {
@@ -839,11 +851,19 @@ export default {
           };
           siteData.push(site);
           site = {
+            "Structure": response.data.structure
+          };
+          siteData.push(site)
+          site = {
+            "Equip-Room": response.data.equip_room
+          };
+          siteData.push(site)
+          site = {
             "NTRA Cluster": response.data.ntra_cluster
           };
           siteData.push(site);
           site = {
-            "Care CEO": response.data.care_ceo
+            "CXO": response.data.care_ceo
           };
           siteData.push(site);
           site = {
@@ -855,11 +875,11 @@ export default {
           };
           siteData.push(site);
           site = {
-            "No. LDN Accounts": response.data.no_ldn_accounts
+            "Universities": response.data.universities
           };
           siteData.push(site);
           site = {
-            "No. Tp Accounts": response.data.no_tp_accounts
+            "Host Spot": response.data.hot_spot
           };
           siteData.push(site);
           site = {
@@ -1005,7 +1025,7 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "50vw",
+                width: "75vw",
               },
               breakpoints: {
                 '960px': '75vw',
@@ -1160,11 +1180,55 @@ export default {
 
         }
         else {
-          this.$toast.add({
-            severity: "error",
-            summary: "Error Message",
-            detail: "No Data Found",
-            life: 3000,
+          this.$confirm.require({
+            group: 'yesNo',
+            header: 'Confirmation',
+            message: 'There is no Microwave data. Add new Data?',
+            icon: 'pi pi-exclamation-triangle',
+            rejectProps: {
+              label: 'No',
+
+              size: 'small',
+              severity: "danger"
+            },
+            acceptProps: {
+              label: 'Yes',
+              icon: 'pi pi-check',
+              size: 'small',
+              severity: "success"
+            },
+
+            accept: () => {
+              this.$confirm.close();
+              this.$dialog.open(EquipmentDetails, {
+                props: {
+                  style: {
+                    width: "75vw",
+                  },
+
+                  modal: true,
+                },
+
+                data: {
+                  statestics: MWData,
+                  id: null,
+                  topic: "MW Data",
+                  rowData: null,
+                  action: 'Insert',
+                  site_code: this.siteCode
+
+                },
+              });
+
+            },
+            reject: () => {
+              this.$confirm.close();
+
+              this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have rejected', life: 3000 });
+
+            },
+
+
           });
         }
       }).catch((error) => {
@@ -1226,11 +1290,55 @@ export default {
 
         }
         else {
-          this.$toast.add({
-            severity: "error",
-            summary: "Error Message",
-            detail: "No Data Found",
-            life: 3000,
+          this.$confirm.require({
+            group: 'yesNo',
+            header: 'Confirmation',
+            message: 'There is no BTS data. Add new Data?',
+            icon: 'pi pi-exclamation-triangle',
+            rejectProps: {
+              label: 'No',
+
+              size: 'small',
+              severity: "danger"
+            },
+            acceptProps: {
+              label: 'Yes',
+              icon: 'pi pi-check',
+              size: 'small',
+              severity: "success"
+            },
+
+            accept: () => {
+              this.$confirm.close();
+              this.$dialog.open(EquipmentDetails, {
+                props: {
+                  style: {
+                    width: "75vw",
+                  },
+
+                  modal: true,
+                },
+
+                data: {
+                  statestics: BTSData,
+                  id: null,
+                  topic: "BTS Data",
+                  rowData: null,
+                  action: 'Insert',
+                  site_code: this.siteCode
+
+                },
+              });
+
+            },
+            reject: () => {
+              this.$confirm.close();
+
+              this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have rejected', life: 3000 });
+
+            },
+
+
           });
         }
       }).catch((error) => {
@@ -1274,7 +1382,7 @@ export default {
           this.$dialog.open(EquipmentDetails, {
             props: {
               style: {
-                width: "50vw",
+                width: "75vw",
               },
               breakpoints: {
                 '960px': '75vw',
@@ -1289,7 +1397,7 @@ export default {
               id: response.data.id,
               topic: "Power Data",
               rowData: response.data,
-              action:"Update"
+              action: "Update"
 
             },
           });
@@ -1298,11 +1406,55 @@ export default {
 
         }
         else {
-          this.$toast.add({
-            severity: "error",
-            summary: "Error Message",
-            detail: "No Data Found",
-            life: 3000,
+          this.$confirm.require({
+            group: 'yesNo',
+            header: 'Confirmation',
+            message: 'There is no BTS data. Add new Data?',
+            icon: 'pi pi-exclamation-triangle',
+            rejectProps: {
+              label: 'No',
+
+              size: 'small',
+              severity: "danger"
+            },
+            acceptProps: {
+              label: 'Yes',
+              icon: 'pi pi-check',
+              size: 'small',
+              severity: "success"
+            },
+
+            accept: () => {
+              this.$confirm.close();
+              this.$dialog.open(EquipmentDetails, {
+                props: {
+                  style: {
+                    width: "75vw",
+                  },
+
+                  modal: true,
+                },
+
+                data: {
+                  statestics: powerData,
+                  id: null,
+                  topic: "Power Data",
+                  rowData: null,
+                  action: 'Insert',
+                  site_code: this.siteCode
+
+                },
+              });
+
+            },
+            reject: () => {
+              this.$confirm.close();
+
+              this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have rejected', life: 3000 });
+
+            },
+
+
           });
         }
       }).catch((error) => {
@@ -1323,9 +1475,9 @@ export default {
             width: "50vw",
           },
           breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
-              },
+            '960px': '75vw',
+            '640px': '90vw'
+          },
 
           modal: true,
         },
@@ -1375,8 +1527,21 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .display-none {
   display: none;
+
+
+}
+
+.p-tabs {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  .p-tablist-content {
+    background-color: aquamarine;
+  
+  }
+
 }
 </style>

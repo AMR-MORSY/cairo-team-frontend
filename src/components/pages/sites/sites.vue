@@ -29,6 +29,7 @@ const { can } = useAbility();
 
 const cards = ref();
 onMounted(() => {
+
   cards.value = [
     // { id: 1, icon: "add_circle", path: "New sites" },
     // { id: 2, icon: "add_circle", path: "Cascades" },

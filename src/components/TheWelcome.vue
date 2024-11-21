@@ -225,6 +225,7 @@ export default {
 
 
       Sites.index().then((response) => {
+      
         this.maxVIPNDL = response.data.statestics.VIP_NDL;
         this.maxNodals = response.data.statestics.NDL;
         this.maxLDN = response.data.statestics.LDN;

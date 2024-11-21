@@ -63,6 +63,7 @@ import UnauthenticatedToast from "../src/components/helpers/UnauthenticatedToast
 
 import NetworkErrorToast from "./components/helpers/NetworkErrorToast.vue";
 import User from "./apis/User";
+import { updateWith } from "lodash";
 
 
 
@@ -84,21 +85,27 @@ export default {
         User.userAbilities().then((response) => {
 
           let rules = [];
+          if (response.data.permissions) {
+            if (response.data.permissions.length > 0) {
+              // console.log(response.data.permissions)
+              response.data.permissions.forEach((element) => {
+                let rule = {
+                  action: element
+                };
+                rules.push(rule)
+              })
 
-          if (response.data.permissions.length > 0) {
-            console.log(response.data.permissions)
-            response.data.permissions.forEach((element) => {
-              let rule = {
-                action: element
-              };
-              rules.push(rule)
-            })
+            }
+
+
+
+
+
+            this.$ability.update(rules)
 
           }
 
-          console.log(rules)
 
-          this.$ability.update(rules)
 
 
         })
@@ -109,7 +116,10 @@ export default {
 
   },
 
+  // mounted() {
+  //  this.updateUserAbility()
 
+  // },
   computed: {
     displaySpinnerPage() {
       return this.$store.state.displaySpinnerPage;
@@ -140,7 +150,7 @@ export default {
         this.whiteBackground = false
 
       }
-      // console.log(window.scrollY);
+
     },
     displaySitesTable(event) {
       this.$dialog.open(SitesTable, {
@@ -165,17 +175,52 @@ export default {
       this.displaySpinnerPage = event;
     },
 
-    updateAbility(user) {
-      const { can, rules } = new AbilityBuilder(Ability);
+    // updateUserAbility() {
 
-      if (user.role === 'admin') {
-        can('manage', 'all');
-      } else {
-        can('read', 'all');
-      }
+    //   if (this.$store.getters.isLogin) {
+    //     User.userAbilities().then((response) => {
 
-      this.$ability.update(rules);
-    }
+    //       let rules = [];
+    //       if (response.data.permissions) {
+    //         if (response.data.permissions.length > 0) {
+    //           // console.log(response.data.permissions)
+    //           response.data.permissions.forEach((element) => {
+    //             let rule = {
+    //               action: element
+    //             };
+    //             rules.push(rule)
+    //           })
+
+    //         }
+
+
+
+
+
+    //         this.$ability.update(rules)
+
+    //       }
+
+
+
+
+    //     })
+
+    //   }
+
+    // }
+
+    // updateAbility(user) {
+    //   const { can, rules } = new AbilityBuilder(Ability);
+
+    //   if (user.role === 'admin') {
+    //     can('manage', 'all');
+    //   } else {
+    //     can('read', 'all');
+    //   }
+
+    //   this.$ability.update(rules);
+    // }
 
 
   },

@@ -183,72 +183,156 @@ export default {
 
             }
             else if (this.topic == "MW Data") {
-                this.$dialog.open(MWDataUpdate, {
-                    props: {
-                        style: {
-                            width: "75vw",
+                if (this.action == 'Update') {
+                    this.$dialog.open(MWDataUpdate, {
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
-                        breakpoints: {
-                            "960px": "75vw",
-                            "640px": "90vw",
+
+                        data: {
+                            rowData: this.dialogRef.data.rowData,
+                            id: this.dialogRef.data.id,
+                            topic: this.topic,
+                            action: this.action
+
+                        },
+                    });
+                }
+                else {
+                    this.$dialog.open(MWDataUpdate, {
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
 
-                        modal: true,
-                    },
+                        data: {
 
-                    data: {
-                        rowData: this.dialogRef.data.rowData,
-                        id: this.id,
-                        topic: this.topic
+                            topic: this.topic,
+                            action: this.action,
+                            site_code: this.dialogRef.data.site_code
 
-                    },
-                });
+
+                        },
+                    });
+
+                }
+
 
             }
             else if (this.topic == "BTS Data") {
-                this.$dialog.open(BTSDataUpdate, {
-                    props: {
-                        style: {
-                            width: "75vw",
+                if (this.action == 'Update') {
+                    this.$dialog.open(BTSDataUpdate, {
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
-                        breakpoints: {
-                            "960px": "75vw",
-                            "640px": "90vw",
+
+                        data: {
+                            rowData: this.dialogRef.data.rowData,
+                            id: this.dialogRef.data.id,
+                            topic: this.topic
+
+                        },
+                    });
+
+                }
+                else {
+                    this.$dialog.open(BTSDataUpdate, {
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
 
-                        modal: true,
-                    },
+                        data: {
+                            
+                            topic: this.topic,
+                            action: this.action,
+                            site_code: this.dialogRef.data.site_code
 
-                    data: {
-                        rowData: this.dialogRef.data.rowData,
-                        id: this.id,
-                        topic: this.topic
+                        },
+                    });
+                }
 
-                    },
-                });
+
 
             }
             else if (this.topic == "Power Data") {
-                this.$dialog.open(PowerDataUpdate, {
-                    props: {
-                        style: {
-                            width: "75vw",
+                if (this.action == 'Update') {
+                    this.$dialog.open(PowerDataUpdate, {
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
-                        breakpoints: {
-                            "960px": "75vw",
-                            "640px": "90vw",
+
+                        data: {
+                            rowData: this.dialogRef.data.rowData,
+                            id: this.dialogRef.data.id,
+                            topic: this.topic
+
+                        },
+                    });
+                }
+                else {
+                    this.$dialog.open(PowerDataUpdate, {
+                        props: {
+                            style: {
+                                width: "75vw",
+                            },
+                            breakpoints: {
+                                "960px": "75vw",
+                                "640px": "90vw",
+                            },
+
+                            modal: true,
                         },
 
-                        modal: true,
-                    },
+                        data: {
 
-                    data: {
-                        rowData: this.dialogRef.data.rowData,
-                        id: this.id,
-                        topic: this.topic
+                            topic: this.topic,
+                            action: this.action,
+                            site_code: this.dialogRef.data.site_code
 
-                    },
-                });
+                        },
+                    });
+
+                }
+
 
             }
 

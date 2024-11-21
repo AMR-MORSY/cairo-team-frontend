@@ -44,21 +44,6 @@
 
   </div>
 
-  <!-- <section v-if="!isModificationNotFound">
-    <transition name="fade-bounce" appear>
-      <div class="container">
-        <div class="errors card">
-          <p>No Modifications</p>
-          <div class="buttons">
-            <Button label="New Modification" @click="insertNewModification"
-              class="p-button-raised p-button-secondary" />
-
-            <Button label="Back" @click="goBack" class="p-button-raised p-button-danger" />
-          </div>
-        </div>
-      </div>
-    </transition>
-  </section> -->
 </template>
 
 <script>

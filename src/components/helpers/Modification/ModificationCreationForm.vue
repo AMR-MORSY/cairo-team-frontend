@@ -189,7 +189,8 @@ const subcontractors = [
     "Huawei",
     "INTEGRA",
     "Unilink",
-    "Tele-Trust"
+    "Tele-Trust",
+    "SAMA-TEL"
 
 ];
 const request_date = ref(null)
@@ -219,6 +220,7 @@ const project_options = [
     "NTRA",
     "Sharing",
     "L2600",
+    "5G"
 ];
 const status = ref(null);
 

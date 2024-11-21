@@ -398,6 +398,7 @@ export default {
             const isFormCorrect = await this.v$.$validate()
             if (!isFormCorrect) return
             if (this.action == "Update") {
+                console.log(this.form)
                 Sites.updatesiteDeepDetails(this.form).then((response) => {
                     if (response.data.message == "updated successfully") {
                         this.$toast.add({
