@@ -123,85 +123,9 @@ const $ability = inject(ABILITY_TOKEN)
 
 onMounted(() => {
   initFlowbite();
-  // initDropdowns()
+  
    updateUserAbility()
-  // mountNavItems();
-
-
-  // items.value = [
-
-  //   ...computed(() => store.getters.isLogin) ? [
-  //     {
-  //       label: 'Home',
-  //       to: "/home"
-
-  //     }
-  //     ,
-  //     {
-  //       label: computed(() => store.getters.userName),
-
-  //     },
-  //     {
-  //       label: 'Dashboard',
-  //       items: [
-  //         ...can('read_NUR_data') ? [
-  //           {
-  //             label: 'NUR',
-  //             icon: 'pi pi-server',
-  //             shortcut: '⌘+B',
-  //             to: "/nur",
-
-  //           }
-  //         ] : [],
-  //         ...can('read_TX_data') ? [
-  //           {
-  //             label: "Tx issues",
-  //             icon: 'pi pi-search',
-  //             command: () => {
-  //               SearchTxIssues()
-  //             },
-  //           }
-  //         ] : [],
-  //         ...computed(() => store.getters.isLogin) ? [
-  //           {
-  //             label: 'Sites',
-  //             icon: 'pi pi-server',
-  //             shortcut: '⌘+S',
-  //             to: "/sites",
-
-  //           },
-  //           {
-  //             label: 'Energy',
-  //             icon: 'pi pi-bolt',
-  //             shortcut: '⌘+S',
-  //             to: "/energy",
-  //           },
-  //           {
-  //             label: 'Modifications',
-  //             icon: 'pi pi-pencil',
-  //             shortcut: '⌘+U',
-  //             to: "/modifications",
-  //           }
-
-  //         ] : []
-
-
-
-  //       ],
-
-  //     },
-  //     {
-  //       label: "Logout",
-  //       command: () => {
-  //         logout()
-  //       }
-
-  //     }
-  //   ] : []
-
-
-  // ]
-
+ 
 
 })
 const updateUserAbility = () => {

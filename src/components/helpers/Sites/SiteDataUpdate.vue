@@ -1,6 +1,6 @@
 <template>
 
-    <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-8">{{ topic }}</h3>
+    <h3 class=" text-font-main-color text-lg font-bold text-center w-full py-4">{{ topic }}</h3>
     <form @submit.prevent="submitUpdateForm()" novalidate>
         <div class="grid  grid-cols-4 gap-4">
 
@@ -35,6 +35,30 @@
             </div>
             <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
                 <div class="flex-auto">
+                    <label class="font-bold" id="structure">Structure</label>
+                    <InputText fluid :invalid="v$.form.structure.$error" v-model="v$.form.structure.$model"
+                        aria-describedby="structure" />
+
+                </div>
+                <div v-if="v$.form.structure.$error">
+                    <validationErrorMessage :errors="v$.form.structure.$errors" />
+
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
+                    <label class="font-bold" id="equip_room">Equip Room</label>
+                    <InputText fluid :invalid="v$.form.equip_room.$error" v-model="v$.form.equip_room.$model"
+                        aria-describedby="equip_room" />
+
+                </div>
+                <div v-if="v$.form.equip_room.$error">
+                    <validationErrorMessage :errors="v$.form.equip_room.$errors" />
+
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
+                <div class="flex-auto">
                     <label class="font-bold" id="ntra_cluster">NTRA</label>
                     <Select fluid :invalid="v$.form.ntra_cluster.$error" :options="serve_comp_options"
                         v-model.trim="v$.form.ntra_cluster.$model" aria-describedby="ntra_cluster">
@@ -50,7 +74,7 @@
             </div>
             <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
                 <div class="flex-auto">
-                    <label class="font-bold" id=" care_ceo">Care CEO</label>
+                    <label class="font-bold" id=" care_ceo">CXO</label>
                     <Select fluid :invalid="v$.form.care_ceo.$error" :options="serve_comp_options"
                         v-model.trim="v$.form.care_ceo.$model" aria-describedby="care_ceo">
 
@@ -93,24 +117,26 @@
             </div>
             <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
                 <div class="flex-auto">
-                    <label class="font-bold" id="no_ldn_accounts">LDN accounts</label>
-                    <InputNumber fluid showButtons :class="v$.form.no_ldn_accounts.$error"
-                        v-model.number="v$.form.no_ldn_accounts.$model" aria-describedby="no_ldn_accounts" />
+                    <label class="font-bold" id="no_ldn_accounts">Universities</label>
+                    <Select fluid :class="v$.form.universities.$error" :options="serve_comp_options"
+                        v-model="v$.form.universities.$model" aria-describedby="universities">
+
+                    </Select>
 
                 </div>
-                <div v-if="v$.form.no_ldn_accounts.$error">
-                    <validationErrorMessage :errors="v$.form.no_ldn_accounts.$errors" />
+                <div v-if="v$.form.universities.$error">
+                    <validationErrorMessage :errors="v$.form.universities.$errors" />
                 </div>
             </div>
             <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
                 <div class="flex-auto">
-                    <label class="font-bold" id="no_tp_accounts">Tp Accounts</label>
-                    <InputText fluid :invalid="v$.form.no_tp_accounts.$error"
-                        v-model.number="v$.form.no_tp_accounts.$model" aria-describedby="no_tp_accounts" />
+                    <label class="font-bold" id="no_tp_accounts">Hot Spot</label>
+                    <Select fluid :invalid="v$.form.hot_spot.$error" v-model="v$.form.hot_spot.$model"
+                        :options="serve_comp_options" aria-describedby="hot_spot"></Select>
 
                 </div>
-                <div v-if="v$.form.no_tp_accounts.$error">
-                    <validationErrorMessage :errors="v$.form.no_tp_accounts.$errors" />
+                <div v-if="v$.form.hot_spot.$error">
+                    <validationErrorMessage :errors="v$.form.hot_spot.$errors" />
                 </div>
             </div>
             <div class="col-span-4 md:col-span-2 lg:col-span-1   ">
@@ -199,13 +225,14 @@
 
 
 
-            <div class=" w-full flex justify-center">
-                <Button label="Update" type="submit" icon="pi pi-external-link" class=" block" severity="success" text
-                    raised />
-
-            </div>
 
         </div>
+        <div class=" w-full flex justify-center mt-4">
+            <Button label="Update" type="submit" icon="pi pi-external-link" class=" block" severity="success" text
+                raised />
+
+        </div>
+
     </form>
 
 
@@ -229,12 +256,14 @@ export default {
             form: {
                 on_air_date: null,
                 topology: null,
+                structure: null,
+                equip_room: null,
                 ntra_cluster: null,
                 care_ceo: null,
                 axsees: null,
                 serve_compound: null,
-                no_ldn_accounts: null,
-                no_tp_accounts: null,
+                universities: null,
+                hot_spot: null,
                 ac1_type: null,
                 ac1_hp: null,
                 ac2_type: null,
@@ -268,6 +297,16 @@ export default {
                     stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
                 },
+                structure: {
+                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+
+                },
+                equip_room: {
+                    maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
+                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+
+                },
                 ntra_cluster: {
 
                     booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
@@ -282,14 +321,12 @@ export default {
                 serve_compound: {
                     booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
                 },
-                no_ldn_accounts: {
-                    minValue: helpers.withMessage("zero or Max 150 Accounts", minValue(0)),
-                    maxValue: helpers.withMessage("zero or Max 150 Accounts", maxValue(150)),
+                universities: {
+                    booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
 
                 },
-                no_tp_accounts: {
-                    minValue: helpers.withMessage("zero or Max 150 Accounts", minValue(0)),
-                    maxValue: helpers.withMessage("zero or Max 150 Accounts", maxValue(150)),
+                hot_spot: {
+                    booleanReg: helpers.withMessage("alphanumeric only", booleanReg),
 
 
 
@@ -369,12 +406,14 @@ export default {
             if (this.dialogRef.data.action == 'Update') {
                 this.form.on_air_date = this.dialogRef.data.rowData.on_air_date;
                 this.form.topology = this.dialogRef.data.rowData.topology;
+                this.form.structure = this.dialogRef.data.rowData.structure;
+                this.form.equip_room = this.dialogRef.data.rowData.equip_room;
                 this.form.ntra_cluster = this.dialogRef.data.rowData.ntra_cluster;
                 this.form.care_ceo = this.dialogRef.data.rowData.care_ceo;
                 this.form.axsees = this.dialogRef.data.rowData.axsees;
                 this.form.serve_compound = this.dialogRef.data.rowData.serve_compound;
-                this.form.no_ldn_accounts = this.dialogRef.data.rowData.no_ldn_accounts;
-                this.form.no_tp_accounts = this.dialogRef.data.rowData.no_tp_accounts;
+                this.form.universities = this.dialogRef.data.rowData.universities;
+                this.form.hot_spot = this.dialogRef.data.rowData.hot_spot;
                 this.form.ac1_type = this.dialogRef.data.rowData.ac1_type;
                 this.form.ac2_type = this.dialogRef.data.rowData.ac2_type;
                 this.form.ac1_hp = this.dialogRef.data.rowData.ac1_hp;
@@ -457,5 +496,4 @@ export default {
     margin-top: 1em;
 
 }
-
 </style>

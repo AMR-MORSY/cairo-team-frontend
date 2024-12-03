@@ -1,7 +1,7 @@
 <template>
-    <div class=" w-screen-2xl px-5 py-10 ">
+    <div class=" w-screen-2xl px-5 py-20 ">
 
-        <div class="max-w-3xl   mx-auto">
+        <div class="max-w-4xl   mx-auto">
             <Fieldset>
                 <template #legend>
                     <div class=" flex">
@@ -20,7 +20,7 @@
 
                                     <label for="siteCode" class=" block font-bold">Site Code:</label>
                                     <InputText  id="siteCode" v-model.trim="site_code"
-                                      :disabled="action=='update'"  :invalid="v$.site_code.$errors.length > 0" fluid />
+                                       :invalid="v$.site_code.$errors.length > 0" fluid :disabled="action=='update'" />
 
                                 </div>
                                 <div v-if="v$.site_code.$error">
@@ -32,7 +32,7 @@
                                 <div class=" flex-auto">
                                     <label for="siteName" class=" block font-bold">Site Name:</label>
                                     <InputText type="text" id="siteName" v-model.trim="site_name"
-                                    :disabled="action=='update'"      :invalid="v$.site_name.$errors.length > 0" fluid />
+                                         :invalid="v$.site_name.$errors.length > 0" fluid />
                                 </div>
                                 <div v-if="v$.site_name.$error">
 
@@ -158,6 +158,39 @@
                             </div>
                             <div class="col-span-2 md:col-span-1">
                                 <div class=" flex-auto">
+                                    <label for="vf_code" class=" block font-bold">VF Code:</label>
+                                    <InputText type="text" id="office" v-model="vf_code"
+                                        :invalid="v$.vf_code.$errors.length > 0" fluid />
+                                </div>
+                                <div v-if="v$.vf_code.$error">
+
+                                    <validationErrorMessage :errors="v$.vf_code.$errors" />
+                                </div>
+                            </div>
+                            <div class="col-span-2 md:col-span-1">
+                                <div class=" flex-auto">
+                                    <label for="et_code" class=" block font-bold">ET Code:</label>
+                                    <InputText type="text" id="et_code" v-model="et_code"
+                                        :invalid="v$.et_code.$errors.length > 0" fluid />
+                                </div>
+                                <div v-if="v$.et_code.$error">
+
+                                    <validationErrorMessage :errors="v$.et_code.$errors" />
+                                </div>
+                            </div>
+                            <div class="col-span-2 md:col-span-1">
+                                <div class=" flex-auto">
+                                    <label for="we_code" class=" block font-bold">WE Code:</label>
+                                    <InputText type="text" id="we_code" v-model="we_code"
+                                        :invalid="v$.we_code.$errors.length > 0" fluid />
+                                </div>
+                                <div v-if="v$.we_code.$error">
+
+                                    <validationErrorMessage :errors="v$.we_code.$errors" />
+                                </div>
+                            </div>
+                            <div class="col-span-2 md:col-span-1">
+                                <div class=" flex-auto">
                                     <label for="oz" class=" block font-bold">Operation Zone:</label>
                                     <Select id="oz" v-model="oz" :options="ozOptions"
                                         :invalid="v$.oz.$errors.length > 0" fluid>
@@ -266,6 +299,7 @@ const router = useRouter();
 
 const siteCodeReg = helpers.regex(/^([0-9a-zA-Z]{4,6}(up|UP))|([0-9a-zA-Z]{4,6}(ca|CA))|([0-9a-zA-Z]{4,6}(de|DE))|([0-9a-zA-Z]{4,6}(al|AL))|([0-9a-zA-Z]{4,6}(re|RE))|([0-9a-zA-Z]{4,6}(si|SI))$/)
 const nameReg = helpers.regex(/^([0-9a-zA-Z_-]){2,60}$/)
+const officeReg= helpers.regex(/^([0-9a-zA-Z _-]){2,60}$/)
 
 
 const site_code = ref(null)
@@ -279,6 +313,10 @@ const RNC = ref(null)
 const office = ref(null)
 
 const type = ref(null)
+
+const vf_code=ref(null);
+const et_code=ref(null);
+const we_code=ref(null);
 
 const typeOptions = ["Macro", "Micro", "Indoor", "Pico", "Mobile Station","LDN"]
 const category = ref(null)
@@ -298,7 +336,7 @@ const gest = ref(null)
 const statusOptions=["On Air","Off Air"]
 const status= ref("On Air");
 
-const gestOptions = ["VF", "OG", "ET", "WE", "ET+VF", "ET+VF+WE", "VF+WE", "ET+WE"]
+const gestOptions = ["VF", "OG", "ET", "WE", "ET+VF", "ET+VF+WE", "VF+WE", "ET+WE","OG-Power-Only","VF-Power-Only","ET-Power-Only","WE-Power-Only"]
 const oz = ref(null)
 const ozOptions = ["Cairo South", "Cairo East", "Cairo North", "Giza", "North Upper", "Red Sea", "South Upper", "Sinai", "ALEX", "NORTH COAST", "Delta South", "Delta North"]
 const cells2G = ref(null)
@@ -323,6 +361,9 @@ watch(props.siteDetails, (newValue, oldValue) => {
         category.value=props.siteDetails.value.category
         host.value=props.siteDetails.value.host
         gest.value=props.siteDetails.value.gest
+        vf_code.value=props.siteDetails.value.vf_code
+        et_code.value=props.siteDetails.value.et_code
+        we_code.value=props.siteDetails.value.we_code
         cells2G.value=props.siteDetails.value["2G_cells"]
         cells3G.value=props.siteDetails.value["3G_cells"]
         cells4G.value=props.siteDetails.value["4G_cells"]
@@ -361,7 +402,7 @@ const rules = computed(() => ({
     },
     office: {
         required: helpers.withMessage('office is required', required),
-        nameReg: helpers.withMessage('invalid office', nameReg)
+        officeReg: helpers.withMessage('invalid office', officeReg)
 
 
     },
@@ -410,6 +451,18 @@ const rules = computed(() => ({
         integer: helpers.withMessage('invalid cells number', integer)
 
     },
+    vf_code:{
+        nameReg: helpers.withMessage('invalid VF code', nameReg)
+
+    },
+    et_code:{
+        nameReg: helpers.withMessage('invalid ET code', nameReg)
+
+    },
+    we_code:{
+        nameReg: helpers.withMessage('invalid WE code', nameReg)
+
+    }
 
 
 
@@ -436,6 +489,9 @@ const formData=()=>{
         oz: oz.value,
         host: host.value,
         gest: gest.value,
+        vf_code:vf_code.value,
+        et_code:et_code.value,
+        we_code:we_code.value,
         "2G_cells": cells2G.value,
         "3G_cells": cells3G.value,
         "4G_cells": cells4G.value,
@@ -570,6 +626,36 @@ const showErrors = (errors) => {
         });
     }
     if (errors.gest) {
+        errors.gest.forEach((element) => {
+            toast.add({
+                severity: "error",
+                summary: "Failed",
+                detail: element,
+                life: 3000,
+            });
+        });
+    }
+    if (errors.vf_code) {
+        errors.gest.forEach((element) => {
+            toast.add({
+                severity: "error",
+                summary: "Failed",
+                detail: element,
+                life: 3000,
+            });
+        });
+    }
+    if (errors.et_code) {
+        errors.gest.forEach((element) => {
+            toast.add({
+                severity: "error",
+                summary: "Failed",
+                detail: element,
+                life: 3000,
+            });
+        });
+    }
+    if (errors.we_code) {
         errors.gest.forEach((element) => {
             toast.add({
                 severity: "error",

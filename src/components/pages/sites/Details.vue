@@ -139,6 +139,24 @@
                 </div>
                 <div class="col-span-4 sm:col-span-1 ">
                   <div class="flex-auto">
+                    <span class="block  font-Signika text-font-main-color" id="guest">VF Code</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="vf_code" aria-describedby="vf_code" />
+                  </div>
+                </div>
+                <div class="col-span-4 sm:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block  font-Signika text-font-main-color" id="guest">ET Code</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="et_code" aria-describedby="et_code" />
+                  </div>
+                </div>
+                <div class="col-span-4 sm:col-span-1 ">
+                  <div class="flex-auto">
+                    <span class="block  font-Signika text-font-main-color" id="guest">WE Code</span>
+                    <InputText type="text" class=" text-sm" disabled fluid v-model="we_code" aria-describedby="we_code" />
+                  </div>
+                </div>
+                <div class="col-span-4 sm:col-span-1 ">
+                  <div class="flex-auto">
                     <span class="block  font-Signika text-font-main-color" id="status">Status</span>
                     <InputText type="text" class=" text-sm" disabled fluid v-model="status" aria-describedby="status" />
                   </div>
@@ -162,45 +180,45 @@
 
               <div class="grid grid-cols-6 gap-4 px-4 py-4  rounded-md border border-spacing-2 border-font-main-color">
                 <div class="col-span-6  md:col-span-1  my-3">
-                  <Button label="Modifications" @click="gotToSiteModifications" severity="secondary" raised
+                  <Button :disabled="!$can('read_Modification_data')" label="Modifications" @click="gotToSiteModifications" severity="secondary" raised
                     class="block w-full" />
                 </div>
                 <div class="col-span-6  md:col-span-1 my-3">
-                  <Button label="NUR" @click="getSiteNUR" severity="success" raised class=" block w-full " />
+                  <Button label="NUR" :disabled="!$can('read_NUR_data')" @click="getSiteNUR" severity="success" raised class=" block w-full " />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
                   <Button label="Batteries Health" @click="getSiteBatteriesHealth" severity="info" raised
                     class=" text-xs block w-full " />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
-                  <Button label="Update" @click="goToSiteUpdate" severity="warn" raised class=" block w-full" />
+                  <Button label="Update" :disabled="!$can('update_Site_data')" @click="goToSiteUpdate" severity="warn" raised class=" block w-full" />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
-                  <Button label="Batteries Data" @click="getBatteriesData" severity="help" raised
+                  <Button :disabled="!$can('read_Instrument_data')" label="Batteries Data" @click="getBatteriesData" severity="help" raised
                     class=" text-xs block w-full" />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
-                  <Button label="Rectifier Data" @click="getRectifierData" severity="danger" raised
+                  <Button :disabled="!$can('read_Instrument_data')" label="Rectifier Data" @click="getRectifierData" severity="danger" raised
                     class=" text-xs block w-full" />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
-                  <Button label="Site Data" @click="getSiteData" severity="contrast" raised class=" block w-full" />
+                  <Button :disabled="!$can('read_Instrument_data')" label="Site Data" @click="getSiteData" severity="contrast" raised class=" block w-full" />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
-                  <Button label="MW Data" @click="getMWData" severity="danger" raised class=" block w-full" />
+                  <Button :disabled="!$can('read_Instrument_data')" label="MW Data" @click="getMWData" severity="danger" raised class=" block w-full" />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
-                  <Button label="BTS Data" @click="getBTSData" severity="info" raised class=" block w-full" />
+                  <Button :disabled="!$can('read_Instrument_data')" label="BTS Data" @click="getBTSData" severity="info" raised class=" block w-full" />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
-                  <Button label="Power Data" @click="getPowerData" severity="contrast" raised class=" block w-full" />
+                  <Button :disabled="!$can('read_Instrument_data')" label="Power Data" @click="getPowerData" severity="contrast" raised class=" block w-full" />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
-                  <Button label="Tx.issues" @click="getSiteWANSData" severity="warn" raised class=" block w-full" />
+                  <Button label="Tx.issues" :disabled="!$can('read_Instrument_data')" @click="getSiteWANSData" severity="warn" raised class=" block w-full" />
                 </div>
                 <div class="col-span-6 md:col-span-1 my-3">
                   <Button icon="pi pi-search" label="Tx issues" severity="success" class=" block w-full text-xs" raised @click="SearchTxIssues()"
-                    v-if="$can('read_TX_data')" />
+                   :disabled="!$can('read_TX_data')" />
                 </div>
 
               </div>
@@ -283,9 +301,6 @@ import TransmissionDetails from "../../helpers/Transmission/TransmissionDetails.
 import SearchTxIssuesForm from "../../helpers/Transmission/SearchTxIssuesForm.vue";
 import SiteBatteriesTable from "../../helpers/Sites/SiteBatteriesTable.vue";
 import BatteriesUpdate from "../../helpers/Sites/BatteriesUpdate.vue";
-import Card from "primevue/card";
-import Tabs from "primevue/tabs";
-import TabPanels from "primevue/tabpanels";
 
 export default {
   data() {
@@ -306,6 +321,9 @@ export default {
       severity: null,
       status: null,
       gest: null,
+      vf_code:null,
+      et_code:null,
+      we_code:null,
       cascades: null,
       indirectCascades: null,
       selectedSite: null,
@@ -454,6 +472,9 @@ export default {
           this.status = response.data.site.status;
           this.host = response.data.site.host;
           this.gest = response.data.site.gest;
+          this.vf_code=response.data.site.vf_code;
+          this.et_code=response.data.site.et_code;
+          this.we_code=response.data.site.we_code;
           this.cell2G = response.data.site["2G_cells"];
           this.cell3G = response.data.site["3G_cells"];
           this.cell4G = response.data.site["4G_cells"];
@@ -471,12 +492,7 @@ export default {
             site_code: this.siteCode,
           }
         })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          this.$store.dispatch("displaySpinnerPage", true);
-        });
+       
     },
     openDialog() {
       this.$dialog.open(SiteAlarmsTable, {
@@ -838,7 +854,7 @@ export default {
       };
       siteData.push(site);
       Sites.getSiteDeepDetails(this.data).then((response) => {
-
+console.log(response)
 
         if (response.data.data == "found data") {
           let siteData = [];
@@ -1362,11 +1378,11 @@ export default {
           };
           powerData.push(power);
           power = {
-            "Power Cable Cross Sec": response.data.power_cable_cross_sec
+            "Gen Config.": response.data.gen_config
           };
           powerData.push(power);
           power = {
-            "Power Cable Length": response.data.power_cable_length
+            "Gen Serial": response.data.gen_serial
           };
           powerData.push(power);
           power = {

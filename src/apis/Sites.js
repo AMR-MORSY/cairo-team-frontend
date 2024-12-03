@@ -50,7 +50,7 @@ export default {
     },
     updateSite(data)
     {
-      return allInstances.Api.post("/sites/update",data)
+      return allInstances.Api.put(`/sites/update/${data.site_code}`,data)
 
 
     },

@@ -63,7 +63,7 @@ import UnauthenticatedToast from "../src/components/helpers/UnauthenticatedToast
 
 import NetworkErrorToast from "./components/helpers/NetworkErrorToast.vue";
 import User from "./apis/User";
-import { updateWith } from "lodash";
+
 
 
 
@@ -116,10 +116,6 @@ export default {
 
   },
 
-  // mounted() {
-  //  this.updateUserAbility()
-
-  // },
   computed: {
     displaySpinnerPage() {
       return this.$store.state.displaySpinnerPage;

@@ -70,9 +70,6 @@ window.bootstrap = bootstrap;
 import JsonExcel from "vue-json-excel3";
 
 import "./assets/style.css";
-import "../node_modules/flowbite/dist/flowbite.min";
-
-// PrimeVue.config.ripple = true;
 
 
 const myPresets = definePreset(Aura, {

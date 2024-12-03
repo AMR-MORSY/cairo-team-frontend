@@ -33,7 +33,7 @@
             <Card>
 
               <template #content>
-                <BarChart :chartDataSets="zones3GNUR" chartTitle="Zone 3G NUR"  chartId="NUR3G"/>
+                <BarChart :chartDataSets="zones3GNUR" chartTitle="Zone 3G NUR" chartId="NUR3G" />
 
               </template>
               <template #footer>
@@ -45,7 +45,7 @@
             <Card>
 
               <template #content>
-                <BarChart :chartDataSets="zones4GNUR" chartTitle="Zone 4G NUR"  chartId="NUR4G"/>
+                <BarChart :chartDataSets="zones4GNUR" chartTitle="Zone 4G NUR" chartId="NUR4G" />
               </template>
               <template #footer>
                 <p>Cairo 4G NUR={{ cairo4GNUR }}</p>
@@ -79,7 +79,7 @@
                 </div>
               </template>
               <template #content>
-                <BarChart :chartDataSets="zonesCombinedNUR" chartTitle="Cairo Combined NUR"  chartId="NURcombined" />
+                <BarChart :chartDataSets="zonesCombinedNUR" chartTitle="Cairo Combined NUR" chartId="NURcombined" />
 
               </template>
             </Card>
@@ -88,7 +88,7 @@
             <Card>
 
               <template #content>
-                <BarChart :chartDataSets="cairoSubsystem" chartTitle="Cairo Subsystem"  chartId="cairoSubsys"/>
+                <BarChart :chartDataSets="cairoSubsystem" chartTitle="Cairo Subsystem" chartId="cairoSubsys" />
 
               </template>
             </Card>
@@ -97,7 +97,16 @@
             <Card>
 
               <template #content>
-                <BarChart :chartDataSets="cairoTopRepeated" chartTitle="Cairo Top Repeated Sites"  chartId="cairoTopRepeated" />
+                <BarChart :chartDataSets="cairoTopRepeated" chartTitle="Cairo Top Repeated Sites"
+                  chartId="cairoTopRepeated" />
+
+              </template>
+            </Card>
+            <Card class=" mt-3">
+
+              <template #content>
+                <BarChart :chartDataSets="officesNUR" chartTitle="Offices"
+                  chartId="cairoOffices" />
 
               </template>
             </Card>
@@ -209,7 +218,8 @@ export default {
       cairo4GNUR: null,
       cairoCombinedNUR: null,
       cairoSubsystem: null,
-      cairoTopRepeated:null,
+      officesNUR: null,
+      cairoTopRepeated: null,
       cairoSouthSubsystem: null,
       cairoSouthSubsystemCount: null,
       cairoEastSubsystem: null,
@@ -293,14 +303,14 @@ export default {
       let NUR_tickets = Object.values(cairoSubsystems)
       let currentWeek = [];
       let pastWeek = [];
-      let currentWeekLabel="";
-      let pastWeekLabel="";
+      let currentWeekLabel = "";
+      let pastWeekLabel = "";
 
       NUR_tickets.forEach((element) => {
 
-        currentWeekLabel=Object.keys(element)[1];
-        pastWeekLabel=Object.keys(element)[0];
-        
+        currentWeekLabel = Object.keys(element)[1];
+        pastWeekLabel = Object.keys(element)[0];
+
 
         currentWeek.push(Object.values(element)[1])
         pastWeek.push(Object.values(element)[0])
@@ -338,10 +348,12 @@ export default {
       let NUR_tickets = Object.values(cairoSubsystems)
       let NUR = [];
       let tickets = [];
+      let Dur=[];
       NUR_tickets.forEach((element) => {
 
         NUR.push(element.NUR)
         tickets.push(element.countTick)
+        Dur.push(element.Avg_Dur)
 
 
       })
@@ -362,6 +374,14 @@ export default {
             data: tickets,
             backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
             borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+
+          },
+          {
+            label: "Avg.Dur.Min",
+
+            data: Dur,
+            backgroundColor: documentStyle.getPropertyValue('--p-green-500'),
+            borderColor: documentStyle.getPropertyValue('--p-green-500'),
 
           },
         ],
@@ -444,15 +464,15 @@ export default {
           else {
             let NUR = response.data.NUR;
             this.isNURAvailable = true;
-            this.zones2GNUR = this.setZoneNURChart(NUR.NUR2G.zonesNUR2G,NUR.NUR2G.zonesTotalNumTickets)
-           
+            this.zones2GNUR = this.setZoneNURChart(NUR.NUR2G.zonesNUR2G, NUR.NUR2G.zonesTotalNumTickets)
+
             this.cairo2GNUR = NUR.NUR2G.cairoNUR2G;
-            this.zones3GNUR = this.setZoneNURChart(NUR.NUR3G.zonesNUR3G,NUR.NUR3G.zonesTotalNumTickets)
-           
+            this.zones3GNUR = this.setZoneNURChart(NUR.NUR3G.zonesNUR3G, NUR.NUR3G.zonesTotalNumTickets)
+
             this.cairo3GNUR = NUR.NUR3G.cairoNUR3G;
 
-            this.zones4GNUR =this.setZoneNURChart(NUR.NUR4G.zonesNUR4G,NUR.NUR4G.zonesTotalNumTickets)
-            
+            this.zones4GNUR = this.setZoneNURChart(NUR.NUR4G.zonesNUR4G, NUR.NUR4G.zonesTotalNumTickets)
+
             this.cairo4GNUR = NUR.NUR4G.cairoNUR4G;
             this.zonesCombinedNUR = {
               labels: Object.keys(NUR.combined),
@@ -469,7 +489,8 @@ export default {
             };
             this.cairoCombinedNUR = NUR.combined.cairo;
             this.cairoSubsystem = this.setCairoSubsystemChart(NUR.cairoSubsystem)
-            this.cairoTopRepeated=this.setCairoTopRepeatedChart(NUR.cairoTopRepeated)
+            this.cairoTopRepeated = this.setCairoTopRepeatedChart(NUR.cairoTopRepeated)
+            this.officesNUR = this.setCairoSubsystemChart(NUR.officesNUR)
 
             // let zoneExceed = [
             //   NUR.zonesResponseWithAccess["CAIRO EAST"].exceedSLA,
@@ -648,7 +669,7 @@ export default {
     getCairoMWWeeklyNUR() {
 
       NUR.getCairoMWWeeklyNUR(this.week, this.year).then((response) => {
-        
+
         let siteData = [];
         let sites = response.data.sites;
         sites.forEach((site) => {
@@ -771,7 +792,7 @@ export default {
               tickets: response.data.tickets,
               statestics: response.data.statestics,
               title: "Cairo Main Power",
-              chartID:"cairoMainPower"
+              chartID: "cairoMainPower"
             },
           });
         })
@@ -806,7 +827,7 @@ export default {
               tickets: response.data.tickets,
               statestics: response.data.statestics,
               title: "Cairo NodeB",
-               chartID:"cairoNodeB"
+              chartID: "cairoNodeB"
             },
           });
         })
@@ -841,7 +862,7 @@ export default {
               tickets: response.data.tickets,
               statestics: response.data.statestics,
               title: "Cairo Modifications",
-               chartID:"cairoModifications"
+              chartID: "cairoModifications"
             },
           });
         })

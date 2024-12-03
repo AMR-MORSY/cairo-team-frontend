@@ -42,7 +42,7 @@ import RectifierDataUpdate from "./RectifierDataUpdate.vue";
 import MWDataUpdate from './MWDataUpdate.vue';
 import BTSDataUpdate from "./BTSDataUpdate.vue";
 import PowerDataUpdate from './PowerDataUpdate.vue';
-import InputText from 'primevue/inputtext';
+
 export default {
     data() {
 

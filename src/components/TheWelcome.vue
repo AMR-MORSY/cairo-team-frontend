@@ -128,6 +128,7 @@
 
 <script>
 import Sites from "../apis/Sites";
+import { initFlowbite } from 'flowbite'
 export default {
   data() {
 
@@ -155,6 +156,7 @@ export default {
 
   },
   mounted() {
+    initFlowbite();
     this.getData();
 
   },

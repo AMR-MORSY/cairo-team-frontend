@@ -31,24 +31,24 @@
             </div>
             <div class="col-12 col-md-6 col-xl-4  ">
                 <div class="flex-auto">
-                    <label class="font-bold" id="power_cable_cross_sec">power cable cross sec</label>
-                    <InputText fluid :invalid="v$.form.power_cable_cross_sec.$error"
-                        v-model.trim="v$.form.power_cable_cross_sec.$model" aria-describedby="power_cable_cross_sec" />
+                    <label class="font-bold" id="power_cable_cross_sec">Gen Config</label>
+                    <InputText fluid :invalid="v$.form.gen_config.$error"
+                        v-model.trim="v$.form.gen_config.$model" aria-describedby="gen_config" />
 
                 </div>
-                <div v-if="v$.form.power_cable_cross_sec.$error">
-                    <validationErrorMessage :errors="v$.form.power_cable_cross_sec.$errors" />
+                <div v-if="v$.form.gen_config.$error">
+                    <validationErrorMessage :errors="v$.form.gen_config.$errors" />
                 </div>
             </div>
             <div class="col-12 col-md-6 col-xl-4  ">
                 <div class="flex-auto">
-                    <label class="font-bold" id="power_cable_length">power cable length</label>
-                    <InputText fluid :invalid="v$.form.power_cable_length.$error"
-                        v-model.trim="v$.form.power_cable_length.$model" aria-describedby="power_cable_length" />
+                    <label class="font-bold" id="power_cable_length">Gen Serial</label>
+                    <InputText fluid :invalid="v$.form.gen_serial.$error"
+                        v-model.trim="v$.form.gen_serial.$model" aria-describedby="gen_serial" />
 
                 </div>
-                <div v-if="v$.form.power_cable_length.$error">
-                    <validationErrorMessage :errors="v$.form.power_cable_length.$errors" />
+                <div v-if="v$.form.gen_serial.$error">
+                    <validationErrorMessage :errors="v$.form.gen_serial.$errors" />
                 </div>
             </div>
             <div class="col-12 col-md-6 col-xl-4  ">
@@ -64,7 +64,7 @@
             </div>
             <div class="col-12 col-md-6 col-xl-4  ">
                 <div class="flex-auto">
-                    <label class="font-bold" id="Battery-Volt">MRFU 4G</label>
+                    <label class="font-bold" id="Battery-Volt">Overhaul Power Consumption</label>
                     <InputNumber fluid showButtons :invalid="v$.form.overhaul_power_consumption.$error"
                         v-model.trim="v$.form.overhaul_power_consumption.$model" aria-describedby="Battery-Volt" />
                     <div v-if="v$.form.overhaul_power_consumption.$error">
@@ -81,7 +81,7 @@
 
 
             <div class=" w-full flex justify-center">
-                <Button label="Update" type="submit" class="block" icon="pi pi-external-link" severity="success" text raised />
+                <Button label="Update" type="submit" :disable="!$can('update_Instrument_data')" class="block" icon="pi pi-external-link" severity="success" text raised />
 
             </div>
 
@@ -117,8 +117,8 @@ export default {
             form: {
                 power_source: null,
                 power_meter_type: null,
-                power_cable_cross_sec: null,
-                power_cable_length: null,
+                gen_config: null,
+                gen_serial: null,
                 gen_capacity: null,
                 overhaul_power_consumption: null,
                 id: null,
@@ -144,7 +144,7 @@ export default {
 
 
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+                    // stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
 
@@ -153,26 +153,26 @@ export default {
                 power_meter_type: {
 
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+                    // stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
 
 
                 },
-                power_cable_cross_sec: {
+                gen_config: {
 
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+                    // stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
 
 
 
                 },
-                power_cable_length: {
+                gen_serial: {
 
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+                    // stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
 
@@ -180,7 +180,7 @@ export default {
                 gen_capacity: {
 
                     maxLength: helpers.withMessage("max 50 characters", maxLength(50)),
-                    stringReg: helpers.withMessage("Alphbet characters only", stringReg),
+                    // stringReg: helpers.withMessage("Alphbet characters only", stringReg),
 
 
 
@@ -221,9 +221,9 @@ export default {
         mountData() {
             this.form.power_source = this.dialogRef.data.rowData.power_source;
             this.form.power_meter_type = this.dialogRef.data.rowData.power_meter_type;
-            this.form.power_cable_cross_sec = this.dialogRef.data.rowData.power_cable_cross_sec;
+            this.form.gen_config = this.dialogRef.data.rowData.gen_config;
             this.form.gen_capacity = this.dialogRef.data.rowData.gen_capacity;
-            this.form.power_cable_length = this.dialogRef.data.rowData.power_cable_length;
+            this.form.gen_serial = this.dialogRef.data.rowData.gen_serial;
             this.form.overhaul_power_consumption = this.dialogRef.data.rowData.overhaul_power_consumption;
             this.topic = this.dialogRef.data.topic;
             this.form.id = this.dialogRef.data.id;
